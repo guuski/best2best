@@ -1,5 +1,5 @@
 <?php
-  
+//Gestisce i campi profilo in fase di modifica profilo  
 function manageOptionalFieldsJS() {
 	global $bp;
 	
@@ -12,6 +12,7 @@ function manageOptionalFieldsJS() {
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
 }
+//Gestisce i campi profilo in fase di registrazione profilo  
 function manageOptionalFieldsRegistrationJS() {
 		echo 
 		"<script>function correggiLetti(field) {
@@ -24,6 +25,7 @@ function manageOptionalFieldsRegistrationJS() {
 add_action("xprofile_template_loop_end", "manageOptionalFieldsJS");
 add_action('bp_after_signup_profile_fields', 'manageOptionalFieldsRegistrationJS' );
 
+//rimuove il logo dalla buddybar
 function removeWlogo() {
 		echo "<script>jQuery(document).ready(function() {jQuery('#wp-admin-bar-root-default li:first-child').hide();});</script>";
 }
