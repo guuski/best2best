@@ -18,7 +18,14 @@ function manageOptionalFieldsRegistrationJS() {
 		echo 
 		"<script>function correggiLetti(field) {
 			if(jQuery(field).val()=='Fornitore') {
-				jQuery('#field_89').parent().hide();} else {jQuery('#field_89').parent().show();
+			  jQuery('#field_89').parent().hide();
+			  jQuery('#field_107').parent().hide();
+			  jQuery('#field_114').parent().show();
+			} 
+			else {
+			  jQuery('#field_89').parent().show();
+			  jQuery('#field_107').parent().show();
+			  jQuery('#field_114').parent().hide();
 			}}".
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
