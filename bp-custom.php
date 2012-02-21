@@ -1,4 +1,7 @@
 <?php
+
+require_once 'bp-custom-config-env.php';
+
 //Gestisce i campi profilo in fase di modifica profilo  
 function manageOptionalFieldsJS() {
 	global $bp;
@@ -8,30 +11,47 @@ function manageOptionalFieldsJS() {
 	if($dati!="Fornitore") {
 		echo "<script>jQuery('.button-nav li:last-child').hide();</script>";
 	}
-	echo "<script>function correggiLetti(field) {if(jQuery(field).val()=='Fornitore') {jQuery('div.field_numero-letti-coperti').hide();} else {jQuery('div.field_numero-letti-coperti').show();}}".
+	echo "<script>function correggiLetti(field) {
+	      if(jQuery(field).val()=='Fornitore') {	
+	        jQuery('div.field_numero-letti-coperti').hide(); 
+	        jQuery('div.field_numero-stelle').hide();
+		jQuery('div.field_macro-categoria-attivita').show();
+		jQuery('.button-nav li:last-child').show();
+	      } 
+	      else {
+		jQuery('div.field_numero-letti-coperti').show(); 
+		jQuery('div.field_numero-stelle').show();
+		jQuery('div.field_macro-categoria-attivita').hide();
+		jQuery('.button-nav li:last-child').hide();
+	      }
+	      }".
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
 }
 
 //Gestisce i campi profilo in fase di registrazione profilo  
 function manageOptionalFieldsRegistrationJS() {
+global $numLettiName;
+global $numStelleName;
+global $macroSettoreName;
 		echo 
+		"<style>#tos{float:left}</style>\n<div style='width:800px; white-space:nowrap; float:left;'>". __( 'Fields marked * are required', 'buddypress' ) ."</div>\n\n".
 		"<script>function correggiLetti(field) {
 			if(jQuery(field).val()=='Fornitore') {
-			  jQuery('#field_89').parent().hide();
-			  jQuery('#field_107').parent().hide();
-			  jQuery('#field_114').parent().show();
+			  jQuery('".$numLettiName."').parent().hide();
+			  jQuery('".$numStelleName."').parent().hide();
+			  jQuery('".$macroSettoreName."').parent().show();
 			} 
 			else {
-			  jQuery('#field_89').parent().show();
-			  jQuery('#field_107').parent().show();
-			  jQuery('#field_114').parent().hide();
+			  jQuery('".$numLettiName."').parent().show();
+			  jQuery('".$numStelleName."').parent().show();
+			  jQuery('".$macroSettoreName."').parent().hide();
 			}}".
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
 }
 add_action("xprofile_template_loop_end", "manageOptionalFieldsJS");
-add_action('bp_after_signup_profile_fields', 'manageOptionalFieldsRegistrationJS' );
+add_action('bp_after_register_page', 'manageOptionalFieldsRegistrationJS' );
 
 //rimuove il logo dalla buddybar
 function removeWlogo() {
