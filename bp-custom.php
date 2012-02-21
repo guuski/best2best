@@ -12,6 +12,7 @@ function manageOptionalFieldsJS() {
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
 }
+
 //Gestisce i campi profilo in fase di registrazione profilo  
 function manageOptionalFieldsRegistrationJS() {
 		echo 
