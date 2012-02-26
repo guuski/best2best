@@ -59,4 +59,25 @@ function removeWlogo() {
 }
 
 add_action("wp_footer", "removeWlogo");
+
+add_action( 'bp_before_directory_activity_page', 'showAboutPage' );
+function showAboutPage() {
+ if ( !is_user_logged_in() ){
+
+$page_id = 27; // 123 should be replaced with a specific Page's id from your site, which you can find by mousing over the link to edit that Page on the Manage Pages admin page. The id will be embedded in the query string of the URL, e.g. page.php?action=edit&post=123.
+$page_data = get_page( $page_id ); // You must pass in a variable to the get_page function. If you pass in a value (e.g. get_page ( 123 ); ), WordPress will generate an error. 
+
+$content = apply_filters('the_content', $page_data->post_content); // Get Content and retain Wordpress filters such as paragraph tags. Origin from: http://wordpress.org/support/topic/get_pagepost-and-no-paragraphs-problem
+$title = $page_data->post_title; // Get title
+echo '<div style="width:960px; margin:0 auto;"><div>
+<div>
+<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
+</div>
+<p><img class="alignleft size-full wp-image-56" title="Best 2 Best Network" src="wp-content/uploads/2012/01/network.jpg" alt="Best 2 Best Network" width="225" height="224">Best2best &egrave; la novit&agrave; nel mondo del B2B per il settore turismo.</p>
+<p>Grazie a Best2best infatti, le aziende dell&amp;Alto Adige avranno a disposizione uno strumento valido per incrementare le efficienze delle proprie relazioni d&apos;affari ed approfittare delle occasioni che le aziende vorranno mettere loro a disposizione online.</p>
+<p>Con Best2Best.it, l&apos;azienda potr&agrave; individuare il partner commerciale che meglio si addice alle caratteristiche ricercate e condividere la propria esperienza con la propria community.</p>
+<p>&nbsp;</p>
+<p>Recensioni ed opinioni possono essere indicate con diverso livello di profondit&agrave;, garantendo cos&igrave; a chi ricerca un fornitore la migliore esperienza possibile. <a href="about">...continua</a> oppure <a href="registrati">...registrati!</a></p></div></div><hr />'; // Output Content
+ }
+}
 ?>
