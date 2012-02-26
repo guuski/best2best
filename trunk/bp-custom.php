@@ -55,10 +55,12 @@ add_action('bp_after_register_page', 'manageOptionalFieldsRegistrationJS' );
 
 //rimuove il logo dalla buddybar
 function removeWlogo() {
-		echo "<script>jQuery(document).ready(function() {jQuery('#wp-admin-bar-root-default li:first-child').hide();});</script>";
+		//echo "<script>jQuery(document).ready(function() {jQuery('#wp-admin-bar-root-default li:first-child').hide();});</script>";
+		echo "<style>#wp-admin-bar-wp-logo{display:none;}</style>";
 }
 
 add_action("wp_footer", "removeWlogo");
+add_filter('admin_head','removeWlogo');
 
 add_action( 'bp_before_directory_activity_page', 'showAboutPage' );
 function showAboutPage() {
