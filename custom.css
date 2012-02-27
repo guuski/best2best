@@ -1,0 +1,8 @@
+/* salvare nella directory del tema frisco */
+#header h1 a {
+font-size: 1.0em;
+text-transform: none;
+}
+div.pagination {
+margin: 0;
+}
