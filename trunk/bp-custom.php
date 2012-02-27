@@ -63,6 +63,7 @@ add_action("wp_footer", "removeWlogo");
 add_filter('admin_head','removeWlogo');
 
 add_action( 'bp_before_directory_activity_page', 'showAboutPage' );
+//imposto il contenuto da mostrare agli utenti non loggati
 function showAboutPage() {
  if ( !is_user_logged_in() ){
 
@@ -82,4 +83,24 @@ echo '<div style="width:960px; margin:0 auto;"><div>
 <p>Recensioni ed opinioni possono essere indicate con diverso livello di profondit&agrave;, garantendo cos&igrave; a chi ricerca un fornitore la migliore esperienza possibile. <a href="about">...continua</a> oppure <a href="registrati">...registrati!</a></p></div></div><hr />'; // Output Content
  }
 }
+
+//modifica del logo nella pagina di login
+function my_custom_login_logo() {
+    echo '<style type="text/css">
+        h1 a { background-image:url(/wp-content/uploads/2011/06/Logo_web_insolaria_ok.png) !important; width: 400px  !important;}
+	#login { width: 390px !important; }
+    </style>';
+}
+
+//add_action('login_head', 'my_custom_login_logo');
+
+add_filter( 'login_headerurl', 'my_custom_login_url' );
+function my_custom_login_url($url) {
+	return 'http://www.best2best.it';
+}
+add_filter( 'login_headertitle', 'my_custom_login_title' );
+function my_custom_login_title($title) {
+	return 'Best2Best Network';
+}
+
 ?>
