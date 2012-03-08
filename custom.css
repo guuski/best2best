@@ -22,7 +22,7 @@ background: linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%);
 
 #activity-stream {
   border-left: 1px solid #ddd;
-  
+  margin-top: 10px;
 }
 #activity-stream li {
   padding-left: 10px;
