@@ -1,0 +1,29 @@
+/* salvare nella directory del tema frisco */
+#header h1 a {
+font-size: 1.0em;
+text-transform: none;
+}
+div.pagination {
+margin: 0;
+}
+#activity-stream li:nth-child(odd) {
+  background-color:#ddf;
+background: #EAEAEA; 
+background: -moz-linear-gradient(top, #EAEAEA 0%, #EAEAEA 15%, #D2D3D4 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EAEAEA), color-stop(15%,#EAEAEA), color-stop(100%,#D2D3D4)); 
+background: -webkit-linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%); 
+background: -o-linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%); 
+background: -ms-linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EAEAEA', endColorstr='#D2D3D4',GradientType=0 ); 
+background: linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%);
+
+  
+}
+
+#activity-stream {
+  border-left: 1px solid #ddd;
+  
+}
+#activity-stream li {
+  padding-left: 10px;
+}
