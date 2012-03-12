@@ -84,7 +84,7 @@ echo '<div style="width:960px; margin:0 auto;"><div>
  }
 }
 
-//modifica del logo nella pagina di login
+//modifica del logo e dei link nella pagina di login
 function my_custom_login_logo() {
     echo '<style type="text/css">
         h1 a { background-image:url(/wp-content/uploads/2011/06/Logo_web_insolaria_ok.png) !important; width: 400px  !important;}
@@ -102,5 +102,7 @@ add_filter( 'login_headertitle', 'my_custom_login_title' );
 function my_custom_login_title($title) {
 	return 'Best2Best Network';
 }
+
+require_once("bp-custom-jcrop.php");
 
 ?>
