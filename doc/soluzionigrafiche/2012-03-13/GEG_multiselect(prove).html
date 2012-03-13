@@ -1,0 +1,360 @@
+<!--
+Creare un nuovo campo personalizzato per il profilo utente buddypress,
+estendere i campi, aggiungere una select multiriga o progettare soluzione 
+diversa, con raggruppamenti per le macro-categorie merceologiche.
+
+l'utente deve avere la possibilità di scegliere più categorie di appartenenza
+-->
+<html>
+  <head>
+    <title></title>
+    <style type='text/css'>
+		body{
+			background-color:#aaa;
+			}
+		p	{
+			position:relative;
+			width:90%;
+			margin:0px auto;
+			}
+		#GEG_contenitore{
+			position:relative;
+			width:90%;
+			height:180px;
+			
+			margin:0px auto;
+			padding:0px;
+			
+			background-color:#fff;
+			color:#000;
+			}
+		.GEG_affianca{
+			float:left;
+			margin-right:10px;
+			}
+    </style>
+  </head>
+  <body>
+	  <p>Queste soluzioni a me non piacciono. Le ho provate per avere un'idea
+		di come possono apparire. Per adesso mi dedico un po al plugin per poi
+		ritornare ad esaminare una soluzione grafica pi&ugrave; adatta.</p>
+		<hr />
+	  <!--======================= 1 =================================-->
+	  <div id='GEG_contenitore'>
+		  <p>Soluzione da Evitare</p>
+		  <form action='#' method='POST'>
+			<select size='7'>
+				<option value="Arredi">Arredi</option>
+				<option value="Arredi scolastici">Arredi scolastici</option>
+				<option value="Arredi per ufficio">Arredi per ufficio</option>
+				<option value="Arredi per seggi elettorali">Arredi per seggi elettorali</option>
+				<option value="Tende, veneziane, tappezzerie e articoli affini">Tende, veneziane, tappezzerie e articoli affini</option>
+				<option value="Porte, finestre, scale e articoli affini">Porte, finestre, scale e articoli affini</option>
+				<option value="Arredi vari">Arredi vari</option>
+				
+				<option value="Ristorazione">Ristorazione</option>
+				<option value="Buoni pasto">Buoni pasto</option>
+				<option value="Ristorazione">Ristorazione</option>
+				<option value="Varie">Varie</option>
+				
+				<option value="Ufficio e Cancelleria">Ufficio e Cancelleria</option>
+				<option value="Carta per tipografia">Carta per tipografia</option>
+				<option value="Carta per fotocopiatrici">Carta per fotocopiatrici</option>
+				<option value="Cancelleria">Cancelleria</option>
+				<option value="Modulistica">Modulistica</option>
+				<option value="Materiali di consumo">Materiali di consumo</option>
+				<option value="Macchine e attrezzature d'ufficio">Macchine e attrezzature d'ufficio</option>
+				<option value="Computers e periferiche">Computers e periferiche</option>
+				<option value="Apparati di rete">Apparati di rete</option>
+				<option value="Software">Software</option>
+				<option value="Pubblicazioni">Pubblicazioni</option>
+			</select> 
+		  </form>
+	  </div>
+	  
+	  <!--======================= 2 =================================-->
+	  <div id='GEG_contenitore'>
+		  <p>Prima Soluzione da evitare</p>
+		  <form action='#' method='POST'>
+			<select multiple="multiple" size='7'>
+				<option value="Arredi">Arredi</option>
+				<option value="Arredi scolastici">Arredi scolastici</option>
+				<option value="Arredi per ufficio">Arredi per ufficio</option>
+				<option value="Arredi per seggi elettorali">Arredi per seggi elettorali</option>
+				<option value="Tende, veneziane, tappezzerie e articoli affini">Tende, veneziane, tappezzerie e articoli affini</option>
+				<option value="Porte, finestre, scale e articoli affini">Porte, finestre, scale e articoli affini</option>
+				<option value="Arredi vari">Arredi vari</option>
+				
+				<option value="Ristorazione">Ristorazione</option>
+				<option value="Buoni pasto">Buoni pasto</option>
+				<option value="Ristorazione">Ristorazione</option>
+				<option value="Varie">Varie</option>
+				
+				<option value="Ufficio e Cancelleria">Ufficio e Cancelleria</option>
+				<option value="Carta per tipografia">Carta per tipografia</option>
+				<option value="Carta per fotocopiatrici">Carta per fotocopiatrici</option>
+				<option value="Cancelleria">Cancelleria</option>
+				<option value="Modulistica">Modulistica</option>
+				<option value="Materiali di consumo">Materiali di consumo</option>
+				<option value="Macchine e attrezzature d'ufficio">Macchine e attrezzature d'ufficio</option>
+				<option value="Computers e periferiche">Computers e periferiche</option>
+				<option value="Apparati di rete">Apparati di rete</option>
+				<option value="Software">Software</option>
+				<option value="Pubblicazioni">Pubblicazioni</option>
+			</select> 
+		  </form>
+	   </div>
+	  
+	  <!--======================= 3 =================================-->
+	  <div id='GEG_contenitore'>
+		  <p>Seconda soluzione</p>
+		  <form action='#' method='POST'>
+			<div class='GEG_affianca'>
+				<label>Arredi</label>
+				<br />
+				<select multiple="multiple" size='7'>
+					<option value="Arredi scolastici">Arredi scolastici</option>
+					<option value="Arredi per ufficio">Arredi per ufficio</option>
+					<option value="Arredi per seggi elettorali">Arredi per seggi elettorali</option>
+					<option value="Tende, veneziane, tappezzerie e articoli affini">Tende, veneziane, tappezzerie e articoli affini</option>
+					<option value="Porte, finestre, scale e articoli affini">Porte, finestre, scale e articoli affini</option>
+					<option value="Arredi vari">Arredi vari</option>
+				</select>
+			</div>
+			
+			<div class='GEG_affianca'>
+				<label>Ristorazione</label>
+				<br />
+				<select multiple="multiple" size='7'>
+					<option value="Buoni pasto">Buoni pasto</option>
+					<option value="Ristorazione">Ristorazione</option>
+					<option value="Varie">Varie</option>
+				</select>
+			</div>
+			
+			<div class='GEG_affianca'>
+				<label>Ufficio e Cancelleria</label>
+				<br />
+				<select  multiple="multiple" size='7'>
+					<option value="Carta per tipografia">Carta per tipografia</option>
+					<option value="Carta per fotocopiatrici">Carta per fotocopiatrici</option>
+					<option value="Cancelleria">Cancelleria</option>
+					<option value="Modulistica">Modulistica</option>
+					<option value="Materiali di consumo">Materiali di consumo</option>
+					<option value="Macchine e attrezzature d'ufficio">Macchine e attrezzature d'ufficio</option>
+					<option value="Computers e periferiche">Computers e periferiche</option>
+					<option value="Apparati di rete">Apparati di rete</option>
+					<option value="Software">Software</option>
+					<option value="Pubblicazioni">Pubblicazioni</option>
+				</select> 
+			</div>		
+		  </form>
+	  </div>
+	  
+	  <!--======================= 4 =================================-->
+	  <div id='GEG_contenitore'>
+		  <p>Terza Soluzione</p>
+		  <form action='#' method='POST'>
+			<select multiple="multiple" size='7'>
+				<optgroup label="Arredi">
+					<option value="Arredi scolastici">Arredi scolastici</option>
+					<option value="Arredi per ufficio">Arredi per ufficio</option>
+					<option value="Arredi per seggi elettorali">Arredi per seggi elettorali</option>
+					<option value="Tende, veneziane, tappezzerie e articoli affini">Tende, veneziane, tappezzerie e articoli affini</option>
+					<option value="Porte, finestre, scale e articoli affini">Porte, finestre, scale e articoli affini</option>
+					<option value="Arredio vari">Arredi vari</option>
+				</optgroup>
+			
+				<optgroup label="Ristorazione">				
+					<option value="Buoni pasto">Buoni pasto</option>
+					<option value="Ristorazione">Ristorazione</option>
+					<option value="Varie">Varie</option>
+				</optgroup>
+				
+				<optgroup label="Ufficio e Cancelleria">		
+					<option value="Carta per tipografia">Carta per tipografia</option>
+					<option value="Carta per fotocopiatrici">Carta per fotocopiatrici</option>
+					<option value="Cancelleria">Cancelleria</option>
+					<option value="Modulistica">Modulistica</option>
+					<option value="Materiali di consumo">Materiali di consumo</option>
+					<option value="Macchine e attrezzature d'ufficio">Macchine e attrezzature d'ufficio</option>
+					<option value="Computers e periferiche">Computers e periferiche</option>
+					<option value="Apparati di rete">Apparati di rete</option>
+					<option value="Software">Software</option>
+					<option value="Pubblicazioni">Pubblicazioni</option>
+				</optgroup>
+			</select> 
+		  </form>
+	   </div>
+	   
+	  <!--======================= 5 =================================-->
+	  <div id='GEG_contenitore'>
+		  <p>Quarta soluzione</p>
+		  <form action='#' method='POST'>
+			<div class='GEG_affianca'>
+				<select multiple="multiple" size='7'>
+					<optgroup label="Arredi">
+						<option value="Arredi scolastici">Arredi scolastici</option>
+						<option value="Arredi per ufficio">Arredi per ufficio</option>
+						<option value="Arredi per seggi elettorali">Arredi per seggi elettorali</option>
+						<option value="Tende, veneziane, tappezzerie e articoli affini">Tende, veneziane, tappezzerie e articoli affini</option>
+						<option value="Porte, finestre, scale e articoli affini">Porte, finestre, scale e articoli affini</option>
+						<option value="Arredi vari">Arredi vari</option>
+					</optgroup>
+				</select>
+			</div>
+			
+			<div class='GEG_affianca'>
+				<select multiple="multiple" size='7'>
+					<optgroup label="Ristorazione">
+						<option value="Buoni pasto">Buoni pasto</option>
+						<option value="Ristorazione">Ristorazione</option>
+						<option value="Varie">Varie</option>
+					</optgroup>
+				</select>
+			</div>
+			
+			<div class='GEG_affianca'>
+				<select  multiple="multiple" size='7'>
+					<optgroup label="Ufficio e Cancelleria">
+						<option value="Carta per tipografia">Carta per tipografia</option>
+						<option value="Carta per fotocopiatrici">Carta per fotocopiatrici</option>
+						<option value="Cancelleria">Cancelleria</option>
+						<option value="Modulistica">Modulistica</option>
+						<option value="Materiali di consumo">Materiali di consumo</option>
+						<option value="Macchine e attrezzature d'ufficio">Macchine e attrezzature d'ufficio</option>
+						<option value="Computers e periferiche">Computers e periferiche</option>
+						<option value="Apparati di rete">Apparati di rete</option>
+						<option value="Software">Software</option>
+						<option value="Pubblicazioni">Pubblicazioni</option>
+					</optgroup>
+				</select> 
+			</div>		
+		  </form>
+	  </div>
+  </body>
+</html>
+
+<!--
+===================
+Arredi
+-------------------
+Arredi scolastici
+Arredi per bibioteche, cinema, teatro, spettacoli
+Arredi per ufficio
+Arredi per seggi elettorali
+Tende, veneziane, tappezzerie e articoli affini
+Porte, finestre, scale e articoli affini
+Arredi vari
+-->
+<!--
+===================
+Ristorazione
+-------------------
+Buoni pasto
+Ristorazione
+Varie
+-->
+<!--
+===================
+Ufficio e Cancelleria
+-------------------
+Carta per tipografia
+Carta per fotocopiatrici
+CancelleriaVarie
+Modulistica
+Materiali di consumo
+Macchine e attrezzature d'ufficio
+Computers e periferiche
+Apparati di rete
+Software
+Pubblicazioni (giornali, riviste, libri)
+-->
+<!--
+===================
+Impianti e macchinari
+-------------------
+Impianti audio
+Impianti video
+Impianti di sicurezza
+Impianti di climatizzazione
+Impianti di depurazione
+Macchinari per stampa
+Macchinari per posta
+Autoveicoli, altri veicoli, ricambi e accessori
+Attrezzature antincendio, mezzi di soccorso e similari
+-->
+<!--
+====================
+Attrezzature e materiali vari
+--------------------
+Materiale elettrico e ferramenta
+Materiale fotografico
+Materiale igienico sanitario
+Attrezzature per cucine
+Attrezzature sportive
+Attrezzature per manutenzione verde pubblico
+Attrezzature per manutenzione e completamento immobili e impianti
+Apparecchiature per il controllo della guida
+Materiali bituminosi e inerti
+Cartellonistica e segnaletica
+Articoli per manifestazioni e cerimonie
+Strumenti musicali
+Attrezzature varie
+-->
+<!--
+====================
+Indumenti ed accessori
+--------------------
+Dispositivi di protezione individuale
+Uniformi
+Spezzati da lavoro
+Buffetteria
+Calzature
+Maglieria e camicie
+Caschi
+-->
+<!--
+=====================
+Manutenzione ed assistenza
+---------------------
+Macchine e attrezzature d'ufficio
+Mobili e arredi
+Manutenzione verde pubblico
+Manutenzione impianti e attrezzature
+Manutenzione autoveicoli e altri veicoli
+Manutenzione attrezzature antincendio, mezzi di soccorso e similari
+-->
+<!--
+=====================
+Pubblicazione ed Editoria
+---------------------
+Riproduzione e stampa
+Rilegatoria
+Trascrizione nastri e battitura testi
+Pubblicazione su quotidiani
+Affissioni
+Concessionari spazi pubblicitari
+-->
+<!--
+=====================
+Servizi finanziari
+---------------------
+Servizi assicurativi
+Servizi bancari e finanziari
+-->
+<!--
+=====================
+Servizi logistici e vari
+---------------------
+Trasporti e facchinaggio
+Pulizie e disinfestazioni
+Vigilanza e guardiania
+Lavanderia
+Servizi turistici
+Servizi culturali
+Servizi ricreativi e sportivi
+Catalogazione e archiviazione
+Servizi vari
+
+-->

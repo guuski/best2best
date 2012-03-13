@@ -1,0 +1,47 @@
+BackLog 0000029
+Fare un backup del filesystem e del database di una installazione di best2best, pronto da essere ripristinato al volo su localhost:
+
+====================================================================
+BACKUP:
+
+Aprire un terminale e spostarsi nella cartella /var/www
+
+>cd /var/www
+
+
+zippare il contenuto della cartella /var/www 
+
+>sudo zip -r 2012-03-13bast2best.zip *
+
+
+Aprire MYSQL-Administrator
+
+Server Hostname	=	localhost
+port		=	3306
+Username	=	root
+Password	=	password
+
+Andare su Backup, selezionare buddypress e aggiungerlo a Backup Content.
+Fare Start Backup
+
+salvare sia il file zip che il file sql in una cartella.
+
+======================================================================
+RIPRISTINO
+
+Scompattare il file zip dentro la cartella /var/www
+
+>sudo cp 2012-03-13bast2best.zip /var/www
+>sudo unzip 2012-03-13bast2best.zip
+
+Aprire MYSQL-QueryBrowser
+Creare un database Buddypress
+Aprire MYSQL-Administrator
+Andare su Restore Backup
+Change Path e spostarsi sulla cartella contenente il file .sql
+Selezionare il file di backup: _2012..... e selezionare in Restore selected tables = buddypress
+premere su restore
+
+
+
+
