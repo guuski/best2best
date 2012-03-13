@@ -1,0 +1,2 @@
+Il file GEG_multiselect(prove).html contiene delle bozze di soluzioni grafiche riguardanti il backlog 0000031: Progettare soluzione grafica.
+è un semplice file .html da visualizzare con un qualunque browser.
