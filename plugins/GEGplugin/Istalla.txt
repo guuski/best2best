@@ -1,0 +1,12 @@
+Per Utilizzare questo plugin copiarlo dentro la cartella
+/var/www/wp-content/plugins/
+
+>sudo cp -R GEGplugin/ /var/www/wp-content/plugins
+
+Aprire un Browser e nella barra degli indirizzi inserire localhost:
+loggarsi 
+andare nella bacheca
+plugins
+cercare il plugin GEGplugin e attivarlo
+
+Il plugin non fa altro che applicare un filtro che modifica il menu di navigazione aggiungendovi la sigla GEG e un'action che si accoda al fooder esistente inserendo sempre una semplice stringa e all'header per una modifica del CSS. Commentati ci sono anche altri tentativi fatti che ho voluto lasciare essendo un semplice plugin di prova. 
