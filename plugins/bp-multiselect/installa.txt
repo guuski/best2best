@@ -1,0 +1,6 @@
+Copiare la cartella bp-bsmr dentro wp-content/plugins
+Accedere al lato amministratore di wordpress
+Andare nella sezione plugins
+Attivare il plugin bp-bsmr
+
+In questo momento il plugin aggiunge un nuovo campo profilo image
