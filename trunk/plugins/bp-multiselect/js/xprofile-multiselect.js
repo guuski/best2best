@@ -23,8 +23,8 @@
 				//add image field type on Add/Edit Xprofile field admin screen
 			   if(jQ("div#poststuff select#fieldtype").html() !== null){
 
-					if(jQ('div#poststuff select#fieldtype option[value="image"]').html() === null){
-						var imageOption = '<option value="image">Image</option>';
+					if(jQ('div#poststuff select#fieldtype option[value="box selezione multipla raggruppata"]').html() === null){
+						var imageOption = '<option value="box selezione multipla raggruppata">Box selezione multipla raggruppata</option>';
 						jQ("div#poststuff select#fieldtype").append(imageOption);
 
 						var selectedOption = jQ("div#poststuff select#fieldtype").find("option:selected");
@@ -32,7 +32,7 @@
 							var action = jQ("div#poststuff").parent().attr("action");
 
 							if (action.search(/mode=edit_field/i) >= 0){
-								jQ('div#poststuff select#fieldtype option[value="image"]').attr("selected", "selected");
+								jQ('div#poststuff select#fieldtype option[value="box selezione multipla raggruppata"]').attr("selected", "selected");
 							}
 						}
 					}
