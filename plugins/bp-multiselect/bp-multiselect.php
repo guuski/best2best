@@ -1,14 +1,20 @@
 <?php 
 	/*
-	Plugin Name: bp_bsmr
+	Plugin Name: bp_multiselect
 	Plugin URI: http://wordpress.org/extend/plugins/
 	Description: Agginge un nuovo tipo campo, nel campo profilo, chiamato 'box selezione multipla raggruppata'
 	Author: Giovanni Giannone
 	Version: 1.0
 	Author URI: http://
 	*/
-	function bpd_add_new_xprofile_field_type($field_types){
-    $image_field_type = array('image');
+
+include('bp-multiseleft-html.php');
+
+$geg_nome='box selezione multipla raggruppata';
+
+function bpd_add_new_xprofile_field_type($field_types){
+	global $geg_nome;
+    $image_field_type = array($geg_nome);
     $field_types = array_merge($field_types, $image_field_type);
     return $field_types;
 }
@@ -16,13 +22,20 @@
 add_filter( 'xprofile_field_types', 'bpd_add_new_xprofile_field_type' );
 
 function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
-	 
+	
+		global $geg_nome;
 		ob_start();
 	        switch ( $field->type ) {
-	            case 'image':
+	            case $geg_nome:
+	            
+					geg_getHTML();
+					
 	                ?>
-	                    <input type="file" name="<?php bp_the_profile_field_input_name() ?>" id="<?php bp_the_profile_field_input_name() ?>" value="" />
+
 	                <?php
+						/*
+	                     * <input type="file" name="<?php bp_the_profile_field_input_name() ?>" id="<?php bp_the_profile_field_input_name() ?>" value="" />
+	                     * */
 	                break;   
 	            default :
 	                ?>
@@ -46,22 +59,26 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	add_filter( 'xprofile_admin_field', 'bpd_admin_render_new_xprofile_field_type' );
 	
 	function bpd_edit_render_new_xprofile_field($echo = true){
-	 
+		
+		global $geg_nome;
 	    if(empty ($echo)){
 	        $echo = true;
 	    }
 	    
 	    ob_start();
-	        if ( bp_get_the_profile_field_type() == 'image' ){
+	        if ( bp_get_the_profile_field_type() == $geg_nome ){
 	            $imageFieldInputName = bp_get_the_profile_field_input_name();
 	            $image = WP_CONTENT_URL . bp_get_the_profile_field_edit_value();
-	 
+	            
+				geg_getHTML();
 	        ?>
-	                <label for="<?php bp_the_profile_field_input_name(); ?>"><?php bp_the_profile_field_name(); ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(required)', 'buddypress' ); ?><?php endif; ?></label>
-	                <input type="file" name="<?php echo $imageFieldInputName; ?>" id="<?php echo $imageFieldInputName; ?>" value="" <?php if ( bp_get_the_profile_field_is_required() ) : ?>aria-required="true"<?php endif; ?>/>
-	                <img src="<?php echo $image; ?>" alt="<?php bp_the_profile_field_name(); ?>" />
-	                 
+				
 	        <?php
+	        /*
+	         *  <label for="<?php bp_the_profile_field_input_name(); ?>"><?php bp_the_profile_field_name(); ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(required)', 'buddypress' ); ?><?php endif; ?></label>
+	            <input type="file" name="<?php echo $imageFieldInputName; ?>" id="<?php echo $imageFieldInputName; ?>" value="" <?php if ( bp_get_the_profile_field_is_required() ) : ?>aria-required="true"<?php endif; ?>/>
+	            <img src="<?php echo $image; ?>" alt="<?php bp_the_profile_field_name(); ?>" />
+	         * */
 	             
 	        }
 	 
@@ -165,10 +182,47 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	}
 	
 	function bpd_load_js() {
-     wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-bsmr/js/xprofile-image.js',
+     wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/js/xprofile-multiselect.js',
 							array( 'jquery' ), '1.0' );
 }
 
-add_action( 'wp_print_scripts', 'bpd_load_js' );
+	function bpd_load_css() {
+     wp_enqueue_style( 'bpd-css', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/css/xprofile-multiselect.css');
+}
 
+add_action( 'wp_print_scripts', 'bpd_load_js' );
+add_action( 'admin_init', 'bpd_load_css' );
+add_action( 'init', 'bpd_load_css' );
+
+
+function geg_getHTML() {
+	$output="
+	<div id='GEG_contenitore'>
+	
+			<div class='GEG_affianca'>
+				<select multiple=\"multiple\" size='10'>
+					<optgroup label=\"Arredi\">
+						<option value=\"Arredi scolastici\">Arredi scolastici</option>
+						<option value=\"Arredi per ufficio\">Arredi per ufficio</option>
+						<option value=\"Arredi per seggi elettorali\">Arredi per seggi elettorali</option>
+						<option value=\"Tende, veneziane, tappezzerie e articoli affini\">Tende, veneziane, tappezzerie e articoli affini</option>
+						<option value=\"Porte, finestre, scale e articoli affini\">Porte, finestre, scale e articoli affini</option>
+						<option value=\"Arredi vari\">Arredi vari</option>
+					</optgroup>
+				</select>
+			</div>
+			
+			<div class='GEG_affianca'>
+				<select multiple=\"multiple\" size='10'>
+					<optgroup label=\"Ristorazione\">
+						<option value=\"Buoni pasto\">Buoni pasto</option>
+						<option value=\"Ristorazione\">Ristorazione</option>
+						<option value=\"Varie\">Varie</option>
+					</optgroup>
+				</select>
+			</div>
+	</div>
+			";
+	  echo $output;
+  }
 ?>
