@@ -1,0 +1,22 @@
+Lo scopo di questi file è quello di aggiornare la tabella wp_bp_xprofile_fields con le categorie acquisti.
+Credo sia opportuno aggiornare anche la tabella wp_bp_xprofile_groups creando un nuovo gruppo ma questo devo ancora capirlo bene.
+
+Essendo un file di prova non fa altro che creare un database nuovo usando come credenziali
+localhost
+root
+password
+modificabili nel file provedb.php
+
+nome del database = my_prova
+modificabile nel file provedb_query.php
+
+contenente una tabella di nome wp_bp_xprofile_fields con la stessa struttura dell'originale ed inserendovi dentro tutti i dati riguardanti le categorie acquisti mantenendo le dipendenze.
+
+provedb.php
+Questo file esegue tutte le query presenti in porvedb_query.
+
+provedb_query.php
+Elenco delle query
+
+per eseguire lo script è sufficiente scrivere nella barra degli indirizzi del proprio browser:
+http://localhost/wp-content/plugins/bp-multiselect/database/provedb.php
