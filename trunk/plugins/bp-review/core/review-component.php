@@ -201,7 +201,7 @@ class BPUserReview extends BP_Component{
 		$error=true;
 	}
         else if(!BPReviewUserPermissions::can_write()){
-              $message=__('Non ti è permesso scrivere una review.','reviews');
+              $message=__('Scrittura Review non consentita.','reviews');
               $error=true;
         }
         else{
@@ -285,7 +285,7 @@ class BPUserReview extends BP_Component{
         if(!$error){
             if($action=='approve'){
                 $status=1;
-                $status_message=__('Review approvata! Adesso è visibile sul tuo profilo','reviews');
+                $status_message=__('Review approvata e visibile sul tuo profilo','reviews');
             }else{
 
                $status=0;

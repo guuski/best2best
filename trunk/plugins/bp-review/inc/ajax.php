@@ -64,7 +64,7 @@ function save()
 
 	if ( empty( $review_id ) ) 
 	{
-		echo '-1<div id="message" class="error"><p>' . __( 'Si è verificato un problema nell inserimento della tua review, prova di nuovo', 'reviews' ) . '</p></div>';
+		echo '-1<div id="message" class="error"><p>' . __( 'Problema nell\' inserimento della tua review, prova di nuovo', 'reviews' ) . '</p></div>';
 		return false;
 	}
         
@@ -175,7 +175,7 @@ function save()
             echo '<div id="message" class="updated"><p>'.$status_message.'</p></div>';
         }
         else
-			echo '-1<div id="message" class="error"><p>' . __( 'Si è verificato un problema durante l operazione!. Prova più tardi', 'reviews' ) . '</p></div>';
+			echo '-1<div id="message" class="error"><p>' . __( 'Errore durante l\'operazione!. Prova più tardi', 'reviews' ) . '</p></div>';
 	   
 	}   
 }
