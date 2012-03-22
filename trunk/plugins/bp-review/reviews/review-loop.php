@@ -1,4 +1,10 @@
-<?php 
+<div id="sidebar-squeeze">			
+	<div id="main-column">
+
+			<div id="item-body">
+
+				<?php do_action( 'bp_before_member_body' );
+
 if(review_current_user_can_write())
     bp_reviews_post_form();?>
 
@@ -32,4 +38,20 @@ if(review_current_user_can_write())
 <div class="error" id="message">
     <?php _e('Non ci sono review al momento','reviews');?>
 </div>
-<?php endif;?>
+<?php endif;
+
+				do_action( 'bp_after_member_body' ); ?>
+
+			</div><!-- #item-body -->
+
+			<?php do_action( 'bp_after_member_home_content' ); ?>
+
+	</div><!-- #main-column -->
+		<?php get_sidebar( 'buddypress' ); ?>
+</div><!-- #sidebar-squeeze -->
+
+		</div><!-- .padder -->
+	</div><!-- #content -->
+
+<?php get_footer( 'buddypress' ); ?>
+
