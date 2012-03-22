@@ -79,13 +79,20 @@ echo '<hr />eseguo le query <br />';
 echo "<ol>";
 $data->query($drop_db);
 $data->query($crea_db);			
-$data->selectdb($database);		
+$data->selectdb($database);	
+
 $data->query($crea_tabella);	
+echo "<br /><br />".$data->query("SELECT MAX(id) FROM wp_bp_xprofile_fields ")." valore massimo<br /><br />";
+
 
 foreach ($inserimento as $key => $value)
 	$data->query($inserimento[$key]);	
-	
+
+
+echo "<br /><br />".$data->query("SELECT MAX(id) FROM $tabella")." valore massimo<br /><br />";
+
 echo "</ol>";
+
 
 
 echo '<hr />disconnetto <br />';

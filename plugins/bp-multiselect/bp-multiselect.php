@@ -8,8 +8,13 @@
 	Author URI: http://
 	*/
 
-include('bp-multiseleft-html.php');
+//Gestione html
+include_once('bp-multiselect-html.php');
+//Gestione db
+include_once('bp-multiselect-db.php');
 
+
+//Variabili
 $geg_nome='box selezione multipla raggruppata';
 
 function bpd_add_new_xprofile_field_type($field_types){
@@ -20,7 +25,12 @@ function bpd_add_new_xprofile_field_type($field_types){
 }
 
 add_filter( 'xprofile_field_types', 'bpd_add_new_xprofile_field_type' );
-
+/*prova
+function GEG_get_id($id) {
+       global $wpdb;
+       $comment=$wpdb->query($wpdb->prepare("SELECT * from {$wpdb->post} WHERE type=%d ",$id));
+       return $comment;
+}*/
 function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	
 		global $geg_nome;
@@ -28,7 +38,7 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	        switch ( $field->type ) {
 	            case $geg_nome:
 	            
-					geg_getHTML();
+					ms_getHTML();
 					
 	                ?>
 
@@ -70,7 +80,8 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	            $imageFieldInputName = bp_get_the_profile_field_input_name();
 	            $image = WP_CONTENT_URL . bp_get_the_profile_field_edit_value();
 	            
-				geg_getHTML();
+				 ms_getHTML();
+				
 	        ?>
 				
 	        <?php
@@ -193,36 +204,4 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 add_action( 'wp_print_scripts', 'bpd_load_js' );
 add_action( 'admin_init', 'bpd_load_css' );
 add_action( 'init', 'bpd_load_css' );
-
-
-function geg_getHTML() {
-	$output="
-	<div id='GEG_contenitore'>
-	
-			<div class='GEG_affianca'>
-				<select multiple=\"multiple\" size='10'>
-					<optgroup label=\"Arredi\">
-						<option value=\"Arredi scolastici\">Arredi scolastici</option>
-						<option value=\"Arredi per ufficio\">Arredi per ufficio</option>
-						<option value=\"Arredi per seggi elettorali\">Arredi per seggi elettorali</option>
-						<option value=\"Tende, veneziane, tappezzerie e articoli affini\">Tende, veneziane, tappezzerie e articoli affini</option>
-						<option value=\"Porte, finestre, scale e articoli affini\">Porte, finestre, scale e articoli affini</option>
-						<option value=\"Arredi vari\">Arredi vari</option>
-					</optgroup>
-				</select>
-			</div>
-			
-			<div class='GEG_affianca'>
-				<select multiple=\"multiple\" size='10'>
-					<optgroup label=\"Ristorazione\">
-						<option value=\"Buoni pasto\">Buoni pasto</option>
-						<option value=\"Ristorazione\">Ristorazione</option>
-						<option value=\"Varie\">Varie</option>
-					</optgroup>
-				</select>
-			</div>
-	</div>
-			";
-	  echo $output;
-  }
 ?>
