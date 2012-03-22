@@ -200,8 +200,8 @@ function bp_get_the_review_pending_notice($review=false){
     if(bp_is_my_profile())
         $you_or_user=__('your','reviews');
     else
-        $you_or_user=__("dall utente",'reviews');
-    return sprintf(__('Prima di diventare pubblica deve essere moderata da %s','reviews'),$you_or_user);
+        $you_or_user=__("dall\' utente",'reviews');
+    return sprintf(__('Prima di diventare pubblica deve essere moderata %s','reviews'),$you_or_user);
     
 }
 function bp_reviews_pagination_count() {

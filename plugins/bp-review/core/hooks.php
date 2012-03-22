@@ -170,7 +170,7 @@ function review_fix_comment_count($count,$post_id){
 			$review_title = __('Nuove Review','reviews');
 
 			if ( (int)$total_items > 1 ) {
-				$text_title = sprintf( __( 'Hai rivecuto %1$d nuove reviews', 'reviews' ), (int)$total_items );
+				$text_title = sprintf( __( 'Hai riveduto %1$d nuove reviews', 'reviews' ), (int)$total_items );
                                 
                                 $notifications=bp_reviews_get_notifications(bp_loggedin_user_id());
                                 $text=bp_review_build_notification($notifications);
