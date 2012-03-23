@@ -49,8 +49,7 @@ function save()
 
 	if ( empty( $_POST['content'] ) )
 	{
-		//echo '-1<div....'
-		echo '<div id="message" class="error"><p>' . __( 'Inserisci del testo per favore', 'reviews' ) . '</p></div>';
+		echo '-1<div id="message" class="error"><p>' . __( 'Please enter something text.', 'reviews' ) . '</p></div>';
 		return false;
 	}
         
@@ -64,7 +63,7 @@ function save()
 
 	if ( empty( $review_id ) ) 
 	{
-		echo '-1<div id="message" class="error"><p>' . __( 'Problema nell\' inserimento della tua review, prova di nuovo', 'reviews' ) . '</p></div>';
+		echo '-1<div id="message" class="error"><p>' . __( 'There was a problem posting your review, please try again.', 'reviews' ) . '</p></div>';
 		return false;
 	}
         
@@ -86,13 +85,13 @@ function save()
 		
 		if ( !is_user_logged_in() ) 
 		{
-			$message=__('Operazione non valida','reviews');
+			$message=__('Invalid action','reviews');
 			$error=true;
 		}
         
 		if ( empty($review_id)||!is_numeric($review_id) ) 
 		{
-			$message=__('Operazione non valida','reviews');
+			$message=__('Invalid action','reviews');
 			$error=true;
 		}
 	
@@ -103,12 +102,12 @@ function save()
             if(!BPReviewUserPermissions::can_delete($review,$this->mapper))
 			{
                 $error=true;
-                $message=__('Non sei autorizzato a compiere questa azione','reviews');
+                $message=__('You are not authorized to preform this action','reviews');
 			}
 		
 			if(!$error&& $this->mapper->delete_review($review_id,true))
 			{
-				$message=__('Cancellazione riuscita','reviews');
+				$message=__('Deleted Successfully','reviews');
 				do_action( 'bp_reviews_action_delete_review', $review_id );
 			}
 		}
@@ -141,8 +140,7 @@ function save()
         
 		if(!($action=='hide'||$action=='approve'))
 		{
-			//echo '-1<div....'
-			echo '<div id="message" class="error"><p>' . __( 'Operazione non valida!.', 'reviews' ) . '</p></div>';	
+			echo '-1<div id="message" class="error"><p>' . __( 'Your action is not valid!.', 'reviews' ) . '</p></div>';	
 			return false;
         }
        	
@@ -151,19 +149,19 @@ function save()
         if($action=='approve')
 		{
             $status=1;
-            $status_message=__('La Review è stata approvata! Sarà visibile nella scheda reviews del tuo profilo.','reviews');
+            $status_message=__('Review marked as approved! It will be visible on your reviews page now.','reviews');
         }
 		else
 		{            
            $status=0;
-           $status_message=__('Review in attesa di moderazione! Vedi la tab reviews in moderazione nel tuo profilo. Per il momento solo tu e il mittente potete vederla','reviews');
+           $status_message=__('Review marked as pending! You can see it from the pending tab of your profile. It will be visible to only you and the person who wrote it.','reviews');
         }   
         
         $review=BPReviewMapper::get_comment($review_id);
         
         if(!$this->capability->can_approve($review,$this->mapper))
 		{
-              echo '-1<div id="message" class="error"><p>'.__('Non hai i privilegi per effettuare quest\'operazione.','reviews') .'</p></div>';
+              echo '-1<div id="message" class="error"><p>'.__('You don\'t have the rights to performs this action.','reviews') .'</p></div>';
               return false;
         }
                        
@@ -175,7 +173,7 @@ function save()
             echo '<div id="message" class="updated"><p>'.$status_message.'</p></div>';
         }
         else
-			echo '-1<div id="message" class="error"><p>' . __( 'Errore durante l\'operazione!. Prova più tardi', 'reviews' ) . '</p></div>';
+			echo '-1<div id="message" class="error"><p>' . __( 'There was a problem performing the action!. Please try again later!', 'reviews' ) . '</p></div>';
 	   
 	}   
 }

@@ -3,10 +3,18 @@
 
 			<div id="item-body">
 
-				<?php do_action( 'bp_before_member_body' );
+				<?php do_action( 'bp_before_member_body' ); ?>
 
-if(review_current_user_can_write())
-    bp_reviews_post_form();?>
+<?php
+// Include il FORM contenuto nel file di template 'post-form.php'
+// L'inclusione avviene tramite la funzione 'bp_reviews_post_form()'
+// del file 'template-tags.php' nella cartella '/core'
+
+
+//if(review_current_user_can_write())
+//   bp_reviews_post_form();
+?>
+   
 
 <?php if(bp_has_reviews()):?>
 <div id="pag-top" class="pagination">
