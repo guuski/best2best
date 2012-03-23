@@ -4,7 +4,7 @@ include_once('bp-multiselect-db.php');
 include_once('bp-multiselect-query.php');
 include_once('bp-multiselect.php');
 
-include_once(ABSPATH .'wp-config.php');
+//include_once(ABSPATH .'wp-config.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
@@ -15,7 +15,7 @@ function ms_installed(){
 	global $bp;
 	global $wpdb;
 	
-	$query = "SELECT * FROM {$bp->profile->table_name_fields} f";
+	$query = "SELECT * FROM wp_bp_xprofile_fields f";
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	foreach( (array)$ms_output as $field ){
 		if ($field->description=='ms Categorie Acquisti') 
@@ -47,7 +47,7 @@ function ms_updateDBfield(){
 								
 		$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
 	
-		$ms_1 = "INSERT INTO {$bp->profile->table_name_fields} ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES ";
+		$ms_1 = "INSERT INTO wp_bp_xprofile_fields ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES ";
 		$ms_3 = " ,	'$description',$is_required,$is_default_option,$field_order,$option_order,$order_by,$can_delete) ";
 	
 		foreach($ms_insert as $macro => $subs) {
@@ -74,7 +74,7 @@ function ms_getCategorieUTENTE(){
 	global $user_ID;
 	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
 	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
-	$query = "SELECT f.name FROM {$bp->profile->table_name_data} d INNER JOIN {$bp->profile->table_name_field} f WHERE d.field_id=f.id AND d.value='ms Categorie Acquisti' AND d.user_id='$user_ID'";
+	$query = "SELECT f.name FROM wp_bp_xprofile_data d INNER JOIN wp_bp_xprofile_fields f WHERE d.field_id=f.id AND d.value='ms Categorie Acquisti' AND d.user_id='$user_ID'";
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	$ms_data=array();
 	foreach( (array)$ms_output as $field){
