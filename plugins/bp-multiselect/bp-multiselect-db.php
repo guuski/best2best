@@ -90,7 +90,7 @@ function ms_getHTMLfrontend(){
 	$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
-	echo "<span class='label'>".bp_get_the_profile_field_input_name()."</span>";
+	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
 	$HTML= "<select name='".bp_get_the_profile_field_input_name()."' multiple='multiple' size='30'>";
 	foreach($ms_insert as $macro => $subs) {
 			$HTML.="<optgroup label='$macro'>";
