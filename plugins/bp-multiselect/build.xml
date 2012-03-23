@@ -25,7 +25,7 @@
     <!-- Create the distribution directory -->
     <mkdir dir="${dist}/${plugin_dir}"/>
     <copy todir="${dist}/${plugin_dir}">
-      <fileset dir="${src}"/>
+      <fileset dir="${src}" excludes="**/*.svn"/>
     </copy>
   </target>
 
