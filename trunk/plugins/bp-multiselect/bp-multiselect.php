@@ -7,9 +7,8 @@
 	Version: 1.0
 	Author URI: http://
 	*/
+	
 
-//Gestione html
-include_once('bp-multiselect-html.php');
 //Gestione db
 include_once('bp-multiselect-db.php');
 
@@ -77,8 +76,8 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	    
 	    ob_start();
 	        if ( bp_get_the_profile_field_type() == $geg_nome ){
-	            $imageFieldInputName = bp_get_the_profile_field_input_name();
-	            $image = WP_CONTENT_URL . bp_get_the_profile_field_edit_value();
+	            //$imageFieldInputName = bp_get_the_profile_field_input_name();
+	            //$image = WP_CONTENT_URL . bp_get_the_profile_field_edit_value();
 	            
 				 ms_getHTML();
 				
