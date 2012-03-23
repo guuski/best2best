@@ -1,43 +1,45 @@
 <?php 
 	/*
-	Plugin Name: bp_multiselect
+	Plugin Name: bp_MSelect
 	Plugin URI: http://wordpress.org/extend/plugins/
 	Description: Agginge un nuovo tipo campo, nel campo profilo, chiamato 'box selezione multipla raggruppata'
 	Author: Giovanni Giannone
 	Version: 1.0
 	Author URI: http://
 	*/
-	
-
-//Gestione db
 include_once('bp-multiselect-db.php');
+include_once('bp-multiselect-query.php');
+
+include_once(ABSPATH .'wp-config.php');
+include_once(ABSPATH .'wp-load.php');
+include_once(ABSPATH .'wp-includes/wp-db.php');
+
 
 
 //Variabili
-$geg_nome='box selezione multipla raggruppata';
+$ms_nome='box selezione multipla raggruppata';
 
+/*Questo metodo aggiunge la mia nuova field_type a quelle esistenti 
+ * presenti nell'array $field_types*/
 function bpd_add_new_xprofile_field_type($field_types){
-	global $geg_nome;
-    $image_field_type = array($geg_nome);
-    $field_types = array_merge($field_types, $image_field_type);
+	global $ms_nome;
+    $ms_field_type = array($ms_nome);
+    $field_types = array_merge($field_types, $ms_field_type);
     return $field_types;
 }
-
 add_filter( 'xprofile_field_types', 'bpd_add_new_xprofile_field_type' );
-/*prova
-function GEG_get_id($id) {
-       global $wpdb;
-       $comment=$wpdb->query($wpdb->prepare("SELECT * from {$wpdb->post} WHERE type=%d ",$id));
-       return $comment;
-}*/
+
+
+/*Questo metodo mi consente di interagire con il lato backend durante la 
+ * visualizzazione dei campi profilo  * */
 function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	
-		global $geg_nome;
+		global $ms_nome;
 		ob_start();
 	        switch ( $field->type ) {
-	            case $geg_nome:
+	            case $ms_nome:
 	            
-					ms_getHTML();
+					ms_getHTMLbackend();
 					
 	                ?>
 
@@ -64,26 +66,28 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	    }
 	     
 	}
-	 
 	add_filter( 'xprofile_admin_field', 'bpd_admin_render_new_xprofile_field_type' );
 	
-	function bpd_edit_render_new_xprofile_field($echo = true){
+	
+/*Questo metodo mi consente di interagire con il lato front-end durante la 
+ * modifica dei campi profilo  * */	
+function bpd_edit_render_new_xprofile_field($echo = true){
 		
-		global $geg_nome;
+		global $ms_nome;
 	    if(empty ($echo)){
 	        $echo = true;
 	    }
 	    
 	    ob_start();
-	        if ( bp_get_the_profile_field_type() == $geg_nome ){
+	        if ( bp_get_the_profile_field_type() == $ms_nome ){
 	            //$imageFieldInputName = bp_get_the_profile_field_input_name();
 	            //$image = WP_CONTENT_URL . bp_get_the_profile_field_edit_value();
 	            
-				 ms_getHTML();
+				 ms_getHTMLfrontend();
 				
 	        ?>
 				
-	        <?php
+	        <?php	        
 	        /*
 	         *  <label for="<?php bp_the_profile_field_input_name(); ?>"><?php bp_the_profile_field_name(); ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(required)', 'buddypress' ); ?><?php endif; ?></label>
 	            <input type="file" name="<?php echo $imageFieldInputName; ?>" id="<?php echo $imageFieldInputName; ?>" value="" <?php if ( bp_get_the_profile_field_is_required() ) : ?>aria-required="true"<?php endif; ?>/>
@@ -104,11 +108,12 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	    }
 	 
 	}
-	 
-	add_action( 'bp_custom_profile_edit_fields', 'bpd_edit_render_new_xprofile_field' );
+add_action( 'bp_custom_profile_edit_fields', 'bpd_edit_render_new_xprofile_field' );
 	
-	// Override default action hook in order to support images
-	function bpd_override_xprofile_screen_edit_profile(){
+	
+/*Questo metodo riscrive l'action hook di default allo scopo di poter 
+ * supportare il nuovo tipo profilo*/
+function bpd_override_xprofile_screen_edit_profile(){
 	    $screen_edit_profile_priority = has_filter('bp_screens', 'xprofile_screen_edit_profile');
 	 
 	    if($screen_edit_profile_priority !== false){
@@ -119,11 +124,10 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	        add_action( 'bp_screens', 'bpd_screen_edit_profile', $screen_edit_profile_priority );
 	    }
 	}
-	 
-	add_action( 'bp_actions', 'bpd_override_xprofile_screen_edit_profile', 10 );
+add_action( 'bp_actions', 'bpd_override_xprofile_screen_edit_profile', 10 );
 	
-	//Create profile_edit handler
-	function bpd_screen_edit_profile(){
+//Create profile_edit handler
+function bpd_screen_edit_profile(){
 	 
 	    if ( isset( $_POST['field_ids'] ) ) {
 	        if(wp_verify_nonce( $_POST['_wpnonce'], 'bp_xprofile_edit' )){
@@ -175,10 +179,10 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	            xprofile_screen_edit_profile();
 	        }
 	    }
-	 
 	}
 	
-	function bpd_profile_upload_dir( $upload_dir ) {
+
+function bpd_profile_upload_dir( $upload_dir ) {
 		global $bp;
 	 
 	    $user_id = $bp->displayed_user->id;
@@ -191,13 +195,13 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 		return $upload_dir;
 	}
 	
-	function bpd_load_js() {
-     wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/js/xprofile-multiselect.js',
+function bpd_load_js() {
+     wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-MSelect/js/xprofile-multiselect.js',
 							array( 'jquery' ), '1.0' );
 }
 
-	function bpd_load_css() {
-     wp_enqueue_style( 'bpd-css', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/css/xprofile-multiselect.css');
+function bpd_load_css() {
+     wp_enqueue_style( 'bpd-css', get_bloginfo('url') . '/wp-content/plugins/bp-MSelect/css/xprofile-multiselect.css');
 }
 
 add_action( 'wp_print_scripts', 'bpd_load_js' );
