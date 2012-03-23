@@ -15,7 +15,6 @@ include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
 
-
 //Variabili
 $ms_nome='box selezione multipla raggruppata';
 
@@ -110,90 +109,7 @@ function bpd_edit_render_new_xprofile_field($echo = true){
 	}
 add_action( 'bp_custom_profile_edit_fields', 'bpd_edit_render_new_xprofile_field' );
 	
-	
-/*Questo metodo riscrive l'action hook di default allo scopo di poter 
- * supportare il nuovo tipo profilo*/
-function bpd_override_xprofile_screen_edit_profile(){
-	    $screen_edit_profile_priority = has_filter('bp_screens', 'xprofile_screen_edit_profile');
-	 
-	    if($screen_edit_profile_priority !== false){
-	        //Remove the default profile_edit handler
-	        remove_action( 'bp_screens', 'xprofile_screen_edit_profile', $screen_edit_profile_priority );
-	 
-	        //Install replalcement hook
-	        add_action( 'bp_screens', 'bpd_screen_edit_profile', $screen_edit_profile_priority );
-	    }
-	}
-add_action( 'bp_actions', 'bpd_override_xprofile_screen_edit_profile', 10 );
-	
-//Create profile_edit handler
-function bpd_screen_edit_profile(){
-	 
-	    if ( isset( $_POST['field_ids'] ) ) {
-	        if(wp_verify_nonce( $_POST['_wpnonce'], 'bp_xprofile_edit' )){
-	 
-	            $posted_field_ids = explode( ',', $_POST['field_ids'] );
-	 
-	            $post_action_found = false;
-	            $post_action = '';
-	            if (isset($_POST['action'])){
-	                $post_action_found = true;
-	                $post_action = $_POST['action'];
-	 
-	            }
-	 
-	            foreach ( (array)$posted_field_ids as $field_id ) {
-	                $field_name = 'field_' . $field_id;
-	 
-	                if ( isset( $_FILES[$field_name] ) ) {
-	                    require_once( ABSPATH . '/wp-admin/includes/file.php' );
-	                    $uploaded_file = $_FILES[$field_name]['tmp_name'];
-	 
-	                    // Filter the upload location
-	                    add_filter( 'upload_dir', 'bpd_profile_upload_dir', 10, 1 );
-	 
-	                    //ensure WP accepts the upload job
-	                    $_POST['action'] = 'wp_handle_upload';
-	 
-	                    $uploaded_file = wp_handle_upload( $_FILES[$field_name] );
-	 
-	                    $uploaded_file = str_replace(WP_CONTENT_URL, '', $uploaded_file['url']) ;
-	 
-	                    $_POST[$field_name] = $uploaded_file;
-	 
-	                }
-	            }
-	 
-	            if($post_action_found){
-	                $_POST['action'] = $post_action;
-	            }
-	            else{
-	                unset($_POST['action']);
-	            }
-	 
-			}
-	    }
-	 
-	    if(!defined('DOING_AJAX')){
-	        if(function_exists('xprofile_screen_edit_profile')){
-	            xprofile_screen_edit_profile();
-	        }
-	    }
-	}
-	
 
-function bpd_profile_upload_dir( $upload_dir ) {
-		global $bp;
-	 
-	    $user_id = $bp->displayed_user->id;
-	    $profile_subdir = '/profiles/' . $user_id;
-	 
-	    $upload_dir['path'] = $upload_dir['basedir'] . $profile_subdir;
-	    $upload_dir['url'] = $upload_dir['baseurl'] . $profile_subdir;
-	    $upload_dir['subdir'] = $profile_subdir;
-	 
-		return $upload_dir;
-	}
 	
 function bpd_load_js() {
      wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-MSelect/js/xprofile-multiselect.js',
