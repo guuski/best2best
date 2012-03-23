@@ -2,14 +2,12 @@ jQuery(document).ready(function(){
   
 var jq=jQuery;
 
-/*
 jq('#new-review').focus( function(){
-		jq('#new-review-options').animate({height:'40px'}); //30
-		jq('form#review-form textarea').animate({height:'200px'}); //100
-		//jq('form#review-form textarea').animate({width:'750px'});		
+		jq('#new-review-options').animate({height:'40px'});
+		jq('form#review-form textarea').animate({height:'200px'});
 		jq('#review-submit').prop('disabled', false);
 	});
-*/
+
 	jq('input#review-submit').click( function() {
 		var button = jq(this);
 		var form = button.parent().parent().parent().parent();

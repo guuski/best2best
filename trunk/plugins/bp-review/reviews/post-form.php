@@ -1,7 +1,12 @@
-<?php
+<div id="sidebar-squeeze">			
+	<div id="main-column">
 
+			<div id="item-body">
 
-?>
+				<?php do_action( 'bp_before_member_body' ); ?>
+				
+				
+				
 
 <form action="<?php bp_reviews_post_form_action(); ?>" method="post" id="review-form"  role="complementary">
 
@@ -34,5 +39,23 @@
         <?php do_action( 'bp_after_review_post_form' ); ?>
 	<?php wp_nonce_field( 'new_review', '_wpnonce_new_review' ); ?>
 	
-
 </form>
+
+
+
+
+<?php		do_action( 'bp_after_member_body' ); ?>
+
+				</div><!-- #item-body -->
+
+			<?php do_action( 'bp_after_member_home_content' ); ?>
+
+			</div><!-- #main-column -->
+		<?php get_sidebar( 'buddypress' ); ?>
+</div><!-- #sidebar-squeeze -->
+
+		</div><!-- .padder -->
+	</div><!-- #content -->
+
+<?php get_footer( 'buddypress' ); ?>
+

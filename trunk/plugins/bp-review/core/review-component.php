@@ -193,7 +193,7 @@ class BPUserReview extends BP_Component{
          $error=false;
          $message='';
 	if ( !is_user_logged_in() ) {
-           $message=__('Non sei autorizzato a compiere quet operazione','reviews');
+           $message=__('Non sei autorizzato a compiere questa operazione','reviews');
            $error=true;
 	}
         else if ( empty( $_POST['new-review'] ) ) {
