@@ -1,18 +1,16 @@
-
-		#GEG_contenitore{
-			position:relative;
-			width:90%;
-			height:250px;
-			
-			margin:0px auto;
-			padding:0px;
-			
-			background-color:#fff;
-			color:#000;
-			}
-		.GEG_affianca{
-			float:left;
-			margin-right:10px;
-			}
+	#ms_contenitore{
+		position:relative;
+		width:100%;
+		margin:0px;
+		padding:0px;
+		background-color:#fff;
+		color:#000;
+	}
+	.ms_affianca{
+		
+	}
+	.ms_affianca select {
+	
+	}
 	
  

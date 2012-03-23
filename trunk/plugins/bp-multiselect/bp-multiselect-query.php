@@ -54,8 +54,8 @@ function ms_insert(){
 			"Gelato" ,
 			"Alcolici, Vino" ,
 			"Alcolici, Superalcolici, grappe, distillati" ,
-			"Analcolici" =>"",
-			"Prodotti dietetici, senza Glutine"=>""
+			"Analcolici",
+			"Prodotti dietetici, senza Glutine"
 			),
 	'Consulenza' => array(
 			"Web.Pagine Web" ,
@@ -69,7 +69,7 @@ function ms_insert(){
 			"Contabilit&#225;" ,
 			"Motivazione formazione collaboratori" ,
 			"Sicurezza sul lavoro, certificazionni ecc." ,
-			"Consulenza Sviluppo aziendale.Revenue"
+			"Consulenza Sviluppo aziendale.Revenue",
 			"Consulenza Sviluppo aziendale.Controllo Costi"
 			),
 	'Parco macchina' => array(
@@ -109,8 +109,7 @@ function ms_insert(){
 			"Casse sicurezza",
 			"Macchine Lavanderia",
 			"Attrezzature fitness",
-			"Attrezzature Wellness e spa.",
-			""
+			"Attrezzature Wellness e spa."
 			),
 	'Energia' => array(
 			"Elettricit&#225;" ,
@@ -119,39 +118,13 @@ function ms_insert(){
 			"Benzina" ,
 			"Energia alternativa" 
 			),
-	'Agenzie viaggio']= array(
+	'Agenzie viaggio' => array(
 			"Agenzie viaggio" 
 			),
-	'Altro']= array(
+	'Altro' => array(
 			"Altro" 
 			)
 	);
 	return $ms_insert;
 }
-
-
-
-
-/*INSERIMENTI=========================================================*/
-
-function ms_generateQuery(	$id_start,
-							$group_id=3,
-							$tabella='wp_bp_xprofile_fields',
-							$type='multiselectboxrag',
-							$description='ms Categorie Acquisti',
-							$is_required=0,
-							$is_default_option=0,
-							$field_order=0,
-							$option_order=0,
-							$order_by='id',
-							$can_delete=1) {
-							
-
-	//$ins = "INSERT INTO $tabella (id , group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES ";
-
-	//$inserimento[106]=$ins ." (".($id_start+106).",$group_id,".($id_start+1).",'$type','Macchinari per pulizia',	'$description',$is_required,$is_default_option,$field_order,$option_order,$order_by,$can_delete) "; 
-	
-}
-
-
 ?>
