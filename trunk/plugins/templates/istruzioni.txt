@@ -1,1 +1,3 @@
-copiare nella cartella del tema FRISCO FOR BUDDYPRESS
+- copiare nella cartella del tema FRISCO FOR BUDDYPRESS
+- creare la pagina Reviews
+- associare il template alla pagina
