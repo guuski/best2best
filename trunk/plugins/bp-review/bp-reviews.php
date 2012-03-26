@@ -121,16 +121,19 @@ class BPUserReviewHelper
 	 */
 	function add_review_button()																	
 	{
-		echo '
+		if(!bp_is_my_profile()) {
+			echo '
 			<div style = " float:left;  position:relative;  top:-5px ">
 				<a 	
 					class = "add-reviews button" 
-					title = "Scrivi una Review per l utente." 												
+					title = "Scrivi una Review per l\'utente." 												
 					href="'.bp_get_displayed_user_link().'reviews/create"
 				>				
 					Add Review
 				</a>
 			</div>';
+		}
+	
 	}
 	
 	/**
