@@ -95,6 +95,8 @@ class BPUserReviewHelper
  
 	function load_textdomain() 
 	{
+		load_plugin_textdomain( 'reviews', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		/*
 		$locale = apply_filters( 'bp_reviews_textdomain_get_locale', get_locale() );
 					
 		if ( !empty( $locale ) ) 
@@ -104,9 +106,10 @@ class BPUserReviewHelper
 			
 			if ( file_exists( $mofile ) ) 
 			{        
-				load_textdomain( 'reviews', $mofile );
+				
+				load_textdomain( 'reviews',$mofile  );
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -129,7 +132,7 @@ class BPUserReviewHelper
 					title = "Scrivi una Review per l\'utente." 												
 					href="'.bp_get_displayed_user_link().'reviews/create"
 				>				
-					Add Review
+					'.__('Add Review','reviews').'
 				</a>
 			</div>';
 		}
