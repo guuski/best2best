@@ -78,7 +78,7 @@ class BPUserReview extends BP_Component{
                  //setup something if you want to
                   $this->mapper->associate_review_page();//make sure to call it when a review page is opened for a user  
                   $bp->reviews->post=$this->mapper->get_post();//do we really need it
-                  $bp->reviews->post->id=$bp->reviews->post->ID;//do we really need it
+                  if($bp->reviews->post != null) $bp->reviews->post->id=$bp->reviews->post->ID;//do we really need it
                    
                }  
                
@@ -211,7 +211,7 @@ class BPUserReview extends BP_Component{
             $review_id=$this->mapper->save_review($content);
             $message=__('Review inviata. In attesa di moderazione.','reviews');
             if ( empty( $review_id ) ) {
-                $message= __( 'Operazione non riuscita. Prova di nuovo più tardi.', 'reviews' ) ;
+                $message= __( 'Operazione non riuscita. Prova di nuovo piï¿½ tardi.', 'reviews' ) ;
                 $error=true;
             }
             else
