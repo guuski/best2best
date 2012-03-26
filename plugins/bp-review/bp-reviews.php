@@ -130,7 +130,7 @@ class BPUserReviewHelper
 				<a 	
 					class = "add-reviews button" 
 					title = "Scrivi una Review per l\'utente." 												
-					href="'.bp_get_displayed_user_link().'reviews/create"
+					href="'.bp_get_displayed_user_link().'reviews/create#user-activity"
 				>				
 					'.__('Add Review','reviews').'
 				</a>

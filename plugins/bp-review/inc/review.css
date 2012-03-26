@@ -136,5 +136,26 @@ div.add-reviews:active{
 }
 
 #header {
-		
+	background: none;
+    margin-top: 5px;
+}
+
+#header #search-bar {
+	background: #FFFFFF;
+}
+#header #search-bar .padder {
+	background: #FFFFFF url(img/B2B_logoOrizzontale.png) 0 50% no-repeat;
+	min-height: 80px !important;
+}
+#logo >a {display: none;}
+
+#header #search-bar input[type="text"]:focus {
+	box-shadow: 0 0 10px #CCC;
+}
+#header #search-bar input[type="text"] {
+	border: 1px solid #CCC;
+}
+
+.nav-wrap {
+	padding: 5px 0;
 }
