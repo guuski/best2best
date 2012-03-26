@@ -30,7 +30,7 @@ class BPUserReviewHelper
         add_action( 'bp_loaded'		  			, array(&$this , 'init_component'), 0);
         add_action( 'init'			  			, array(&$this , 'register_review_posttype'));     
         add_action( 'bp_loaded'		  			, array(&$this , 'load_textdomain'), 2);
-        add_action( 'wp_print_styles'  			, array(&$this , 'add_css'));
+        add_action( 'wp_print_scripts'  			, array(&$this , 'add_css'));
         add_action( 'wp_print_scripts' 			, array(&$this , 'add_js'));		
 		add_action( 'bp_member_header_actions'	, array(&$this , 'add_review_button'));				//[C] 1 - aggiunge il bottone 'Add Review'
 		//add_action( 'init'  					, array(&$this , 'button_modifications', 9);		//[C] 2 - esplorazione HOOKS 
@@ -82,8 +82,8 @@ class BPUserReviewHelper
    
 	function add_css()
 	{
-		if(self::is_review_component())
-			wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/inc/review.css');
+		//if(self::is_review_component())
+			wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/inc/review.css',1);
 	}  
 	 
 	function add_js()
@@ -118,7 +118,7 @@ class BPUserReviewHelper
 	 * ------------------------------------
 	 * 		
 	 * [I] - Implementa -> CSS per <div e <a
-	 * [T] - Traduci 	-> title, cioè tooltip!
+	 * [T] - Traduci 	-> title, cioï¿½ tooltip!
 	 * [T] - Traduci 	-> testo bottone!
 	 *
 	 */
@@ -126,7 +126,7 @@ class BPUserReviewHelper
 	{
 		if(!bp_is_my_profile()) {
 			echo '
-			<div style = " float:left;  position:relative;  top:-5px ">
+			<div class = "add-reviews" >
 				<a 	
 					class = "add-reviews button" 
 					title = "Scrivi una Review per l\'utente." 												
