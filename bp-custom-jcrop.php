@@ -59,8 +59,6 @@ function bp_core_avatar_handle_crop_corrected($val, $args = '' ) {
 	
 	extract( $args, EXTR_SKIP );
 	
-	print_r($args,false);
-	
 	if ( !$original_file ) { error_log("original_file: ".$original_file);
 		return false; }
 	
