@@ -27,6 +27,7 @@
     <copy todir="${dist}/${plugin_dir}">
       <fileset dir="${src}" excludes="**/*.svn"/>
     </copy>
+    <chmod file="${dist}/${plugin_dir}/**" perm="g+w" type="both"/>
   </target>
 
   <target name="clean"
