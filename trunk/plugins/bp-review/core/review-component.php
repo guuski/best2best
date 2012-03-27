@@ -323,7 +323,8 @@ class BPUserReview extends BP_Component
 			$this->mapper->associate_review_page();
 		
 			$bp->reviews->post		= $this->mapper->get_post(); //do we really need it
-			if($bp->reviews->post != null) $bp->reviews->post->id=$bp->reviews->post->ID;//do we really need it
+			if($bp->reviews->post != null) 
+				$bp->reviews->post->id=$bp->reviews->post->ID;//do we really need it
 		}  
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------			  		
 
