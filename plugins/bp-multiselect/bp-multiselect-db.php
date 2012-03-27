@@ -74,20 +74,15 @@ function ms_getCategorieUTENTE(){
 	global $user_ID;
 	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
 	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
-	echo $user_ID;
 	$query = "SELECT d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE d.user_id=$user_ID AND f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
-	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	
-	$field_selected=explode(',',$ms_output[0]);
-	echo $field_selected;
-	$my_output=array();
-	foreach ($field_selected as $fields){
-			echo $fields."#";
-			$my_output[$fields];
-		}
-		return $my_output;
-	}
+	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 
+	$field_selected=explode(",",$ms_output[0]->value);
+	
+	return $field_selected;
+	
+}
 
 
 /*genero l'HTML da visualizzare lato front-end*/
