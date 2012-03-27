@@ -12,7 +12,7 @@ function manageOptionalFieldsJS() {
 		echo "<script>jQuery('.button-nav li:last-child').hide();</script>";
 	}
 	echo "<script>function correggiLetti(field) {
-	      if(jQuery(field).val()=='Fornitore') {	
+	      if(field=='Fornitore') {	
 	        jQuery('div.field_numero-letti-coperti').hide(); 
 	        jQuery('div.field_numero-stelle').hide();
 		jQuery('div.field_macro-categoria-attivita').show();
@@ -25,8 +25,8 @@ function manageOptionalFieldsJS() {
 		jQuery('.button-nav li:last-child').hide();
 	      }
 	      }".
-		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
-		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
+		"jQuery('#field_2').click(function(){correggiLetti(jQuery(this).val());}); ".
+		"jQuery(document).ready(function() {correggiLetti('".$dati."');});</script>";
 }
 
 //Gestisce i campi profilo in fase di registrazione profilo  
