@@ -293,7 +293,7 @@ class BPUserReviewHelper
 	 */
 	function add_css()
 	{
-		if(self::is_review_component())
+		//if(self::is_review_component())														//[C] 5
 			wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/inc/review.css');
 	}  
 	 
@@ -304,7 +304,7 @@ class BPUserReviewHelper
 	 */ 
 	function add_js()
 	{
-		//if(self::is_review_component())																	//[C] 5
+		if(self::is_review_component())																	
 			wp_enqueue_script ('review-js',plugin_dir_url(__FILE__).'inc/review.js',array('jquery'));
 	}
 
