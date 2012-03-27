@@ -1,16 +1,14 @@
 	#ms_contenitore{
-		position:relative;
-		width:100%;
-		margin:0px;
-		padding:0px;
-		background-color:#fff;
-		color:#000;
+		
 	}
 	.ms_affianca{
 		
 	}
 	.ms_affianca select {
 	
+	}
+	.ms_affianca option {
+		
 	}
 	
  

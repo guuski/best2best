@@ -10,7 +10,7 @@
 include_once('bp-multiselect-db.php');
 include_once('bp-multiselect-query.php');
 
-include_once(ABSPATH .'wp-config.php');
+//include_once(ABSPATH .'wp-config.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
@@ -22,18 +22,20 @@ $ms_nome='box selezione multipla raggruppata';
 /*Questo metodo aggiunge la mia nuova field_type a quelle esistenti 
  * presenti nell'array $field_types*/
 function bpd_add_new_xprofile_field_type($field_types){
-	global $ms_nome;
-    $ms_field_type = array($ms_nome);
-    $field_types = array_merge($field_types, $ms_field_type);
-    return $field_types;
+		//echo "bpd_add_new_xprofile_field_type<br />";
+		global $ms_nome;
+		$ms_field_type = array($ms_nome);
+		$field_types = array_merge($field_types, $ms_field_type);
+		return $field_types;
+    
 }
 add_filter( 'xprofile_field_types', 'bpd_add_new_xprofile_field_type' );
 
 
-/*Questo metodo mi consente di interagire con il lato backend durante la 
+/*Questo metodo mi consente di interagire con il lato back-end durante la 
  * visualizzazione dei campi profilo  * */
 function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
-	
+		//echo "bpd_admin_render_new_xprofile_field_type<br />";
 		global $ms_nome;
 		ob_start();
 	        switch ( $field->type ) {
@@ -72,7 +74,7 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 /*Questo metodo mi consente di interagire con il lato front-end durante la 
  * modifica dei campi profilo  * */	
 function bpd_edit_render_new_xprofile_field($echo = true){
-		
+		//echo "bpd_edit_render_new_xprofile_field<br />";
 		global $ms_nome;
 	    if(empty ($echo)){
 	        $echo = true;
@@ -114,6 +116,7 @@ add_action( 'bp_custom_profile_edit_fields', 'bpd_edit_render_new_xprofile_field
 /*Questo metodo riscrive l'action hook di default allo scopo di poter 
  * supportare il nuovo tipo profilo*/
 function bpd_override_xprofile_screen_edit_profile(){
+		//echo "bpd_override_xprofile_screen_edit_profile<br />";
 	    $screen_edit_profile_priority = has_filter('bp_screens', 'xprofile_screen_edit_profile');
 	 
 	    if($screen_edit_profile_priority !== false){
@@ -128,8 +131,9 @@ add_action( 'bp_actions', 'bpd_override_xprofile_screen_edit_profile', 10 );
 	
 //Create profile_edit handler
 function bpd_screen_edit_profile(){
-	 
+		//echo "bpd_screen_edit_profile<br />";
 	    if ( isset( $_POST['field_ids'] ) ) {
+			//echo $_POST['field_ids'];
 	        if(wp_verify_nonce( $_POST['_wpnonce'], 'bp_xprofile_edit' )){
 	 
 	            $posted_field_ids = explode( ',', $_POST['field_ids'] );
@@ -145,6 +149,7 @@ function bpd_screen_edit_profile(){
 	            foreach ( (array)$posted_field_ids as $field_id ) {
 	                $field_name = 'field_' . $field_id;
 	 
+/*
 	                if ( isset( $_FILES[$field_name] ) ) {
 	                    require_once( ABSPATH . '/wp-admin/includes/file.php' );
 	                    $uploaded_file = $_FILES[$field_name]['tmp_name'];
@@ -162,6 +167,7 @@ function bpd_screen_edit_profile(){
 	                    $_POST[$field_name] = $uploaded_file;
 	 
 	                }
+*/
 	            }
 	 
 	            if($post_action_found){
@@ -180,9 +186,20 @@ function bpd_screen_edit_profile(){
 	        }
 	    }
 	}
+/*	
+			if ( !xprofile_set_field_data( $field_id, $bp->displayed_user->id, $value, $is_required[$field_id] ) )
+					$errors = true;
+				else
+					do_action( 'xprofile_profile_field_data_updated', $field_id, $value );
+			}
+
+			do_action( 'xprofile_updated_profile', $bp->displayed_user->id, $posted_field_ids, $errors );
+*/
 	
 
+/*
 function bpd_profile_upload_dir( $upload_dir ) {
+		//echo "bpd_profile_upload_dir<br />";
 		global $bp;
 	 
 	    $user_id = $bp->displayed_user->id;
@@ -194,14 +211,17 @@ function bpd_profile_upload_dir( $upload_dir ) {
 	 
 		return $upload_dir;
 	}
+*/
 	
 function bpd_load_js() {
-     wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-MSelect/js/xprofile-multiselect.js',
+		//echo "bpd_load_js<br />";
+		wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/js/xprofile-multiselect.js',
 							array( 'jquery' ), '1.0' );
 }
 
 function bpd_load_css() {
-     wp_enqueue_style( 'bpd-css', get_bloginfo('url') . '/wp-content/plugins/bp-MSelect/css/xprofile-multiselect.css');
+		//echo "bpd_load_css<br />";
+		wp_enqueue_style( 'bpd-css', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/css/xprofile-multiselect.css');
 }
 
 add_action( 'wp_print_scripts', 'bpd_load_js' );

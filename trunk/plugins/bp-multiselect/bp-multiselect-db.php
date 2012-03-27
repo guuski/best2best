@@ -74,13 +74,18 @@ function ms_getCategorieUTENTE(){
 	global $user_ID;
 	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
 	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
-	$query = "SELECT f.name FROM wp_bp_xprofile_data d INNER JOIN wp_bp_xprofile_fields f WHERE d.field_id=f.id AND d.value='ms Categorie Acquisti' AND d.user_id='$user_ID'";
+	echo $user_ID;
+	$query = "SELECT d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE d.user_id=$user_ID AND f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
-	$ms_data=array();
-	foreach( (array)$ms_output as $field){
-			$ms_data[$field->name];
-		}//end-foreach
-	return $ms_data;
+	
+	$field_selected=explode(',',$ms_output[0]);
+	echo $field_selected;
+	$my_output=array();
+	foreach ($field_selected as $fields){
+			echo $fields."#";
+			$my_output[$fields];
+		}
+		return $my_output;
 	}
 
 
@@ -91,7 +96,28 @@ function ms_getHTMLfrontend(){
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
-	$HTML= "<select name='".bp_get_the_profile_field_input_name()."' multiple='multiple' size='30'>";
+	$HTML= "
+	<script language='JavaScript' type='text/javascript'>
+	<!--
+		function ms_loopSelected()
+		{
+			var txtSelectedValuesObj = document.getElementById('".bp_get_the_profile_field_input_name()."');
+			var selectedArray = new Array();
+			var selObj = document.getElementById('ms_select');
+			var i;
+			var count = 0;
+			for (i=0; i<selObj.options.length; i++) {
+				if (selObj.options[i].selected) {
+				selectedArray[count] = selObj.options[i].value;
+				count++;
+			}
+			}
+			txtSelectedValuesObj.value = selectedArray;
+		}
+	//-->
+	</script>
+	";
+	$HTML.= "<select id='ms_select' multiple='multiple' size='30' onchange='ms_loopSelected();'>";
 	foreach($ms_insert as $macro => $subs) {
 			$HTML.="<optgroup label='$macro'>";
 			foreach($subs as $sub) {
@@ -103,7 +129,9 @@ function ms_getHTMLfrontend(){
 			$HTML.="</optgroup>";
 		}//end-foreach		
 	$HTML.= "</select>";
+	$HTML.= "<input type='hidden' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
 	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
+	
 	
 	//valori importanti
 	//echo "<br />name=".bp_get_the_profile_field_input_name();
