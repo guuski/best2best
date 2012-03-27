@@ -35,7 +35,7 @@ function ms_insert(){
 			"Decorazione" ,
 			"Fiori / Piante" ,
 			"Set Cortesia" ,
-			"Prodotti igene (carta igenica saponi ecc.)" ,
+			"Prodotti igene (carta igenica, saponi ecc.)" ,
 			"Articoli regalo (gadget)" 
 			),
 	'Materiale elettrico' => array(

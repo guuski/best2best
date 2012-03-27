@@ -17,7 +17,8 @@ include_once(ABSPATH .'wp-includes/wp-db.php');
 
 
 //Variabili
-$ms_nome='box selezione multipla raggruppata';
+global $ms_nome;
+
 
 /*Questo metodo aggiunge la mia nuova field_type a quelle esistenti 
  * presenti nell'array $field_types*/

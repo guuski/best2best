@@ -8,6 +8,8 @@ include_once('bp-multiselect.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
+$ms_nome ='box selezione multipla raggruppata';
+
 /*Questa funzione controlla se nella tabella wp_bp_xprofile_fields è 
  * presente un record con descriptio = ms Categorie Acquisti. in questo 
  * caso ho gia provveduto all'aggiornamento del database*/
@@ -22,8 +24,46 @@ function ms_installed(){
 			return true;
 		}//end-foreach
 	return false;
-	}
+}
 
+
+/*Questo metodo mi ritorna l'id del nuovo field creato dall'utente oppure ritorna
+ * -1 in caso di assenza del field*/
+function ms_newfieldisset(){
+	global $bp;
+	global $wpdb;
+	global $ms_nome;
+	$query = "SELECT * FROM wp_bp_xprofile_fields f";
+	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+	foreach( (array)$ms_output as $field ){
+		if ($field->type==$ms_nome) 
+			return $field->id;
+		}//end-foreach
+	return -1;
+}
+
+//METODO DA TESTARE
+/*Questa funzione recupera le categorie associate all'utente presenti in 
+ *buddypress.wp_bp_xprofile_data*/
+function ms_getCategorieUTENTE(){
+	//global $user_ID;
+	global $bp;
+	global $wpdb;
+	global $user_ID;
+	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
+	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
+	$query = "SELECT d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE d.user_id=$user_ID AND f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
+	
+	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+	
+	if (isset($ms_output[0])) {
+		$field_selected=explode(",",$ms_output[0]->value);
+		return $field_selected;
+	}
+	//echo $field_selected[0] ;
+	return array();
+	
+}
 
 
 /*Questa funzione controlla se la tabella wp_bp_xprofile_fields è stata
@@ -32,8 +72,8 @@ function ms_installed(){
 function ms_updateDBfield(){
 	global $bp;
 	global $wpdb;
-	
-	if (!ms_installed()) {
+	$ms_parent=ms_newfieldisset();
+	if (!ms_installed() && ($ms_parent!=-1)) {
 		$group_id=3;
 		//$tabella='wp_bp_xprofile_fields';
 		$type='multiselectboxrag';
@@ -51,7 +91,7 @@ function ms_updateDBfield(){
 		$ms_3 = " ,	'$description',$is_required,$is_default_option,$field_order,$option_order,$order_by,$can_delete) ";
 	
 		foreach($ms_insert as $macro => $subs) {
-			$ms_2 = "($group_id,0,'$type','$macro'";
+			$ms_2 = "($group_id,$ms_parent,'$type','$macro'";
 			$wpdb->get_results( $wpdb->prepare($ms_1."".$ms_2."".$ms_3));	
 			$current_id= $wpdb->insert_id;//ID MACROCATEGORIA
 			foreach($subs as $sub) {
@@ -62,28 +102,9 @@ function ms_updateDBfield(){
 	}//end-if
 		
 	}
-ms_updateDBfield();
 
-//METODO DA TESTARE
-/*Questa funzione recupera le categorie associate all'utente presenti in 
- *buddypress.wp_bp_xprofile_data*/
-function ms_getCategorieUTENTE(){
-	//global $user_ID;
-	global $bp;
-	global $wpdb;
-	global $user_ID;
-	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
-	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
-	$query = "SELECT d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE d.user_id=$user_ID AND f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
-	
-	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 
-	$field_selected=explode(",",$ms_output[0]->value);
-	
-	//echo $field_selected[0] ;
-	return $field_selected;
-	
-}
+
 /*Questo metodo mi dice se una stringa è presente o meno detro un array*/
 function ms_isinarray($ms_string,$ms_array){
 	foreach ($ms_array as $key => $value){
@@ -98,13 +119,14 @@ function ms_caricaCategorie(){
 	global $bp;
 	global $wpdb;
 	global $user_ID;
+	$ms_parent=ms_newfieldisset();
 	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
 	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
 	$query = "SELECT f.id, f.parent_id, f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag'";
 	$ms_array=array();
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	foreach ($ms_output as $key =>$macrocat){
-		if ($macrocat->parent_id==0){ //sto considerando solo le macrocategorie
+		if ($macrocat->parent_id==$ms_parent){ //sto considerando solo le macrocategorie
 			$ms_array["$macrocat->name"]=array();
 			
 			foreach ($ms_output as $k =>$subcat){
@@ -118,12 +140,68 @@ function ms_caricaCategorie(){
 }
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
+	ms_updateDBfield();
 	//$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
 	$ms_insert = ms_caricaCategorie();
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
-	$HTML= "
+	$HTML= ms_getScript();
+	
+	$HTML.= "<select id='ms_select' multiple='multiple' size='30' onchange='ms_loopSelected();'>";
+	foreach($ms_insert as $macro => $subs) {
+			$HTML.="<optgroup label='$macro'>";
+			foreach($subs as $sub) {
+				if (ms_isinarray($sub,$ms_mycategorie)){
+					//$HTML.="<label><input checked=\"checked\" type=\"checkbox\" value=\"$sub\">$sub</label>";
+					$HTML.="<option SELECTED value='$sub'>$sub</option>";
+				}
+				else{
+					//$HTML.="<label><input type=\"checkbox\" value=\"$sub\">$sub</label>";
+					$HTML.="<option value='$sub'>$sub</option>";
+				}
+			}//end-foreach
+			$HTML.="</optgroup>";
+		}//end-foreach		
+	$HTML.= "</select>";
+	$HTML.= "<input type='hidden' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
+	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
+	
+	//valori importanti
+	//echo "<br />name=".bp_get_the_profile_field_input_name();
+	//echo "<br />type=".bp_get_the_profile_field_type();
+	//echo "<br />isrequired=".bp_get_the_profile_field_is_required();
+	//echo "<br />edit value=".bp_get_the_profile_field_edit_value();
+	
+	echo $HTML;
+	ms_caricaCategorie();
+	}
+			
+/*genero l'HTML da visualizzare lato back-end*/	
+function ms_getHTMLbackend(){
+	ms_updateDBfield();
+	$ms_insert = ms_caricaCategorie(); //matrice di tutte le categorie e macrocategorie
+	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
+	
+	$HTML="<h1>QUESTA SEZIONE NON È AGGIORNATA...</h1>";
+	$HTML.= "<select multiple='multiple' size='30'>";
+	foreach($ms_insert as $macro => $subs) {
+			$HTML.="<optgroup label='$macro'>";
+			foreach($subs as $sub) {
+				if (ms_isinarray($sub,$ms_mycategorie))
+					$HTML.="<option SELECTED value='$sub'>$sub</option>";
+				else
+					$HTML.="<option value='$sub'>$sub</option>";
+				}//end-foreach
+			$HTML.="</optgroup>";
+		}//end-foreach		
+	$HTML.= "</select>";
+	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
+	echo $HTML;
+	}
+	
+function ms_getScript(){	
+	$SCRIPT="
 	<script language='JavaScript' type='text/javascript'>
 	<!--
 		function ms_loopSelected()
@@ -144,51 +222,28 @@ function ms_getHTMLfrontend(){
 	//-->
 	</script>
 	";
+/*
+	$SCRIPT.="
+	<style type='text/css'>
+		#ms_select {
+			height: 500px; 
+			overflow: auto; 
+			border: 5px solid rgb(238, 238, 238); 
+			background: none repeat scroll 0% 0% rgb(238, 238, 238); 
+			color: rgb(0, 0, 0); 
+			margin-bottom: 0px;
+			}
+		#ms_select *{
+			padding:0px 0px 0px 10px;
+			margin:0px;
+			}
+		#ms_select h4{
+			margin:10px 0px;
+			padding:0px;
+			}
+	</style>";
+*/
 	
-	$HTML.= "<select id='ms_select' multiple='multiple' size='30' onchange='ms_loopSelected();'>";
-	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<optgroup label='$macro'>";
-			foreach($subs as $sub) {
-				if (ms_isinarray($sub,$ms_mycategorie))
-					$HTML.="<option SELECTED value='$sub'>$sub</option>";
-				else
-					$HTML.="<option value='$sub'>$sub</option>";
-				}//end-foreach
-			$HTML.="</optgroup>";
-		}//end-foreach		
-	$HTML.= "</select>";
-	$HTML.= "<input type='hidden' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
-	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
-	
-	
-	//valori importanti
-	//echo "<br />name=".bp_get_the_profile_field_input_name();
-	//echo "<br />type=".bp_get_the_profile_field_type();
-	//echo "<br />isrequired=".bp_get_the_profile_field_is_required();
-	//echo "<br />edit value=".bp_get_the_profile_field_edit_value();
-	
-	echo $HTML;
-	ms_caricaCategorie();
-	}
-			
-/*genero l'HTML da visualizzare lato back-end*/	
-function ms_getHTMLbackend(){
-	$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
-	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
-	
-	$HTML= "<select multiple='multiple' size='30'>";
-	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<optgroup label='$macro'>";
-			foreach($subs as $sub) {
-				if (ms_isinarray($sub,$ms_mycategorie))
-					$HTML.="<option SELECTED value='$sub'>$sub</option>";
-				else
-					$HTML.="<option value='$sub'>$sub</option>";
-				}//end-foreach
-			$HTML.="</optgroup>";
-		}//end-foreach		
-	$HTML.= "</select>";
-	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
-	echo $HTML;
+	return $SCRIPT;
 	}
 ?>
