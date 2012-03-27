@@ -1,13 +1,52 @@
 <?php
+/*
+-----------------------------------------
+Contenuto FILE:
+-----------------------------------------	
+	
+	- definisce la CLASSE 'BP_Review_Template' 
+	
+	
+
+----------------------------------------------------
+FILE, CLASSI, OGGETTI, METODI collegati o richiamati
+----------------------------------------------------
+		
+	[PHP file]	 
+
+				
+	[PHP class]	
+						
+	[PHP function]			
+	
+	[PHP constant]
+		
+
+-----------------------------------------
+FUNZIONI e HOOKS (WordPress - Wp)
+-----------------------------------------			
+	.....
+	  
+-----------------------------------------
+FUNZIONI e HOOKS (BuddyPress - Bp)
+-----------------------------------------
+	
+	.....
+	
+-----------------------------------------
+GLOBALS: $bp, $wpdb, $creds
+-----------------------------------------
+
+*/
 
 
-add_filter( 'get_the_review_content','bp_reviews_filter_kses');
-add_filter( 'get_the_review_content','make_clickable',9);
-add_filter( 'get_the_review_content',        'convert_chars' );
+add_filter( 'get_the_review_content', 'bp_reviews_filter_kses');
+add_filter( 'get_the_review_content', 'make_clickable',9);
+add_filter( 'get_the_review_content', 'convert_chars' );
 add_filter( 'get_the_review_content', 'stripslashes_deep' );
-add_filter( 'get_the_review_content',        'wptexturize' );
+add_filter( 'get_the_review_content', 'wptexturize' );
 add_filter( 'get_the_review_content', 'force_balance_tags' );
-add_filter( 'get_the_review_content','wpautop');
+add_filter( 'get_the_review_content', 'wpautop');
 
 
 function bp_reviews_filter_kses($content){

@@ -125,24 +125,97 @@ abstract class BPReviewMapper
    function attach(SplObserver $observer) {
        
    }
-   
-   function save_review($content){
-       global $bp;
-       	$review_parent = $this->get_post_id();
-        $user_id=bp_loggedin_user_id(); 
-        $review_data= array(
-		'comment_content' => apply_filters( 'bp_review_content', $content ),
-                'comment_approved'=>0,
-		'comment_author_url' =>  bp_core_get_user_domain($user_id),
-		'user_id' => $user_id,
-                'comment_author'=>  bp_core_get_user_displayname($user_id),
-		'comment_post_ID' => $review_parent
-	) ;
 
-        
-        $review_id=wp_insert_comment($review_data);
-        return $review_id;
-   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	   
+	function save_review($content)
+	{
+		global $bp;
+		
+		$review_parent = $this->get_post_id();
+		$user_id	   = bp_loggedin_user_id(); 
+		
+		$review_data   = array
+		(
+			'comment_content' 	 => apply_filters( 'bp_review_content', $content ),
+			'comment_approved'	 => 0,
+			'comment_author_url' => bp_core_get_user_domain($user_id),
+			'user_id' 			 => $user_id,
+			'comment_author'	 => bp_core_get_user_displayname($user_id),
+			'comment_post_ID' 	 => $review_parent
+		) ;
+
+		$review_id = wp_insert_comment($review_data);
+		
+		return $review_id;
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	   
+	
+	
+	function save_review_prova($content)														//[C]
+	{
+		global $bp;
+	
+		//$review_parent = $this->get_post_id();
+		$user_id	   = bp_loggedin_user_id(); 
+	/*	
+		$review_data   = array
+		(
+			'comment_content' 	 => apply_filters( 'bp_review_content', $content ),
+			'comment_approved'	 => 0,
+			'comment_author_url' => bp_core_get_user_domain($user_id),
+			'user_id' 			 => $user_id,
+			'comment_author'	 => bp_core_get_user_displayname($user_id),
+			'comment_post_ID' 	 => $review_parent
+		) ;
+
+		$review_id = wp_insert_comment($review_data);
+		
+		return $review_id;	
+	*/	
+			$title = sprintf(__("Review per l utente [%s] con ID:[%d]",'reviews'),bp_core_get_user_displayname($user_id),$user_id);
+			
+			$postarray = array
+			(
+					'post_title'	=> $title
+				,	'post_author'	=> $user_id
+				,	'post_type'		=> 'ureviews'
+				//////////////////////////////////////////////
+				,	'post_content'  => $content
+				//////////////////////////////////////////////
+				,	'post_status'   => 'publish'
+			);
+			 
+			$post_id = wp_insert_post($postarray);
+			
+			//update_user_meta($user_id,'associated_review_page' , $post_id) ;
+			
+			/*
+			$wp_insert_post_args = array
+			(
+				'post_status'	=> 'publish',
+				'post_type'		=> 'review',											//post_type
+				'post_author'	=> $this->reviewer_id,
+				'post_title'	=> sprintf( __( '%1$s review %2$s', 'bp-review' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				,
+				///////////////////////////////////				
+				'post_content'  => 'PROVA CONTENUTO'
+				///////////////////////////////////
+			);
+		*/
+			//$result = wp_insert_post( $wp_insert_post_args );
+		
+			/*	
+			if ( $result ) 
+			{
+				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );
+			}
+			*/
+			//do_action( 'bp_review_data_after_save', $this );		
+			
+			return $post_id;	
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    
    function update_review($review){
        if(!is_array($review))
@@ -158,57 +231,63 @@ abstract class BPReviewMapper
        
    }
 }
+//------------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
 class BPUserReviewMapper extends BPReviewMapper
 {
     function __construct() 
 	{
         $this->post_id=false;
-        $this->object_id=false;
-       
+		$this->object_id=false;       
     }
     
     function get_post_id($user_id=null) 
 	{
         global $bp;
+		
         if(!$user_id)
             $user_id=$bp->displayed_user->id;
         
-        $this->post_id=get_user_meta($user_id, "associated_review_page",true);
-        return $this->post_id;
+        $this->post_id = get_user_meta($user_id, "associated_review_page",true);							//associated_review_page
+     
+		return $this->post_id;
     }
     
     function get_post_type() {
         return 'reviews';
     }
-    
-    function associate_review_page($user_id=null)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	       
+    function associate_review_page($user_id = null)
 	{
-       if(empty($user_id))
-           $user_id=bp_displayed_user_id ();
+		if(empty($user_id))
+			$user_id = bp_displayed_user_id ();
        
-       $post_id=$this->get_post_id();
+		$post_id = $this->get_post_id();
        
-	   if(empty($post_id))
-	   {
-         
-         $title=sprintf(__("Review per l utente [%s] con ID:[%d]",'reviews'),bp_core_get_user_displayname($user_id),$user_id);
-         
-		 $postarray = 	array
+		if(empty($post_id))
+		{         
+			$title = sprintf(__("Review per l utente [%s] con ID:[%d]",'reviews'),bp_core_get_user_displayname($user_id),$user_id);
+			
+			$postarray = array
 			(
-				'post_title'=>$title,
-				'post_author'=>$user_id,
-				'post_type'=>'ureviews',
-				///////////////////////
-				'post_content'=>'prova contenuto last',
-				///////////////////////
-				'post_status'=>'publish'
+				'post_title'	=> $title,
+				'post_author'	=> $user_id,
+				'post_type'		=> 'ureviews',
+				//////////////////////////////////////////////
+				//'post_content'  => 'prova contenuto last',
+				//////////////////////////////////////////////
+				'post_status'   => 'publish'
 			);
-		 
-         $post_id=  wp_insert_post($postarray);
-         update_user_meta($user_id,'associated_review_page' , $post_id) ;
-       }
-   }
+			 
+			$post_id = wp_insert_post($postarray);
+			update_user_meta($user_id,'associated_review_page' , $post_id) ;
+		}
+	}
+   
+//////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	      
    
    function get_component_link() 
    {
@@ -226,6 +305,15 @@ class BPUserReviewMapper extends BPReviewMapper
    
 } 
 
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+//		BPUserReviewNotifier
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ *
+ */
 class BPUserReviewNotifier
 {
     private static $instance;
@@ -340,7 +428,25 @@ Per vederla visita: %3$s
 	    
  }   
 }
+
+
+
+
+
+
 BPUserReviewNotifier::get_instance();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 interface BPReviewPermission{

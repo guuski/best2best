@@ -1,21 +1,105 @@
 <?php
+/*
+-----------------------------------------
+Contenuto FILE:
+-----------------------------------------
+	Questo file contiene le funzioni "template tag" che posso essere aggiunte files di template.
 
-function bp_is_review_component(){
+	Per convenzione in Wordpress le funzioni "template tag" hanno 2 versioni:
+		- la 1) ritorna il valore richiesto 				---> ES. 'bp_review_get_nome()'
+		- la 2) fa l'echo del valore della prima funzione 	---> ES. 'bp_review_nome()'	
+	
+	- definisce la CLASSE 'BP_Review_Template' 
+	
+	
+
+----------------------------------------------------
+FILE, CLASSI, OGGETTI, METODI collegati o richiamati
+----------------------------------------------------
+		
+	[PHP file]	 
+	
+		template-tags.php
+		classes.php
+		hooks.php
+				
+	[PHP class]	
+	
+		BPReviewMapper
+		BPReviewUserPermissions
+					
+	[PHP function]			
+	
+		review-loop.php 						//
+		
+	
+		dal file 'classes.php'
+		
+			associate_review_page() - di BPReviewMapper 
+		
+		dal file 'template-tags.php'
+			
+			bp_reviews_load_template			
+			bp_reviews_post_form()				
+			
+			review_current_user_can_write() 	
+		
+		dal file 'hooks.php'
+			
+			bp_reviews_delete_between_user_by_type	
+			
+	[PHP constant]
+	
+		BP_REVIEWS_SLUG
+
+-----------------------------------------
+FUNZIONI e HOOKS (WordPress - Wp)
+-----------------------------------------			
+	.....
+	  
+-----------------------------------------
+FUNZIONI e HOOKS (BuddyPress - Bp)
+-----------------------------------------
+	
+	.....
+	
+-----------------------------------------
+GLOBALS: $bp, $wpdb, $creds
+-----------------------------------------
+
+*/
+
+function bp_is_review_component()
+{
     global $bp;
+	
     return bp_is_current_component($bp->reviews->slug);
 }
 
-class BP_Review_Template{
-   var $reviews;
-   var $current_review=-1;
-   var $review_count;
-   var $review;
-   var $pag_page=10;
-   var $page_num=0;
-   var $mapper=null;
-   function __construct(BPReviewMapper $review,$type,$page_number, $per_page, $max,$include){
-       
-       global $bp;
+/**
+ * BP_Review_Template
+ *
+ *
+ */
+class BP_Review_Template
+{
+	var $reviews;
+	
+	var $current_review=-1;
+	var $review_count;
+	var $review;
+	var $pag_page=10;
+	var $page_num=0;
+	
+	var $mapper=null;
+   
+    /*
+	 *
+	 */
+	function __construct(BPReviewMapper $review,$type,$page_number, $per_page, $max,$include)
+	{
+		
+		global $bp;
 		
         $this->pag_page  = !empty( $_REQUEST['tpage'] ) ? intval( $_REQUEST['tpage'] ) : (int)$page_number;
         $this->pag_num   = !empty( $_REQUEST['num'] )   ? intval( $_REQUEST['num'] )   : (int)$per_page;
@@ -107,7 +191,9 @@ class BP_Review_Template{
 }
 
 
-/*template tags*/
+//
+// 	template tags
+//
 
 function bp_has_reviews($args = ''){
     global $bp, $reviews_template;
@@ -267,6 +353,12 @@ function bp_reviews_pagination_links() {
 
 	   return apply_filters( 'bp_review_delete_link', sprintf(__("<a href='%s' class='review-delete'>Delete</a>",'reviews'),$link ));
         }
+		
+		
+		
+		
+		
+		
 /*form*/
 function bp_reviews_post_form_action(){
     global $bp;
@@ -284,6 +376,11 @@ function bp_reviews_post_form(){
    bp_reviews_load_template('reviews/post-form.php') ;
    
 }
+
+
+
+
+
 //can user write review
 function review_current_user_can_write(){
    $can_write=false;
