@@ -80,10 +80,16 @@ function ms_getCategorieUTENTE(){
 
 	$field_selected=explode(",",$ms_output[0]->value);
 	
+	//echo $field_selected[0] ;
 	return $field_selected;
 	
 }
-
+function ms_isinarray($ms_string,$ms_array){
+	foreach ($ms_array as $key => $value){
+		if ($value==$ms_string) return true;
+		}
+		return false;
+	}
 
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
@@ -112,11 +118,12 @@ function ms_getHTMLfrontend(){
 	//-->
 	</script>
 	";
+	
 	$HTML.= "<select id='ms_select' multiple='multiple' size='30' onchange='ms_loopSelected();'>";
 	foreach($ms_insert as $macro => $subs) {
 			$HTML.="<optgroup label='$macro'>";
 			foreach($subs as $sub) {
-				if (isset($ms_mycategorie[$sub]))
+				if (ms_isinarray($sub,$ms_mycategorie))
 					$HTML.="<option SELECTED value='$sub'>$sub</option>";
 				else
 					$HTML.="<option value='$sub'>$sub</option>";
@@ -146,7 +153,7 @@ function ms_getHTMLbackend(){
 	foreach($ms_insert as $macro => $subs) {
 			$HTML.="<optgroup label='$macro'>";
 			foreach($subs as $sub) {
-				if (isset($ms_mycategorie[$sub]))
+				if (ms_isinarray($sub,$ms_mycategorie))
 					$HTML.="<option SELECTED value='$sub'>$sub</option>";
 				else
 					$HTML.="<option value='$sub'>$sub</option>";
