@@ -84,16 +84,42 @@ function ms_getCategorieUTENTE(){
 	return $field_selected;
 	
 }
+/*Questo metodo mi dice se una stringa è presente o meno detro un array*/
 function ms_isinarray($ms_string,$ms_array){
 	foreach ($ms_array as $key => $value){
 		if ($value==$ms_string) return true;
 		}
 		return false;
 	}
-
+/*Questo metodo leggendo da DB restituisce una matrice contenente tutte
+ * le categorie e le sottocategorie*/
+function ms_caricaCategorie(){
+	//global $user_ID;
+	global $bp;
+	global $wpdb;
+	global $user_ID;
+	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
+	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
+	$query = "SELECT f.id, f.parent_id, f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag'";
+	$ms_array=array();
+	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+	foreach ($ms_output as $key =>$macrocat){
+		if ($macrocat->parent_id==0){ //sto considerando solo le macrocategorie
+			$ms_array["$macrocat->name"]=array();
+			
+			foreach ($ms_output as $k =>$subcat){
+				if ($macrocat->id==$subcat->parent_id){
+					$ms_array["$macrocat->name"]["$subcat->name"]=$subcat->name;
+				}
+			}
+		}
+	}
+	return $ms_array;
+}
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
-	$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
+	//$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
+	$ms_insert = ms_caricaCategorie();
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
@@ -142,6 +168,7 @@ function ms_getHTMLfrontend(){
 	//echo "<br />edit value=".bp_get_the_profile_field_edit_value();
 	
 	echo $HTML;
+	ms_caricaCategorie();
 	}
 			
 /*genero l'HTML da visualizzare lato back-end*/	
