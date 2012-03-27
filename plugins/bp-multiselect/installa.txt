@@ -4,3 +4,7 @@ Andare nella sezione plugins
 Attivare il plugin bp-multiselect
 
 Il plugin aggiunge un nuovo campo profilo chiamato 'box selezione multipla raggruppata'
+
+--
+
+Dopo la prima installazione si puo' utilizzare il tool Ant con il comando ant dalla cartella del plugin
