@@ -153,10 +153,32 @@ div.add-reviews:active{
 	background: #FFFFFF;
 }
 #header #search-bar .padder {
-	background: #FFFFFF url(img/B2B_logoOrizzontale.png) 0 50% no-repeat;
+	/*background: #FFFFFF url(img/B2B_logoOrizzontale.png) 0 50% no-repeat;*/
 	min-height: 80px !important;
 }
-#logo >a {display: none;}
+/* 
+ #logo >a {display: none;}
+*/
+#logo a
+{
+	display:block;
+	width:520px;
+	height:70px;
+	background:url(img/B2B_logoOrizzontale.png) no-repeat scroll left top transparent;
+	text-indent: -9999px;
+	padding-top: 0em;
+	padding-right: 0em;
+	padding-bottom: 0em;
+	padding-left: 0em;
+	border-top: 0em;
+	border-right: 0em;
+	border-bottom: 0em;
+	border-left: 0em;
+	margin-top: 0em;
+	margin-right: 0em;
+	margin-bottom: 0em;
+	margin-left: 0em;
+}
 
 #header #search-bar input[type="text"]:focus {
 	box-shadow: 0 0 10px #CCC;
