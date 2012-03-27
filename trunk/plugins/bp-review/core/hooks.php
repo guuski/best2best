@@ -199,6 +199,8 @@ function review_fix_comment_count($count,$post_id){
   function bp_reviews_format_notifications( $action, $item_id, $secondary_item_id, $total_items, $format = 'string' ) {
 	global $bp;
     
+    $text ="";
+    
              $review_id      = $item_id;
 	     $poster_user_id   = $secondary_item_id;
              $user_fullname = bp_core_get_user_displayname( $poster_user_id );
@@ -327,7 +329,7 @@ function bp_reviews_screen_notification_settings() {
 			<tr>
 				<th class="icon">&nbsp;</th>
 				<th class="title"><?php _e( 'Reviews', 'reviews' ) ?></th>
-				<th class="yes"><?php _e( 'Sì', 'reviews' ) ?></th>
+				<th class="yes"><?php _e( 'Sï¿½', 'reviews' ) ?></th>
 				<th class="no"><?php _e( 'No', 'reviews' )?></th>
 			</tr>
 		</thead>
