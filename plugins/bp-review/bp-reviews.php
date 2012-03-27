@@ -124,7 +124,7 @@ class BPUserReviewHelper
 	 */
 	function add_review_button()																	
 	{
-		if(!bp_is_my_profile()) {
+		if(review_current_user_can_write()) {
 			echo '
 			<div class = "add-reviews" >
 				<a 	
@@ -151,6 +151,5 @@ class BPUserReviewHelper
 
 }
 
-//
 BPUserReviewHelper::get_instance();
 ?>
