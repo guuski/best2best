@@ -140,31 +140,37 @@ function ms_caricaCategorie(){
 }
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
-	ms_updateDBfield();
 	//$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
 	$ms_insert = ms_caricaCategorie();
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
 	$HTML= ms_getScript();
-	
-	$HTML.= "<select id='ms_select' multiple='multiple' size='30' onchange='ms_loopSelected();'>";
+	$HTML.="<div style=\"height: 500px; overflow: auto; border: 1px solid rgb(238, 238, 238); padding:5px;\">";
 	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<optgroup label='$macro'>";
+			$HTML.="<label>$macro</label>";
 			foreach($subs as $sub) {
 				if (ms_isinarray($sub,$ms_mycategorie)){
-					//$HTML.="<label><input checked=\"checked\" type=\"checkbox\" value=\"$sub\">$sub</label>";
-					$HTML.="<option SELECTED value='$sub'>$sub</option>";
+					$HTML.="
+					<p>
+						<input style=\"float:left; padding-right:5px;\" name=\"checkgroup\" checked=\"checked\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
+						<option  id=\"ms_$sub\" disabled value='$sub'>$sub</option>
+					</p>
+						";
 				}
 				else{
-					//$HTML.="<label><input type=\"checkbox\" value=\"$sub\">$sub</label>";
-					$HTML.="<option value='$sub'>$sub</option>";
+					$HTML.="
+					<p>
+						<input style=\"float:left; padding-right:5px;\" name=\"checkgroup\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
+						<option id=\"ms_$sub\" value='$sub'>$sub</option>
+					</p>
+						";
 				}
 			}//end-foreach
-			$HTML.="</optgroup>";
 		}//end-foreach		
-	$HTML.= "</select>";
-	$HTML.= "<input type='hidden' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
+	$HTML.= "
+			</div>
+			<input type='text' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
 	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
 	
 	//valori importanti
@@ -172,31 +178,17 @@ function ms_getHTMLfrontend(){
 	//echo "<br />type=".bp_get_the_profile_field_type();
 	//echo "<br />isrequired=".bp_get_the_profile_field_is_required();
 	//echo "<br />edit value=".bp_get_the_profile_field_edit_value();
-	
 	echo $HTML;
 	ms_caricaCategorie();
 	}
 			
 /*genero l'HTML da visualizzare lato back-end*/	
 function ms_getHTMLbackend(){
-	ms_updateDBfield();
 	$ms_insert = ms_caricaCategorie(); //matrice di tutte le categorie e macrocategorie
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	
 	$HTML="<h1>QUESTA SEZIONE NON È AGGIORNATA...</h1>";
-	$HTML.= "<select multiple='multiple' size='30'>";
-	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<optgroup label='$macro'>";
-			foreach($subs as $sub) {
-				if (ms_isinarray($sub,$ms_mycategorie))
-					$HTML.="<option SELECTED value='$sub'>$sub</option>";
-				else
-					$HTML.="<option value='$sub'>$sub</option>";
-				}//end-foreach
-			$HTML.="</optgroup>";
-		}//end-foreach		
-	$HTML.= "</select>";
-	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
+	
 	echo $HTML;
 	}
 	
@@ -204,20 +196,25 @@ function ms_getScript(){
 	$SCRIPT="
 	<script language='JavaScript' type='text/javascript'>
 	<!--
-		function ms_loopSelected()
+		function ms_loop(form)
 		{
 			var txtSelectedValuesObj = document.getElementById('".bp_get_the_profile_field_input_name()."');
+			
 			var selectedArray = new Array();
-			var selObj = document.getElementById('ms_select');
-			var i;
 			var count = 0;
-			for (i=0; i<selObj.options.length; i++) {
-				if (selObj.options[i].selected) {
-				selectedArray[count] = selObj.options[i].value;
-				count++;
-			}
+			for (i=0; i<form.checkgroup.length; i++){
+				
+				if (form.checkgroup[i].checked==true){
+					selectedArray[count] = form.checkgroup[i].value;
+					count++;
+				}
 			}
 			txtSelectedValuesObj.value = selectedArray;
+		}
+		function ms_disable(form,disableIt,id)
+		{
+			document.getElementById(id).disabled = disableIt;
+			ms_loop(form);
 		}
 	//-->
 	</script>
