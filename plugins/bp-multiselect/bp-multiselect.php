@@ -72,6 +72,7 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	add_filter( 'xprofile_admin_field', 'bpd_admin_render_new_xprofile_field_type' );
 	
 	
+	
 /*Questo metodo mi consente di interagire con il lato front-end durante la 
  * modifica dei campi profilo  * */	
 function bpd_edit_render_new_xprofile_field($echo = true){
@@ -228,4 +229,6 @@ function bpd_load_css() {
 add_action( 'wp_print_scripts', 'bpd_load_js' );
 add_action( 'admin_init', 'bpd_load_css' );
 add_action( 'init', 'bpd_load_css' );
+
+add_filter( 'xprofile_field_after_save', 'ms_updateDBfield' );
 ?>
