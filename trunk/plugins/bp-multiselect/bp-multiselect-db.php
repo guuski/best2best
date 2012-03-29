@@ -171,7 +171,8 @@ function ms_getHTMLfrontend(){
 		}//end-foreach		
 	$HTML.= "
 			</div>
-			<input type='text' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
+			<br />
+			<input type='text' readonly='readonly' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
 			<script>ms_loop(this.form);</script>
 			";
 	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
@@ -232,7 +233,7 @@ function ms_getScript(){
 			border: 1px solid rgb(238, 238, 238); 
 			padding:5px 0px 0px 0px; 
 			margin: 0px;
-			width: 400px;
+			width: 450px;
 			}
 		.ms_divfrontend *{
 			margin: 0px;
