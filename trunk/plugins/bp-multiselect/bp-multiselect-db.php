@@ -57,7 +57,7 @@ function ms_getCategorieUTENTE(){
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	
 	if (isset($ms_output[0])) {
-		$field_selected=explode(",",$ms_output[0]->value);
+		$field_selected=explode(", ",$ms_output[0]->value);
 		return $field_selected;
 	}
 	//echo $field_selected[0] ;
