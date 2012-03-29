@@ -4,7 +4,6 @@ include_once('bp-multiselect-db.php');
 include_once('bp-multiselect-query.php');
 include_once('bp-multiselect.php');
 
-//include_once(ABSPATH .'wp-config.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
@@ -46,7 +45,6 @@ function ms_newfieldisset(){
 /*Questa funzione recupera le categorie associate all'utente presenti in 
  *buddypress.wp_bp_xprofile_data*/
 function ms_getCategorieUTENTE(){
-	//global $user_ID;
 	global $bp;
 	global $wpdb;
 	global $user_ID;
@@ -60,7 +58,6 @@ function ms_getCategorieUTENTE(){
 		$field_selected=explode(", ",$ms_output[0]->value);
 		return $field_selected;
 	}
-	//echo $field_selected[0] ;
 	return array();
 	
 }
@@ -75,7 +72,6 @@ function ms_updateDBfield(){
 	$ms_parent=ms_newfieldisset();
 	if (!ms_installed() && ($ms_parent!=-1)) {
 		$group_id=3;
-		//$tabella='wp_bp_xprofile_fields';
 		$type='multiselectboxrag';
 		$description='ms Categorie Acquisti';
 		$is_required=0;
@@ -108,7 +104,6 @@ function ms_updateDBfield(){
 /*Questo metodo leggendo da DB restituisce una matrice contenente tutte
  * le categorie e le sottocategorie*/
 function ms_caricaCategorie(){
-	//global $user_ID;
 	global $bp;
 	global $wpdb;
 	global $user_ID;
@@ -133,7 +128,6 @@ function ms_caricaCategorie(){
 }
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
-	//$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
 	$ms_insert = ms_caricaCategorie();
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
@@ -153,7 +147,6 @@ function ms_getHTMLfrontend(){
 				$cnt++;
 				
 			}//end-foreach
-			//$HTML.="<br />";
 		}//end-foreach		
 	$HTML.= "
 			</div>
@@ -161,13 +154,7 @@ function ms_getHTMLfrontend(){
 			<input type='text' readonly='readonly' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
 			<script>ms_check();</script>
 			";
-	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
 	
-	//valori importanti
-	//echo "<br />name=".bp_get_the_profile_field_input_name();
-	//echo "<br />type=".bp_get_the_profile_field_type();
-	//echo "<br />isrequired=".bp_get_the_profile_field_is_required();
-	//echo "<br />edit value=".bp_get_the_profile_field_edit_value();
 	echo $HTML;
 	ms_caricaCategorie();
 	}
@@ -192,7 +179,10 @@ function ms_getScript(){ ?>
 			var selected="";
 			jQuery.each(jQuery('input.multicheck'), function(key,box) {
 				if (jQuery(box).is(':checked')){
-					selected= selected + jQuery(box).val() + ", ";
+					if (selected=="")
+						selected=jQuery(box).val();
+					else
+						selected= selected + ", " + jQuery(box).val();
 					}
 			});
 

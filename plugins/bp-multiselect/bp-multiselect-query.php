@@ -1,46 +1,51 @@
 <?php
 
 /*QUESTA FUNZIONE GENERA UNA MATRICE AVENTE COME PRIMO INDICE LE 
- * MACROCATEGORIE E COME SECONDO LE SOTTOCATEGORIE*/
+ * MACROCATEGORIE E COME SECONDO LE SOTTOCATEGORIE
+ * 
+ * Per inserire nuove categorie o sottocategorie non utilizzare nel testo
+ * la virgola ma lo / */
+ 
+ 
 function ms_insert(){
 	
 	$ms_insert=array( 
 	'Investimenti Edili'=> array(
-			"Imprese Edili.Scavi",
-			"Imprese Edili.Edilizia",
-			"Arredo.Mobili",
-			"Arredo.Materassi" ,
-			"Arredo.Tendaggi" ,
-			"Idraulico / Sanitari" ,
+			"Imprese Edili-Scavi",
+			"Imprese Edili-Edilizia",
+			"Arredo-Mobili",
+			"Arredo-Materassi" ,
+			"Arredo-Tendaggi" ,
+			"Idraulico/Sanitari" ,
 			"Falegname" ,
-			"Cartongesso / Pittore" ,
+			"Cartongesso/Pittore" ,
 			"Ascensore incl. servizio assistenza" ,
 			"Elettricista" ,
 			"Impianti ventilazione" ,
 			"Grandi Cucine" ,
 			"Impianti refrigerazione" ,
 			"Banchi Bar" ,
-			"Prodotti per sicurezza.Casseforti" ,
-			"Prodotti per sicurezza.Controllo accesso" ,
-			"Prodotti per sicurezza.Videosorveglianza" ,
-			"Piscine / Saune.Piscine" ,
-			"Piscine / Saune.Saune" ,
-			"Piscine / Saune.Purificazione acqua piscina" ,
+			"Prodotti per sicurezza/Casseforti" ,
+			"Prodotti per sicurezza/Controllo accesso" ,
+			"Prodotti per sicurezza/Videosorveglianza" ,
+			"Piscine-Saune.Piscine" ,
+			"Piscine-Saune.Saune" ,
+			"Piscine-Saune.Purificazione acqua piscina" ,
 			"Porte" ,
 			"Finestre" ,
-			"Compertura terrazzi" 
+			"Copertura terrazzi" 
 			),
 	'Materiale di consumo' => array(
 			"Cartografie" ,
 			"Decorazione" ,
-			"Fiori / Piante" ,
+			"Fiori/Piante" ,
 			"Set Cortesia" ,
-			"Prodotti igene (carta igenica, saponi ecc.)" ,
+			"Prodotti igiene (carta igienica-saponi ecc.)" ,
 			"Articoli regalo (gadget)" 
 			),
 	'Materiale elettrico' => array(
 			"Lampadine" ,
-			"TV / Musica / Pay TV" ,
+			"TV-Musica-Pay TV" ,
 			"Sistemi diffusione TV Audio" 
 			),
 	'Food' => array(
@@ -52,25 +57,25 @@ function ms_insert(){
 			"Latticini" ,
 			"Cereali" ,
 			"Gelato" ,
-			"Alcolici, Vino" ,
-			"Alcolici, Superalcolici, grappe, distillati" ,
+			"Alcolici-Vino" ,
+			"Alcolici-Superalcolici/Grappe/Distillati" ,
 			"Analcolici",
-			"Prodotti dietetici, senza Glutine"
+			"Prodotti dietetici/senza Glutine"
 			),
 	'Consulenza' => array(
-			"Web.Pagine Web" ,
-			"Web.Gestione Portali" ,
-			"Web.Web Marketing" ,
+			"Web-Pagine Web" ,
+			"Web-Gestione Portali" ,
+			"Web-Web Marketing" ,
 			"Commercialista" ,
 			"Design" ,
 			"Architetto" ,
-			"Ingenieria" ,
+			"Ingegneria" ,
 			"Consulenza buste paga" ,
 			"Contabilit&#225;" ,
 			"Motivazione formazione collaboratori" ,
-			"Sicurezza sul lavoro, certificazionni ecc." ,
-			"Consulenza Sviluppo aziendale.Revenue",
-			"Consulenza Sviluppo aziendale.Controllo Costi"
+			"Sicurezza sul lavoro/certificazioni ecc." ,
+			"Consulenza Sviluppo aziendale-Revenue",
+			"Consulenza Sviluppo aziendale-Controllo Costi"
 			),
 	'Parco macchina' => array(
 			"Parco macchina"
@@ -79,30 +84,30 @@ function ms_insert(){
 			"Indumenti di lavoro"
 			),
 	'Servizi vari' => array(
-			"Pulizia.Stanze e Locali",
-			"Pulizia.Vetri",
+			"Pulizia-Stanze e Locali",
+			"Pulizia-Vetri",
 			"Sicurezza",
 			"Corriere (pacchi)",
-			"Inserzioni su media stampati (giornali, riviste...)",
+			"Inserzioni su media stampati (giornali/riviste...)",
 			"Servizio affitto biancheria e asciugamani",
-			"Ricerca Personale / Headhunter",
-			"Servizi igene generali (deratizzazione, colombe).Purificazione aria",
-			"Telecomunicazioni.Telefonia fissa",
-			"Telecomunicazioni.Telefonia mobile",
-			"Telecomunicazioni.Dati (ADSL)",
+			"Ricerca Personale/Headhunter",
+			"Servizi igiene generali (derattizzazione/colombe)-Purificazione aria",
+			"Telecomunicazioni-Telefonia fissa",
+			"Telecomunicazioni-Telefonia mobile",
+			"Telecomunicazioni-Dati (ADSL)",
 			"Assicurazioni",
-			"Rifiuti / Smaltimento",
+			"Rifiuti/Smaltimento",
 			"Spazzacamino"
 			),
 	'Materiali arredo' => array(
 			"Posateria",
-			"Vetro / Bicchieri",
+			"Vetro/Bicchieri",
 			"Mobili Giardino",
 			"Tendaggi",
 			"Ombrelloni"
 			),
 	'Prodotti mobili industriali'=> array(
-			"Macchinari per pulizia.Aspirapolveri, vaporelle ...",
+			"Macchinari per pulizia-Aspirapolveri/vaporelle ...",
 			"Macchina Caff&#233;",
 			"Stufe",
 			"Caminetti",
