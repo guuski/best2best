@@ -196,25 +196,21 @@ function ms_getHTMLbackend(){
 	echo $HTML;
 	}
 	
-function ms_getScript(){	
-	$SCRIPT="
+function ms_getScript(){ ?>
+	
 	<script language='JavaScript' type='text/javascript'>
 	<!--
 		function ms_loop(form)
 		{
-			var txtSelectedValuesObj = document.getElementById('".bp_get_the_profile_field_input_name()."');
-			
-			var selectedArray = new Array();
-			var count = 0;
-			for (i=0; i<form.checkgroup.length; i++){
-				
-				if (form.checkgroup[i].checked==true){
-					selectedArray[count] = form.checkgroup[i].value;
-					count++;
-				}
-			}
-			txtSelectedValuesObj.value = selectedArray;
+			var selected="";
+			jQuery.each(jQuery('input[name=checkgroup]'), function(box) {
+				if (box.is(':checked')){
+					selected.= jQuery(box).val();
+					}
+			});
+			jQuery("#<?php echo(bp_get_the_profile_field_input_name())?>").val(selected);
 		}
+		
 		function ms_disable(form,disableIt,id)
 		{
 			document.getElementById(id).disabled = disableIt;
@@ -223,9 +219,6 @@ function ms_getScript(){
 	//-->
 	</script>
 	
-	";
-
-	$SCRIPT.="
 	<style type='text/css'>
 		.ms_divfrontend {
 			height: 500px; 
@@ -253,9 +246,9 @@ function ms_getScript(){
 		.ms_divfrontend option{
 				
 			}
-	</style>";
+	</style>
 
+	<?php
 	
-	return $SCRIPT;
 	}
 ?>
