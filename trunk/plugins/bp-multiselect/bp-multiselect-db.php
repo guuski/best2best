@@ -146,31 +146,34 @@ function ms_getHTMLfrontend(){
 	            
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
 	$HTML= ms_getScript();
-	$HTML.="<div style=\"height: 500px; overflow: auto; border: 1px solid rgb(238, 238, 238); padding:5px;\">";
+	$HTML.="<div class='ms_divfrontend'>";
 	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<label>$macro</label>";
+			$HTML.="<h5>$macro</h5>";
 			foreach($subs as $sub) {
 				if (ms_isinarray($sub,$ms_mycategorie)){
 					$HTML.="
 					<p>
-						<input style=\"float:left; padding-right:5px;\" name=\"checkgroup\" checked=\"checked\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
-						<option  id=\"ms_$sub\" disabled value='$sub'>$sub</option>
+						<input name=\"checkgroup\" checked=\"checked\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
+						<option id=\"ms_$sub\" disabled value='$sub'>$sub</option>
 					</p>
 						";
 				}
 				else{
 					$HTML.="
 					<p>
-						<input style=\"float:left; padding-right:5px;\" name=\"checkgroup\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
+						<input name=\"checkgroup\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
 						<option id=\"ms_$sub\" value='$sub'>$sub</option>
 					</p>
 						";
 				}
 			}//end-foreach
+			//$HTML.="<br />";
 		}//end-foreach		
 	$HTML.= "
 			</div>
-			<input type='text' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>";
+			<input type='text' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
+			<script>ms_loop(this.form);</script>
+			";
 	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
 	
 	//valori importanti
@@ -218,28 +221,39 @@ function ms_getScript(){
 		}
 	//-->
 	</script>
+	
 	";
-/*
+
 	$SCRIPT.="
 	<style type='text/css'>
-		#ms_select {
+		.ms_divfrontend {
 			height: 500px; 
 			overflow: auto; 
-			border: 5px solid rgb(238, 238, 238); 
-			background: none repeat scroll 0% 0% rgb(238, 238, 238); 
-			color: rgb(0, 0, 0); 
-			margin-bottom: 0px;
+			border: 1px solid rgb(238, 238, 238); 
+			padding:5px 0px 0px 0px; 
+			margin: 0px;
+			width: 400px;
 			}
-		#ms_select *{
-			padding:0px 0px 0px 10px;
-			margin:0px;
-			}
-		#ms_select h4{
-			margin:10px 0px;
+		.ms_divfrontend *{
+			margin: 0px;
 			padding:0px;
 			}
+		.ms_divfrontend input {
+				float:left; 
+				margin-right:5px;
+				}
+		.ms_divfrontend p {
+			margin-left:10px;
+			}
+		.ms_divfrontend h5{
+			margin:0px 0px 5px 0px;
+			padding:0px;
+			}
+		.ms_divfrontend option{
+				
+			}
 	</style>";
-*/
+
 	
 	return $SCRIPT;
 	}
