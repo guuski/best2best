@@ -105,13 +105,6 @@ function ms_updateDBfield(){
 
 
 
-/*Questo metodo mi dice se una stringa è presente o meno detro un array*/
-function ms_isinarray($ms_string,$ms_array){
-	foreach ($ms_array as $key => $value){
-		if ($value==$ms_string) return true;
-		}
-		return false;
-	}
 /*Questo metodo leggendo da DB restituisce una matrice contenente tutte
  * le categorie e le sottocategorie*/
 function ms_caricaCategorie(){
@@ -147,25 +140,18 @@ function ms_getHTMLfrontend(){
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
 	$HTML= ms_getScript();
 	$HTML.="<div class='ms_divfrontend'>";
+	$cnt= 0;
 	foreach($ms_insert as $macro => $subs) {
 			$HTML.="<h5>$macro</h5>";
+			
 			foreach($subs as $sub) {
-				if (ms_isinarray($sub,$ms_mycategorie)){
-					$HTML.="
-					<p>
-						<input name=\"checkgroup\" checked=\"checked\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
-						<option id=\"ms_$sub\" disabled value='$sub'>$sub</option>
-					</p>
-						";
-				}
-				else{
-					$HTML.="
-					<p>
-						<input name=\"checkgroup\" type=\"checkbox\" value=\"$sub\" onclick='ms_disable(this.form,this.checked,\"ms_$sub\")'>
-						<option id=\"ms_$sub\" value='$sub'>$sub</option>
-					</p>
-						";
-				}
+				$checked="";
+				if(in_array($sub,$ms_mycategorie)){ $checked="checked=\"checked\""; } else {$checked="";}
+				$HTML.="<label>" .
+						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$sub\" onclick=\"ms_check()\" />" .
+						"$sub</label>"; 
+				$cnt++;
+				
 			}//end-foreach
 			//$HTML.="<br />";
 		}//end-foreach		
@@ -173,7 +159,7 @@ function ms_getHTMLfrontend(){
 			</div>
 			<br />
 			<input type='text' readonly='readonly' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
-			<script>ms_loop(this.form);</script>
+			<script>ms_check();</script>
 			";
 	$HTML.= "<p class='description'>Tenendo premuto CTRL selezionare tutte le sotto categorie associate all'attività</p>";
 	
@@ -200,21 +186,17 @@ function ms_getScript(){ ?>
 	
 	<script language='JavaScript' type='text/javascript'>
 	<!--
-		function ms_loop(form)
+		function ms_check()
 		{
+
 			var selected="";
-			jQuery.each(jQuery('input[name=checkgroup]'), function(box) {
-				if (box.is(':checked')){
-					selected.= jQuery(box).val();
+			jQuery.each(jQuery('input.multicheck'), function(key,box) {
+				if (jQuery(box).is(':checked')){
+					selected= selected + jQuery(box).val() + ", ";
 					}
 			});
+
 			jQuery("#<?php echo(bp_get_the_profile_field_input_name())?>").val(selected);
-		}
-		
-		function ms_disable(form,disableIt,id)
-		{
-			document.getElementById(id).disabled = disableIt;
-			ms_loop(form);
 		}
 	//-->
 	</script>
@@ -235,6 +217,7 @@ function ms_getScript(){ ?>
 		.ms_divfrontend input {
 				float:left; 
 				margin-right:5px;
+				vertical-align: middle;
 				}
 		.ms_divfrontend p {
 			margin-left:10px;
@@ -243,8 +226,8 @@ function ms_getScript(){ ?>
 			margin:0px 0px 5px 0px;
 			padding:0px;
 			}
-		.ms_divfrontend option{
-				
+		.ms_divfrontend label{
+			margin: 0;
 			}
 	</style>
 
