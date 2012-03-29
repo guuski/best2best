@@ -228,6 +228,7 @@ function ms_getScript(){ ?>
 			}
 		.ms_divfrontend label{
 			margin: 0;
+			line-height: 15px;
 			}
 	</style>
 
