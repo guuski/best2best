@@ -219,6 +219,7 @@ function bpd_load_js() {
 		//echo "bpd_load_js<br />";
 		wp_enqueue_script( 'bpd-js', get_bloginfo('url') . '/wp-content/plugins/bp-multiselect/js/xprofile-multiselect.js',
 							array( 'jquery' ), '1.0' );
+	//	wp_enqueue_script('jquery-ui-widget');
 }
 
 function bpd_load_css() {
