@@ -312,8 +312,8 @@ class BPUserReview extends BP_Component
 		parent::setup_globals( $globals );//it will call do_action("bp_reviews_setup_global") after setting up the constants properly
                 	  
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------			  
-		//
-		if(bp_is_current_component($bp->reviews->root_slug))
+		//disabilito 
+		if(bp_is_current_component($bp->reviews->root_slug) && false)
 		{			
 			//(dallo BP-ALBUM)				
 				//$bp->reviews = new stdClass();															//[ST]
@@ -532,8 +532,8 @@ class BPUserReview extends BP_Component
 				//
 				$content   = $_POST['new-review'];		
 								
-				$review_id = $this->mapper->save_review($content);												//[L]
-				
+				//$review_id = $this->mapper->save_review($content);												//[L]
+				$review_id = $this->mapper->associate_review_page(null, $content);
 				//////////////////////////////////////////////////////////
 				//PROVA_ID
 				//$prova_id = $this->mapper->save_review_prova($content);										//[L]		//[C]

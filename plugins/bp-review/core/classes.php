@@ -144,8 +144,8 @@ abstract class BPReviewMapper
 			'comment_post_ID' 	 => $review_parent
 		) ;
 
-		$review_id = wp_insert_comment($review_data);
-		
+		//$review_id = wp_insert_comment($review_data);
+		$review_id = 1;
 		return $review_id;
 	}
 	
@@ -260,14 +260,15 @@ class BPUserReviewMapper extends BPReviewMapper
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	       
-    function associate_review_page($user_id = null)
+    function associate_review_page($user_id = null, $contenuto = null)
 	{
 		if(empty($user_id))
 			$user_id = bp_displayed_user_id ();
        
 		$post_id = $this->get_post_id();
        
-		if(empty($post_id))
+       // abilito
+		if(empty($post_id) || true)
 		{         
 			$title = sprintf(__("Review per l utente [%s] con ID:[%d]",'reviews'),bp_core_get_user_displayname($user_id),$user_id);
 			
@@ -277,7 +278,7 @@ class BPUserReviewMapper extends BPReviewMapper
 				'post_author'	=> $user_id,
 				'post_type'		=> 'ureviews',
 				//////////////////////////////////////////////
-				//'post_content'  => 'prova contenuto last',
+				'post_content'  => $contenuto,
 				//////////////////////////////////////////////
 				'post_status'   => 'publish'
 			);
@@ -285,6 +286,7 @@ class BPUserReviewMapper extends BPReviewMapper
 			$post_id = wp_insert_post($postarray);
 			update_user_meta($user_id,'associated_review_page' , $post_id) ;
 		}
+		return $post_id;
 	}
    
 //////////////////////////////////////////////////////////////////////////////////////////////////////	//////////////////////////////////////////////////////////////////////////////////////////////////////	      
