@@ -205,7 +205,7 @@ function ms_getScript(){ ?>
 			padding:0px;
 			}
 		.ms_divfrontend input {
-				float:left; 
+				 
 				margin-right:5px;
 				vertical-align: middle;
 				}
@@ -213,12 +213,13 @@ function ms_getScript(){ ?>
 			margin-left:10px;
 			}
 		.ms_divfrontend h5{
-			margin:0px 0px 5px 0px;
+			margin: 6px 0px 2px 0px;
 			padding:0px;
+			font-size: 14px;
 			}
 		.ms_divfrontend label{
 			margin: 0;
-			line-height: 15px;
+			line-height: 16px;
 			}
 	</style>
 
