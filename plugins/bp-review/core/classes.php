@@ -71,7 +71,7 @@ abstract class BPReviewMapper
        
    }    
    
-  
+  // gbp modificare per ottenere i post invece dei commenti
    function get_comment_by_status($is_approved,$page=1,$limit=20){
           global $wpdb;
           $pag_sql='';
@@ -265,7 +265,7 @@ class BPUserReviewMapper extends BPReviewMapper
 		if(empty($user_id))
 			$user_id = bp_displayed_user_id ();
        
-		$post_id = $this->get_post_id();
+		//$post_id = $this->get_post_id();
        
        // abilito
 		if(empty($post_id) || true)
@@ -275,7 +275,7 @@ class BPUserReviewMapper extends BPReviewMapper
 			$postarray = array
 			(
 				'post_title'	=> $title,
-				'post_author'	=> $user_id,
+				'post_author'	=> get_current_user_id(),
 				'post_type'		=> 'ureviews',
 				//////////////////////////////////////////////
 				'post_content'  => $contenuto,
@@ -285,6 +285,8 @@ class BPUserReviewMapper extends BPReviewMapper
 			 
 			$post_id = wp_insert_post($postarray);
 			update_user_meta($user_id,'associated_review_page' , $post_id) ;
+			update_post_meta($post_id, 'associated_user_id' , $user_id);
+			
 		}
 		return $post_id;
 	}
@@ -336,7 +338,7 @@ class BPUserReviewNotifier
         $this->notifiers->attach($observer);
     }
     
-    
+    //gbp salvare notifica nel modo corretto
     function on_save($review_id)
 	{
         $comment=BPReviewMapper::get_comment($review_id);
@@ -357,6 +359,8 @@ class BPUserReviewNotifier
         self::local_notify($comment->user_id,$post->post_author,$review_id,'approved_review');
     }
     
+    
+    //gbp aggiustare notifica
     function local_notify($user_id,$who_wrote_it,$comment_id,$action){
         global $bp;
         bp_core_add_notification( $comment_id, $user_id, $bp->reviews->id, $action, $who_wrote_it );
@@ -370,7 +374,7 @@ class BPUserReviewNotifier
   
  function notify_by_email($user_id,$other_id,$comment_id,$action)
  {
-     global $bp;
+   /*  global $bp;
      
      if($action=='new_review'&& bp_get_user_meta( $user_id, 'notification_reviews_new_review', true )!='yes'||$action=='approved_review'&&bp_get_user_meta( $user_id, 'notification_reviews_approved_review', true )!='yes' )
              return;
@@ -427,7 +431,7 @@ Per vederla visita: %3$s
 
 				
 		wp_mail( $to, $subject, $message );
-	    
+	 */   
  }   
 }
 
