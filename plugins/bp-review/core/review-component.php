@@ -357,11 +357,13 @@ class BPUserReview extends BP_Component
 	   
 		if(bp_is_my_profile())
 		{
+			//gbp -> correggere funzione, deve recuperare numero review approvate invece di numero commenti
 			$nav_text	 =	sprintf(__('Le mie Review <span>%d</span>','reviews'),$this->mapper->get_comment_count_by_status(1));
 			$review_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );//without a trailing slash
 		}
 		else
 		{
+			//gbp -> correggere funzione, deve recuperare numero review approvate invece di numero commenti
 			$nav_text	 =	sprintf (__('Review di %s <span>%d</span>', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id),$this->mapper->get_comment_count_by_status(1));	
 			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug );//without a trailing slash
 		}
@@ -447,7 +449,7 @@ class BPUserReview extends BP_Component
 	{
 		global $bp;
 		
-		//delete all notifications for this user
+		//gbp - controllare id
 		bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->reviews->id, 'new_review');
 		
 		add_action('bp_template_content',array(&$this,'pending_content'));
@@ -534,9 +536,6 @@ class BPUserReview extends BP_Component
 								
 				//$review_id = $this->mapper->save_review($content);												//[L]
 				$review_id = $this->mapper->associate_review_page(null, $content);
-				//////////////////////////////////////////////////////////
-				//PROVA_ID
-				//$prova_id = $this->mapper->save_review_prova($content);										//[L]		//[C]
 				//////////////////////////////////////////////////////////
 								
 				$message   = __('Review inviata. In attesa di moderazione.','reviews');
