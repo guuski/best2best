@@ -141,7 +141,7 @@ function ms_getHTMLfrontend(){
 			foreach($subs as $sub) {
 				$checked="";
 				if(in_array($sub,$ms_mycategorie)){ $checked="checked=\"checked\""; } else {$checked="";}
-				$HTML.="<label>" .
+				$HTML.="<label onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>" .
 						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$sub\" onclick=\"ms_check()\" />" .
 						"$sub</label>"; 
 				$cnt++;
@@ -189,6 +189,24 @@ function ms_getScript(){ ?>
 			jQuery("#<?php echo(bp_get_the_profile_field_input_name())?>").val(selected);
 		}
 	//-->
+	</script>
+	
+	<script>
+	<!--
+		function ms_labelon(t)
+		{	
+			t.style.color = '#ffffff';
+			t.style.background ='#888888' ;
+			t.style.cursor = 'pointer';
+		}
+
+		function ms_labeloff(t)
+		{
+			t.style.color = 'rgb(68,68,68)';
+			t.style.background ='#ffffff' ;
+			t.style.cursor = 'default';
+		}	
+	//-->	
 	</script>
 	
 	<style type='text/css'>
