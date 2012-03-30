@@ -1,0 +1,42 @@
+<project name="bp-custom" default="dist" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="."/>
+  <property name="dist"  location="/var/www/wp-content/plugins"/>
+  <property name="theme_dir" location="/var/www/wp-content/themes/frisco-for-buddypress"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+  </target>
+
+  <target name="dist" description="installa customizzazioni localmente" >
+    <!-- Create the distribution directory -->
+    <copy todir="${theme_dir}">
+      <fileset dir="${src}" includes="custom.css"/>
+    </copy>
+  	 <copy todir="${theme_dir}/images">
+  	      <fileset dir="${src}" includes="B2B_logoOrizzontale.png"/>
+  	    </copy>
+  	<copy todir="${dist}">
+  	      <fileset dir="${src}" includes="bp-custom.php bp-custom-config-env.php bp-custom-jcrop.php"/>
+  	</copy>
+  </target>
+
+  
+
+	<target name="deploy_prod">
+		<ftp server="ftp.best2best.it"
+		       remotedir="/wp-content/plugins/bp-review"
+		       userid="giambattista"
+		       password="Giambyte81"
+		       passive="yes"
+		       depends="yes"
+		       binary="yes">
+		    <fileset dir="${src}" excludes="**/*.svn build.xml"/>
+		  </ftp>
+	</target>
+</project>
