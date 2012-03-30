@@ -190,3 +190,17 @@ div.add-reviews:active{
 .nav-wrap {
 	padding: 5px 0;
 }
+
+div.item-list-tabs ul li a span {
+	background: #444;
+}
+
+div.item-list-tabs ul li {
+	background: #2BB573;
+	border: 1px solid #2BB573;
+}
+
+div.item-list-tabs ul li:hover {
+	background: #444;
+	border-color: #444;
+}
