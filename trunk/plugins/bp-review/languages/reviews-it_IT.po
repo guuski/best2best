@@ -1,0 +1,364 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: bp-reviews.php:68
+#: bp-reviews.php:69
+#@ reviews
+msgid "User Review"
+msgstr ""
+
+#: bp-reviews.php:135
+#@ reviews
+msgid "Add Review"
+msgstr "Scrivi una recensione"
+
+#: core/classes.php:195
+#, php-format
+#@ reviews
+msgid "Review per l utente [%s] con ID:[%d]"
+msgstr ""
+
+#: core/classes.php:295
+#, php-format
+#@ reviews
+msgid "%s ti ha scritto una nuova review"
+msgstr ""
+
+#: core/classes.php:299
+#, php-format
+#@ reviews
+msgid ""
+"%1$s ti ha scritto una nuova review:\n"
+"\n"
+"\"%2$s\"\n"
+"\n"
+"Per vederla, loggati e visita: %3$s\n"
+"\n"
+"---------------------\n"
+msgstr ""
+
+#: core/classes.php:313
+#, php-format
+#@ reviews
+msgid "%s ha approvato la tua review"
+msgstr ""
+
+#: core/classes.php:317
+#, php-format
+#@ reviews
+msgid ""
+"%1$s ha approvato la tua review:\n"
+"\n"
+"\"%2$s\"\n"
+"\n"
+"Per vederla visita: %3$s\n"
+"\n"
+"---------------------\n"
+msgstr ""
+
+#: core/hooks.php:53
+#@ default
+msgid "Commenti recenti"
+msgstr ""
+
+#: core/hooks.php:108
+#@ default
+msgid "Nessun commento ancora."
+msgstr ""
+
+#: core/hooks.php:170
+#@ reviews
+msgid "Nuove Review"
+msgstr ""
+
+#: core/hooks.php:173
+#, php-format
+#@ reviews
+msgid "Hai riveduto %1$d nuove reviews"
+msgstr ""
+
+#: core/hooks.php:181
+#: core/hooks.php:234
+#, php-format
+#@ reviews
+msgid "%1$s ti ha scritto una nuova review"
+msgstr ""
+
+#: core/hooks.php:190
+#@ reviews
+msgid "Review approvate"
+msgstr ""
+
+#: core/hooks.php:193
+#, php-format
+#@ reviews
+msgid "Congratulazioni! %1$d delle tue reviews sono state approvate"
+msgstr ""
+
+#: core/hooks.php:201
+#: core/hooks.php:242
+#, php-format
+#@ reviews
+msgid "%1$s ha approvato la tua review"
+msgstr ""
+
+#: core/hooks.php:239
+#@ reviews
+msgid "Reviews approvate"
+msgstr ""
+
+#: core/hooks.php:290
+#@ reviews
+msgid "Reviews"
+msgstr ""
+
+#: core/hooks.php:291
+#@ reviews
+msgid "Sì"
+msgstr ""
+
+#: core/hooks.php:292
+#@ reviews
+msgid "No"
+msgstr ""
+
+#: core/hooks.php:299
+#@ reviews
+msgid "Un utente ti ha scritto una review"
+msgstr ""
+
+#: core/hooks.php:305
+#@ reviews
+msgid "Quando un utente approva la tua review"
+msgstr ""
+
+#: core/review-component.php:30
+#@ reviews
+msgid "Review"
+msgstr ""
+
+#: core/review-component.php:95
+#, php-format
+#@ reviews
+msgid "Reviews <span>%d</span>"
+msgstr ""
+
+#: core/review-component.php:106
+#, php-format
+#@ reviews
+msgid "Le mie Review <span>%d</span>"
+msgstr ""
+
+#: core/review-component.php:110
+#, php-format
+#@ reviews
+msgid "Review di %s <span>%d</span>"
+msgstr ""
+
+#: core/review-component.php:127
+#@ reviews
+msgid "Scrivi una Review"
+msgstr ""
+
+#: core/review-component.php:139
+#, php-format
+#@ reviews
+msgid "Da moderare <span>%d</span>"
+msgstr ""
+
+#: core/review-component.php:196
+#@ reviews
+msgid "Non sei autorizzato a compiere questa operazione"
+msgstr ""
+
+#: core/review-component.php:200
+#@ reviews
+msgid "Inserisci del testo per favore"
+msgstr ""
+
+#: core/review-component.php:204
+#@ reviews
+msgid "Scrittura Review non consentita."
+msgstr ""
+
+#: core/review-component.php:212
+#@ reviews
+msgid "Review inviata. In attesa di moderazione."
+msgstr ""
+
+#: core/review-component.php:214
+#@ reviews
+msgid "Operazione non riuscita. Prova di nuovo più tardi."
+msgstr ""
+
+#: core/review-component.php:243
+#: core/review-component.php:269
+#@ reviews
+msgid "Non sei autorizzato a compiere quest operazione"
+msgstr ""
+
+#: core/review-component.php:247
+#@ reviews
+msgid "Cancellazione effettuata correttamente"
+msgstr ""
+
+#: core/review-component.php:273
+#: core/review-component.php:277
+#@ reviews
+msgid "Operazione non valida."
+msgstr ""
+
+#: core/review-component.php:288
+#@ reviews
+msgid "Review approvata e visibile sul tuo profilo"
+msgstr ""
+
+#: core/review-component.php:292
+#@ reviews
+msgid "Review in attesa di moderazione! Vai alla scheda Review sul tuo profilo..."
+msgstr ""
+
+#: core/review-component.php:298
+#@ reviews
+msgid "Non sei autorizzato a compiere quest'operazione"
+msgstr ""
+
+#: core/review-component.php:308
+#@ reviews
+msgid "Operazione non riuscita!. Riprova di nuovo!"
+msgstr ""
+
+#: core/template-tags.php:201
+#@ reviews
+msgid "your"
+msgstr ""
+
+#: core/template-tags.php:203
+#@ reviews
+msgid "dall\\' utente"
+msgstr ""
+
+#: core/template-tags.php:204
+#, php-format
+#@ reviews
+msgid "Prima di diventare pubblica deve essere moderata %s"
+msgstr ""
+
+#: core/template-tags.php:222
+#, php-format
+#@ reviews
+msgid "Visualizza review %1$s a %2$s (su %3$s review attive)"
+msgstr ""
+
+#: core/template-tags.php:245
+#@ reviews
+msgid "Nascondi"
+msgstr ""
+
+#: core/template-tags.php:249
+#@ reviews
+msgid "Approva"
+msgstr ""
+
+#: core/template-tags.php:254
+#, php-format
+#@ reviews
+msgid "<a href='%s' class='review-update'>%s</a>"
+msgstr ""
+
+#: core/template-tags.php:268
+#, php-format
+#@ reviews
+msgid "<a href='%s' class='review-delete'>Delete</a>"
+msgstr ""
+
+#: inc/ajax.php:52
+#@ reviews
+msgid "Please enter something text."
+msgstr ""
+
+#: inc/ajax.php:66
+#@ reviews
+msgid "There was a problem posting your review, please try again."
+msgstr ""
+
+#: inc/ajax.php:88
+#: inc/ajax.php:94
+#@ reviews
+msgid "Invalid action"
+msgstr ""
+
+#: inc/ajax.php:105
+#@ reviews
+msgid "You are not authorized to preform this action"
+msgstr ""
+
+#: inc/ajax.php:110
+#@ reviews
+msgid "Deleted Successfully"
+msgstr ""
+
+#: inc/ajax.php:143
+#@ reviews
+msgid "Your action is not valid!."
+msgstr ""
+
+#: inc/ajax.php:152
+#@ reviews
+msgid "Review marked as approved! It will be visible on your reviews page now."
+msgstr ""
+
+#: inc/ajax.php:157
+#@ reviews
+msgid "Review marked as pending! You can see it from the pending tab of your profile. It will be visible to only you and the person who wrote it."
+msgstr ""
+
+#: inc/ajax.php:164
+#@ reviews
+msgid "You don't have the rights to performs this action."
+msgstr ""
+
+#: inc/ajax.php:176
+#@ reviews
+msgid "There was a problem performing the action!. Please try again later!"
+msgstr ""
+
+#: reviews/entry.php:19
+#, php-format
+#@ reviews
+msgid "%s on <span class=\"date-time\">%s</span>:"
+msgstr ""
+
+#: reviews/post-form.php:25
+#@ reviews
+msgid "Scrivi una nuova review!"
+msgstr ""
+
+#: reviews/post-form.php:34
+#@ reviews
+msgid "Post"
+msgstr ""
+
+#: reviews/review-loop.php:47
+#@ reviews
+msgid "Non ci sono review al momento"
+msgstr ""
+
