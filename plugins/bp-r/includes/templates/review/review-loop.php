@@ -4,16 +4,11 @@
 
 
 
-
-
-
-
-
+// ATTENZIoNE: sto file è una BETONIERA!!!
 // veniva caricato dalla DIRECTORY----al momento non lo usa nessuno ---non CANCELLARE ---> serve ancora
 
 
-
-
+// verrà riutilizzato appena gli SCREEN vengono sistemati
 
 
 
@@ -128,6 +123,73 @@ global $bp
 	
 	<!-- DO_ACTION -->
 	<?php do_action( 'bp_after_directory_review_list' ); ?>
+	
+	
+	
+
+
+
+
+<!--------------------------------------  LISTA 2 --------------------------------------------------------------------------------------------->
+
+
+
+	<!-- vd REVIEW LOOP  dal file review-loop.php -->
+	
+
+
+	<!-- prove a passare il PARAMETRO 'bp_displayed_user_id()'alla funzione 'bp_review_the_review(    )'-->
+	
+	
+	
+<ul id="review-list" class="review-list" role="main">		
+	
+		<!-- WHILE-->
+		<?php while ( bp_review_has_reviews(bp_displayed_user_id()) ) : bp_review_the_review(); ?>		
+			<li>
+				<div class="reviewer-avatar">																<!--reviewER-->
+					<?php bp_review_reviewer_avatar( 'type=thumb&width=50&height=50' ); ?>					<!--reviewER-->
+				</div>
+
+				<div class="review">
+					<!--------------------------- TITOLO -------------------------------------->
+					
+					<!-- V1 -->
+					<!-- <div class="review-title"><?php //bp_review_review_title() ?></div>-->
+										
+					<!---V 2 --------------------------------------------------------->
+					<div class="review-title">
+						<?php //the_title() ?>
+						<?php the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
+					</div>
+					<!---------------------------------------------------------------->
+
+					
+					<!--------------------------- CONTENUTO -------------------------------------->
+					<!-- V 1 -->	
+					<!-- <div class="review-content"><?php //bp_review_review_content() ?></div>-->
+						
+					<!-- V 2 -->
+					<div class="review-content"><?php the_content() ?></div>
+					
+												
+					<!-- DO_ACTION -->
+					<?php do_action( 'bp_directory_review_item' ); ?>										<!--item????-->
+				</div>								
+				<div class="clear"></div>
+			</li>
+		<?php endwhile; ?>
+	</ul>
+<!-------------------------------------- fine LISTA 2 --------------------------------------------------------------------------------------------->
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<div id="pag-bottom" class="pagination">
 		<div class="pag-count" id="review-dir-count-bottom">
