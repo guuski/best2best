@@ -353,7 +353,7 @@ class BP_Review_Component extends BP_Component {
 			
 			// CUSTOM FIELDS - META BOXES -	in prova
 			, 'custom-fields'		 => true				//anche se False è possibile aggiungere custom fields 				
-			, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
+			//, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
 		);      
     		     
 		register_post_type( $this->id, $args );
@@ -377,5 +377,70 @@ function bp_review_load_core_component()
 	$bp->review = new BP_Review_Component;
 }
 add_action( 'bp_loaded', 'bp_review_load_core_component' );
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//												[C] 3  - META BOXES o CUSTOME FIELDS
+//
+// 2 hoos + 3 funzioni di cui una di callback
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'add_meta_boxes', 'add_review_meta_box');	
+	//add_action( 'admin_init', 'add_review_meta_box');					//[ALT]
+
+/**
+ * 
+ * 
+ */
+function add_review_meta_box() 															
+{	
+	add_meta_box
+	(		
+			'review-details'		 // CSS_ID
+		, 	'Dettagli Review'		 // title
+		
+		// (*)
+		, 	'show_review_meta_box' 	 // callback Function name
+		
+		, 	'review' 				 // page_paramater = post_type
+		,	'normal'				 // context	
+		,	'high'					 // piority
+		//, 	1					 // callback Args - [?]
+	);		
+			
+}
+		
+/**
+ *
+ *	vd SOPRA (*)-->	'show_review_meta_box' 	 // callback Function name
+ */
+function show_review_meta_box( $post ) 							
+{
+	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		
+		
+	?>
+		<p> ID dell'utente per cui è stata scritta la Review: 
+			<input 
+				type  = "text" 
+				name  = "bp_review_recipient_id" 
+				value = "<?php echo esc_attr( $bp_review_recipient_id ); ?>" 
+			/>
+		</p>				
+	<?php	
+}
+
+//HOOK
+add_action( 'save_post', 'save_review_meta_box' );
+
+/**
+ *
+ */
+function save_review_meta_box( $post_id ) 
+{
+	if ( isset( $_POST['bp_review_recipient_id'] ) ) 
+	{			
+		update_post_meta( $post_id, 'bp_review_recipient_id', 	strip_tags( $_POST['bp_review_recipient_id'] ) );
+	}
+}
 
 ?>
