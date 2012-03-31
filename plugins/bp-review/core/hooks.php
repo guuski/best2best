@@ -211,7 +211,7 @@ function review_fix_comment_count($count,$post_id){
 			$review_title = __('Nuove Review','reviews');
 
 			if ( (int)$total_items > 1 ) {
-				$text_title = sprintf( __( 'Hai riveduto %1$d nuove reviews', 'reviews' ), (int)$total_items );
+				$text_title = sprintf( __( 'Hai ricevuto %1$d nuove reviews', 'reviews' ), (int)$total_items );
                                 
                                 $notifications=bp_reviews_get_notifications(bp_loggedin_user_id());
                                 $text=bp_review_build_notification($notifications);
@@ -251,7 +251,7 @@ function review_fix_comment_count($count,$post_id){
 		$return =  '<a href="' . $review_link. '" title="' . $review_title . '">' . $text_title . '</a>'.( (int)$total_items>1?$text:'');
 	} else {
 		$return =  array(
-			'text' => $text,
+			'text' => $text_title,
 			'link' => $review_link
 		);
 	}
@@ -329,7 +329,7 @@ function bp_reviews_screen_notification_settings() {
 			<tr>
 				<th class="icon">&nbsp;</th>
 				<th class="title"><?php _e( 'Reviews', 'reviews' ) ?></th>
-				<th class="yes"><?php _e( 'S�', 'reviews' ) ?></th>
+				<th class="yes"><?php _e( 'Si', 'reviews' ) ?></th>
 				<th class="no"><?php _e( 'No', 'reviews' )?></th>
 			</tr>
 		</thead>

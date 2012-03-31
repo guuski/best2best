@@ -116,6 +116,8 @@ abstract class BPReviewMapper
             $reviews=$wpdb->get_var($sql);
        return $reviews;
    }
+   
+   //TODO sostituire con get_post
    function get_comment($comment_id){
        global $wpdb;
         $comment=$wpdb->get_row($wpdb->prepare("SELECT * from {$wpdb->comments} WHERE comment_ID=%d ",$comment_id));
@@ -339,11 +341,12 @@ class BPUserReviewNotifier
     }
     
     //gbp salvare notifica nel modo corretto
-    function on_save($review_id)
+    function on_save($post_id)
 	{
-        $comment=BPReviewMapper::get_comment($review_id);
-        $post=get_post($comment->comment_post_ID);
-        self::local_notify($post->post_author,$comment->user_id,$review_id,'new_review');
+        //$comment=BPReviewMapper::get_comment($post_id);
+        //$post=get_post($comment->comment_post_ID);
+        
+        self::local_notify(bp_displayed_user_id(),bp_loggedin_user_id(), $post_id,'new_review');
     }
     
     function on_delete(){
@@ -354,9 +357,10 @@ class BPUserReviewNotifier
         if($action!='approve')
             return;
         
-		$comment=BPReviewMapper::get_comment($review_id);
-        $post=get_post($comment->comment_post_ID);
-        self::local_notify($comment->user_id,$post->post_author,$review_id,'approved_review');
+// 		$comment=BPReviewMapper::get_comment($review_id);
+//         $post=get_post($comment->comment_post_ID);
+//         self::local_notify($comment->user_id,$post->post_author,$review_id,'approved_review');
+        self::local_notify(bp_displayed_user_id(),bp_loggedin_user_id(), $post_id,'approved_review');
     }
     
     
