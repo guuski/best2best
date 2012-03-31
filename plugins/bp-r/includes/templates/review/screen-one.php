@@ -165,16 +165,55 @@ global $bp
 	
 	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>
 	
+	
+	
+	
 	<!-- vd REVIEW LOOP  dal file review-loop.php -->
-		
+	
+
+
+	<!-- prove a passare il PARAMETRO 'bp_displayed_user_id()'alla funzione 'bp_review_the_review(    )'-->
+	
+	
+	
+<ul id="review-list" class="review-list" role="main">		
+	
 		<!-- WHILE-->
-		<?php //while ( bp_review_has_reviews() ) : bp_review_the_review(); ?>		
-		
-			<!-- the_title() -->
-			<!-- the_content() -->
-			
-			
-			
+		<?php while ( bp_review_has_reviews() ) : bp_review_the_review(bp_displayed_user_id()); ?>		
+			<li>
+				<div class="reviewer-avatar">																<!--reviewER-->
+					<?php bp_review_reviewer_avatar( 'type=thumb&width=50&height=50' ); ?>					<!--reviewER-->
+				</div>
+
+				<div class="review">
+					<!--------------------------- TITOLO -------------------------------------->
+					
+					<!-- V1 -->
+					<!-- <div class="review-title"><?php //bp_review_review_title() ?></div>-->
+										
+					<!---V 2 --------------------------------------------------------->
+					<div class="review-title">
+						<?php //the_title() ?>
+						<?php the_title('<h2 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h2>');?>
+					</div>
+					<!---------------------------------------------------------------->
+
+					
+					<!--------------------------- CONTENUTO -------------------------------------->
+					<!-- V 1 -->	
+					<!-- <div class="review-content"><?php //bp_review_review_content() ?></div>-->
+						
+					<!-- V 2 -->
+					<div class="review-content"><?php the_content() ?></div>
+					
+												
+					<!-- DO_ACTION -->
+					<?php do_action( 'bp_directory_review_item' ); ?>										<!--item????-->
+				</div>								
+				<div class="clear"></div>
+			</li>
+		<?php endwhile; ?>
+	</ul>
 			
 			
 			
