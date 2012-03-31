@@ -165,8 +165,8 @@ class BP_Review_Component extends BP_Component {
 			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_REVIEW_SLUG,
 			
 			//DIRECTORY 
-			'has_directory'         => true, 
-			//'has_directory'         => false, 
+			//'has_directory'         => true, 
+			'has_directory'         => false, 
 			
 			//NOTIFICATIONS
 			'notification_callback' => 'bp_review_format_notifications',
@@ -314,8 +314,10 @@ class BP_Review_Component extends BP_Component {
 			
 			// , 'has_archive'   => 'archivio'				
 			// , 'has_archive'   => 'reviews_archive'
-			// , 'has_archive'   => true
-			// , 'has_archive'   => 'review'
+			//, 'has_archive'   => true
+			//, 'has_archive'   => 'review'
+			
+			, 'has_archive'   => 'lista-reviews'
 			
 			// PUBLIC
 			// if False --> show_ui(F), publicly_queryable (F), exclude_from_search(T), show_in_nav_menus(F)
@@ -419,7 +421,7 @@ function show_review_meta_box( $post )
 	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		
 		
 	?>
-		<p> ID dell'utente per cui è stata scritta la Review: 
+		<p> ID dell'utente di cui si vuole scrivere la Review: 
 			<input 
 				type  = "text" 
 				name  = "bp_review_recipient_id" 
