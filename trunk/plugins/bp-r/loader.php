@@ -82,7 +82,7 @@ function review_current_user_can_write(){
 			<a
 			class = "add-reviews button"
 			title = "Scrivi una Review per l\'utente."
-			href="'.bp_get_displayed_user_link().'reviews/create#user-activity"
+			href="'.bp_get_displayed_user_link().'review/screen-one#user-activity"
 			>
 			'.__('Add Review','reviews').'
 			</a>
