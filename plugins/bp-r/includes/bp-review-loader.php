@@ -86,11 +86,11 @@ class BP_Review_Component extends BP_Component {
 	/**
 	 *	Costruttore 	
 	 *
-	 * L'unico metodo da richiamare obbligatoriamente è start() ---> parent::start()
+	 * L'unico metodo da richiamare obbligatoriamente ï¿½ start() ---> parent::start()
 	 *
 	 *   (1) $id   - identificatore univoco
 	 *   (2) $name 	              
-	 *   (3) $path - Il percorso della directory del plugin è usato da BP_Component::includes() per includere i file del plugin.
+	 *   (3) $path - Il percorso della directory del plugin ï¿½ usato da BP_Component::includes() per includere i file del plugin.
 	 *
 	 */
 	function __construct() 
@@ -99,17 +99,17 @@ class BP_Review_Component extends BP_Component {
 
 		parent::start(
 			'review',						//ID
-			__( 'Review', 'bp-review' ),														//[T] traduci	
+			__( 'Review', 'reviews' ),														//[T] traduci	
 			BP_REVIEW_PLUGIN_DIR			//untrailingslashit(BP_REVIEW_PLUGIN_DIR) 
 		);
 	
 		$this->includes();
 		
-		// così che la funzione 'bp_is_active( 'review')' restituisce TRUE;
+		// cosï¿½ che la funzione 'bp_is_active( 'review')' restituisce TRUE;
 		$bp->active_components[$this->id] = '1';
 
-		//
 		add_action( 'init', array( &$this, 'register_post_types' ) );
+		
 	}
 
 	/**
@@ -173,19 +173,20 @@ class BP_Review_Component extends BP_Component {
 			'search_string'         => __( 'Search Reviews...', 'buddypress' ),
 			'global_tables'         => $global_tables
 		);
-
+		
 		parent::setup_globals( $globals );		
 	}
+	
 
 	/**
-	 *	Configura i menù di navigazione
+	 *	Configura i menï¿½ di navigazione
 	 */
 	function setup_nav() 
 	{
 		// 
 		$main_nav = array
 		(
-			'name' 		      => __( 'Review', 'bp-review' ),
+			'name' 		      => __( 'Review', 'reviews' ),
 			
 			//manca GET TOTAL COUNT delle reviews!		
 				//'name'          => sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),$this->mapper->get_total_count() ),
@@ -219,7 +220,7 @@ class BP_Review_Component extends BP_Component {
 		
 		$sub_nav[] = array
 		(
-			'name'            =>  __( 'Screen One', 'bp-review' ),
+			'name'            =>  __( 'Screen One', 'reviews' ),
 			//'name'            => $nav_text,
 			
 			'slug'            => 'screen-one',															//screen-one
@@ -277,7 +278,7 @@ class BP_Review_Component extends BP_Component {
 		bp_core_new_subnav_item( 
 			array
 			(
-				'name' 		  => __( 'Review', 'bp-review' ),
+				'name' 		  => __( 'Review', 'reviews' ),
 				'slug' 		  => 'review-admin',
 				'parent_slug'     => bp_get_settings_slug(),
 				'parent_url' 	  => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
@@ -296,13 +297,13 @@ class BP_Review_Component extends BP_Component {
 	function register_post_types() 
 	{		
 		$labels = array(
-			'name'	   => __( 'User Reviews', 'bp-review' ),												//[T]
+			'name'	   => __( 'User Reviews', 'reviews' ),												//[T]
 			//'singular_name' => __( 'User Review','reviews' )												//[?]
-			'singular' => __( 'User Review', 'bp-review' )			
+			'singular' => __( 'User Review', 'reviews' )			
 		);
 		
 		$args = array(
-			'label'	   => __( 'User Reviews', 'bp-review' )
+			'label'	   => __( 'User Reviews', 'reviews' )
 			,
 			'labels'   => $labels
 			
@@ -354,7 +355,7 @@ class BP_Review_Component extends BP_Component {
 //				, 'can_export'		  	=> true
 			
 			// CUSTOM FIELDS - META BOXES -	in prova
-			, 'custom-fields'		 => true				//anche se False è possibile aggiungere custom fields 				
+			, 'custom-fields'		 => true				//anche se False ï¿½ possibile aggiungere custom fields 				
 			//, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
 		);      
     		     

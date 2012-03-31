@@ -40,12 +40,12 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 define( 'BP_REVIEW_PLUGIN_DIR', dirname( __FILE__ ) );
 
 /**
- * Carica il plguin solo se BuddyPress � presente.
+ * Carica il plguin solo se BuddyPress e' presente.
  * 
  */
 function bp_review_init() 
 {
-	// poich� il plugin usa BP_Component, richiede la versione di BP 1.5 o successiva.
+	// poiche' il plugin usa BP_Component, richiede la versione di BP 1.5 o successiva.
 	if ( version_compare( BP_VERSION, '1.5', '>' ) )
 		require( dirname( __FILE__ ) . '/includes/bp-review-loader.php' );
 }
@@ -91,6 +91,12 @@ function review_current_user_can_write(){
 	}
 
 add_action( 'bp_member_header_actions'	, 'add_review_button',1);				//[C] 1 - aggiunge il bottone 'Add Review'
+
+add_action( 'init', 'load_my_textdomain');
+function load_my_textdomain()
+{
+	load_plugin_textdomain( 'reviews', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
 
 /**
  *

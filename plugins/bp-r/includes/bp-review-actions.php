@@ -40,8 +40,8 @@ global $bp
 -----------------------------------------
 [T]
 -----------------------------------------
-__( 'Review inviata!', 'bp-review' )
-__( 'Review non inviata', 'bp-review' )
+__( 'Review inviata!', 'reviews' )
+__( 'Review non inviata', 'reviews' )
 
 
 */
@@ -49,8 +49,8 @@ __( 'Review non inviata', 'bp-review' )
 /**
  *	NOTA BENE: 
  *  
- *  non è richiamata direttamente da NEssuno
- *  ma viene richiamata perchè è stata aggiunta 
+ *  non ï¿½ richiamata direttamente da NEssuno
+ *  ma viene richiamata perchï¿½ ï¿½ stata aggiunta 
  *  con 'add_action' all HOOK: 'bp-actions'
  *
  */
@@ -71,41 +71,41 @@ function bp_review_review_save()
         //$message =	'';
 		
 		if ( !is_user_logged_in() ) {
-           $message=__('Non sei autorizzato','bp-review');
+           $message=__('Non sei autorizzato','reviews');
            $error=true;
 		}
-		else if ( empty( $_POST['new-review'] ) ) 		//controlla se la variabile è vuota			---// non va!!!
+		else if ( empty( $_POST['new-review'] ) ) 		//controlla se la variabile ï¿½ vuota			---// non va!!!
 		{
-			$message = __( 'inserisci del testo', 'bp-review' ) ;
+			$message = __( 'inserisci del testo', 'reviews' ) ;
 			$error=true;
 		}
 		
 		if ( bp_is_my_profile() ) 
 		{			
-			bp_core_add_message( __( 'non puoi mandare review a te stesso', 'bp-review' ), 'error' );
-			//$message= __( 'non puoi mandare review a te stesso', 'bp-review' ) ;
+			bp_core_add_message( __( 'non puoi mandare review a te stesso', 'reviews' ), 'error' );
+			//$message= __( 'non puoi mandare review a te stesso', 'reviews' ) ;
 			//$error=true;
 		} 
 		else 
 		{
-			//				chiama la funzione 'bp_review_send_review(utent_1, utente_2)' 		nel FILE 'bp-review-functions.php'	....	se restituisce true è OK!			
+			//				chiama la funzione 'bp_review_send_review(utent_1, utente_2)' 		nel FILE 'bp-review-functions.php'	....	se restituisce true ï¿½ OK!			
 			
 			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id() );
 			
 			//if ( bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id() ) ) 
 			if($result)
 			{
-				//$message = __( 'Review inviata correttamente', 'bp-review' ) ;
+				//$message = __( 'Review inviata correttamente', 'reviews' ) ;
 				
 				//PROVA var POST!
 					//$message = $_POST['new-review'] . 'ciao';								
 				
-				bp_core_add_message( __( 'Review inviata correttamente', 'bp-review' ) );
+				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
 			}
 			else 
 			{
-				bp_core_add_message( __( 'Review non inviata', 'bp-review' ), 'error' );
-				//$message= __( 'Review non inviata...errore!', 'bp-review' ) ;
+				bp_core_add_message( __( 'Review non inviata', 'reviews' ), 'error' );
+				//$message= __( 'Review non inviata...errore!', 'reviews' ) ;
 				//$error=true;
 			}
 		}
@@ -146,27 +146,27 @@ function salva()
 
 		if ( bp_is_my_profile() ) 
 		{			
-			bp_core_add_message( __( 'non puoi mandare review a te stesso', 'bp-review' ));			
+			bp_core_add_message( __( 'non puoi mandare review a te stesso', 'reviews' ));			
 		} 
 		else 
 		{
 			//AGGIUNTO!
 			if ( empty( $content ) ) 
 			{
-				bp_core_add_message( __( 'Inserisci del testo', 'bp-review' ),'error' );
+				bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
 				bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );	//screen one		
 			}	
 ///*	
-			//chiama la funzione 'bp_review_send_review(utent_1, utente_2)' 		nel FILE 'bp-review-functions.php'		....			se restituisce true è OK!									
+			//chiama la funzione 'bp_review_send_review(utent_1, utente_2)' 		nel FILE 'bp-review-functions.php'		....			se restituisce true ï¿½ OK!									
 			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $content );			
 			
 			if($result)
 			{				
-				bp_core_add_message( __( 'Review inviata correttamente', 'bp-review' ) );
+				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
 			}
 			else 
 			{
-				bp_core_add_message( __( 'Review non inviata', 'bp-review' ) );			
+				bp_core_add_message( __( 'Review non inviata', 'reviews' ) );			
 			}
 //*/			
 		}

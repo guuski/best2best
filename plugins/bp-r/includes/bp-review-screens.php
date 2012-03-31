@@ -53,7 +53,7 @@ global $bp
 
 -----------------------------------------
 
-_e( 'Screen One', 'bp-review' );																				[T]
+_e( 'Screen One', 'reviews' );																				[T]
 
 [...]
 
@@ -87,7 +87,7 @@ function bp_review_screen_one()
 	 */
 	function bp_review_screen_one_title() 
 	{
-		_e( 'Screen One', 'bp-review' );
+		_e( 'Screen One', 'reviews' );
 	}
 
 	function bp_review_screen_one_content() 
@@ -101,11 +101,11 @@ function bp_review_screen_one()
 		$reviews = bp_review_get_reviews_for_user( $bp->displayed_user->id );	
 		$send_link = wp_nonce_url( $bp->displayed_user->domain . $bp->current_component . '/screen-one/send-rw', 'bp_review_send_review' );
 	?>
-		<h4><?php _e( 'Welcome to Screen One', 'bp-review' ) ?></h4>
-		<p><?php printf( __( 'Send %s a <a href="%s" title="Send Review!">review!</a>', 'bp-review' ), $bp->displayed_user->fullname, $send_link ) ?></p>
+		<h4><?php _e( 'Welcome to Screen One', 'reviews' ) ?></h4>
+		<p><?php printf( __( 'Send %s a <a href="%s" title="Send Review!">review!</a>', 'reviews' ), $bp->displayed_user->fullname, $send_link ) ?></p>
 
 		<?php if ( $reviews ) : ?>
-			<h4><?php _e( 'Received Reviews', 'bp-review' ) ?></h4>
+			<h4><?php _e( 'Received Reviews', 'reviews' ) ?></h4>
 
 			<table id="reviews">
 				<?php foreach ( $reviews as $user_id ) : ?>

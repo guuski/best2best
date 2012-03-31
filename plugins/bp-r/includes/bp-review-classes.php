@@ -53,8 +53,8 @@ global $bp, $wpdb, ($creds)
 
 																													[T]
 																													
-'post_title'	=> sprintf( __( '%1$s review %2$s', 'bp-review' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
-'post_title'	=> sprintf( __( '%1$s review %2$s', 'bp-review' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 
 /**
  *
@@ -135,7 +135,7 @@ class Review
 			(
 				'ID'			=> $this->id,
 				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( '%1$s review %2$s', 'bp-review' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,
 				/////////////////////////////////////
 				'post_content'  => $review_content
@@ -158,7 +158,7 @@ class Review
 				'post_status'	=> 'publish',
 				'post_type'		=> 'review',											//post_type
 				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( '%1$s review %2$s', 'bp-review' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,
 				///////////////////////////////////				
 				'post_content'  => $review_content
