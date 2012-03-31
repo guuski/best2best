@@ -203,19 +203,10 @@ function bp_review_review_content()
  */
 function bp_review_get_review_content() 
 {	
-	$reviewer_link   =	bp_core_get_userlink( get_the_author_meta( 'ID' ) );
+
+	$obj_post = get_post(get_the_ID());	
+	$content = $obj_post->post_content;
 	
-		$content_review   = 	get_post_meta( get_the_ID(), 'bp_review_content_review', true );
-	
-	$recipient_link  = 	bp_core_get_userlink( $recipient_id );
-	
-	//$obj_post = wp_get_single_post(get_the_ID());
-	//$review_content  = $obj_post->content;
-		
-	//$content		 = 	sprintf( __( '%1$s ha scritto una review per %2$s!', 'bp-review' ), $reviewer_link, $recipient_link );
-	//$content		 = 	'contenuto review';
-	
-	$content		 = 	$content_review;
 	return apply_filters( 'bp_review_get_review_content', $content, $reviewer_link, $recipient_link );
 }
 
@@ -236,11 +227,18 @@ function bp_review_review_title()
  */
 function bp_review_get_review_title() 
 {	
+/*
 	$reviewer_link   =	bp_core_get_userlink( get_the_author_meta( 'ID' ) );
 	$recipient_id    = 	get_post_meta( get_the_ID(), 'bp_review_recipient_id', true );
 	$recipient_link  = 	bp_core_get_userlink( $recipient_id );
-	$title 			 = 	sprintf( __( '%1$s ha scritto una review per %2$s!', 'bp-review' ), $reviewer_link, $recipient_link );
+*/
+	//$title 			 = 	sprintf( __( '%1$s ha scritto una review per %2$s!', 'bp-review' ), $reviewer_link, $recipient_link );
 
+	///////////////////////////////////			
+	$obj_post = get_post(get_the_ID());	
+	$title = $obj_post->post_title;
+	///////////////////////////////////			
+	
 	return apply_filters( 'bp_review_get_review_title', $title, $reviewer_link, $recipient_link );
 }
 
