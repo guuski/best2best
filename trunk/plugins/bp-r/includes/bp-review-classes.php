@@ -1,5 +1,18 @@
 <?php
 /*
+
+
+
+
+		REMINDER: 		devo aggiungere la variabile '$content',no?
+		
+		
+
+
+
+
+
+
 -----------------------------------------
 Contenuto FILE:
 -----------------------------------------
@@ -16,56 +29,31 @@ Questo file contiene tutte le classi e le funzioni che accedono al database.
 FILE, CLASSI, OGGETTI, METODI collegati o richiamati
 ----------------------------------------------------
 
-	(funzioni usate da 'review-loop.php')
+	(contine funzioni usate dai file di TEMPLATE 
 	
-		the_post()
-		have_post()
+	1) 'review-loop.php'
 	
+			the_post()
+			have_post()
 		
------------------------------------------
-FUNZIONI e HOOKS (WordPress - Wp)
------------------------------------------			
-	
-	wp_parse_args()	
-	apply_filters()
-	do_action()
-	wp_insert_post()
-	wp_update_post()
-	update_post_meta()
-	paginate_links()
+		oppure:
+		
+			
 
-WP_Query
-add_query_arg
-	
-	wp_trash_post()
-	
-	
------------------------------------------
-FUNZIONI e HOOKS (BuddyPress - Bp)
------------------------------------------
-	
-	bp_core_get_user_displayname()
-	
-	
------------------------------------------
-global $bp, $wpdb, ($creds)
------------------------------------------
-
-																													[T]
-																													
-'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
-'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 
 /**
  *
  */
 class Review
 {
-	var $id;
+	var $id;			
 	var $reviewer_id;														//reviewER
 	var $recipient_id;
 	var $date;
-	var $query;
+	var $query;								
+	
+	
+																														//aggiungere la variabile '$content',no?
 
 	/**
 	 * bp_review_tablename()
@@ -75,11 +63,12 @@ class Review
 	 */
 	function __construct( $args = array() ) 
 	{	
-		$defaults = array(
+		$defaults = array
+		(
 			'id'			=> 0,
 			'reviewer_id' 	=> 0,
 			'recipient_id'  => 0,
-			'date' 			=> date( 'Y-m-d H:i:s' )
+			'date' 			=> date( 'Y-m-d H:i:s' )																	//aggiungere la variabile '$content',no?
 		);
 		
 		$r = wp_parse_args( $args, $defaults );
@@ -99,6 +88,9 @@ class Review
 		}
 	}
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * populate()
 	 *	 
@@ -112,9 +104,14 @@ class Review
 			$this->reviewer_id	 = $row->reviewer_id;
 			$this->recipient_id  = $row->recipient_id;
 			$this->date 	     = $row->date;
+			
+																													//aggiungere la variabile '$content',no?
 		}
 	}
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * save()
 	 *
@@ -127,29 +124,33 @@ class Review
 		$this->recipient_id		= apply_filters( 'bp_review_data_recipient_id_before_save', 	$this->recipient_id, 	$this->id );
 		$this->date	     		= apply_filters( 'bp_review_data_date_before_save', 			$this->date,		 	$this->id );
 		
+																														//aggiungere la variabile '$content',no?
+		
+		//DO ACTION
 		do_action( 'bp_review_data_before_save', $this );
 
-		if ( $this->id ) 
+		if ( $this->id ) 			
 		{			
+				
+////////////				
+			//$titolo_review = 		
+			//sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+////////////			
+					
 			$wp_update_post_args = array
 			(
 				'ID'			=> $this->id,
 				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,
 				/////////////////////////////////////
-				'post_content'  => $review_content
-				/////////////////////////////////////
+				'post_content'  => $review_content				
 			);
 			
 			$result = wp_update_post( $wp_update_post_args );
 
-			if ( $result ) {
-				///////////////////////////////////
-				update_post_meta( $result, 'bp_review_content_review', $review_content );		//[C]
-				///////////////////////////////////
-				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );
-			}
+			if ( $result ) 
+				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
 		} 
 		else 
 		{			
@@ -161,19 +162,13 @@ class Review
 				'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,
 				///////////////////////////////////				
-				'post_content'  => $review_content
-				///////////////////////////////////
+				'post_content'  => $review_content				
 			);
 		
 			$result = wp_insert_post( $wp_insert_post_args );
 			
-			if ( $result ) 
-			{				
-				///////////////////////////////////
-				update_post_meta( $result, 'bp_review_content_review', $review_content );		//[C]
-				///////////////////////////////////
-				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );
-			}
+			if ( $result ) 			
+				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
 		}
 		
 		do_action( 'bp_review_data_after_save', $this );
@@ -181,11 +176,16 @@ class Review
 		return $result;
 	}
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
 	/**
 	 * lancia la WP_Query
 	 *
 	 */
-	function get( $args = array() ) 
+	function get( $args = array() ) 						//PARAMETRI!!!
 	{		
 		if ( empty( $this->query ) ) 
 		{
@@ -194,6 +194,7 @@ class Review
 				'recipient_id'	=> 0,
 				'per_page'		=> 10,
 				'paged'			=> 1
+																										//aggiungere la variabile '$content',no?
 			);
 
 			$r = wp_parse_args( $args, $defaults );
@@ -201,25 +202,33 @@ class Review
 
 			$query_args = array(
 				'post_status'	 	=> 'publish',
-				'post_type'		 	=> 'review',									//post_type
+				'post_type'		 	=> 'review',									//post_type: 'review'
 				'posts_per_page'	=> $per_page,
 				'paged'		 		=> $paged,
-				'meta_query'	 	=> array()
+				'meta_query'	 	=> array()										//META_QUERY!
 			);
 
+//-------------------------------------------------------------------------------------------------------  	//PARAMETRI!!!
+
+			// posso specificare.....
 			if ( $reviewer_id )
 			{
 				$query_args['author'] = (array)$reviewer_id;
 			}
 			
+			// posso specificare.....
 			if ( $recipient_id ) 
 			{
-				$query_args['meta_query'][] = array(
+				$query_args['meta_query'][] = array
+				(
 					'key'	  => 'bp_review_recipient_id',
 					'value'	  => (array)$recipient_id,
-					'compare' => 'IN' // Allows $recipient_id to be an array
+					'compare' => 'IN' 							// Allows $recipient_id to be an array ---?!
 				);
 			}
+
+//------------------------------------
+			
 
 			$this->query = new WP_Query( $query_args );													//WP_QUERY
 			
@@ -235,23 +244,27 @@ class Review
 		}
 	}
 
-		/**
-		 * vedi 'bp_review_has_reviews()' loop
-		 *
-		 */
-		function have_posts()
-		{
-			return $this->query->have_posts();
-		}
 
-		/**
-		 * vedi 'bp_review_has_reviews()' loop
-		 *	 
-		 */
-		function the_post() 
-		{
-			return $this->query->the_post();
-		}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+	/**
+	 * vedi 'bp_review_has_reviews()' loop
+	 *
+	 */
+	function have_posts()
+	{
+		return $this->query->have_posts();
+	}
+
+	/**
+	 * vedi 'bp_review_has_reviews()' loop
+	 *	 
+	 */
+	function the_post() 
+	{
+		return $this->query->the_post();
+	}
 
 	/**
 	 * delete()

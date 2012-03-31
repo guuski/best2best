@@ -70,18 +70,22 @@ function salva()
 				bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
 				bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );	//screen one		
 			}	
-		
+			
+			//----------------------------------------------------------------------------------------------------------------------------------
 			//funzione del FILE 'bp-review-functions.php' - se restituisce true � OK!									
 			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $content );			
-			
+						
+			// ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
 			if($result)
 			{				
 				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
 			}
 			else 
 			{
+				//ATTENZIONE: non ci va mai qui!
 				bp_core_add_message( __( 'Review non inviata', 'reviews' ) );			
 			}	
+			//----------------------------------------------------------------------------------------------------------------------------------	
 		}
 
 		//REDIRECT su screen-one

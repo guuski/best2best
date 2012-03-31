@@ -120,18 +120,18 @@ function bp_review_pagination_count()
 	echo bp_review_get_pagination_count();
 }
 
-/**
- * 
- *
- */
-function bp_review_get_pagination_count() 
-{
-	global $reviews_template;
+	/**
+	 * 
+	 *
+	 */
+	function bp_review_get_pagination_count() 
+	{
+		global $reviews_template;
 
-	$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'reviews' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
+		$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'reviews' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
 
-	return apply_filters( 'bp_review_get_pagination_count', $pagination_count );
-}
+		return apply_filters( 'bp_review_get_pagination_count', $pagination_count );
+	}
 
 
 
@@ -144,15 +144,15 @@ function bp_review_review_pagination()
 	echo bp_review_get_review_pagination();
 }
 
-/**
- * 
- *
- */
-function bp_review_get_review_pagination() 
-{
-	global $reviews_template;
-	return apply_filters( 'bp_review_get_review_pagination', $reviews_template->pag_links );
-}
+	/**
+	 * 
+	 *
+	 */
+	function bp_review_get_review_pagination() 
+	{
+		global $reviews_template;
+		return apply_filters( 'bp_review_get_review_pagination', $reviews_template->pag_links );
+	}
 
 
 
@@ -166,23 +166,24 @@ function bp_review_reviewer_avatar( $args = array() )
 	echo bp_review_get_reviewer_avatar( $args );
 }
 
-/**
- * 
- * @param mixed $args Accepts WP style arguments - either a string of URL params, or an array
- * @return str The HTML for a user avatar
- *
- */
-function bp_review_get_reviewer_avatar( $args = array() ) 
-{
-	$defaults = array(
-		'review_id' => get_the_author_meta( 'ID' ),
-		'object'  	=> 'user'
-	);
+	/**
+	 * 
+	 * @param mixed $args Accepts WP style arguments - either a string of URL params, or an array
+	 * @return str The HTML for a user avatar
+	 *
+	 */
+	function bp_review_get_reviewer_avatar( $args = array() ) 
+	{
+		$defaults = array
+		(
+			'review_id' => get_the_author_meta( 'ID' ),
+			'object'  	=> 'user'
+		);
 
-	$r = wp_parse_args( $args, $defaults );
+		$r = wp_parse_args( $args, $defaults );
 
-	return bp_core_fetch_avatar( $r );
-}
+		return bp_core_fetch_avatar( $r );
+	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,19 +199,19 @@ function bp_review_review_content()
 	echo bp_review_get_review_content();
 }
 
-/**
- * 
- *
- *
- */
-function bp_review_get_review_content() 
-{	
+	/**
+	 * 
+	 *
+	 *
+	 */
+	function bp_review_get_review_content() 
+	{	
 
-	$obj_post = get_post(get_the_ID());	
-	$content = $obj_post->post_content;
-	
-	return apply_filters( 'bp_review_get_review_content', $content, $reviewer_link, $recipient_link );
-}
+		$obj_post = get_post(get_the_ID());	
+		$content = $obj_post->post_content;
+		
+		return apply_filters( 'bp_review_get_review_content', $content, $reviewer_link, $recipient_link );
+	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ---OK
@@ -249,6 +250,76 @@ function bp_review_get_review_title()
 
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//		usarla nella 'setup NAV' -----!!!
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function bp_review_total_review_count() 
+{
+	echo bp_review_get_total_review_count();
+}
+	
+	/**
+	 *
+	 * @return int
+	 */
+	function bp_review_get_total_review_count() 
+	{
+		$reviews = new Review();																	//istanzia oggetto Review
+		$reviews->get();
+
+		return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
+	}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 				- ma perche non funziona??!?!?!!?
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * 
+ *
+ */
+function bp_review_total_review_count_for_user( $user_id = false ) 
+{
+	echo bp_review_get_total_review_count_for_user( $user_id = false );
+}
+
+	/**
+	 *
+	 * @return int
+	 */
+	function bp_review_get_total_review_count_for_user( $user_id = false ) 
+	{
+		
+		if ( !$user_id ) 
+		{
+			$user_id = bp_loggedin_user_id();
+		}
+
+		if ( !$user_id ) 
+		{
+			return 0;
+		}
+
+		$reviews = new Review();																					//istanzia oggetto Review
+		
+		$reviews->get( array( 'recipient_id' => $user_id ) );														//PARAMETRO!!!
+
+		return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
+	}
+
+
+
+//----------------------------varie.....
+
+
+
+
+
 /**
  *
  *
@@ -264,6 +335,10 @@ function bp_is_review_component()
 	return apply_filters( 'bp_is_review_component', $is_review_component );
 }
 
+
+
+
+
 /**
  *
  *
@@ -273,19 +348,19 @@ function bp_review_slug()
 	echo bp_get_review_slug();
 }
 
-/**
- *
- * @uses apply_filters() Filter 'bp_get_review_slug' to change the output
- * @return str $review_slug The slug from $bp->review->slug, if it exists
- */
-function bp_get_review_slug() 
-{
-	global $bp;
-	
-	$review_slug = isset( $bp->review->slug ) ? $bp->review->slug : '';
+	/**
+	 *
+	 * @uses apply_filters() Filter 'bp_get_review_slug' to change the output
+	 * @return str $review_slug The slug from $bp->review->slug, if it exists
+	 */
+	function bp_get_review_slug() 
+	{
+		global $bp;
+		
+		$review_slug = isset( $bp->review->slug ) ? $bp->review->slug : '';
 
-	return apply_filters( 'bp_get_review_slug', $review_slug );
-}
+		return apply_filters( 'bp_get_review_slug', $review_slug );
+	}
 
 /**
  * 
@@ -296,99 +371,17 @@ function bp_review_root_slug()
 	echo bp_get_review_root_slug();
 }
 
-/**
- * @uses apply_filters() Filter 'bp_get_review_root_slug' to change the output
- * @return str $review_root_slug The slug from $bp->review->root_slug, if it exists
- */
-function bp_get_review_root_slug() 
-{
-	global $bp;
-
-	$review_root_slug = isset( $bp->review->root_slug ) ? $bp->review->root_slug : '';
-
-	return apply_filters( 'bp_get_review_root_slug', $review_root_slug );
-}
-
-/**
- *
- *
- */
-function bp_review_total_review_count() 
-{
-	echo bp_review_get_total_review_count();
-}
-
-/**
- *
- * @return int
- */
-function bp_review_get_total_review_count() 
-{
-	$reviews = new Review();																	//istanzia oggetto Review
-	$reviews->get();
-
-	return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// - funziona?
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * 
- *
- */
-function bp_review_total_review_count_for_user( $user_id = false ) 
-{
-	echo bp_review_get_total_review_count_for_user( $user_id = false );
-}
-
-/**
- *
- * @return int
- */
-function bp_review_get_total_review_count_for_user( $user_id = false ) 
-{
-	
-	if ( !$user_id ) 
+	/**
+	 * @uses apply_filters() Filter 'bp_get_review_root_slug' to change the output
+	 * @return str $review_root_slug The slug from $bp->review->root_slug, if it exists
+	 */
+	function bp_get_review_root_slug() 
 	{
-		$user_id = bp_loggedin_user_id();
+		global $bp;
+
+		$review_root_slug = isset( $bp->review->root_slug ) ? $bp->review->root_slug : '';
+
+		return apply_filters( 'bp_get_review_root_slug', $review_root_slug );
 	}
-
-	if ( !$user_id ) 
-	{
-		return 0;
-	}
-
-	$reviews = new Review();																	//istanzia oggetto Review
-	$reviews->get( array( 'recipient_id' => $user_id ) );
-
-	return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
-}
-
-
-//-------------------------------------------------------------------------------
-//
-//-------------------------------------------------------------------------------
-
-function bp_directory_reviews_search_form() 
-{
-	global $bp;
-
-	$default_search_value = bp_get_search_default_text( 'reviews' );
-	$search_value         = !empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : $default_search_value; ?>
 	
-	<form action="" method="get" id="search-review-form">
-		<label><input type="text" name="s" id="reviews_search" value="<?php echo esc_attr( $search_value ) ?>"  onfocus="if (this.value == '<?php echo $default_search_value ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo $default_search_value ?>';}" /></label>
-		<input type="submit" id="reviews_search_submit" name="reviews_search_submit" value="<?php _e( 'Search', 'buddypress' ) ?>" />
-	</form>
-
-<?php
-
-}
-//-------------------------------------------------------------------------------
-
-
-
 ?>
