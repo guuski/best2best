@@ -72,8 +72,25 @@ global $bp
 				</div>
 
 				<div class="review">
-					<div class="review-title"><?php bp_review_review_title() ?></div>
-					<div class="review-content"><?php bp_review_review_content() ?></div>
+
+					<div class="review-title"><?php //bp_review_review_title() ?></div>
+					
+						<!---------------------------------------------------------------->
+						<div class="review-title">
+							<?php //the_title() ?>
+							<?php the_title('<h2 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h2>');?>
+						</div>
+						<!---------------------------------------------------------------->
+						
+					<div class="review-content"><?php //bp_review_review_content() ?></div>
+						<!---------------------------------------------------------------->
+						<div class="review-content"><?php the_content() ?></div>
+						<!---------------------------------------------------------------->
+						
+						
+										
+						
+						
 					<!-- DO_ACTION -->
 					<?php do_action( 'bp_directory_review_item' ); ?>										<!--item????-->
 				</div>

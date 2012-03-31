@@ -185,7 +185,9 @@ function bp_review_get_reviewer_avatar( $args = array() )
 }
 
 
-//////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// -- OK
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  *
@@ -210,7 +212,9 @@ function bp_review_get_review_content()
 	return apply_filters( 'bp_review_get_review_content', $content, $reviewer_link, $recipient_link );
 }
 
-//////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ---OK
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  *
  *
@@ -326,6 +330,11 @@ function bp_review_get_total_review_count()
 	return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// - funziona?
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * 
  *
@@ -357,51 +366,5 @@ function bp_review_get_total_review_count_for_user( $user_id = false )
 
 	return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
 }
-
-
-
-
-
-
-/*form*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function bp_review_post_form_action()
-{
-	global $bp;
-	
-	
-	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain . $bp->review->root_slug."/send-review/"); 
-	
-	//echo apply_filters('bp_review_post_form_action',  bp_displayed_user_domain() . bp_current_component() . "/screen-one/send-review/"); 
-	//echo apply_filters('bp_review_post_form_action', $bp->displayed_user->domain . bp_current_component() ."/screen-one/send-review/"); 
-	//echo apply_filters('bp_review_post_form_action', wp_nonce_url( $bp->displayed_user->domain . bp_current_component() ."/screen-one/send-review/")); 
-	
-
-	/*
-		<p><?php printf( __( 'Manda %s una <a href="%s" title="Send review">review!</a>', 'bp-review' ), 
-									bp_get_displayed_user_fullname(), 
-									wp_nonce_url(bp_displayed_user_domain() . bp_current_component() . '/screen-one/send-review/',
-									'bp_review_send_review' ) 
-						) 
-		?></p>
-    */
-}
-function bp_review_post_form()							//reviewS --> review
-{
-   bp_review_load_template('review/post-form.php') ;   //reviewS --> review //reviewS --> review
-}
-
-//load template from theme and if not found, load it from plugin
-function bp_review_load_template($template)
-{
-	include 'templates/review/post-form.php';
-	/*
-	if(locate_template(array($template),false))
-        locate_template(array($template),true);
-    else
-		include(BP_REVIEW_PLUGIN_DIR.$template);
-	*/
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ?>
