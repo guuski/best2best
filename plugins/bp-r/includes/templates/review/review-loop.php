@@ -1,5 +1,26 @@
 <?php
 /*
+
+
+
+
+
+
+
+
+
+// veniva caricato dalla DIRECTORY----al momento non lo usa nessuno ---non CANCELLARE ---> serve ancora
+
+
+
+
+
+
+
+
+
+
+
 -----------------------------------------
 Contenuto FILE:
 -----------------------------------------
@@ -45,25 +66,29 @@ global $bp
 <?php do_action( 'bp_before_review_loop' ); ?>
 
 <!-- IF -->
-<!-- richiama la funzione 'bp_review_has_reviews()' in.... -->
-<?php if ( bp_review_has_reviews( bp_ajax_querystring( 'review' ) ) ) : ?>			<!-- AJAX ?! -->
+<?php if ( bp_review_has_reviews( bp_ajax_querystring( 'review' ) ) ) : ?>	<!-- AJAX ?! -->  <!-- richiama la funzione 'bp_review_has_reviews()' in.... -->
+
 	<?php // global $reviews_template; var_dump( $reviews_template ) ?>				<!-- DEBUG -->
 		
 	<div id="pag-top" class="pagination">
+	
 		<div class="pag-count" id="review-dir-count-top">
 			<?php bp_review_pagination_count(); ?>
 		</div>
 
 		<div class="pagination-links" id="review-dir-pag-top">
 			<?php bp_review_review_pagination(); ?>
-		</div>
+		</div>		
 	</div>
 
 	<!-- DO_ACTION -->
 	<?php do_action( 'bp_before_directory_review_list' ); ?>
 
-	<!-- lista delle Reviews -->
+	
+<!--------------------------------------------- lista delle Reviews ----------------------------------------------------------------------->
+
 	<ul id="review-list" class="review-list" role="main">		
+	
 		<!-- WHILE-->
 		<?php while ( bp_review_has_reviews() ) : bp_review_the_review(); ?>
 			<li>
@@ -72,30 +97,30 @@ global $bp
 				</div>
 
 				<div class="review">
-
-					<div class="review-title"><?php //bp_review_review_title() ?></div>
+					<!--------------------------- TITOLO -------------------------------------->
 					
-						<!---------------------------------------------------------------->
-						<div class="review-title">
-							<?php //the_title() ?>
-							<?php the_title('<h2 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h2>');?>
-						</div>
-						<!---------------------------------------------------------------->
-						
-					<div class="review-content"><?php //bp_review_review_content() ?></div>
-						<!---------------------------------------------------------------->
-						<div class="review-content"><?php the_content() ?></div>
-						<!---------------------------------------------------------------->
-						
-						
+					<!-- V1 -->
+					<!-- <div class="review-title"><?php //bp_review_review_title() ?></div>-->
 										
+					<!---V 2 --------------------------------------------------------->
+					<div class="review-title">
+						<?php //the_title() ?>
+						<?php the_title('<h2 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h2>');?>
+					</div>
+					<!---------------------------------------------------------------->
+
+					
+					<!--------------------------- CONTENUTO -------------------------------------->
+					<!-- V 1 -->	
+					<!-- <div class="review-content"><?php //bp_review_review_content() ?></div>-->
 						
-						
+					<!-- V 2 -->
+					<div class="review-content"><?php the_content() ?></div>
+					
+												
 					<!-- DO_ACTION -->
 					<?php do_action( 'bp_directory_review_item' ); ?>										<!--item????-->
-				</div>
-				
-				
+				</div>								
 				<div class="clear"></div>
 			</li>
 		<?php endwhile; ?>
@@ -117,7 +142,7 @@ global $bp
 <?php else: ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'nessuna review', 'buddypress' ); ?></p>
+		<p><?php _e( 'nessuna review', 'reviews' ); ?></p>
 	</div>
 	
 <?php endif; ?>

@@ -39,6 +39,8 @@ global $bp
 
 	<!-- CONTENT -->
 	<div id="content">
+	
+		<!-- PADDER -->
 		<div class="padder">
 
 			<div id="item-header">
@@ -56,19 +58,15 @@ global $bp
 			</div>
 			
 <!------------------------------------------>			
-<div id="sidebar-squeeze">			
+<div id="sidebar-squeeze">										<!-- pezza per FRISCO -->
 	<div id="main-column">
-
 <!------------------------------------------>				
 	
-<div id="item-body">
+<div id="item-body">											<!-- ma è ripetuto?!-->
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-	
-	
-<div id="item-body">
-
+<div id="item-body">											<!-- ma è ripetuto?!-->
 	<div class="item-list-tabs no-ajax" id="subnav">
 		<ul>
 			<!-- -->
@@ -76,76 +74,78 @@ global $bp
 		</ul>
 	</div>
 
-	
 
+	
+	
+	
+	
+	
+	
+	
 <!-- MESSAGGIO -->
 <h4><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h4>
+
 							
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 <!--  FORM - met 2	- no inclusione ESTERNA
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-<form action = "<?php bp_review_form_action() ?> " method="post" id="reviews-form" class="standard-form">
+	<form action = "<?php bp_review_form_action() ?> " method="post" id="reviews-form" class="standard-form">
 
-<?php do_action( 'bp_before_review_post_form' ); ?>
+		<?php do_action( 'bp_before_review_post_form' ); ?>
 
-	<div id="review-writer-avatar">
-		<a href="<?php echo bp_loggedin_user_domain(); ?>">
-			<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
-		</a>
-	</div>
-
-	<h5>       
-	   <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
-
-	<div id="new-review-content">
-		
-		<div id="new-review-textarea">			
-			<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
+		<div id="review-writer-avatar">
+			<a href="<?php echo bp_loggedin_user_domain(); ?>">
+				<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
+			</a>
 		</div>
 
-		<div id="new-review-options">
-			<div id="new-review-submit">								
-				<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Post', 'reviews' ); ?>" />
+		<h5> <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
+
+		<div id="new-review-content">
+			
+			<div id="new-review-textarea">			
+				<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
+			</div>
+			
+			<div id="new-review-options">
+				<div id="new-review-submit">								
+					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Post', 'reviews' ); ?>" />
+				</div>
 			</div>
 		</div>
-	</div>
-	  
-<?php do_action( 'bp_after_review_post_form' ); ?>								
+		  
+		<?php do_action( 'bp_after_review_post_form' ); ?>								
 
-<!-- [WPNONCE] -->
-<?php wp_nonce_field( 'bp_review_new_review' ) ?>
-</form>
-
-
-<!-- /////////////////////REVIEW LOOP  dal file review-loop.php////////////////////////////////////////////////////////////////////-->
-<!-- lista delle Reviews -->
-<!--
-
--->
-<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->	
+		<!-- [WPNONCE] -->
+		<?php wp_nonce_field( 'bp_review_new_review' ) ?>
+		
+	</form>
 	
+<!-- --------------------fine FORM ------------------------------------------------------------------------------------------------------------------>						
 
-<!-- Lista degli utenti che hanno fatto una reviuw su questo PROFILO-->					
 
 <br/>
 <br/>
 				
+
+			
+	
+<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì -->		
+
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
-	<h4><?php _e( 'Reviews Ricevute', 'reviews' ) ?></h4>
-						
+	<!-- MESSAGIO  -->
+	<h4><?php _e( 'Lista utenti che hanno scritto una Review per l utente', 'reviews' ) ?></h4>
 	
-	<!-- NUMERO TOTALE delle review per l'utente-->
-	<div class="clear"></div>
+<!----------------------------------(Temporanea!) - NUMERO TOTALE delle review per l'utente -------------------------------------------------------->	
 	<h4>
 		<?php //_e( 'TOTALE: ', 'reviews' ) ?>
 		<?php //_e( 'Numero TOTALE Reviews: ' . bp_review_total_review_count_for_user(bp_displayed_user_id()) , 'reviews' ) ?>
 		<?php //echo bp_review_total_review_count_for_user(bp_displayed_user_id());?>	
 	</h4>
-	
-	
-	<!-- /////////////////////LISTA REVIEWRS////////////////////////////////////////////////////////////////////-->
+
+<!----------------------------------(Temporanea!) - LISTA 1 Lista degli utenti che hanno fatto una reviuw su questo PROFILO ------------------------------------------>	
 	
 	<table id="lista_reviewers">
 		<?php foreach ( $lista_reviewers as $user_id ) : ?>
@@ -158,20 +158,49 @@ global $bp
 			</td>
 		</tr>
 		<?php endforeach; ?>
-	</table>	
-	<!-- /////////////////////////////////////////////////////////////////////////////////////////-->					
-				
-<?php else: ?>	
+	</table>			
 
-			<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>
+	
+<!-------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->
+	
+	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>
+	
+	<!-- vd REVIEW LOOP  dal file review-loop.php -->
+		
+		<!-- WHILE-->
+		<?php //while ( bp_review_has_reviews() ) : bp_review_the_review(); ?>		
+		
+			<!-- the_title() -->
+			<!-- the_content() -->
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+<!-------------------------------------- fine LISTA 2 --------------------------------------------------------------------------------------------->
+
+<!-- ELSE -->				
+<?php else: ?>	
+	
+	<!-- MESSAGGIO -->
+	<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>
 
 <?php endif; ?>
-
 
 </div><!-- #item-body -->
 </div><!-- .padder -->
 </div><!-- #content -->
+
 <!-- SIDEBAR --->
 <?php locate_template( array( 'sidebar.php' ), true ) ?>						<!-- locate_template () -->
+
 <!-- FOOTER -->	
 <?php get_footer() ?>
