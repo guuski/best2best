@@ -138,28 +138,36 @@ add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifica
 function bp_review_format_notifications( $action, $item_id, $secondary_item_id, $total_items ) 
 {
 	global $bp;
-
+	$text_title ="";
 	switch ( $action ) 
 	{
 		case 'new_review':
-			// $item_id è l'user ID dell'utente che ha inviato la review
+			// $item_id e' l'user ID dell'utente che ha inviato la review
 
 			if ( (int)$total_items > 1 ) 
 			{
-				return apply_filters( 'bp_review_multiple_new_review_notification', '<a href="' . $bp->loggedin_user->domain . $bp->review->slug . '/screen-one/" title="' . __( 'Multiple reviews', 'bp-review' ) . '">' . sprintf( __( '%d new reviews, multi-f!', 'bp-review' ), (int)$total_items ) . '</a>', $total_items );
+				//return apply_filters( 'bp_review_multiple_new_review_notification', '<a class="ab-item" href="' . $bp->loggedin_user->domain . $bp->review->slug . '/" title="' . __( 'Multiple reviews', 'bp-review' ) . '">' . sprintf( __( '%d new reviews', 'bp-review' ), (int)$total_items ) . '</a>', $total_items );
+				$text_title = sprintf( __( '%d new reviews', 'bp-review' ), (int)$total_items );
 			}
 			else 
 			{
 				$user_fullname = bp_core_get_user_displayname( $item_id, false );
-				$user_url = bp_core_get_user_domain( $item_id );
-				return apply_filters( 'bp_review_single_new_review_notification', '<a href="' . $user_url . '?new" title="' . $user_fullname .'\'s profile">' . sprintf( __( '%s ti ha mandato una review', 'bp-review' ), $user_fullname ) . '</a>', $user_fullname );
+				$text_title = apply_filters( 'bp_review_single_new_review_notification', sprintf( __( '%s ti ha mandato una review', 'bp-review' ), $user_fullname ) , $user_fullname );
 			}
 		break;
 	}
 
+	$return =  array(
+			'text' => $text_title,
+			'link' => $bp->loggedin_user->domain . $bp->review->slug,
+			'title' => __( 'Reviews', 'bp-review' )
+	);
+	
+	
 	do_action( 'bp_review_format_notifications', $action, $item_id, $secondary_item_id, $total_items );
+	
+ 	return $return;
 
-	return false;
 }
 
 /**
@@ -173,7 +181,8 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 
 function bp_review_send_review_notification( $to_user_id, $from_user_id ) {
 	global $bp;
-
+	//TODO gbp staccato invio mail
+	return false;
 	// Let's grab both user's names to use in the email. 
 	$sender_name = bp_core_get_user_displayname( $from_user_id, false );
 	$reciever_name = bp_core_get_user_displayname( $to_user_id, false );
@@ -213,3 +222,4 @@ add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2
 
 
 ?>
+ 
