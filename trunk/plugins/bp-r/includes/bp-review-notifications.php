@@ -30,7 +30,7 @@ global $bp
 [T]
 -----------------------------------------
 
-	__( '%s ', 'bp-review' )
+	__( '%s ', 'reviews' )
 
 */
 
@@ -74,22 +74,22 @@ function bp_review_screen_notification_settings()
 		<thead>
 		<tr>
 			<th class="icon"></th>
-			<th class="title"><?php _e( 'review', 'bp-review' ) ?></th>
-			<th class="yes"><?php _e( 'Yes', 'bp-review' ) ?></th>
-			<th class="no"><?php _e( 'No', 'bp-review' )?></th>
+			<th class="title"><?php _e( 'review', 'reviews' ) ?></th>
+			<th class="yes"><?php _e( 'Yes', 'reviews' ) ?></th>
+			<th class="no"><?php _e( 'No', 'reviews' )?></th>
 		</tr>
 		</thead>
 
 		<tbody>
 		<tr>
 			<td></td>
-			<td><?php _e( 'Action One', 'bp-review' ) ?></td>
+			<td><?php _e( 'Action One', 'reviews' ) ?></td>
 			<td class="yes"><input type="radio" name="notifications[notification_review_action_one]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_one', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_one', true ) ) { ?>checked="checked" <?php } ?>/></td>
 			<td class="no"><input type="radio" name="notifications[notification_review_action_one]" value="no" <?php if ( get_user_meta( $current_user->id, 'notification_review_action_one') == 'no' ) { ?>checked="checked" <?php } ?>/></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><?php _e( 'Action Two', 'bp-review' ) ?></td>
+			<td><?php _e( 'Action Two', 'reviews' ) ?></td>
 			<td class="yes"><input type="radio" name="notifications[notification_review_action_two]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_two', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
 			<td class="no"><input type="radio" name="notifications[notification_review_action_two]" value="no" <?php if ( 'no' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
 		</tr>
@@ -146,13 +146,13 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 
 			if ( (int)$total_items > 1 ) 
 			{
-				//return apply_filters( 'bp_review_multiple_new_review_notification', '<a class="ab-item" href="' . $bp->loggedin_user->domain . $bp->review->slug . '/" title="' . __( 'Multiple reviews', 'bp-review' ) . '">' . sprintf( __( '%d new reviews', 'bp-review' ), (int)$total_items ) . '</a>', $total_items );
-				$text_title = sprintf( __( '%d new reviews', 'bp-review' ), (int)$total_items );
+				//return apply_filters( 'bp_review_multiple_new_review_notification', '<a class="ab-item" href="' . $bp->loggedin_user->domain . $bp->review->slug . '/" title="' . __( 'Multiple reviews', 'reviews' ) . '">' . sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items ) . '</a>', $total_items );
+				$text_title = sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items );
 			}
 			else 
 			{
 				$user_fullname = bp_core_get_user_displayname( $item_id, false );
-				$text_title = apply_filters( 'bp_review_single_new_review_notification', sprintf( __( '%s ti ha mandato una review', 'bp-review' ), $user_fullname ) , $user_fullname );
+				$text_title = apply_filters( 'bp_review_single_new_review_notification', sprintf( __( '%s ti ha mandato una review', 'reviews' ), $user_fullname ) , $user_fullname );
 			}
 		break;
 	}
@@ -160,7 +160,7 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 	$return =  array(
 			'text' => $text_title,
 			'link' => $bp->loggedin_user->domain . $bp->review->slug,
-			'title' => __( 'Reviews', 'bp-review' )
+			'title' => __( 'Reviews', 'reviews' )
 	);
 	
 	
@@ -201,7 +201,7 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id ) {
 
 	// Set up and send the message 
 	$to = $reciever_ud->user_email;
-	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ha scritto una review su di te!', 'bp-review' ), stripslashes($sender_name) );
+	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ha scritto una review su di te!', 'reviews' ), stripslashes($sender_name) );
 
 	$message = sprintf( __(
 '%s sent you a review! Why not send one back?
@@ -211,9 +211,9 @@ To see %s\'s profile: %s
 To send %s a review: %s
 
 ---------------------
-', 'bp-review' ), $sender_name, $sender_name, $sender_profile_link, $sender_name, $sender_review_link );
+', 'reviews' ), $sender_name, $sender_name, $sender_profile_link, $sender_name, $sender_review_link );
 
-	$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'bp-review' ), $reciever_settings_link );
+	$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'reviews' ), $reciever_settings_link );
 
 	// Send it!
 	wp_mail( $to, $subject, $message );

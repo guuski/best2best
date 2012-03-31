@@ -79,7 +79,7 @@ global $bp
 	
 
 <!-- MESSAGGIO -->
-<h4><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'bp-review' ) ?></h4>
+<h4><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h4>
 							
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 <!--  FORM - met 2	- no inclusione ESTERNA
@@ -133,14 +133,14 @@ global $bp
 				
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
-	<h4><?php _e( 'Reviews Ricevute', 'bp-review' ) ?></h4>
+	<h4><?php _e( 'Reviews Ricevute', 'reviews' ) ?></h4>
 						
 	
 	<!-- NUMERO TOTALE delle review per l'utente-->
 	<div class="clear"></div>
 	<h4>
-		<?php //_e( 'TOTALE: ', 'bp-review' ) ?>
-		<?php //_e( 'Numero TOTALE Reviews: ' . bp_review_total_review_count_for_user(bp_displayed_user_id()) , 'bp-review' ) ?>
+		<?php //_e( 'TOTALE: ', 'reviews' ) ?>
+		<?php //_e( 'Numero TOTALE Reviews: ' . bp_review_total_review_count_for_user(bp_displayed_user_id()) , 'reviews' ) ?>
 		<?php //echo bp_review_total_review_count_for_user(bp_displayed_user_id());?>	
 	</h4>
 	
@@ -163,7 +163,7 @@ global $bp
 				
 <?php else: ?>	
 
-			<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'bp-review' ) ?></h5>
+			<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>
 
 <?php endif; ?>
 

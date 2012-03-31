@@ -60,7 +60,7 @@ global $bp
 [T]
 -----------------------------------------
 
-	_e( 'Reviews Directory', 'bp-review' ); 
+	_e( 'Reviews Directory', 'reviews' ); 
 	
 	
 */
@@ -86,7 +86,7 @@ global $bp
 
 				<!-- TITOLO -->
 				<h3> 
-					<?php _e( 'Lista Reviews ', 'bp-review' ); ?> 
+					<?php _e( 'Lista Reviews ', 'reviews' ); ?> 
 				</h3>
 				
 				<!-- DO_ACTION -->

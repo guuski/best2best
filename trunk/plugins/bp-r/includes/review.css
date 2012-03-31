@@ -34,7 +34,8 @@ form#review-form textarea {
 }
 #new-review-options {
 	overflow: auto;
-	height: 0;
+	height: auto;
+	float: right;
 }
 form#review-form #new-review-submit {
 	float: right;

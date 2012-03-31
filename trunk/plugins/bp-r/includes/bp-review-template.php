@@ -50,7 +50,7 @@ global $bp
 [T]
 ------------------------------------------
 
-(204)	$title = sprintf( __( '%1$s ha scritto una review per %2$s!', 'bp-review' ), $review_link, $recipient_link );
+(204)	$title = sprintf( __( '%1$s ha scritto una review per %2$s!', 'reviews' ), $review_link, $recipient_link );
 
 
 /**
@@ -128,7 +128,7 @@ function bp_review_get_pagination_count()
 {
 	global $reviews_template;
 
-	$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'bp-review' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
+	$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'reviews' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
 
 	return apply_filters( 'bp_review_get_pagination_count', $pagination_count );
 }
@@ -236,7 +236,7 @@ function bp_review_get_review_title()
 	$recipient_id    = 	get_post_meta( get_the_ID(), 'bp_review_recipient_id', true );
 	$recipient_link  = 	bp_core_get_userlink( $recipient_id );
 */
-	//$title 			 = 	sprintf( __( '%1$s ha scritto una review per %2$s!', 'bp-review' ), $reviewer_link, $recipient_link );
+	//$title 			 = 	sprintf( __( '%1$s ha scritto una review per %2$s!', 'reviews' ), $reviewer_link, $recipient_link );
 
 	///////////////////////////////////			
 	$obj_post = get_post(get_the_ID());	

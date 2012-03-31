@@ -109,7 +109,7 @@ function bp_review_send_review( $to_user_id, $from_user_id, $content)
 	bp_review_record_activity( array
 	(
 		'type' => 'rejected_terms',
-		'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'bp-review' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+		'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
 		'item_id' => $to_user_id,
 	) );
 	
@@ -186,7 +186,7 @@ function bp_review_accept_terms()
 	bp_review_record_activity( array
 	(
 		'type' => 'accepted_terms',
-		'action' => apply_filters( 'bp_review_accepted_terms_activity_action', sprintf( __( '%s accepted the really exciting terms and conditions!', 'bp-review' ), $user_link ), $user_link ),
+		'action' => apply_filters( 'bp_review_accepted_terms_activity_action', sprintf( __( '%s accepted the really exciting terms and conditions!', 'reviews' ), $user_link ), $user_link ),
 	) );
 
 	if ( function_exists( 'bp_activity_delete') )
@@ -212,7 +212,7 @@ function bp_review_reject_terms()
 	bp_review_record_activity( array
 	(
 		'type' => 'rejected_terms',
-		'action' => apply_filters( 'bp_review_rejected_terms_activity_action', sprintf( __( '%s rejected the really exciting terms and conditions.', 'bp-review' ), $user_link ), $user_link ),
+		'action' => apply_filters( 'bp_review_rejected_terms_activity_action', sprintf( __( '%s rejected the really exciting terms and conditions.', 'reviews' ), $user_link ), $user_link ),
 	) );
 
 	if ( function_exists( 'bp_activity_delete') )

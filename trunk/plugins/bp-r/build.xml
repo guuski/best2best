@@ -1,0 +1,32 @@
+<project name="bp-review-new" default="dist" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="."/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="/var/www/wp-content/plugins"/>
+  <property name="plugin_dir" location="/bp-r"/>
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+  </target>
+
+  <target name="dist" description="installa il plugin localmente" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/${plugin_dir}"/>
+    <copy todir="${dist}/${plugin_dir}">
+      <fileset dir="${src}" excludes="**/*.svn"/>
+    </copy>
+    <chmod file="${dist}/${plugin_dir}/**" perm="g+w" type="both"/>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${dist}/${plugin_dir}"/>
+  </target>
+
+</project>
