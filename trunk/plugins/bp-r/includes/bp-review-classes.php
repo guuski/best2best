@@ -131,12 +131,9 @@ class Review
 
 		if ( $this->id ) 			
 		{			
-				
-////////////				
-			//$titolo_review = 		
-			//sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
-////////////			
-					
+			//non va...boh!	
+				//$titolo_review = sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+			
 			$wp_update_post_args = array
 			(
 				'ID'			=> $this->id,
@@ -159,7 +156,7 @@ class Review
 				'post_status'	=> 'publish',
 				'post_type'		=> 'review',											//post_type
 				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( '%1$s review %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,
 				///////////////////////////////////				
 				'post_content'  => $review_content				
@@ -232,7 +229,8 @@ class Review
 
 			$this->query = new WP_Query( $query_args );													//WP_QUERY
 			
-			$this->pag_links = paginate_links( array(
+			$this->pag_links = paginate_links( array
+			(
 				'base' => add_query_arg( 'items_page', '%#%' ),											//reviews_page
 				'format' => '',
 				'total' => ceil( (int) $this->query->found_posts / (int) $this->query->query_vars['posts_per_page'] ),

@@ -135,17 +135,69 @@ global $bp
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
-	<!-- MESSAGIO  -->
-	<h4><?php _e( 'Lista utenti che hanno scritto una Review per l utente', 'reviews' ) ?></h4>
 	
-<!----------------------------------(Temporanea!) - NUMERO TOTALE delle review per l'utente -------------------------------------------------------->	
+	
+	<!----------------------------------(Temporanea!) - NUMERO TOTALE delle review per l'utente -------------------------------------------------------->	
 	<h4>
 		<?php //_e( 'TOTALE: ', 'reviews' ) ?>
 		<?php //_e( 'Numero TOTALE Reviews: ' . bp_review_total_review_count_for_user(bp_displayed_user_id()) , 'reviews' ) ?>
 		<?php //echo bp_review_total_review_count_for_user(bp_displayed_user_id());?>	
 	</h4>
 
-<!----------------------------------(Temporanea!) - LISTA 1 Lista degli utenti che hanno fatto una reviuw su questo PROFILO ------------------------------------------>	
+	
+	<!-------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->
+	
+	<br/><br/>
+	
+	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>	
+		
+	<?php		
+	
+	$query_args = array
+	(
+		'post_status'	 	=> 'publish',
+		'post_type'		 	=> 'review',									//post_type: 'review'
+		'meta_query'	 	=> array()										//META_QUERY!
+	);
+
+
+	$query_args['meta_query'][] = array
+	(
+			'key'	  => 'bp_review_recipient_id',
+			//'value'	  => (array)$recipient_id,
+			//'value'	  => (array)1,
+			'value'	  => (array)bp_displayed_user_id(),
+			'compare' => 'IN' 							// Allows $recipient_id to be an array ---eh?!
+	);		
+	
+	//
+	$loop = new WP_Query($query_args);
+	
+	?>
+		
+	<?php while($loop->have_posts()): $loop->the_post();?>
+		<?php 
+			the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
+		?>
+		
+		<!--MOI -- -->
+		<div class="entry">
+			<?php the_content();  ?>				
+		</div>	
+	<?php endwhile; ?>
+	
+	<!-- IMPORTANTE -->
+	<?php wp_reset_postdata() ?>		
+	
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+	<!----------------------------------(Temporanea!) - LISTA 1 Lista degli utenti che hanno fatto una reviuw su questo PROFILO ------------------------------------------>	
+	
+	<br/><br/>
+	
+	<!-- MESSAGGIO  -->
+	<h4><?php _e( 'Lista utenti che hanno scritto una Review per l utente', 'reviews' ) ?></h4>
 	
 	<table id="lista_reviewers">
 		<?php foreach ( $lista_reviewers as $user_id ) : ?>
@@ -159,73 +211,9 @@ global $bp
 		</tr>
 		<?php endforeach; ?>
 	</table>			
-
-	
-<!-------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->
-	
-	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>
+	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
 	
 	
-	
-	
-	<!-- vd REVIEW LOOP  dal file review-loop.php -->
-	
-
-
-	<!-- prove a passare il PARAMETRO 'bp_displayed_user_id()'alla funzione 'bp_review_the_review(    )'-->
-	
-	
-	
-<ul id="review-list" class="review-list" role="main">		
-	
-		<!-- WHILE-->
-		<?php while ( bp_review_has_reviews() ) : bp_review_the_review(bp_displayed_user_id()); ?>		
-			<li>
-				<div class="reviewer-avatar">																<!--reviewER-->
-					<?php bp_review_reviewer_avatar( 'type=thumb&width=50&height=50' ); ?>					<!--reviewER-->
-				</div>
-
-				<div class="review">
-					<!--------------------------- TITOLO -------------------------------------->
-					
-					<!-- V1 -->
-					<!-- <div class="review-title"><?php //bp_review_review_title() ?></div>-->
-										
-					<!---V 2 --------------------------------------------------------->
-					<div class="review-title">
-						<?php //the_title() ?>
-						<?php the_title('<h2 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h2>');?>
-					</div>
-					<!---------------------------------------------------------------->
-
-					
-					<!--------------------------- CONTENUTO -------------------------------------->
-					<!-- V 1 -->	
-					<!-- <div class="review-content"><?php //bp_review_review_content() ?></div>-->
-						
-					<!-- V 2 -->
-					<div class="review-content"><?php the_content() ?></div>
-					
-												
-					<!-- DO_ACTION -->
-					<?php do_action( 'bp_directory_review_item' ); ?>										<!--item????-->
-				</div>								
-				<div class="clear"></div>
-			</li>
-		<?php endwhile; ?>
-	</ul>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-
-<!-------------------------------------- fine LISTA 2 --------------------------------------------------------------------------------------------->
-
 <!-- ELSE -->				
 <?php else: ?>	
 	
