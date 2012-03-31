@@ -367,4 +367,28 @@ function bp_review_get_total_review_count_for_user( $user_id = false )
 	return apply_filters( 'bp_review_get_total_review_count', $reviews->query->found_posts, $reviews );
 }
 
+
+//-------------------------------------------------------------------------------
+//
+//-------------------------------------------------------------------------------
+
+function bp_directory_reviews_search_form() 
+{
+	global $bp;
+
+	$default_search_value = bp_get_search_default_text( 'reviews' );
+	$search_value         = !empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : $default_search_value; ?>
+	
+	<form action="" method="get" id="search-review-form">
+		<label><input type="text" name="s" id="reviews_search" value="<?php echo esc_attr( $search_value ) ?>"  onfocus="if (this.value == '<?php echo $default_search_value ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo $default_search_value ?>';}" /></label>
+		<input type="submit" id="reviews_search_submit" name="reviews_search_submit" value="<?php _e( 'Search', 'buddypress' ) ?>" />
+	</form>
+
+<?php
+
+}
+//-------------------------------------------------------------------------------
+
+
+
 ?>
