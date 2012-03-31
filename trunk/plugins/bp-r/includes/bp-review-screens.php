@@ -58,26 +58,9 @@ _e( 'Screen One', 'bp-review' );																				[T]
 [...]
 
 
-/**
- * 
- *
- * @package BuddyPress_Template_Pack
- *
- */
-function bp_review_directory_setup() 
-{
-	if ( bp_is_review_component() && !bp_current_action() && !bp_current_item() ) 
-	{
-		bp_update_is_directory( true, 'review' );
-		
-		do_action( 'bp_review_directory_setup' );
-
-		bp_core_load_template( apply_filters( 'review_directory_template', 'review/index' ) );
-	}
-}
-add_action( 'bp_screens', 'bp_review_directory_setup' );
-
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /**
  * bp_review_screen_one()
  * 
@@ -91,6 +74,13 @@ function bp_review_screen_one()
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );
 }
 	
+	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//  non le usa pennnnniente!		---BOH!
+//
+// - forse servono nel caso non ci caricano i FILE DI TEMPLATE della cartella review espicitamente!
+// - la 2 ha lo stesso contenuto del FILE di template REVIEW LOOP!					 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/***
 	 * 
 	 * 
@@ -102,6 +92,10 @@ function bp_review_screen_one()
 
 	function bp_review_screen_one_content() 
 	{
+	
+			
+	
+	/*
 		global $bp;
 
 		$reviews = bp_review_get_reviews_for_user( $bp->displayed_user->id );	
@@ -123,5 +117,36 @@ function bp_review_screen_one()
 			</table>
 		<?php endif; ?>
 	<?php
+	
+	*/
 	}
+	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  una volta che la DIRECTORY è disabilitata non serve più a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * 
+ *
+ * @package BuddyPress_Template_Pack
+ *
+ */
+ 
+	 /*
+	function bp_review_directory_setup() 
+	{
+
+		if ( bp_is_review_component() && !bp_current_action() && !bp_current_item() ) 
+		{
+			bp_update_is_directory( true, 'review' );
+			
+			do_action( 'bp_review_directory_setup' );
+
+			bp_core_load_template( apply_filters( 'review_directory_template', 'review/index' ) );		// (*)
+		}
+
+	}
+	add_action( 'bp_screens', 'bp_review_directory_setup' );
+	*/
+	
 ?>
+

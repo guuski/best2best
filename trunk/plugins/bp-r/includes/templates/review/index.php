@@ -1,4 +1,29 @@
 <?php
+
+
+
+
+
+
+
+
+//  IMPORTANTE: una volta che la DIRECTORY è disabilitata questo FILE non serve più a niente!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 -----------------------------------------
 Contenuto FILE:
