@@ -41,6 +41,9 @@ global $bp
 */
 
 /**
+ *
+ *
+ *
  *	NOTA BENE: 
  *  
  *  non � richiamata direttamente da NEssuno
@@ -57,25 +60,59 @@ function salva()
 		// [WPNONCE]
 		check_admin_referer( 'bp_review_new_review' );			
 		
-		$content = $_POST['review-content'];		
+		//recupera i valori inviati dal FORM
+		$content  		= $_POST['review-content'];		
+		$voto_prezzo    = $_POST['prezzo'];	
+		$voto_servizio  = $_POST['servizio'];	
+		
+		//...
+		
 
+		// [R] move ---> spostare questa CONDIZIONE al livello superiore! ---lo screen 'scrivi_review' non deve comparire proprio sul mio profilo!!!
 		if ( bp_is_my_profile() ) 
 		{			
 			bp_core_add_message( __( 'non puoi mandare review a te stesso', 'reviews' ));			
 		} 
 		else 
 		{
-			if ( empty( $content ) ) 
+			// [I] change --> per ora lasciamo stare...supponiamo vada tutto bene!
+			
+			//
+			if( empty( $content ) || empty( $voto_prezzo ) || empty( $voto_servizio) )
 			{
-				bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
-				bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );	//screen one		
+			
+				//
+				//
+				//
+						
+				if ( empty( $content ) ) 
+				{
+					bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one		
+				}	
+
+				if ( empty( $voto_prezzo ) ) 	// non va! 
+												// --1-- provo isset( $_POST[   ] )----??!
+												// --2---o confronto col default value?
+				{
+					bp_core_add_message( __( 'Assegna un voto al prezzo', 'reviews' ),'error' );
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one		
+				}	
+		
+				if ( empty( $voto_servizio) )   // non va!
+				{
+					bp_core_add_message( __( 'Assegna un voto al servizio', 'reviews' ),'error' );
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one					
+				}	
 			}	
 			
 			//----------------------------------------------------------------------------------------------------------------------------------
+			
 			//funzione del FILE 'bp-review-functions.php' - se restituisce true � OK!									
-			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $content );			
+			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $content, $voto_prezzo, $voto_servizio );					// [C] 	Rating																														
+																															// [I] magari un array?! :D
 						
-			// ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
+			// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
 			if($result)
 			{				
 				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );

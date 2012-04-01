@@ -419,7 +419,9 @@ function add_review_meta_box()
  */
 function show_review_meta_box( $post ) 							
 {
-	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		
+	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		//NB:
+	$voto_prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
+	$voto_servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );		
 		
 	?>
 		<p> ID dell'utente di cui si vuole scrivere la Review: 
@@ -429,8 +431,31 @@ function show_review_meta_box( $post )
 				value = "<?php echo esc_attr( $bp_review_recipient_id ); ?>" 
 			/>
 		</p>				
+					
+		<p>	&nbsp; Prezzo &nbsp;				
+			<select name = "voto_prezzo" id = "voto_prezzo" >
+				<option selected> 0 </option>
+				<option value = "1"	<?php selected( $voto_prezzo,1); ?>> 1 </option> 
+				<option value = "2"	<?php selected( $voto_prezzo,2); ?>> 2 </option> 
+				<option value = "3"	<?php selected( $voto_prezzo,3); ?>> 3 </option> 
+				<option value = "4"	<?php selected( $voto_prezzo,4); ?>> 4 </option> 
+				<option value = "5"	<?php selected( $voto_prezzo,5); ?>> 5 </option> 											
+			</select>			
+		</p>	
+		<p> &nbsp; Servizio &nbsp;
+			<select name = "voto_servizio" id = "voto_servizio" >
+				<option selected> seleziona&nbsp;&nbsp;&nbsp;</option>
+				<option value = "1"	<?php selected( $voto_servizio,1); ?>> 1 </option> 
+				<option value = "2"	<?php selected( $voto_servizio,2); ?>> 2 </option> 		
+				<option value = "3"	<?php selected( $voto_servizio,3); ?>> 3 </option> 
+				<option value = "4"	<?php selected( $voto_servizio,4); ?>> 4 </option> 
+				<option value = "5"	<?php selected( $voto_servizio,5); ?>> 5 </option> 					
+			</select>
+			
+		</p>	
 	<?php	
 }
+
 
 //HOOK
 add_action( 'save_post', 'save_review_meta_box' );
@@ -443,6 +468,8 @@ function save_review_meta_box( $post_id )
 	if ( isset( $_POST['bp_review_recipient_id'] ) ) 
 	{			
 		update_post_meta( $post_id, 'bp_review_recipient_id', 	strip_tags( $_POST['bp_review_recipient_id'] ) );
+		update_post_meta( $post_id, 'voto_prezzo', 				strip_tags( $_POST['voto_prezzo'] ) );
+		update_post_meta( $post_id, 'voto_servizio', 			strip_tags( $_POST['voto_servizio'] ) );
 	}
 }
 

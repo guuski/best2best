@@ -54,8 +54,13 @@ function bp_review_form_action()
  *
  * Registra un "activity stream item" col seguente testo: "Utente 1 ha inviato una review a Utente 2".
  *
+ *
+ * @see http://codex.wordpress.org/Function_Reference/check_admin_referer
+ * @see http://codex.wordpress.org/Function_Reference/delete_user_meta
+ * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
+ *
  */
-function bp_review_send_review( $to_user_id, $from_user_id, $content) 
+function bp_review_send_review( $to_user_id, $from_user_id, $content, $voto_prezzo, $voto_servizio) 					//[C] Rating
 {
 	global $bp;
 			
@@ -88,7 +93,7 @@ function bp_review_send_review( $to_user_id, $from_user_id, $content)
 		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
 		
 		//
-		$review->save($content);																	// 
+		$review->save($content, $voto_prezzo, $voto_servizio);																	// [C] Rating
 	}
 	
 	//-------------------- 2 parte ---------------------------------------------------------------------------

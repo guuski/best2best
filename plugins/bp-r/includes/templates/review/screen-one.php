@@ -1,5 +1,10 @@
 <?php
 /*
+	<?php if ( is_user_logged_in() ) : ?>
+		<?php include( apply_filters( 'bpgr_post_template', BP_GROUP_REVIEWS_DIR . 'templates/post.php' ) ) ?>
+	<?php endif ?>
+*/
+/*
 -----------------------------------------
 Contenuto FILE:
 -----------------------------------------
@@ -11,6 +16,13 @@ FILE, CLASSI, OGGETTI, METODI collegati o richiamati
 	
 	member-header.php
 		
+	bp_review_form_action()
+
+	[PHP FILE]
+		
+		review-loop
+		...
+		
 -----------------------------------------
 FUNZIONI e HOOKS (WordPress - Wp)
 -----------------------------------------			
@@ -19,6 +31,7 @@ FUNZIONI e HOOKS (WordPress - Wp)
 	get_footer()
 	
 	locate_template()
+	...
 	
 -----------------------------------------
 FUNZIONI e HOOKS (BuddyPress - Bp)
@@ -26,7 +39,8 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 
 	bp_get_options_nav()
 	bp_get_displayed_user_nav()
-	bp_displayed_user_id
+	bp_displayed_user_id()
+	....
 	
 -----------------------------------------
 global $bp
@@ -113,25 +127,79 @@ global $bp
 					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Post', 'reviews' ); ?>" />
 				</div>
 			</div>
+		
+			<!-- aqui? -->
+			<!-- sezione RATING -->
+			
+			<!-- fine sezione RATING -->
 		</div>
 		  
+		<br/>  <br/> <br/>  <br/>
+		
+		<!-- aqui? -->  
+		<!--------------------------------------------- sezione RATING ------------------------------------->
+		<div id="new-review-rating">			
+		
+			<?php 
+				$prezzo = 0;
+				$servizio = 0;
+			?>
+			
+			<p>
+				&nbsp; Prezzo &nbsp;				
+				<select name = "prezzo" id = "prezzo" >
+					<option selected> 0 </option>
+					<option value = "1"	<?php selected( $prezzo,1); ?>> 1 </option> 
+					<option value = "2"	<?php selected( $prezzo,2); ?>> 2 </option> 
+					<option value = "3"	<?php selected( $prezzo,3); ?>> 3 </option> 
+					<option value = "4"	<?php selected( $prezzo,4); ?>> 4 </option> 
+					<option value = "5"	<?php selected( $prezzo,5); ?>> 5 </option> 											
+				</select>
+				
+			</p>					
+
+			<p> 
+				&nbsp;
+				Servizio
+				&nbsp;
+				<select name = "servizio" id = "servizio" >
+					<option selected> seleziona&nbsp;&nbsp;&nbsp;</option>
+					<option value = "1"	<?php selected( $servizio,1); ?>> 1 </option> 
+					<option value = "2"	<?php selected( $servizio,2); ?>> 2 </option> 											
+				</select>
+				
+			</p>			
+						
+		  
+		</div>	<!-- fine sezione RATING -->
+
+
+<!--		  
+
+Qualità
+
+Puntualità
+Affidabilità
+Innovazione
+-->		  
+		  
+		  	
+		  
+		<!-- DO ACTION -->
 		<?php do_action( 'bp_after_review_post_form' ); ?>								
 
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'bp_review_new_review' ) ?>
+		<?php wp_nonce_field( 'bp_review_new_review' ) ?>		
 		
 	</form>
-	
 <!-- --------------------fine FORM ------------------------------------------------------------------------------------------------------------------>						
 
 
 <br/>
 <br/>
 				
-
-			
 	
-<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì -->		
+<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì ...fa cagare!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
@@ -153,38 +221,77 @@ global $bp
 		
 	<?php		
 	
-	$query_args = array
-	(
-		'post_status'	 	=> 'publish',
-		'post_type'		 	=> 'review',									//post_type: 'review'
-		'meta_query'	 	=> array()										//META_QUERY!
-	);
+		$query_args = array
+		(
+				'post_status'		=> 'publish'
+			,	'post_type'			=> 'review'				//post_type: 'review'
+			,	'meta_query'		=> array()				//META_QUERY!
+//			,	'orderby'			=> 'title'
+//			,	'order'				=> 'ASC'
+//			, 	'posts_per_page		=> -1					//(?)
+		);
 
-
-	$query_args['meta_query'][] = array
-	(
-			'key'	  => 'bp_review_recipient_id',
-			//'value'	  => (array)$recipient_id,
-			//'value'	  => (array)1,
-			'value'	  => (array)bp_displayed_user_id(),
-			'compare' => 'IN' 							// Allows $recipient_id to be an array ---eh?!
-	);		
-	
-	//
-	$loop = new WP_Query($query_args);
-	
+		$query_args['meta_query'][] = array										//META_QUERY!
+		(
+				'key'	  => 'bp_review_recipient_id',
+				//'value'	  => (array)$recipient_id,
+				//'value'	  => (array)1,
+				'value'	  => (array)bp_displayed_user_id(),
+				'compare' => 'IN' 							// Allows $recipient_id to be an array ---eh?!
+		);		
+		
+		//lancia la QUERY!
+		$loop = new WP_Query($query_args);	
 	?>
 		
-	<?php while($loop->have_posts()): $loop->the_post();?>
-		<?php 
-			the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
-		?>
 		
-		<!--MOI -- -->
-		<div class="entry">
-			<?php the_content();  ?>				
-		</div>	
-	<?php endwhile; ?>
+	<!-- IF -->					
+	<?php if ( $loop->have_posts() ) : ?>	
+		
+		<!-- WHILE -->
+		<?php while($loop->have_posts()): $loop->the_post();?>			
+		
+			<div class="title">		<!-- boh-----ho sparato! -->
+				<?php 
+					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
+				?>
+			</div>	
+			
+			<div class="entry">
+				<?php //the_content();  ?>	
+				<?php the_content('Leggi il resto della Review');?>				
+			</div>			
+			
+			<!--CUSTOM FIELDS-->
+			<div>								
+				<!-- NB: 'true' perchè.... -->
+			
+				<?php //echo get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>		<!-- vabbuò non mi serve!-->
+				<?php echo get_post_meta( $post->ID, 'voto_prezzo', true );		?>
+				<?php echo get_post_meta( $post->ID, 'voto_servizio', true );	?>	
+				
+				<!------------------------------------------------------------------------------------------------->
+				<?php 	$voto_prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		?>
+																													<!--  un bello SWITCH magari no?! -->
+					<?php if ( $voto_prezzo == 1 ) : ?>	
+						<img src="<?php echo BP_REVIEW_PLUGIN_DIR;?>/includes/img/star.png" class="star" id="star1">
+					<?php endif; ?>					
+				<!------------------------------------------------------------------------------------------------->					
+			</div>				
+			
+			<!-- commenti -->
+			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
+			
+		<?php endwhile; ?>
+
+		
+	<!-- ELSE -->				
+	<?php else: ?>	
+	
+		<!-- MESSAGGIO -->
+		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>
+		
+	<?php endif; ?>
 	
 	<!-- IMPORTANTE -->
 	<?php wp_reset_postdata() ?>		

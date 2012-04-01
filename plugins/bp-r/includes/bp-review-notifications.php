@@ -118,7 +118,8 @@ function bp_review_remove_screen_notifications()
  	 */
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' );
 }
-add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );
+add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );									//ACTION del plugin -- 'screen_one'
+																											
 add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
 
 
@@ -179,10 +180,13 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
  */
 
 
-function bp_review_send_review_notification( $to_user_id, $from_user_id ) {
+function bp_review_send_review_notification( $to_user_id, $from_user_id ) 
+{
 	global $bp;
+
 	//TODO gbp staccato invio mail
 	return false;
+	
 	// Let's grab both user's names to use in the email. 
 	$sender_name = bp_core_get_user_displayname( $from_user_id, false );
 	$reciever_name = bp_core_get_user_displayname( $to_user_id, false );
