@@ -116,7 +116,7 @@ class Review
 	 * save()
 	 *
 	 */
-	function save($review_content) 
+	function save($review_content, $voto_prezzo, $voto_servizio) 														//[C] Rating
 	{
 		global $wpdb, $bp;
 	
@@ -147,7 +147,11 @@ class Review
 			$result = wp_update_post( $wp_update_post_args );
 
 			if ( $result ) 
-				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
+			{
+				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
+				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
+				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );				
+			}
 		} 
 		else 
 		{			
@@ -165,7 +169,11 @@ class Review
 			$result = wp_insert_post( $wp_insert_post_args );
 			
 			if ( $result ) 			
+			{
+				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
+				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
+			}
 		}
 		
 		do_action( 'bp_review_data_after_save', $this );

@@ -8,7 +8,7 @@ Questo file contiene le "screen functions":
 
 le "screen functions" sono i controllers (nel modello Model View Controller) di BuddyPress. 
 Vanno in esecuzione quando viene intercettato l'indirizzo URL a cui sono assegnate.
-Interagiscono con le "business functions" (che costituiscono il Model) per manipolare or salvare informazioni
+Interagiscono con le "business functions" (che costituiscono il Model) per manipolare o salvare informazioni
 e poi mandano l'output a file di template (le View).
 	
 ----------------------------------------------------
@@ -60,6 +60,8 @@ global $bp
 //	screen SCREEN_ONE
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
+//
+//
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /**
  * bp_review_screen_one()
@@ -68,8 +70,16 @@ global $bp
 function bp_review_screen_one() 
 {
 	global $bp;
-	do_action( 'bp_review_screen_one' );
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				//carica 'screen_one.php'
+	
+	do_action( 'bp_review_screen_one' );													//-------RINOMINARLA!!! 
+	
+	//----se no le notifiche non funzionano!!!
+	//-------RINOMINARLA!!! 
+	// e rinominare anche la seguente riga nel FILE delle notifiche
+		//add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );		 //ACTION del plugin -- 'screen_one'
+	
+	//carica 'screen_one.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  //------RINOMINARLA!!! 
 }
 	
 	
