@@ -509,7 +509,7 @@ function save_review_meta_box( $post_id )
 			//redirect
 			bp_core_redirect(wp_get_referer()); 
 		}    
-    }   
-*/
+*/    }   
+
 
 ?>
