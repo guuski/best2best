@@ -70,7 +70,7 @@ function bp_reviews_post_form_action()
  * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
  *
  */
-function bp_review_send_review( $to_user_id, $from_user_id, $content, $voto_prezzo, $voto_servizio) 					//[C] Rating
+function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $voto_prezzo, $voto_servizio) 					//[C] Rating
 {
 	global $bp;
 			
@@ -103,7 +103,7 @@ function bp_review_send_review( $to_user_id, $from_user_id, $content, $voto_prez
 		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
 		
 		//
-		$review->save($content, $voto_prezzo, $voto_servizio);																	// [C] Rating
+		$review->save($title,$content, $voto_prezzo, $voto_servizio);																	// [C] Rating
 	}
 	
 	//-------------------- 2 parte ---------------------------------------------------------------------------
@@ -123,10 +123,11 @@ function bp_review_send_review( $to_user_id, $from_user_id, $content, $voto_prez
 		) );
 	
 	//DO ACTION
-	do_action( 'bp_review_send_review', $to_user_id, $from_user_id , $content);						//aggiunto $content
+	do_action( 'bp_review_send_review', $to_user_id, $from_user_id , $content);						//aggiunto $content---------mancano gli altri PARAMETRI!!!!!! 
 
+	//-------------------- incredibile! ---------------------------------------------------------------------------
 	//
-	return true;																					//ritorna sempre TRUE --?!?!? non va!
+	return true;																					//ATTENZIONE: ritorna sempre TRUE --?!?!? non va proprio!!!
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
