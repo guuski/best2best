@@ -139,8 +139,9 @@ add_action( 'wp_print_scripts'  		, 'add_css');
  */
 function add_css()
 {
-// 	if(self::is_review_component())										
-		wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
+//  	if(self::is_review_component())										
+	wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
+	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
 }  
 
 ?>

@@ -2,16 +2,13 @@
 
 //--------------------------------------------------------------- SCREEN 2 --> Scrivi Review-----------------------------------------------------------------------------------------
 
-?>
-
-<!-- HEADER -->
-<?php get_header() ?>
+get_header() ?>
 
 	<!-- CONTENT -->
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder">
+		<div class="padder" style="background: #EAEAEA; ">
 
 			<div id="item-header">
 			
@@ -34,11 +31,11 @@
 	<div id="main-column">
 <!------------------------------------------>				
 	
-<div id="item-body">											<!-- ma è ripetuto?!-->
+<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-	<div id="item-body">											<!-- ma è ripetuto?!-->
+	<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 		<div class="item-list-tabs no-ajax" id="subnav">
 			<ul>
 				<!-- -->
@@ -140,10 +137,10 @@
 		</div>	<!-- fine sezione RATING -->
 <!--		  
 
-Qualità
+Qualitï¿½
 
-Puntualità
-Affidabilità
+Puntualitï¿½
+Affidabilitï¿½
 Innovazione
 -->		  
 		  		  		  
