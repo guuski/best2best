@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
 -----------------------------------------
 Contenuto FILE:
@@ -226,4 +226,3 @@ add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2
 
 
 ?>
- 

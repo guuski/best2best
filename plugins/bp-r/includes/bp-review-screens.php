@@ -78,7 +78,7 @@ function bp_review_screen_one()
 	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');	
 	
 	//PHP Notice: 
-		// bp_core_delete_notifications_for_user_by_type è <strong>deprecata</strong> dalla versione 1.5! 
+		// bp_core_delete_notifications_for_user_by_type ï¿½ <strong>deprecata</strong> dalla versione 1.5! 
 		// Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
 		
 	//carica 'screen_one.php'
@@ -144,7 +144,7 @@ function bp_review_screen_three()
 
 	NOTA BENE:
 	
-		è collegata la seguente riga nel FILE delle notifiche
+		ï¿½ collegata la seguente riga nel FILE delle notifiche
 			//add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );		 //ACTION del plugin -- 'screen_one'
 		
 	
@@ -228,7 +228,7 @@ function bp_review_screen_one_content()
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  una volta che la DIRECTORY è disabilitata non serve più a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
+//  una volta che la DIRECTORY ï¿½ disabilitata non serve piï¿½ a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -252,4 +252,3 @@ function bp_review_screen_one_content()
 	//add_action( 'bp_screens', 'bp_review_directory_setup' );
 	
 ?>
-
