@@ -8,7 +8,7 @@ get_header() ?>
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder" style="background: #EAEAEA; ">
+		<div class="padder" style="background: #EAEAEA;  padding: 19px 19px 0;">
 
 			<div id="item-header">
 			

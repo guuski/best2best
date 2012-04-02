@@ -9,7 +9,7 @@
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder">
+		<div class="padder" style="background: #EAEAEA;  padding: 19px 19px 0;">
 
 			<div id="item-header">
 				<!-- buddypress MEMBER HEADER -->
@@ -30,11 +30,11 @@
 	<div id="main-column">
 <!------------------------------------------>				
 	
-<div id="item-body">											<!-- ma è ripetuto?!-->
+<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-	<div id="item-body">											<!-- ma è ripetuto?!-->
+	<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 		<div class="item-list-tabs no-ajax" id="subnav">
 			<ul>
 				<!-- -->
@@ -65,7 +65,7 @@
 		$query_args['meta_query'][] = array											//META_QUERY!
 		(
 			'key'	  => 'bp_review_reviewer_id',																		
-//			'value'	  => (array)bp_loggedin_user_id(),			//-----è SBAGLIATO!!
+//			'value'	  => (array)bp_loggedin_user_id(),			//-----ï¿½ SBAGLIATO!!
 //			'value'	  => (array)bp_displayed_user_id(),			//OK funziona!
 			'compare' => 'IN' 							
 		);		
