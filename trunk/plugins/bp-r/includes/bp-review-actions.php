@@ -132,10 +132,12 @@ function salva()
 			}	
 			//----------------------------------------------------------------------------------------------------------------------------------	
 		}
-
-		//REDIRECT su screen-TWO
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen 	---> //scren TWO cazzarola
-		//bp_core_redirect(wp_get_referer()); 
+	
+		//---------REDIRECT------------
+		//bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );		//VECCHIO
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/my-reviews' );			//NUOVO -OK - ha funzionato
+		//bp_core_redirect(wp_get_referer()); 		
+		
 	}	
 }
 
