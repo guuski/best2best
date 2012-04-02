@@ -155,7 +155,7 @@ function bp_review_screen_one_content()
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  una volta che la DIRECTORY è disabilitata non serve più a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
+//  una volta che la DIRECTORY ï¿½ disabilitata non serve piï¿½ a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -179,4 +179,3 @@ function bp_review_screen_one_content()
 	//add_action( 'bp_screens', 'bp_review_directory_setup' );
 	
 ?>
-
