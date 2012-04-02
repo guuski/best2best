@@ -1,9 +1,23 @@
 <?php
+
+
+//--------------------------------------------------------------------- SCREEN 1 -----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 /*
 	<?php if ( is_user_logged_in() ) : ?>
 		<?php include( apply_filters( 'bpgr_post_template', BP_GROUP_REVIEWS_DIR . 'templates/post.php' ) ) ?>
 	<?php endif ?>
 */
+
+
 /*
 -----------------------------------------
 Contenuto FILE:
@@ -94,111 +108,6 @@ global $bp
 	
 	
 	
-	
-	
-<!-- MESSAGGIO -->
-<h4><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h4>
-
-							
-<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
-<!--  FORM - met 2	- no inclusione ESTERNA
-<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
-
-	<form action = "<?php bp_review_form_action() ?> " method="post" id="reviews-form" class="standard-form">
-
-		<?php do_action( 'bp_before_review_post_form' ); ?>
-
-		<div id="review-writer-avatar">
-			<a href="<?php echo bp_loggedin_user_domain(); ?>">
-				<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
-			</a>
-		</div>
-
-		<h5> <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
-
-		<div id="new-review-content">
-			
-			<div id="new-review-textarea">			
-				<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
-			</div>
-			
-			<div id="new-review-options">
-				<div id="new-review-submit">								
-					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Post', 'reviews' ); ?>" />
-				</div>
-			</div>
-		
-			<!-- aqui? -->
-			<!-- sezione RATING -->
-			
-			<!-- fine sezione RATING -->
-		</div>
-		  
-		<br/>  <br/> <br/>  <br/>
-		
-		<!-- aqui? -->  
-		<!--------------------------------------------- sezione RATING ------------------------------------->
-		<div id="new-review-rating">			
-		
-			<?php 
-				$prezzo = 0;
-				$servizio = 0;
-			?>
-			
-			<p>
-				&nbsp; Prezzo &nbsp;				
-				<select name = "prezzo" id = "prezzo" >
-					<option selected> 0 </option>
-					<option value = "1"	<?php selected( $prezzo,1); ?>> 1 </option> 
-					<option value = "2"	<?php selected( $prezzo,2); ?>> 2 </option> 
-					<option value = "3"	<?php selected( $prezzo,3); ?>> 3 </option> 
-					<option value = "4"	<?php selected( $prezzo,4); ?>> 4 </option> 
-					<option value = "5"	<?php selected( $prezzo,5); ?>> 5 </option> 											
-				</select>
-				
-			</p>					
-
-			<p> 
-				&nbsp;
-				Servizio
-				&nbsp;
-				<select name = "servizio" id = "servizio" >
-					<option selected> seleziona&nbsp;&nbsp;&nbsp;</option>
-					<option value = "1"	<?php selected( $servizio,1); ?>> 1 </option> 
-					<option value = "2"	<?php selected( $servizio,2); ?>> 2 </option> 											
-				</select>
-				
-			</p>			
-						
-		  
-		</div>	<!-- fine sezione RATING -->
-
-
-<!--		  
-
-Qualità
-
-Puntualità
-Affidabilità
-Innovazione
--->		  
-		  
-		  	
-		  
-		<!-- DO ACTION -->
-		<?php do_action( 'bp_after_review_post_form' ); ?>								
-
-		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'bp_review_new_review' ) ?>		
-		
-	</form>
-<!-- --------------------fine FORM ------------------------------------------------------------------------------------------------------------------>						
-
-
-<br/>
-<br/>
-				
-	
 <!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì ...fa cagare!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
@@ -259,7 +168,8 @@ Innovazione
 			
 			<div class="entry">
 				<?php //the_content();  ?>	
-				<?php the_content('Leggi il resto della Review');?>				
+				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
+				<?php the_excerpt();  ?>	
 			</div>			
 			
 			<!--CUSTOM FIELDS-->

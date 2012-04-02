@@ -79,12 +79,13 @@ function bp_review_init()
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 // 	IMPORTANTE 
-//	il link! ---> review/screen-one
-//  STYLE style = " float:left;  position:relative;  top:-5px " 
+//
+//	il link! ---> review/screen-two			SCREEN-TWO  o CREATE 
+//
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-add_action( 'bp_member_header_actions'	, 'add_review_button',1);				//[C] 1 - aggiunge il bottone 'Add Review'
+add_action( 'bp_member_header_actions'	, 'add_review_button',1);				
 
 /**	 
  * 	
@@ -99,7 +100,7 @@ function add_review_button()
 		<a
 		class = "add-reviews button"
 		title = "Scrivi una Review per l\'utente."
-		href="'.bp_get_displayed_user_link().'review/screen-one#user-activity"
+		href="'.bp_get_displayed_user_link().'review/screen-two#user-activity"								 
 		>
 		'.__('Add Review','reviews').'
 		</a>

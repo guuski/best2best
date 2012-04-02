@@ -183,71 +183,68 @@ class BP_Review_Component extends BP_Component {
 	 */
 	function setup_nav() 
 	{
+	
+		global $bp;
+		
 		// 
 		$main_nav = array
 		(
-			'name' 		      => __( 'Review', 'reviews' ),
-			
-			//manca GET TOTAL COUNT delle reviews!		
-				//'name'          => sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),$this->mapper->get_total_count() ),
-			
-			'slug' 		      => bp_get_review_slug(), //&$this->slug
-			
-			'position' 	      => 80,
-
-			//'item_css_id'         => $this->id														//[?]
-									
-			'screen_function'     => 'bp_review_screen_one',//'screen_function'     =>array(&$this,'screen_home'),			//screen one			
-			
-			'default_subnav_slug' => 'screen-one'		//'default_subnav_slug' => 'my-reviews',						//screen one					
+			'name' 		      => __( 'Review', 'reviews' ),																//[I] manca GET TOTAL COUNT delle reviews!---crea la funzione!		
+//			'name'          => sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),---get_total_count()----),			
+			'slug' 		      => bp_get_review_slug(), //&$this->slug			
+			'position' 	      => 80,														//[?]
+			'screen_function'     => 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE
+			//'default_subnav_slug' => 'screen-one'			 
+			'default_subnav_slug' => 'my-reviews',																		// [C] S
+			//'item_css_id'         => $this->id				
 		);
 
 		$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
-		//$review_link = trailingslashit( $bp->loggedin_user->domain . $this->slug );		//without a trailing slash
+		//$review_link = trailingslashit( $bp->loggedin_user->domain . $this->slug );		
 		
-		/*
+		//---------------------------------------------------															//[C] S
 		if(bp_is_my_profile())
 		{
-			$nav_text	 =	sprintf(__('Le mie Review <span>%d</span>','reviews'),$this->mapper->get_comment_count_by_status(1));
-			$review_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );//without a trailing slash
+			$nav_text	 =	sprintf(__('Le mie Review','reviews'));						
+			$review_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			//$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
 		}
 		else
 		{
-			$nav_text	 =	sprintf (__('Review di %s <span>%d</span>', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id),$this->mapper->get_comment_count_by_status(1));	
-			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug );//without a trailing slash
-		}
-		*/
+			$nav_text	 =	sprintf (__('Review di %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
+		}		  
+		//---------------------------------------------------
 		
 		$sub_nav[] = array
 		(
-			'name'            =>  __( 'Screen One', 'reviews' ),
-			//'name'            => $nav_text,
+			//'name'            =>  __( 'Lista Review', 'reviews' ),
+			'name'            => $nav_text,																				//[C] S - vd IF sopra			
 			
-			'slug'            => 'screen-one',															//screen-one
-			//'slug'            => 'my-reviews',
+			//'slug'            => 'screen-one',																			
+			'slug'            => 'my-reviews',																			//[C] S					
 			
-			'parent_url'      => $review_link,				//
-			
-			'parent_slug'     => bp_get_review_slug(), //'parent_slug'     => $this->slug,
-			
-			'screen_function' => 'bp_review_screen_one',//'screen_function' => array(&$this,'screen_home'),		//screen-one
-			
-			'position'        => 10
-			
-			//'item_css_id'     => 'review-my-review'
+			'parent_url'      => $review_link,				//			
+			'parent_slug'     => bp_get_review_slug(), 		// $this->slug,			
+			'screen_function' => 'bp_review_screen_one',	//'screen_function' => array(&$this,'screen_home'),		 		// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
+			'position'        => 10			
+//			'item_css_id'     => 'review-my-review'
 		);
 		
-		// aggiunge "Create review link
-		/*
-		if(review_current_user_can_write()) 	//nome ambiguo!
+		// aggiunge 		
+		if(review_current_user_can_write()) 																			//nome ambiguo!
 		{
 			$sub_nav[] = array
 			(
-					'name'            => __('Scrivi una Review', 'reviews' )
-				,	'slug'            => 'create'														// [S] create
+					'name'            => __('Scrivi una Review', 'reviews' )				
+
+				,	'slug'            => 'screen-two'														// [S] create		---> devo cambiare il BOTTONE!!!
+//				,	'slug'            => 'create'
+
 				,	'parent_url'      => $review_link
-				,	'parent_slug'     => $this->slug													// [S]	
-				,	'screen_function' => array(&$this,'screen_write')									// [T] screen_write
+				,	'parent_slug'     => $this->slug													// [S]					
+				,	'screen_function' => 'bp_review_screen_two'								 	// IMPORTANTE: funzione 'bp_review_screen_two()' nel FILE....			
 				
 				// ACCESS RESTRICTION - only allow on other's profile
 				,	'user_has_access' => (		is_user_logged_in()										
@@ -257,7 +254,7 @@ class BP_Review_Component extends BP_Component {
 				,	'position'        => 20
 			);
 		}
-		*/
+		
 		/*
 		$sub_nav[] = array
 		(
@@ -472,5 +469,47 @@ function save_review_meta_box( $post_id )
 		update_post_meta( $post_id, 'voto_servizio', 			strip_tags( $_POST['voto_servizio'] ) );
 	}
 }
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//			tanto per capire il meccanismo ma lasciamo perdere per orA!
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+//add_action('bp_screens','save_review',4);
+
+
+//
+    function save_review()
+	{
+/*     
+	 global $bp;
+     
+		if( 	
+				bp_is_current_component($bp->review->slug)
+			&&  bp_is_current_action('screen-two')													//SCREEN_TWO o CREATE
+			&&	!empty($_POST['review-submit'])
+			)										
+		{
+			
+			// [WPNONCE]
+			check_admin_referer( 'bp_review_new_review' );		
+			
+			$error   = false;
+			$message = 'ciao benvenuto';
+
+
+			//[...]
+				
+			bp_core_add_message($message,$error);      
+			
+			//redirect
+			bp_core_redirect(wp_get_referer()); 
+		}    
+    }   
+*/
 
 ?>
