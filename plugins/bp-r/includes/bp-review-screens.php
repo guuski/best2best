@@ -57,7 +57,7 @@ global $bp
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	screen SCREEN_ONE
+//	screen SCREEN_ONE - 1/2
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -71,43 +71,84 @@ function bp_review_screen_one()
 {
 	global $bp;
 	
-	do_action( 'bp_review_screen_one' );													//-------RINOMINARLA!!! 
+	// DO ACTION
+	do_action( 'bp_review_screen_one' );													
+		
+	//cancella le notifiche di review dell'utente
+	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');
 	
-	//----se no le notifiche non funzionano!!!
-	//-------RINOMINARLA!!! 
-	// e rinominare anche la seguente riga nel FILE delle notifiche
-		//add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );		 //ACTION del plugin -- 'screen_one'
-	
+		
 	//carica 'screen_one.php'
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  //------RINOMINARLA!!! 
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  		//FILTER - non usato da nessuno
 }
 	
 	
-	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	
+//	screen SCREEN_TWO - 2/2
 //
-//	screen SCRIVI REVIEW
+//	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
-//										------>  METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 /**
- * 
+ * bp_review_screen_two()
  * 
  */
- 
-	function bp_review__________()  					//SCRIVI REVIEW
-	{
-/*	
-		global $bp;
-		do_action( 'bp_review_	--------	' );
-		bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/		------		' ) );
-*/		
-	}	
+function bp_review_screen_two() 
+{
+	global $bp;
 	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	// DO ACTION
+	do_action( 'bp_review_screen_two' );												
+		
+	//carica 'screen_two.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_two', 'review/screen-two' ) );					//FILTER - non usato da nessuno
+	
+	//function screen_write()
+	
+		//add_action('bp_template_content','write_content');	
+		/*
+					---> 
+				
+					function write_content()
+					{
+						bp_reviews_post_form();																				//[T]	vd (S1)
+					}
+					
+        */					
+		//bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));				 
+	
+}
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//		NOTE sulle 2 funioni SCreen
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	
+/*
+
+	NOTA BENE:
+	
+		è collegata la seguente riga nel FILE delle notifiche
+			//add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );		 //ACTION del plugin -- 'screen_one'
+		
+	
+	come era nel vecchio PLUGIN la funzione Screen ONE:
+
+		{
+			bp_reviews_delete_between_user_by_type(bp_loggedin_user_id(), bp_displayed_user_id(),$bp->reviews->id);		
+			
+			add_action('bp_template_content',array(&$this,'home_content'));													
+			
+					---> 
+					function home_content()
+					{
+						bp_reviews_load_template('reviews/review-loop.php');												
+					}
+	
+			bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));					
+		}
+*/	
 	
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
@@ -119,7 +160,9 @@ function bp_review_screen_one()
 	
 function bp_review_screen_one_title() 
 {
-	_e( 'Screen One', 'reviews' );
+	//_e( 'Screen One', 'reviews' );
+	
+	_e( 'SLA LA LA LA LA e', 'reviews' );
 }
 
 function bp_review_screen_one_content() 

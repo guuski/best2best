@@ -56,6 +56,14 @@ function salva()
 	global $bp;
 	
 	if ( isset( $_POST['review-submit'] ) && bp_is_active( 'review' ) ) 
+/*	
+	if (		bp_is_current_component($bp->review->slug)
+			//&&  bp_is_current_action('screen-two')													//SCREEN-TWO o CREATE
+			//&&  bp_is_current_action('create')													// CREATE
+			&&  bp_is_current_action('screen-one')													//SCREEN-ONE
+			&&	!empty($_POST['review-submit'])
+		)										
+*/		
 	{		
 		// [WPNONCE]
 		check_admin_referer( 'bp_review_new_review' );			
@@ -88,7 +96,7 @@ function salva()
 				if ( empty( $content ) ) 
 				{
 					bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one		
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO
 				}	
 
 				if ( empty( $voto_prezzo ) ) 	// non va! 
@@ -96,13 +104,13 @@ function salva()
 												// --2---o confronto col default value?
 				{
 					bp_core_add_message( __( 'Assegna un voto al prezzo', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one		
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO
 				}	
 		
 				if ( empty( $voto_servizio) )   // non va!
 				{
 					bp_core_add_message( __( 'Assegna un voto al servizio', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one					
+					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO				
 				}	
 			}	
 			
@@ -125,8 +133,9 @@ function salva()
 			//----------------------------------------------------------------------------------------------------------------------------------	
 		}
 
-		//REDIRECT su screen-one
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-one' );				//screen one		
+		//REDIRECT su screen-TWO
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen 	---> //scren TWO cazzarola
+		//bp_core_redirect(wp_get_referer()); 
 	}	
 }
 
