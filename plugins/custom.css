@@ -48,8 +48,8 @@ background: linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%);
 {
 	display:block;
 	width:520px;
-	height:70px;
-	background:url(images/B2B_logoOrizzontale.png) no-repeat scroll left top transparent;
+	height:98px;
+	background:url(images/Best2Best2H.png) no-repeat scroll left top transparent;
 	text-indent: -9999px;
 	padding-top: 0em;
 	padding-right: 0em;
@@ -81,8 +81,8 @@ div.item-list-tabs ul li a span {
 }
 
 div.item-list-tabs ul li {
-	background: #2BB573;
-	border: 1px solid #2BB573;
+	background: #4A97CD;
+	border: 1px solid #87BADD;
 }
 
 div.item-list-tabs ul li:hover {
