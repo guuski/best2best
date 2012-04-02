@@ -34,7 +34,8 @@ form#review-form textarea {
 }
 #new-review-options {
 	overflow: auto;
-	height: 0;
+	height: auto;
+	float: right;
 }
 form#review-form #new-review-submit {
 	float: right;
@@ -112,7 +113,7 @@ div.add-reviews {
     text-shadow: 0 1px rgba(255, 255, 255, 0.75);
 	background-repeat: no-repeat;
     background-position: 95% 50%;
-    margin: 7px 10px 0 0;
+    margin: 7px 10px -2px 0;
     float: left;
 	
 }
@@ -142,5 +143,35 @@ div.add-reviews:active{
 	border-width: 0px;
 	background-repeat: no-repeat;
 	background-position: 95% 50%;
+}
+
+
+/* -------------------- RATING ------------------------------ */
+
+#review-rating 
+{
+	margin-top: 8px;
+	vertical-align: top;
+	width: 200px;
+	float: left;
+}
+
+div.star-holder 
+{
+	position: relative;
+}
+
+div.star-holder div.star 
+{
+	float: left;
+	width: 16px;
+}
+
+
+.already-rated .rest-stars 
+{
+	position: absolute;
+	top: 10px;
+	right: 20px;
 }
 
