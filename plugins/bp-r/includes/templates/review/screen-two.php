@@ -1,6 +1,6 @@
 <?php
 
-//--------------------------------------------------------------------- SCREEN 2 -----------------------------------------------------------------------------------------
+//--------------------------------------------------------------- SCREEN 2 --> Scrivi Review-----------------------------------------------------------------------------------------
 
 ?>
 
@@ -14,8 +14,10 @@
 		<div class="padder">
 
 			<div id="item-header">
+			
 				<!-- buddypress MEMBER HEADER -->
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->
+				
 			</div>
 
 			<div id="item-nav">
@@ -36,13 +38,13 @@
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-<div id="item-body">											<!-- ma è ripetuto?!-->
-	<div class="item-list-tabs no-ajax" id="subnav">
-		<ul>
-			<!-- -->
-			<?php bp_get_options_nav() ?>
-		</ul>
-	</div>
+	<div id="item-body">											<!-- ma è ripetuto?!-->
+		<div class="item-list-tabs no-ajax" id="subnav">
+			<ul>
+				<!-- -->
+				<?php bp_get_options_nav() ?>
+			</ul>
+		</div>
 
 
 	
@@ -52,7 +54,7 @@
 	
 	
 	
-<!-- MESSAGGIO -->
+<!-- MESSAGGIO  Opt 1 -->
 <h4><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h4>
 
 							
@@ -62,17 +64,20 @@
 
 	<form action = "<?php bp_review_form_action() //bp_reviews_post_form_action() ?> " method="post" id="reviews-form" class="standard-form">
 	
-
+		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>
 
+		<!-- Avatar -->
 		<div id="review-writer-avatar">
 			<a href="<?php echo bp_loggedin_user_domain(); ?>">
 				<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
 			</a>
 		</div>
 
+		<!-- MESSAGGIO  Opt 2 -->
 		<h5> <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
 
+		<!-- Contenuto Review -->
 		<div id="new-review-content">
 			
 			<div id="new-review-textarea">			
@@ -125,12 +130,8 @@
 					<option value = "2"	<?php selected( $servizio,2); ?>> 2 </option> 											
 				</select>
 				
-			</p>			
-						
-		  
+			</p>											  
 		</div>	<!-- fine sezione RATING -->
-
-
 <!--		  
 
 Qualità
@@ -139,17 +140,15 @@ Puntualità
 Affidabilità
 Innovazione
 -->		  
-		  
-		  	
-		  
+		  		  		  
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_after_review_post_form' ); ?>								
 
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'bp_review_new_review' ) ?>		
+		<?php wp_nonce_field( 'bp_review_new_review' ); ?>		
 		
 	</form>
-<!-- --------------------fine FORM ------------------------------------------------------------------------------------------------------------------>						
+<!--------------------------------------------------------------------------fine FORM -------------------------------------------------------------------------------------->						
 
 
 </div><!-- #item-body -->

@@ -151,6 +151,7 @@ class Review
 				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
 				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );				
+				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
 			}
 		} 
 		else 
@@ -173,6 +174,7 @@ class Review
 				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
 				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
+				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
 			}
 		}
 		

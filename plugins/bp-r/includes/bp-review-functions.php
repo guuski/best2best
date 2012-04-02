@@ -41,8 +41,7 @@ function bp_reviews_post_form_action()
 {
     global $bp;
 	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->reviews->root_slug."/create/"); 	//ORIGNAL
-	
-	
+		
 	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/screen-two/"); 		//la S  
 	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/create/"); 		//la S  //CREATE
 }

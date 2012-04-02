@@ -57,7 +57,7 @@ global $bp
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	screen SCREEN_ONE - 1/2
+//	screen SCREEN-ONE (LISTA REVIEWS)- 1/3
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -75,8 +75,11 @@ function bp_review_screen_one()
 	do_action( 'bp_review_screen_one' );													
 		
 	//cancella le notifiche di review dell'utente
-	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');
+	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');	
 	
+	//PHP Notice: 
+		// bp_core_delete_notifications_for_user_by_type è <strong>deprecata</strong> dalla versione 1.5! 
+		// Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
 		
 	//carica 'screen_one.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  		//FILTER - non usato da nessuno
@@ -85,7 +88,7 @@ function bp_review_screen_one()
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	screen SCREEN_TWO - 2/2
+//	screen SCREEN-TWO (SCRIVI REVIEW) - 2/3
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -105,24 +108,36 @@ function bp_review_screen_two()
 	//carica 'screen_two.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_two', 'review/screen-two' ) );					//FILTER - non usato da nessuno
 	
-	//function screen_write()
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	
+//	screen SCREEN-THREE (REVIEW SCRITTE) - 3/3
+//
+//	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
+//
+//
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
+/**
+ * bp_review_screen_three()
+ * 
+ */
+function bp_review_screen_three() 
+{
+	global $bp;
 	
-		//add_action('bp_template_content','write_content');	
-		/*
-					---> 
-				
-					function write_content()
-					{
-						bp_reviews_post_form();																				//[T]	vd (S1)
-					}
-					
-        */					
-		//bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));				 
+	// DO ACTION
+	do_action( 'bp_review_screen_three' );												
+		
+	//carica 'screen_three.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_three', 'review/screen-three' ) );					//FILTER - non usato da nessuno
 	
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//		NOTE sulle 2 funioni SCreen
+//		NOTE sulle  funzioni SCreen
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	
 /*
@@ -148,9 +163,24 @@ function bp_review_screen_two()
 	
 			bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));					
 		}
-*/	
+		
+		
 	
+	//function screen_write()
 	
+		//add_action('bp_template_content','write_content');	
+		/*
+					---> 
+				
+					function write_content()
+					{
+						bp_reviews_post_form();																				//[T]	vd (S1)
+					}
+					
+        */					
+		//bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));				 		
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //  non le usa pennnnniente!		---BOH!
 //
@@ -198,7 +228,7 @@ function bp_review_screen_one_content()
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  una volta che la DIRECTORY ï¿½ disabilitata non serve piï¿½ a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
+//  una volta che la DIRECTORY è disabilitata non serve più a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -222,3 +252,4 @@ function bp_review_screen_one_content()
 	//add_action( 'bp_screens', 'bp_review_directory_setup' );
 	
 ?>
+

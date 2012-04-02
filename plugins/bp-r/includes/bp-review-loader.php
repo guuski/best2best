@@ -86,11 +86,11 @@ class BP_Review_Component extends BP_Component {
 	/**
 	 *	Costruttore 	
 	 *
-	 * L'unico metodo da richiamare obbligatoriamente � start() ---> parent::start()
+	 * L'unico metodo da richiamare obbligatoriamente ? start() ---> parent::start()
 	 *
 	 *   (1) $id   - identificatore univoco
 	 *   (2) $name 	              
-	 *   (3) $path - Il percorso della directory del plugin � usato da BP_Component::includes() per includere i file del plugin.
+	 *   (3) $path - Il percorso della directory del plugin ? usato da BP_Component::includes() per includere i file del plugin.
 	 *
 	 */
 	function __construct() 
@@ -105,7 +105,7 @@ class BP_Review_Component extends BP_Component {
 	
 		$this->includes();
 		
-		// cos� che la funzione 'bp_is_active( 'review')' restituisce TRUE;
+		// cos? che la funzione 'bp_is_active( 'review')' restituisce TRUE;
 		$bp->active_components[$this->id] = '1';
 
 		add_action( 'init', array( &$this, 'register_post_types' ) );
@@ -179,7 +179,7 @@ class BP_Review_Component extends BP_Component {
 	
 
 	/**
-	 *	Configura i men� di navigazione
+	 *	Configura i men? di navigazione
 	 */
 	function setup_nav() 
 	{
@@ -205,13 +205,13 @@ class BP_Review_Component extends BP_Component {
 		//---------------------------------------------------															//[C] S
 		if(bp_is_my_profile())
 		{
-			$nav_text	 =	sprintf(__('Le mie Review','reviews'));						
+			$nav_text	 =	sprintf(__('Review ricevute','reviews'));						
 			$review_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 			//$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
 		}
 		else
 		{
-			$nav_text	 =	sprintf (__('Review di %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$nav_text	 =	sprintf (__('Le Review per %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
 			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
 			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
 		}		  
@@ -243,7 +243,7 @@ class BP_Review_Component extends BP_Component {
 //				,	'slug'            => 'create'
 
 				,	'parent_url'      => $review_link
-				,	'parent_slug'     => $this->slug													// [S]					
+				,	'parent_slug'     => $this->slug															
 				,	'screen_function' => 'bp_review_screen_two'								 	// IMPORTANTE: funzione 'bp_review_screen_two()' nel FILE....			
 				
 				// ACCESS RESTRICTION - only allow on other's profile
@@ -255,18 +255,31 @@ class BP_Review_Component extends BP_Component {
 			);
 		}
 		
-		/*
+		//---------------------------------------------------															
+		if(bp_is_my_profile())
+		{
+			$nav_text_2	 =	sprintf(__('Review scritte da me','reviews'));						
+			$review_link_2 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			//$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
+		}
+		else
+		{
+			$nav_text_2	 =	sprintf (__('Le Review scritte da %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$review_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
+		}		  
+		//---------------------------------------------------
+		
 		$sub_nav[] = array
 		(
-				'name'            => sprintf(__('Da moderare <span>%d</span>', 'reviews' ),$this->mapper->get_comment_count_by_status(0))
-			,	'slug'            => 'pending'															// [S] pending
-			,	'parent_url'      => $review_link
+				'name'            => $nav_text_2				
+			,	'slug'            => 'screen-three'															
+			,	'parent_url'      => $review_link_2
 			,	'parent_slug'     => $this->slug														
-			,	'screen_function' => array(&$this,'screen_pending')										// [T] screen_pending
-			,	'user_has_access' => bp_is_my_profile()													// ACCESS RESTRICTION 
+			,	'screen_function' => 'bp_review_screen_three'											// IMPORTANTE: funzione 'bp_review_screen_three()' nel FILE....						
 			,	'position'        => 30
 		);
-		*/
+		
 		
 		//inserimento AUTOMATICO
 		parent::setup_nav( $main_nav, $sub_nav );
@@ -275,7 +288,7 @@ class BP_Review_Component extends BP_Component {
 		bp_core_new_subnav_item( 
 			array
 			(
-				'name' 		  => __( 'Review', 'reviews' ),
+				'name' 		  => __( 'Review Settings', 'reviews' ),				
 				'slug' 		  => 'review-admin',
 				'parent_slug'     => bp_get_settings_slug(),
 				'parent_url' 	  => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
@@ -352,7 +365,7 @@ class BP_Review_Component extends BP_Component {
 //				, 'can_export'		  	=> true
 			
 			// CUSTOM FIELDS - META BOXES -	in prova
-			, 'custom-fields'		 => true				//anche se False � possibile aggiungere custom fields 				
+			, 'custom-fields'		 => true				//anche se False ? possibile aggiungere custom fields 				
 			//, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
 		);      
     		     
@@ -417,6 +430,7 @@ function add_review_meta_box()
 function show_review_meta_box( $post ) 							
 {
 	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		//NB:
+	$bp_review_reviewer_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true );		//NB:
 	$voto_prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
 	$voto_servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );		
 		
@@ -428,6 +442,14 @@ function show_review_meta_box( $post )
 				value = "<?php echo esc_attr( $bp_review_recipient_id ); ?>" 
 			/>
 		</p>				
+		
+		<p> il tuo ID
+			<input 
+				type  = "text" 
+				name  = "bp_review_reviewer_id" 
+				value = "<?php echo esc_attr( $bp_review_reviewer_id ); ?>" 
+			/>
+		</p>			
 					
 		<p>	&nbsp; Prezzo &nbsp;				
 			<select name = "voto_prezzo" id = "voto_prezzo" >
@@ -463,11 +485,16 @@ add_action( 'save_post', 'save_review_meta_box' );
 function save_review_meta_box( $post_id ) 
 {
 	if ( isset( $_POST['bp_review_recipient_id'] ) ) 
-	{			
-		update_post_meta( $post_id, 'bp_review_recipient_id', 	strip_tags( $_POST['bp_review_recipient_id'] ) );
-		update_post_meta( $post_id, 'voto_prezzo', 				strip_tags( $_POST['voto_prezzo'] ) );
-		update_post_meta( $post_id, 'voto_servizio', 			strip_tags( $_POST['voto_servizio'] ) );
-	}
+		update_post_meta( $post_id, 'bp_review_recipient_id', 	strip_tags( $_POST['bp_review_recipient_id'] ) );	
+	
+	if ( isset( $_POST['bp_review_reviewer_id'] ) ) 
+		update_post_meta( $post_id, 'bp_review_reviewer_id', strip_tags( $_POST['bp_review_reviewer_id'] ) );
+		
+	if ( isset( $_POST['voto_prezzo'] ) ) 			
+		update_post_meta( $post_id, 'voto_prezzo', strip_tags( $_POST['voto_prezzo'] ) );
+					
+	if ( isset( $_POST['voto_servizio'] ) ) 
+		update_post_meta( $post_id, 'voto_servizio', strip_tags( $_POST['voto_servizio'] ) );		
 }
 
 
@@ -509,7 +536,8 @@ function save_review_meta_box( $post_id )
 			//redirect
 			bp_core_redirect(wp_get_referer()); 
 		}    
-*/    }   
+		*/
+    }   
 
 
 ?>

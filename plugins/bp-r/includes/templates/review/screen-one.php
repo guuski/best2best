@@ -1,65 +1,5 @@
 <?php
-
-
-//--------------------------------------------------------------------- SCREEN 1 -----------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-/*
-	<?php if ( is_user_logged_in() ) : ?>
-		<?php include( apply_filters( 'bpgr_post_template', BP_GROUP_REVIEWS_DIR . 'templates/post.php' ) ) ?>
-	<?php endif ?>
-*/
-
-
-/*
------------------------------------------
-Contenuto FILE:
------------------------------------------
-
-	
-----------------------------------------------------
-FILE, CLASSI, OGGETTI, METODI collegati o richiamati
-----------------------------------------------------
-	
-	member-header.php
-		
-	bp_review_form_action()
-
-	[PHP FILE]
-		
-		review-loop
-		...
-		
------------------------------------------
-FUNZIONI e HOOKS (WordPress - Wp)
------------------------------------------			
-
-	get_header()	  
-	get_footer()
-	
-	locate_template()
-	...
-	
------------------------------------------
-FUNZIONI e HOOKS (BuddyPress - Bp)
------------------------------------------
-
-	bp_get_options_nav()
-	bp_get_displayed_user_nav()
-	bp_displayed_user_id()
-	....
-	
------------------------------------------
-global $bp
------------------------------------------
-*/
+//---------------------------------------------------------- SCREEN 1 (Le mie Review - quelle Ricevute) -----------------------------------------------------------------------------------------
 ?>
 
 <!-- HEADER -->
@@ -106,26 +46,15 @@ global $bp
 	
 	
 	
-	
+<!----------------------------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->	
+
 	
 <!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì ...fa cagare!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
-	
-	
-	<!----------------------------------(Temporanea!) - NUMERO TOTALE delle review per l'utente -------------------------------------------------------->	
-	<h4>
-		<?php //_e( 'TOTALE: ', 'reviews' ) ?>
-		<?php //_e( 'Numero TOTALE Reviews: ' . bp_review_total_review_count_for_user(bp_displayed_user_id()) , 'reviews' ) ?>
-		<?php //echo bp_review_total_review_count_for_user(bp_displayed_user_id());?>	
-	</h4>
-
-	
-	<!-------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->
-	
-	<br/><br/>
-	
+		
+	<!-- MESSAGGIO  -->
 	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>	
 		
 	<?php		
@@ -196,11 +125,11 @@ global $bp
 
 		
 	<!-- ELSE -->				
-	<?php else: ?>	
-	
-		<!-- MESSAGGIO -->
-		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>
+	<?php else: ?>		
 		
+		<!-- MESSAGGIO -->
+		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>												<!-- DOPPIONE 2 -->					
+	
 	<?php endif; ?>
 	
 	<!-- IMPORTANTE -->
@@ -208,34 +137,14 @@ global $bp
 	
 	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
 
-
-	<!----------------------------------(Temporanea!) - LISTA 1 Lista degli utenti che hanno fatto una reviuw su questo PROFILO ------------------------------------------>	
-	
-	<br/><br/>
-	
-	<!-- MESSAGGIO  -->
-	<h4><?php _e( 'Lista utenti che hanno scritto una Review per l utente', 'reviews' ) ?></h4>
-	
-	<table id="lista_reviewers">
-		<?php foreach ( $lista_reviewers as $user_id ) : ?>
-		<tr>
-			<td width="1%">
-				<?php echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'width' => 25, 'height' => 25 ) ) ?>
-			</td>
-			<td>&nbsp; 
-				<?php echo bp_core_get_userlink( $user_id ) ?>
-			</td>
-		</tr>
-		<?php endforeach; ?>
-	</table>			
-	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
 	
 	
 <!-- ELSE -->				
 <?php else: ?>	
 	
 	<!-- MESSAGGIO -->
-	<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>
+	<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>									<!-- DOPPIONE 1 -->
+														
 
 <?php endif; ?>
 
