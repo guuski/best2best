@@ -57,15 +57,16 @@
 				'post_status'		=> 'publish'
 			,	'post_type'			=> 'review'				//post_type: 'review'
 			,	'meta_query'		=> array()										//META_QUERY!
-//			,   'author'			=> bp_loggedin_user_id()															//non capisco perchè non funziona!
-//			,   'author'			=> 10
-			
+			,   'author'			=> bp_displayed_user_id()											
 		);
+		
+		//bp_core_get_user_displayname (	)
 
 		$query_args['meta_query'][] = array											//META_QUERY!
 		(
 			'key'	  => 'bp_review_reviewer_id',																		
-			'value'	  => (array)bp_loggedin_user_id(),
+//			'value'	  => (array)bp_loggedin_user_id(),			//-----è SBAGLIATO!!
+//			'value'	  => (array)bp_displayed_user_id(),			//OK funziona!
 			'compare' => 'IN' 							
 		);		
 
