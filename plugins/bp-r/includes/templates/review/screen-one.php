@@ -1,15 +1,12 @@
 <?php
 //---------------------------------------------------------- SCREEN 1 (Le mie Review - quelle Ricevute) -----------------------------------------------------------------------------------------
-?>
-
-<!-- HEADER -->
-<?php get_header() ?>
+?><?php get_header() ?>
 
 	<!-- CONTENT -->
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder">
+		<div class="padder" style="background: #EAEAEA; ">
 
 			<div id="item-header">
 				<!-- buddypress MEMBER HEADER -->
@@ -30,11 +27,11 @@
 	<div id="main-column">
 <!------------------------------------------>				
 	
-<div id="item-body">											<!-- ma è ripetuto?!-->
+<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-<div id="item-body">											<!-- ma è ripetuto?!-->
+<div id="item-body">											<!-- ma ï¿½ ripetuto?!-->
 	<div class="item-list-tabs no-ajax" id="subnav">
 		<ul>
 			<!-- -->
@@ -49,7 +46,7 @@
 <!----------------------------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->	
 
 	
-<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sì ...fa cagare!-->		
+<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora sï¿½ ...fa cagare!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
@@ -103,9 +100,9 @@
 			
 			<!--CUSTOM FIELDS-->
 			<div>								
-				<!-- NB: 'true' perchè.... -->
+				<!-- NB: 'true' perchï¿½.... -->
 			
-				<?php //echo get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>		<!-- vabbuò non mi serve!-->
+				<?php //echo get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>		<!-- vabbuï¿½ non mi serve!-->
 				<?php echo get_post_meta( $post->ID, 'voto_prezzo', true );		?>
 				<?php echo get_post_meta( $post->ID, 'voto_servizio', true );	?>	
 				
