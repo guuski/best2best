@@ -69,8 +69,10 @@ function salva()
 		check_admin_referer( 'bp_review_new_review' );			
 		
 		//recupera i valori inviati dal FORM
-		$content  		= $_POST['review-content'];		
-		$voto_prezzo    = $_POST['prezzo'];	
+		$content  		= $_POST['review-content'];				//TESTO Review
+		$title  		= $_POST['review-title'];				//TITOLO Review
+			
+		$voto_prezzo    = $_POST['prezzo'];						//PARAMETRI voto
 		$voto_servizio  = $_POST['servizio'];	
 		
 		//...
@@ -86,7 +88,11 @@ function salva()
 			// [I] change --> per ora lasciamo stare...supponiamo vada tutto bene!
 			
 			//
-			if( empty( $content ) || empty( $voto_prezzo ) || empty( $voto_servizio) )
+			if( 	empty( $content ) 
+				|| 	empty( $voto_prezzo ) 
+				|| 	empty( $voto_servizio ) 
+				|| 	empty( $title ) 
+			)
 			{
 			
 				//
@@ -117,7 +123,7 @@ function salva()
 			//----------------------------------------------------------------------------------------------------------------------------------
 			
 			//funzione del FILE 'bp-review-functions.php' - se restituisce true � OK!									
-			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $content, $voto_prezzo, $voto_servizio );					// [C] 	Rating																														
+			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $title, $content, $voto_prezzo, $voto_servizio );					// [C] 	Rating																														
 																															// [I] magari un array?! :D
 						
 			// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!

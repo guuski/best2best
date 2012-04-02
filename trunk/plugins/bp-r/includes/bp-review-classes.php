@@ -116,7 +116,7 @@ class Review
 	 * save()
 	 *
 	 */
-	function save($review_content, $voto_prezzo, $voto_servizio) 														//[C] Rating
+	function save($review_title, $review_content, $voto_prezzo, $voto_servizio) 														//[C] Rating
 	{
 		global $wpdb, $bp;
 	
@@ -124,24 +124,23 @@ class Review
 		$this->recipient_id		= apply_filters( 'bp_review_data_recipient_id_before_save', 	$this->recipient_id, 	$this->id );
 		$this->date	     		= apply_filters( 'bp_review_data_date_before_save', 			$this->date,		 	$this->id );
 		
-																														//aggiungere la variabile '$content',no?
+																														//aggiungere la variabile '$content' e title
 		
 		//DO ACTION
 		do_action( 'bp_review_data_before_save', $this );
 
 		if ( $this->id ) 			
-		{			
-			//non va...boh!	
-				//$titolo_review = sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+		{					
+			$review_title = "titolo vuoto";
+			$review_title = sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) );
 			
 			$wp_update_post_args = array
 			(
-				'ID'			=> $this->id,
-				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
-				,
-				/////////////////////////////////////
-				'post_content'  => $review_content				
+					'ID'			=> $this->id
+				,	'post_author'	=> $this->reviewer_id
+				,	'post_title'	=> $review_title 				
+				//'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
+				,	'post_content'  => $review_content				
 			);
 			
 			$result = wp_update_post( $wp_update_post_args );
@@ -158,15 +157,14 @@ class Review
 		{			
 			$wp_insert_post_args = array
 			(
-				'post_status'	=> 'publish',
-				'post_type'		=> 'review',											//post_type
-				'post_author'	=> $this->reviewer_id,
-				'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
-				,
-				///////////////////////////////////				
-				'post_content'  => $review_content				
+					'post_status'	=> 'publish'
+				,	'post_type'		=> 'review'										//post_type
+				,   'post_author'	=> $this->reviewer_id
+				,	'post_title'	=> $review_title
+				,	'post_content'  => $review_content				
 			);
 		
+			//
 			$result = wp_insert_post( $wp_insert_post_args );
 			
 			if ( $result ) 			
@@ -174,10 +172,11 @@ class Review
 				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
 				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
-				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
+				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );					// nu poco inutile! a
 			}
 		}
 		
+		//DO ACTION
 		do_action( 'bp_review_data_after_save', $this );
 
 		return $result;
@@ -196,7 +195,8 @@ class Review
 	{		
 		if ( empty( $this->query ) ) 
 		{
-			$defaults = array(
+			$defaults = array
+			(
 				'reviewer_id'	=> 0,												//reviewER
 				'recipient_id'	=> 0,
 				'per_page'		=> 10,

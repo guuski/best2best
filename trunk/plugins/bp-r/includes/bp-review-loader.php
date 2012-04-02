@@ -86,11 +86,11 @@ class BP_Review_Component extends BP_Component {
 	/**
 	 *	Costruttore 	
 	 *
-	 * L'unico metodo da richiamare obbligatoriamente ? start() ---> parent::start()
+	 * L'unico metodo da richiamare obbligatoriamente � start() ---> parent::start()
 	 *
 	 *   (1) $id   - identificatore univoco
 	 *   (2) $name 	              
-	 *   (3) $path - Il percorso della directory del plugin ? usato da BP_Component::includes() per includere i file del plugin.
+	 *   (3) $path - Il percorso della directory del plugin � usato da BP_Component::includes() per includere i file del plugin.
 	 *
 	 */
 	function __construct() 
@@ -105,7 +105,7 @@ class BP_Review_Component extends BP_Component {
 	
 		$this->includes();
 		
-		// cos? che la funzione 'bp_is_active( 'review')' restituisce TRUE;
+		// cos� che la funzione 'bp_is_active( 'review')' restituisce TRUE;
 		$bp->active_components[$this->id] = '1';
 
 		add_action( 'init', array( &$this, 'register_post_types' ) );
@@ -179,7 +179,7 @@ class BP_Review_Component extends BP_Component {
 	
 
 	/**
-	 *	Configura i men? di navigazione
+	 *	Configura i men� di navigazione
 	 */
 	function setup_nav() 
 	{
@@ -365,7 +365,7 @@ class BP_Review_Component extends BP_Component {
 //				, 'can_export'		  	=> true
 			
 			// CUSTOM FIELDS - META BOXES -	in prova
-			, 'custom-fields'		 => true				//anche se False ? possibile aggiungere custom fields 				
+			, 'custom-fields'		 => true				//anche se False � possibile aggiungere custom fields 				
 			//, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
 		);      
     		     

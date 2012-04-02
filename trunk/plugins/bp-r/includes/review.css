@@ -32,6 +32,37 @@ form#review-form textarea {
 	padding: 6px;
 	width: 98%;
 }
+
+/* TITLE */
+#review-title {
+	background: #fff;
+	border: 1px inset #ccc;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #555;
+	font-family: inherit;
+	font-size: 14px;
+	height: 20px;
+	padding: 6px;
+	width: 98%;
+}
+
+/* TESTO Review */
+#review-content {
+	background: #fff;
+	border: 1px inset #ccc;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #555;
+	font-family: inherit;
+	font-size: 14px;
+	height: 100px;
+	padding: 6px;
+	width: 98%;
+}
+
 #new-review-options {
 	overflow: auto;
 	height: auto;

@@ -62,7 +62,7 @@
 <!--  FORM - met 2	- no inclusione ESTERNA
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-	<form action = "<?php bp_review_form_action() //bp_reviews_post_form_action() ?> " method="post" id="reviews-form" class="standard-form">
+	<form action = "<?php bp_review_form_action() //bp_reviews_post_form_action() ?> " method="post" id="review-form" class="standard-form">
 	
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>
@@ -77,13 +77,21 @@
 		<!-- MESSAGGIO  Opt 2 -->
 		<h5> <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
 
-		<!-- Contenuto Review -->
+		<!-- Review -->
 		<div id="new-review-content">
-			
-			<div id="new-review-textarea">			
-				<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
+
+			<div id="new-review-textarea">	
+				<label for="review-title"> Titolo Review </label>			
+				<textarea name="review-title" id="review-title" cols="2" rows="2"></textarea>
 			</div>
 			
+			<br/>
+			
+			<div id="new-review-textarea">			
+				<label for="review-content"> Testo </label>			
+				<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
+			</div>
+										
 			<div id="new-review-options">
 				<div id="new-review-submit">								
 					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Post', 'reviews' ); ?>" />
@@ -91,9 +99,7 @@
 			</div>
 		
 			<!-- aqui? -->
-			<!-- sezione RATING -->
-			
-			<!-- fine sezione RATING -->
+
 		</div>
 		  
 		<br/>  <br/> <br/>  <br/>
