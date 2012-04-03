@@ -76,8 +76,10 @@ class bpcustom_Widget extends WP_Widget
 
 	function widget($args, $instance)
 	{
-		global $user_ID;
 		global $bp;
+		//$user_ID=$bp->displayed_user->id;
+		$user_ID=bp_displayed_user_id();
+		
 		$attivo=array();
 		extract($args);
 		$title = apply_filters('widget_title', empty($instance['title']) ? __('Amici') : $instance['title'], $instance, $this->id_base);
@@ -92,9 +94,13 @@ class bpcustom_Widget extends WP_Widget
 		
 			foreach ($listfriend as $k => $v){
 				$attivo = get_userdata($v);
-				echo  "<a href='".get_option('home').DS."adesioni".DS.$attivo->user_login."' >".get_avatar($v,42)."</a>";
+				
+				 echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+				
 				//echo  "<a href='".$attivo->user_url."' >".get_avatar($v,34)."</a>";
 				//echo  "<a href='".$attivo->primary_blog."' >".get_avatar($v,34)."</a>";
+				//echo bp_member_permalink()."permalink";
+				//echo bp_member_name()."nome utente";
 	 
 			}
 		?>
