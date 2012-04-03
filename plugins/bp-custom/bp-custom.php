@@ -37,7 +37,6 @@ defined("DS") or define("DS", DIRECTORY_SEPARATOR);
  */
 add_action( 'widgets_init', create_function( '', 'register_widget("bpcustom_Widget");' ) );
 
-
 /**
  * 
  * @author byrd
@@ -53,24 +52,31 @@ class bpcustom_Widget extends WP_Widget
 	function bpcustom_Widget()
 	{
 		// widget actual processes
-		parent::WP_Widget( $id = 'bpcustom_Widget', $name = get_class($this), $options = array( 'description' => 'bpcustom_Widget' ) );
+		//parent::WP_Widget( $id = 'bpcustom_Widget', $name = get_class($this), $options = array( 'description' => 'bpcustom_Widget' ) );
+		//parent::WP_Widget( false, $name = __( 'Groups', 'buddypress' ) );
+		parent::WP_Widget( $id = 'bpcustom_Widget', $name = 'Amici', $options = array( 'titolo' => 'Amici', 'numero' =>3 ));
 	}
 	
 
 	function form($instance)
 	{
 		// outputs the options form on admin
+		$instance = wp_parse_args( (array) $instance, array(  'titolo' => 'amici' , 'numero' => 5) );
+		$numero = strip_tags( $instance['numero'] );
+		$titolo = strip_tags( $instance['titolo'] );
+
 		?>
-		
-		admin
+		<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 30%" /></label></p>
+		<p><label>Numero Amici 	<input id="<?php echo $this->get_field_id( 'numero' ); ?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 30%" /></label></p>
 		
 		<?php 
 	}
 
 	function update($new_instance, $old_instance)
 	{
-		// processes widget options to be saved
-		$instance = wp_parse_args($old_instance, $new_instance);
+		$instance = $old_instance;
+		$instance['titolo'] = strip_tags( $new_instance['titolo'] );
+		$instance['numero'] = strip_tags( $new_instance['numero'] );
 		return $instance;
 	}
 
@@ -79,28 +85,34 @@ class bpcustom_Widget extends WP_Widget
 		global $bp;
 		//$user_ID=$bp->displayed_user->id;
 		$user_ID=bp_displayed_user_id();
+		if ($user_ID==0) $user_ID=$bp->displayed_user->id;
+		if ($user_ID==0) {
+			//non visualizzo nulla
+			}
+		else
+		{
+		
 		
 		$attivo=array();
 		extract($args);
-		$title = apply_filters('widget_title', empty($instance['title']) ? __('Amici') : $instance['title'], $instance, $this->id_base);
+		$title = apply_filters('widget_title', empty($instance['titolo']) ? 'Amici' : $instance['titolo'], $instance, $this->id_base);
 		// outputs the content of the widget
-		
-		//$title = apply_filters( 'widget_title', $instance['title'] );
+		$numero =  empty($instance['numero']) ? 10000 : $instance['numero'];
 		
 		echo $before_widget;
 		if ( $title )
 			echo $before_title . $title . $after_title;
 			$listfriend = friends_get_friend_user_ids($user_ID);
 		
+			$cont=0;
 			foreach ($listfriend as $k => $v){
 				$attivo = get_userdata($v);
 				
-				 echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+				if ($cont<$numero){
+					echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+					$cont++;
+				}
 				
-				//echo  "<a href='".$attivo->user_url."' >".get_avatar($v,34)."</a>";
-				//echo  "<a href='".$attivo->primary_blog."' >".get_avatar($v,34)."</a>";
-				//echo bp_member_permalink()."permalink";
-				//echo bp_member_name()."nome utente";
 	 
 			}
 		?>
@@ -108,6 +120,7 @@ class bpcustom_Widget extends WP_Widget
 	
 		
 		<?php 
+		}
 	}
 
 }
