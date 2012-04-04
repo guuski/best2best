@@ -1,7 +1,7 @@
 <?php 
 /*
  
-Template Name: Reviews
+Template Name: Lista Reviews
  
 */
 
@@ -16,7 +16,7 @@ get_header() ?>
 		<?php		
 		$loop = new WP_Query(
 			array(
-				'post_type' => 'ureviews',
+				'post_type' => 'review',
 				'post_per_page' => 10
 			)
 		);
@@ -39,28 +39,6 @@ get_header() ?>
 				<div class="entry">
 					<?php the_content();  ?>				
 				</div>
-				<div class="entry">
-					<?php 
-																	
-						$my_id = the_ID();
-						
-						//$comment_id = get_comment( $my_id, ARRAY_A );
-						//$content1 = $comment_id['comment_content'];						
-
-						//$comment_id_2 = get_comment( $my_id ); 
-						//$content2 = $comment_id_2->comment_content;		
-						 
-						$comments = get_comments(the_ID());
-						//foreach($comments as $comment) :
-							echo($comment->comment_content);
-						//endforeach;
-
-						//echo $content;
-						echo $content1;
-						echo $content2;
-					?>				
-				</div>
-		
 			<?php endwhile; ?>
 			
 			<!--MOI -- RESET POSTDATA	-->
