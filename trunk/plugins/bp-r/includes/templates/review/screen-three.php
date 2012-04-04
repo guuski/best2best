@@ -72,6 +72,11 @@
 
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);	
+		
+		// set $more to 0 in order to only get the first part of the post
+		global $more;
+		$more = 0;
+
 	?>
 		
 		
@@ -88,7 +93,8 @@
 			</div>	
 			
 			<div class="entry">
-				<?php the_excerpt();  ?>	
+				<?php //the_excerpt();  ?>	
+				<?php the_content( 'Read the full post »' );?>	
 			</div>			
 			
 			<!--CUSTOM FIELDS-->
