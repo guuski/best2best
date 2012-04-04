@@ -109,8 +109,9 @@
 				<!------------------------------------------------------------------------------------------------->
 				<?php 	$voto_prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		?>
 																													<!--  un bello SWITCH magari no?! -->
-					<?php if ( $voto_prezzo == 1 ) : ?>	
-						<img src="<?php echo BP_REVIEW_PLUGIN_DIR;?>/includes/img/star.png" class="star" id="star1">
+					<?php if ( $voto_prezzo == 1 ) : 
+					?>	
+						<img src="<?php echo WP_PLUGIN_URL.'/bp-review/includes/img/star.png';?>" class="star" id="star1">
 					<?php endif; ?>					
 				<!------------------------------------------------------------------------------------------------->					
 			</div>				
