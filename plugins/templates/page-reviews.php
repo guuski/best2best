@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  
 Template Name: Elenco Reviews
@@ -206,6 +206,14 @@ get_header() ?>
 				//'value'	  => 
 				'compare' => 'IN' 							
 			);		
+			
+			    
+				
+			// ES 1
+			
+				'meta_key' => 'price', 
+				'orderby' => 'meta_value_num', 
+				'order' => 'ASC', 
 */
 		}
 			
