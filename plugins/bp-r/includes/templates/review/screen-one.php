@@ -87,7 +87,7 @@
 		
 			<div class="title">		
 			<?php $authorlogin= get_the_author_meta('user_login')?>
-				<small><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_link();?></a></strong></small>
+				<small><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
 					<br />
 				<?php  
 					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');

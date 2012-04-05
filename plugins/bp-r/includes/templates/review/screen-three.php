@@ -79,36 +79,74 @@
 	?>
 		
 		
-	<!-- IF -->					
 	<?php if ( $loop->have_posts() ) : ?>	
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
 		
-			<div class="title">		<!-- boh-----ho sparato! -->
-				<?php 
+			<div class="title"><?php 
+			$authorlogin= get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));
+			?>
+			<small><strong><?php 
+				_e('Recensione su: ');
+			?><a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) ?> </a>
+			</strong></small>
+					<br />
+				<?php  
 					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
 				?>
 			</div>	
 			
 			<div class="entry">
-				<?php //the_excerpt();  ?>	
-				<?php the_content( 'Read the full post »' );?>	
+				<?php //the_content();  ?>	
+				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
+				<?php the_excerpt();  ?>	
 			</div>			
 			
 			<!--CUSTOM FIELDS-->
-			<div>											
-				<?php echo get_post_meta( $post->ID, 'voto_prezzo', true );		?>
-				<?php echo get_post_meta( $post->ID, 'voto_servizio', true );	?>							
+			<div>								
+						<?php 	
+				$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
+				$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
+				$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
+				$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
+				$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+				?>
+		<div id="new-review-rating">	
+			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+			</ul>
+			</div>		
+			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
+					  
+		</div>	<!-- fine sezione RATING -->
+  																								
+																								
+				<!------------------------------------------------------------------------------------------------->					
 			</div>				
 			
 			<!-- commenti -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
-			
+			<hr />
 		<?php endwhile; ?>
 
 		
-	<!-- ELSE -->				
 	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
