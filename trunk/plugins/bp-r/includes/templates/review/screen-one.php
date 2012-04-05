@@ -102,12 +102,7 @@
 			
 			<!--CUSTOM FIELDS-->
 			<div>								
-			
-				<?php echo get_post_meta( $post->ID, 'voto_prezzo', true );		?>
-				<?php echo get_post_meta( $post->ID, 'voto_servizio', true );	?>	
-				
-				<!------------------------------------------------------------------------------------------------->
-				<?php 	
+						<?php 	
 				$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
 				$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
 				$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
