@@ -30,77 +30,8 @@ global $bp
 [T]
 -----------------------------------------
 
-	__( '%s ', 'reviews' )
 
 */
-
-
-
-/**
- * bp_review_screen_notification_settings()
- *
- * Adds notification settings for the component, so that a user can turn off email
- * notifications set on specific component actions.
- */
-function bp_review_screen_notification_settings() 
-{
-	global $current_user;
-
-	/**
-	 * Under Settings > Notifications within a users profile page they will see
-	 * settings to turn off notifications for each component.
-	 *
-	 * You can plug your custom notification settings into this page, so that when your
-	 * component is active, the user will see options to turn off notifications that are
-	 * specific to your component.
-	 */
-
-	 /**
-	  * Each option is stored in a posted array notifications[SETTING_NAME]
-	  * When saved, the SETTING_NAME is stored as usermeta for that user.
-	  *
-	  * For example, notifications[notification_friends_friendship_accepted] could be
-	  * used like this:
-	  *
-	  * if ( 'no' == get_user_meta( $bp->displayed_user->id, 'notification_friends_friendship_accepted', true ) )
-	  *		// don't send the email notification
-	  *	else
-	  *		// send the email notification.
-      */
-
-	?>
-	<table class="notification-settings" id="bp-review-notification-settings">
-
-		<thead>
-		<tr>
-			<th class="icon"></th>
-			<th class="title"><?php _e( 'review', 'reviews' ) ?></th>
-			<th class="yes"><?php _e( 'Yes', 'reviews' ) ?></th>
-			<th class="no"><?php _e( 'No', 'reviews' )?></th>
-		</tr>
-		</thead>
-
-		<tbody>
-		<tr>
-			<td></td>
-			<td><?php _e( 'Action One', 'reviews' ) ?></td>
-			<td class="yes"><input type="radio" name="notifications[notification_review_action_one]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_one', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_one', true ) ) { ?>checked="checked" <?php } ?>/></td>
-			<td class="no"><input type="radio" name="notifications[notification_review_action_one]" value="no" <?php if ( get_user_meta( $current_user->id, 'notification_review_action_one') == 'no' ) { ?>checked="checked" <?php } ?>/></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><?php _e( 'Action Two', 'reviews' ) ?></td>
-			<td class="yes"><input type="radio" name="notifications[notification_review_action_two]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_two', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
-			<td class="no"><input type="radio" name="notifications[notification_review_action_two]" value="no" <?php if ( 'no' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
-		</tr>
-
-		<?php do_action( 'bp_review_notification_settings' ); ?>
-
-		</tbody>
-	</table>
-<?php
-}
-add_action( 'bp_notification_settings', 'bp_review_screen_notification_settings' );
 
 
 /**
@@ -224,5 +155,76 @@ To send %s a review: %s
 }
 add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2 );
 
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * bp_review_screen_notification_settings()
+ *
+ * Adds notification settings for the component, so that a user can turn off email
+ * notifications set on specific component actions.
+ */
+function bp_review_screen_notification_settings() 
+{
+	global $current_user;
+
+	/**
+	 * Under Settings > Notifications within a users profile page they will see
+	 * settings to turn off notifications for each component.
+	 *
+	 * You can plug your custom notification settings into this page, so that when your
+	 * component is active, the user will see options to turn off notifications that are
+	 * specific to your component.
+	 */
+
+	 /**
+	  * Each option is stored in a posted array notifications[SETTING_NAME]
+	  * When saved, the SETTING_NAME is stored as usermeta for that user.
+	  *
+	  * For example, notifications[notification_friends_friendship_accepted] could be
+	  * used like this:
+	  *
+	  * if ( 'no' == get_user_meta( $bp->displayed_user->id, 'notification_friends_friendship_accepted', true ) )
+	  *		// don't send the email notification
+	  *	else
+	  *		// send the email notification.
+      */
+
+	?>
+	<table class="notification-settings" id="bp-review-notification-settings">
+
+		<thead>
+		<tr>
+			<th class="icon"></th>
+			<th class="title"><?php _e( 'review', 'reviews' ) ?></th>
+			<th class="yes"><?php _e( 'Yes', 'reviews' ) ?></th>
+			<th class="no"><?php _e( 'No', 'reviews' )?></th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr>
+			<td></td>
+			<td><?php _e( 'Action One', 'reviews' ) ?></td>
+			<td class="yes"><input type="radio" name="notifications[notification_review_action_one]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_one', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_one', true ) ) { ?>checked="checked" <?php } ?>/></td>
+			<td class="no"><input type="radio" name="notifications[notification_review_action_one]" value="no" <?php if ( get_user_meta( $current_user->id, 'notification_review_action_one') == 'no' ) { ?>checked="checked" <?php } ?>/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><?php _e( 'Action Two', 'reviews' ) ?></td>
+			<td class="yes"><input type="radio" name="notifications[notification_review_action_two]" value="yes" <?php if ( !get_user_meta( $current_user->id, 'notification_review_action_two', true ) || 'yes' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
+			<td class="no"><input type="radio" name="notifications[notification_review_action_two]" value="no" <?php if ( 'no' == get_user_meta( $current_user->id, 'notification_review_action_two', true ) ) { ?>checked="checked" <?php } ?>/></td>
+		</tr>
+
+		<?php do_action( 'bp_review_notification_settings' ); ?>
+
+		</tbody>
+	</table>
+<?php
+}
+add_action( 'bp_notification_settings', 'bp_review_screen_notification_settings' );
 
 ?>
