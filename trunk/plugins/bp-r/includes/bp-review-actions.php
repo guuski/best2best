@@ -40,14 +40,18 @@ global $bp
 
 */
 
+function check_voto($voto) {
+	return (empty($voto) || $voto==0);
+}
+
 /**
  *
  *
  *
  *	NOTA BENE: 
  *  
- *  non � richiamata direttamente da NEssuno
- *  ma viene richiamata perch� � stata aggiunta 
+ *  non e' richiamata direttamente da NEssuno
+ *  ma viene richiamata perche' e' stata aggiunta 
  *  con 'add_action' all HOOK: 'bp-actions'
  *
  */
@@ -74,9 +78,9 @@ function salva()
 			
 		$voto_prezzo    = $_POST['prezzo'];						//PARAMETRI voto
 		$voto_servizio  = $_POST['servizio'];	
-		
-		//...
-		
+		$voto_qualita	= $_POST['qualita'];
+		$voto_puntualita= $_POST['puntualita'];
+		$voto_affidabilita=$_POST['affidabilita'];
 
 		// [R] move ---> spostare questa CONDIZIONE al livello superiore! ---lo screen 'scrivi_review' non deve comparire proprio sul mio profilo!!!
 		if ( bp_is_my_profile() ) 
@@ -89,42 +93,42 @@ function salva()
 			
 			//
 			if( 	empty( $content ) 
-				|| 	empty( $voto_prezzo ) 
-				|| 	empty( $voto_servizio ) 
-				|| 	empty( $title ) 
+				|| 	check_voto( $voto_prezzo ) 
+				|| 	check_voto( $voto_servizio ) 
+				|| 	empty( $title )
+				|| 	check_voto( $voto_qualita)
+				|| 	check_voto( $voto_puntualita)
+				|| 	check_voto( $voto_affidabilita)
+					
 			)
 			{
-			
-				//
-				//
-				//
 						
-				if ( empty( $content ) ) 
+				if ( empty( $content ) || 	empty( $title )) 
 				{
 					bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO
 				}	
 
-				if ( empty( $voto_prezzo ) ) 	// non va! 
-												// --1-- provo isset( $_POST[   ] )----??!
-												// --2---o confronto col default value?
-				{
-					bp_core_add_message( __( 'Assegna un voto al prezzo', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO
+				if ( check_voto( $voto_prezzo ) 
+						|| 	check_voto( $voto_qualita)
+						|| 	check_voto( $voto_puntualita)
+						|| check_voto( $voto_affidabilita)
+						|| check_voto( $voto_servizio)) 	{
+					bp_core_add_message( __( 'Assegna tutti i voti', 'reviews' ),'error' );
 				}	
-		
-				if ( empty( $voto_servizio) )   // non va!
-				{
-					bp_core_add_message( __( 'Assegna un voto al servizio', 'reviews' ),'error' );
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				//screen TWO				
-				}	
+				return;
 			}	
 			
 			//----------------------------------------------------------------------------------------------------------------------------------
 			
-			//funzione del FILE 'bp-review-functions.php' - se restituisce true � OK!									
-			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $title, $content, $voto_prezzo, $voto_servizio );					// [C] 	Rating																														
-																															// [I] magari un array?! :D
+			//funzione del FILE 'bp-review-functions.php' - se restituisce true e' OK!									
+			$result = bp_review_send_review( bp_displayed_user_id(), bp_loggedin_user_id(), $title, $content, 
+					array('prezzo'=>$voto_prezzo, 
+						'servizio'=>$voto_servizio,
+						'qualita'=>$voto_qualita,
+						'puntualita'=>$voto_puntualita,
+						'affidabilita'=>$voto_affidabilita)
+			);																																			
+			// [C] 	Rating													// [I] magari un array?! :D
 						
 			// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
 			if($result)
@@ -151,29 +155,6 @@ function salva()
 add_action( 'bp_actions', 'salva' );
 
 // se stacco l'action funziona lo stesso secondo me!
-
-
-
-
-
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

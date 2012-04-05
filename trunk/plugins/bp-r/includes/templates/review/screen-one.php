@@ -85,8 +85,11 @@
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
 		
-			<div class="title">		<!-- boh-----ho sparato! -->
-				<?php 
+			<div class="title">		
+			<?php $authorlogin= get_the_author_meta('user_login')?>
+				<small><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_link();?></a></strong></small>
+					<br />
+				<?php  
 					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
 				?>
 			</div>	
@@ -99,55 +102,73 @@
 			
 			<!--CUSTOM FIELDS-->
 			<div>								
-				<!-- NB: 'true' perch�.... -->
 			
-				<?php //echo get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>		<!-- vabbu� non mi serve!-->
 				<?php echo get_post_meta( $post->ID, 'voto_prezzo', true );		?>
 				<?php echo get_post_meta( $post->ID, 'voto_servizio', true );	?>	
 				
 				<!------------------------------------------------------------------------------------------------->
-				<?php 	$voto_prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		?>
-																													<!--  un bello SWITCH magari no?! -->
-					<?php if ( $voto_prezzo == 1 ) : 
-					?>	
-						<img src="<?php echo WP_PLUGIN_URL.'/bp-review/includes/img/star.png';?>" class="star" id="star1">
-					<?php endif; ?>					
+				<?php 	
+				$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
+				$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
+				$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
+				$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
+				$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+				?>
+		<div id="new-review-rating">	
+			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+			</ul>
+			</div>		
+			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
+					  
+		</div>	<!-- fine sezione RATING -->
+  																								
+																								
 				<!------------------------------------------------------------------------------------------------->					
 			</div>				
 			
 			<!-- commenti -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
-			
+			<hr />
 		<?php endwhile; ?>
 
 		
-	<!-- ELSE -->				
 	<?php else: ?>		
 		
-		<!-- MESSAGGIO -->
-		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>												<!-- DOPPIONE 2 -->					
+	
+		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>																	
 	
 	<?php endif; ?>
 	
-	<!-- IMPORTANTE -->
+	
 	<?php wp_reset_postdata() ?>		
-	
-	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
-
-	
-	
-<!-- ELSE -->				
+			
 <?php else: ?>	
 	
-	<!-- MESSAGGIO -->
-	<h5><?php _e( 'L\' utente non ha ricevuto ancora nessuna Reviews', 'reviews' ) ?></h5>									<!-- DOPPIONE 1 -->
+		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>	
 														
 
 <?php endif; ?>
 
 </div><!-- #item-body -->
 </div><!-- .padder -->
-<?php locate_template( array( 'sidebar.php' ), true ) ?>						<!-- locate_template () -->
+<?php locate_template( array( 'sidebar.php' ), true ) ?>						
 </div><!-- #content -->
 </div>
 <!-- SIDEBAR --->

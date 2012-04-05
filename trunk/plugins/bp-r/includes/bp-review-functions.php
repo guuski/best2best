@@ -43,12 +43,15 @@ function bp_reviews_post_form_action()
 	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->reviews->root_slug."/create/"); 	//ORIGNAL
 		
 	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/screen-two/"); 		//la S  
-	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/create/"); 		//la S  //CREATE
+// 	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/create/"); 		//la S  //CREATE
+	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->slug."/screen-two/"); 		//la S  //CREATE
+	
+	
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
-// viene chiamata dal metodo 'salva()' (in 'bp-review-actions.php') dopo che è stato inviato il FORM
+// viene chiamata dal metodo 'salva()' (in 'bp-review-actions.php') dopo che e' stato inviato il FORM
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -70,7 +73,7 @@ function bp_reviews_post_form_action()
  * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
  *
  */
-function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $voto_prezzo, $voto_servizio) 					//[C] Rating
+function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $voti) 					//[C] Rating
 {
 	global $bp;
 			
@@ -78,10 +81,11 @@ function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $v
 	check_admin_referer( 'bp_review_new_review' );
 
 	//cancella il campo 'reviews' associato  all'utente di destinazione! 
-	// ---> ma picchi? - cmq non si può staccare!
-	delete_user_meta( $to_user_id, 'reviews' );																//delete USER_META!
+	// ---> ma picchi? - cmq non si puo' staccare!
+	delete_user_meta( $to_user_id, 'reviews' );	
+	//delete USER_META!
 	
-	//
+
 	$existing_reviews = maybe_unserialize( get_user_meta( $to_user_id, 'reviews', true ) );
 	
 	//
@@ -103,7 +107,8 @@ function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $v
 		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
 		
 		//
-		$review->save($title,$content, $voto_prezzo, $voto_servizio);																	// [C] Rating
+		$review->save($title,$content, $voti);																	
+		// [C] Rating
 	}
 	
 	//-------------------- 2 parte ---------------------------------------------------------------------------
