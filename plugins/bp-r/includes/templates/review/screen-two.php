@@ -59,7 +59,7 @@ get_header() ?>
 <!--  FORM - met 2	- no inclusione ESTERNA
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-	<form action = "<?php bp_review_form_action() //bp_reviews_post_form_action() ?> " method="post" id="review-form" class="standard-form">
+	<form action = "<?php bp_reviews_post_form_action()// bp_review_form_action() // ?> " method="post" id="review-form" class="standard-form">
 	
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>
@@ -73,20 +73,28 @@ get_header() ?>
 
 		<!-- MESSAGGIO  Opt 2 -->
 		<h5> <?php  //_e('Scrivi una nuova review!','reviews');?> </h5>
-
+<?php 
+				$prezzo = $_POST['prezzo'] or 0;
+				$servizio = $_POST['servizio'] or 0;
+				$qualita = $_POST['qualita'] or 0;
+				$puntualita = $_POST['puntualita'] or 0;
+				$affidabilita = $_POST['affidabilita'] or 0;
+				$titolo = $_POST['review-title'] or '';
+				$contenuto = $_POST['review-content'] or '';
+			?>
 		<!-- Review -->
 		<div id="new-review-content">
 
 			<div id="new-review-textarea">	
 				<label for="review-title"> Titolo Review </label>			
-				<textarea name="review-title" id="review-title" cols="2" rows="2"></textarea>
+				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php echo $titolo?></textarea>
 			</div>
 			
 			<br/>
 			
 			<div id="new-review-textarea">			
 				<label for="review-content"> Testo </label>			
-				<textarea name="review-content" id="review-content" cols="50" rows="10"></textarea>
+				<textarea name="review-content" id="review-content" cols="50" rows="10"><?php echo $contenuto?></textarea>
 			</div>
 										
 			<div id="new-review-options">
@@ -99,50 +107,61 @@ get_header() ?>
 
 		</div>
 		  
-		<br/>  <br/> <br/>  <br/>
+		<br/>  <br/> <br/>  
 		
-		<!-- aqui? -->  
 		<!--------------------------------------------- sezione RATING ------------------------------------->
 		<div id="new-review-rating">			
 		
-			<?php 
-				$prezzo = 0;
-				$servizio = 0;
-			?>
 			
-			<p>
-				&nbsp; Prezzo &nbsp;				
-				<select name = "prezzo" id = "prezzo" >
-					<option selected> 0 </option>
-					<option value = "1"	<?php selected( $prezzo,1); ?>> 1 </option> 
-					<option value = "2"	<?php selected( $prezzo,2); ?>> 2 </option> 
-					<option value = "3"	<?php selected( $prezzo,3); ?>> 3 </option> 
-					<option value = "4"	<?php selected( $prezzo,4); ?>> 4 </option> 
-					<option value = "5"	<?php selected( $prezzo,5); ?>> 5 </option> 											
-				</select>
-				
-			</p>					
-
-			<p> 
-				&nbsp;
-				Servizio
-				&nbsp;
-				<select name = "servizio" id = "servizio" >
-					<option selected> seleziona&nbsp;&nbsp;&nbsp;</option>
-					<option value = "1"	<?php selected( $servizio,1); ?>> 1 </option> 
-					<option value = "2"	<?php selected( $servizio,2); ?>> 2 </option> 											
-				</select>
-				
-			</p>											  
+			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
+				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
+				<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
+				<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
+				<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
+			</ul><input type="hidden" name="prezzo" value="<?php echo $prezzo?>" />
+			</div>		
+			<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>			
+				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
+				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
+				<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
+				<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
+				<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
+			</ul><input type="hidden" name="servizio" value="<?php echo $servizio?>" />
+			</div>	
+			<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
+				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
+				<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
+				<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
+				<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
+			</ul><input type="hidden" name="qualita" value="<?php echo $qualita?>" />
+			</div>		
+			<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>			
+				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
+				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
+				<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
+				<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
+				<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
+			</ul><input type="hidden" name="puntualita" value="<?php echo $puntualita?>" />
+			</div>	
+			<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
+				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
+				<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
+				<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
+				<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
+			</ul><input type="hidden" name="affidabilita" value="<?php echo $affidabilita?>" />
+			</div>		
+			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
+					  
 		</div>	<!-- fine sezione RATING -->
-<!--		  
-
-Qualit�
-
-Puntualit�
-Affidabilit�
-Innovazione
--->		  
+  
 		  		  		  
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_after_review_post_form' ); ?>								

@@ -116,15 +116,21 @@ class Review
 	 * save()
 	 *
 	 */
-	function save($review_title, $review_content, $voto_prezzo, $voto_servizio) 														//[C] Rating
+	function save($review_title, $review_content, $voti) 														
 	{
+		//[C] Rating
 		global $wpdb, $bp;
 	
 		$this->reviewer_id		= apply_filters( 'bp_review_data_reviewer_id_before_save', 		$this->reviewer_id, 	$this->id );
 		$this->recipient_id		= apply_filters( 'bp_review_data_recipient_id_before_save', 	$this->recipient_id, 	$this->id );
 		$this->date	     		= apply_filters( 'bp_review_data_date_before_save', 			$this->date,		 	$this->id );
 		
-																														//aggiungere la variabile '$content' e title
+// 		aggiungere la variabile '$content' e title
+		$voto_prezzo =$voti['prezzo'];
+		$voto_servizio= $voti['servizio'];
+		$voto_qualita=$voti['qualita'];
+		$voto_puntualita=$voti['puntualita'];
+		$voto_affidabilita=$voti['affidabilita'];
 		
 		//DO ACTION
 		do_action( 'bp_review_data_before_save', $this );
@@ -148,7 +154,10 @@ class Review
 			if ( $result ) 
 			{
 				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
-				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
+				update_post_meta( $result, 'voto_servizio',$voto_servizio);
+				update_post_meta( $result, 'voto_qualita',$voto_qualita);
+				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
+				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );				
 				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
 			}
@@ -170,7 +179,10 @@ class Review
 			if ( $result ) 			
 			{
 				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
-				update_post_meta( $result, 'voto_servizio',$voto_servizio);			
+				update_post_meta( $result, 'voto_servizio',$voto_servizio);
+				update_post_meta( $result, 'voto_qualita',$voto_qualita);
+				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
+				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);	
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
 				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );					// nu poco inutile! a
 			}
