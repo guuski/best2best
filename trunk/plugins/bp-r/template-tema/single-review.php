@@ -29,7 +29,37 @@
 
 							<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 						</div>
-
+<?php 	
+				$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
+				$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
+				$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
+				$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
+				$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+				?>
+		<div id="new-review-rating">	
+			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+			</ul>
+			</div>		
+			<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+			</ul>
+			</div>	
+			<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+			</ul>
+			</div>		
+			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
+					  
+		</div>	<!-- fine sezione RATING -->
 						<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
 
 						<div class="alignleft"><?php //previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'buddypress' ) . '</span> %title' ); ?></div>
