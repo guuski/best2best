@@ -67,9 +67,7 @@ get_header() ?>
 			}
 			
 			echo 'order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-			echo '<br/>'.'<br/>';
-			echo 'meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
-			echo '<br/>'.'<br/>';
+			echo '<br/>'.'<br/>';			
 			echo 'asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
 			echo '<br/>'.'<br/>';	
 			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
@@ -92,9 +90,10 @@ get_header() ?>
 				
 	<div id="review-filter-select">
 			
-		<p>	&nbsp; Orderby &nbsp;				
+		<p>	&nbsp; ORDINAMENTO &nbsp;				
 			<select name = "order_by" id = "order_by" >
 				<option selected> Ordina per... </option>										
+				<option value = "data" 	<?php selected( $order_by,'data'); ?>> data </option> 
 				<option value = "voto_prezzo" 	<?php selected( $order_by,'voto_prezzo'); ?>> voto prezzo </option> 
 				<option value = "voto_servizio" <?php selected( $order_by,'voto_servizio'); ?>> voto servizio </option> 
 			</select>			
@@ -104,16 +103,23 @@ get_header() ?>
 			<select name = "asc_desc" id = "asc_desc" >								
 				<option selected> ASC o DESC...</option>						
 				<option value = "asc" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
-				<option value = "desc" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 								
-				<!-- <option value = "0" <?php //selected( $asc_desc,0); ?>> non specificato </option> 									-->				
+				<option value = "desc" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
 			</select>			
 		</p>	
 
 		<p>	&nbsp; AUTHOR ID &nbsp;				
 			<select name = "author_id" id = "author_id" >				
-				<option value = "0" <?php //selected( $author_id,0); ?>> 0 tutti gli autori di Review </option> 									
-				<option value = "1" <?php //selected( $author_id,1); ?>> 1 admin </option> 									
-				<option value = "10" <?php //selected( $author_id,10); ?>> 10 andrea </option> 									
+				<option value = "0" <?php selected( $author_id,0); ?>> 0 tutti gli autori di Review </option> 									
+				<option value = "1" <?php selected( $author_id,1); ?>> 1 admin </option> 									
+				<option value = "10" <?php selected( $author_id,10); ?>> 10 andrea </option> 									
+			</select>			
+		</p>	
+		
+		<p>	&nbsp; TIPOLOGIA &nbsp;				
+			<select name = "tipologia" id = "tipologia" >				
+				<option value = "tutti" 				<?php selected( $tipologia,'tutti') ?>> tutti </option> 									
+				<option value = "fornitori" 			<?php selected( $tipologia,'fornitori') ?>> fornitori </option> 									
+				<option value = "alberghi/ristoranti"	<?php selected( $tipologia,'alberghi/ristoranti'); ?>> alberghi/ristoranti </option> 													
 			</select>			
 		</p>	
 		
@@ -155,17 +161,14 @@ get_header() ?>
 			echo '<br/>'.'<br/>';
 			echo 'FORM inviato....';
 			echo '<br/>'.'<br/>';
+			
 			echo 'POST order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-			echo '<br/>'.'<br/>';
-			echo 'POST meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
-			echo '<br/>'.'<br/>';
+			echo '<br/>'.'<br/>';			
 			echo 'POST asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
 			echo '<br/>'.'<br/>';			
 			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
 			echo '<br/>'.'<br/>';	
-			//echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
-			//echo '<br/>'.'<br/>';
-			//echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
+
 		}
 		//---------------------------------------------------------------------------------------------------		
 		
@@ -179,17 +182,13 @@ get_header() ?>
 //			,	'meta_key'			=> $order_by			//Meta_KEY!
 //			,	'orderby'			=> $order_by
 			
-//			, 	'order'				=> 'DESC'
-			, 	'order'				=> $asc_desc			
-
-//			,   'author'			=> $author_id
-//			,   'author'			=> 0
+//			, 	'order'				=> $asc_desc			
 		);
 	
 		//è stato specificato....ASC o DESC		
 		if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
 		{
-			//$query_args['order'] = $asc_desc;
+			$query_args['order'] = $asc_desc;
 		}
 					
 		// è stato specificato un AUTORE id
@@ -210,6 +209,11 @@ get_header() ?>
 			//													//FUNZIONA!!!
 			$query_args['meta_key'] = $order_by;			
 			$query_args['orderby'] = 'meta_value_num';								
+			//$query_args['orderby'] = 'meta_value';			
+		}
+		else //ORDINA PER DATA
+		{
+			//$query_args['orderby'] = 'date';								
 		}
 
 		//lancia la QUERY!
