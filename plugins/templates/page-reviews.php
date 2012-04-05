@@ -108,7 +108,7 @@ get_header() ?>
 		<div style = "float: left">
 			<label for="order_by"> &nbsp; ORDINAMENTO &nbsp; </label>	
 			<select name = "order_by" id = "order_by" 
-					size="5"
+					size="6"
 					onchange = 'this.form.submit()'
 			>				
 				<!-- <option selected> Ordina per... </option>														-->
@@ -133,32 +133,31 @@ get_header() ?>
 				<option value = "DESC" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
 			</select>			
 		</div>			
-
+<!--		
 		<div> 
-<!--	
 			<label for="author_id"> &nbsp; AUTHOR ID &nbsp;	</label>					
 			<select name = "author_id" id = "author_id" 
 					size = "3"
 					onchange = 'this.form.submit()'
 			>				
-				<option value = "0" 	<?php //selected( $author_id,0); ?>	> 0 tutti gli autori di Review </option> 									
-				<option value = "1"		<?php //selected( $author_id,1); ?>	> 1 admin </option> 									
-				<option value = "10" 	<?php //selected( $author_id,10); ?>	> 10 andrea </option> 									
+				<option value = "0" 	<?php selected( $author_id,0); ?>	> 0 tutti gli autori di Review </option> 									
+				<option value = "1"		<?php selected( $author_id,1); ?>	> 1 admin </option> 									
+				<option value = "10" 	<?php selected( $author_id,10); ?>	> 10 andrea </option> 									
 			</select>			
 		</div>
--->				
+-->
 		<div>
 			<label for="author_type"> &nbsp; Tipologia AUTORE Review &nbsp; </label>					
 			<select name = "author_type" id = "author_type" 					
-					size = "3"
+					size = "6"
 					onchange = 'this.form.submit()'
 			>	
 				<option value = "tutti" 					<?php selected( $author_type,'tutti') ?>					  	> tutti </option> 									
-				<option value = "solo_amici" 				<?php selected( $author_type,'solo_amici') ?>			  		> tutti gli AMICI </option> 														
-				<option value = "amici_fornitori" 			<?php selected( $author_type,'amici_fornitori') ?>			  	> AMICI fornitori </option> 													
-				<option value = "amici_alberghi_ristoranti"	<?php selected( $author_type,'amici_alberghi_ristoranti'); ?>	> AMICI Alberghi/Ristoranti </option> 													
-				<option value = "fornitori" 				<?php selected( $author_type,'fornitori') ?>				 	> Fornitori </option> 									
-				<option value = "alberghi_ristoranti"		<?php selected( $author_type,'alberghi/ristoranti'); ?>		  	> Alberghi/Ristoranti </option> 													
+<!--				<option value = "solo_amici" 				<?php selected( $author_type,'solo_amici') ?>			  		> tutti gli AMICI </option>			-->
+<!--				<option value = "amici_fornitori" 			<?php selected( $author_type,'amici_fornitori') ?>			  	> AMICI fornitori </option> 				-->									
+<!--				<option value = "amici_alberghi_ristoranti"	<?php selected( $author_type,'amici_alberghi_ristoranti'); ?>	> AMICI Alberghi/Ristoranti </option> 	-->												
+				<option value = "Fornitore" 				<?php selected( $author_type,'Fornitore') ?>				 	> Fornitore </option> 									
+				<option value = "Albergo/Ristorante"		<?php selected( $author_type,'Albergo/Ristorante'); ?>		  	> Albergo/Ristorante </option> 													
 
 			</select>			
 		</div>
@@ -282,6 +281,7 @@ get_header() ?>
 		$loop = new WP_Query('post_type=review');				//post_type='review'
 	
 	} //end IF Request - form inviato
+
 			
 ?>
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
@@ -296,8 +296,27 @@ get_header() ?>
 	<!-- WHILE -->
 	<?php while($loop->have_posts()): $loop->the_post();?>		
 	
+			
+		<?php
+		
+		if($author_type == 'Fornitore' || $author_type == 'Albergo/Ristorante' )
+		{			
+			$tipo_profilo = xprofile_get_field_data( "Tipo profilo" , $post->post_author);			
+			
+			if($tipo_profilo != $author_type)  
+			{				
+				continue;						
+			}
+			else 
+			{
+				echo $tipo_profilo;
+			}
+			
+		}
+		?>		
+		
 		<!-- DO-ACTION -->
-		<?php do_action( 'bp_before_blog_post' ) ?>		
+		<?php do_action( 'bp_before_blog_post' ) ?>			
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>> 
 		<!-- <article id="post-<?php //the_ID(); ?>" <?php //post_class(); ?>>
@@ -308,6 +327,7 @@ get_header() ?>
 				<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
 				<p><?php printf( _x( 'by %s', 'Post written by...', 'buddypress' ), bp_core_get_userlink( $post->post_author ) ) ?></p>
 			</div>
+			
 
 			<div class="post-content">
 				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
