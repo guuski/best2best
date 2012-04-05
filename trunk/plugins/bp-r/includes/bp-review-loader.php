@@ -376,6 +376,8 @@ class BP_Review_Component extends BP_Component {
 
 }// chiude la CLASSE
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 /**
  * Carica il componente BP_Review_Component in $bp global
@@ -498,6 +500,18 @@ function save_review_meta_box( $post_id )
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -516,6 +530,12 @@ function show_archive_review_search_form()
 
 ?> <!------------------ TAG Open ------------------------------------>								
 
+
+
+
+
+
+
 <!-- potrei mettere queste 3 righe in 'bp-review-loader' se uso l'ACTION  'bp_before_blog_post' 	-- E IGNORARE IL loop PRECEDENTE
 <?php //endwhile; ?>
 <?php //else : ?>
@@ -523,7 +543,7 @@ function show_archive_review_search_form()
 
 
 
-<!------------------------ FORM ---------------------------->
+<!-- FORM ------->
 <form>
 
 	<!-- [...] -->
@@ -537,8 +557,11 @@ if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) )
 
 	//[....]
 
-	//lancia la QUERY!
-	$loop = new WP_Query($query_args);	
+}
+
+//lancia la QUERY!
+$loop = new WP_Query($query_args);	
+
 
 ?>
 		
@@ -551,6 +574,14 @@ if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) )
 		
 		<!-- WHILE -->
 		<?php //while($loop->have_posts()): $loop->the_post();?>			
+		
+		
+		
+		
+		
+		
+		
+		
 		
 <!----------------------- TAG Close -------------------------------------------->								
 <?php	
@@ -706,7 +737,6 @@ function show_review_post_type($query)
 			$distinct	= apply_filters_ref_array( 'posts_distinct',	array( $distinct, &$this ) );
 			$limits		= apply_filters_ref_array( 'post_limits',		array( $limits, &$this ) );
 			$fields		= apply_filters_ref_array( 'posts_fields',		array( $fields, &$this ) );
-
 			
 	'posts_groupby'
 	'posts_orderby'		
@@ -717,10 +747,11 @@ function show_review_post_type($query)
 	?
 		
 	'posts_where'
-	'posts_join'
-	
-	
+	'posts_join'	
 */
+
+
+
 
 
 ?>
