@@ -31,7 +31,6 @@
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-<div id="item-body">											<!-- ma � ripetuto?!-->
 	<div class="item-list-tabs no-ajax" id="subnav">
 		<ul>
 			<!-- -->
@@ -148,10 +147,12 @@
 
 </div><!-- #item-body -->
 </div><!-- .padder -->
-</div><!-- #content -->
-
-<!-- SIDEBAR --->
 <?php locate_template( array( 'sidebar.php' ), true ) ?>						<!-- locate_template () -->
+</div><!-- #content -->
+</div>
+<!-- SIDEBAR --->
 
+
+</div>
 <!-- FOOTER -->	
 <?php get_footer() ?>

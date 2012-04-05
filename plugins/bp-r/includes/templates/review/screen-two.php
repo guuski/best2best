@@ -35,7 +35,7 @@ get_header() ?>
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
-	<div id="item-body">											<!-- ma � ripetuto?!-->
+									<!-- ma � ripetuto?!-->
 		<div class="item-list-tabs no-ajax" id="subnav">
 			<ul>
 				<!-- -->
@@ -155,11 +155,13 @@ Innovazione
 
 
 </div><!-- #item-body -->
+</div>
+<?php locate_template( array( 'sidebar.php' ), true ) ?>	
 </div><!-- .padder -->
 </div><!-- #content -->
-
+</div>
 <!-- SIDEBAR --->
-<?php locate_template( array( 'sidebar.php' ), true ) ?>						<!-- locate_template () -->
+					<!-- locate_template () -->
 
 <!-- FOOTER -->	
 <?php get_footer() ?>
