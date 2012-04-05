@@ -4,7 +4,18 @@
 Template Name: Elenco Reviews
  
 */
+/*
+/*
+la lista deve essere ordinata per data e filtrabile per 
+tutti alberghi/ristoranti
+tutti fornitori
+tutti miei contatti(Amici)
+miei contatti alberghi
+miei contatti fornitori
 
+ordinabile per data o per ratings (somma dei parametri)				---- OK singolo RATING (prezzo, servizio)
+
+*/
 get_header() ?>
 <div id="content">
 <div class="padder">
@@ -14,33 +25,58 @@ get_header() ?>
 
 <!-- PAGE-->
 <div class="page" id="blog-page" role="main">
+
+
 							
 <?php
-// -- GLOBALS
-	global $query, $query_string;
+
+	//DEBUG
+	define('DEBUG',false);	//define('DEBUG',true); 
+
+	// -- GLOBALS
+	global $query; 
+	global $query_string;
+	global $wp_query;
+		
+	//------------------------------------------------------------- Inizializza------------------------------------------------------------------
 	
-	// -- RESET previous QUERY
-	//wp_reset_query();
-	//wp_reset_postdata();
+	//Recupera...
+	$order_by 	= stripslashes($_POST['order_by']);		//striptags 
+	$asc_desc 	= stripslashes($_POST['asc_desc']);	
+	$author_id  = stripslashes($_POST['author_id']);		
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	
-	// -- Inizializza
-	$order_by = 'date';
-	$asc_desc = 'DESC';
-	$meta_value = 0;
-	$author_id 	= 0;
+	//---------------------------------------------------------------------------------------------------
+	// DEBUG		
+	//--------------------------------------------------------------------------------------------------
 	
-	echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
-	echo '<br/>'.'<br/>';
-	echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
-	echo '<br/>'.'<br/>';			
-	echo 'order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-	echo '<br/>'.'<br/>';
-	echo 'meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
-	echo '<br/>'.'<br/>';
-	echo 'asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
-	echo '<br/>'.'<br/>';	
-	echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-	echo '<br/>'.'<br/>';	
+	if(DEBUG ) 
+	{
+		if($_SERVER['REQUEST_METHOD'] != 'POST')
+		{
+			echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
+			echo '<br/>'.'<br/>';
+			
+			if($wp_guery != NULL) {
+				echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
+				echo '<br/>'.'<br/>';			
+			}
+			if($wp_guery != NULL) {
+				echo 'WP_QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$wp_query;	//var dump
+				echo '<br/>'.'<br/>';		
+			}
+			
+			echo 'order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
+			echo '<br/>'.'<br/>';
+			echo 'meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
+			echo '<br/>'.'<br/>';
+			echo 'asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
+			echo '<br/>'.'<br/>';	
+			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
+			echo '<br/>'.'<br/>';	
+		}
+	}
+	//---------------------------------------------------------------------------------------------------
 ?>
 	
 <!--------------------------------------------------------------------review_filter FORM ----------------------------------------------------------->
@@ -58,43 +94,28 @@ get_header() ?>
 			
 		<p>	&nbsp; Orderby &nbsp;				
 			<select name = "order_by" id = "order_by" >
-				<!-- <option selected> meta value </option>		-->
-				<!-- <option value = "meta_value" 	<?php selected( $order_by,'meta_value'); ?>> meta value </option> 					-->
-				<!-- <option value = "meta_key" 		<?php //selected( $order_by,'meta_key'); ?>> meta key </option> 					-->
-				<!-- <option value = "date" 			<?php selected( $order_by,'date'); ?>> date </option> 					-->
-				
-				<!-- <option value = "voto_prezzo" 	<?php //selected( $order_by,'voto_prezzo'); ?>> voto prezzo </option> -->
-				<!-- <option value = "voto_servizio" <?php //selected( $order_by,'voto_servizio'); ?>> voto servizio </option> -->
-				<!-- <option value = "rating" 		<?php //selected( $order_by,'rating'); ?>> rating (voto totale) </option> 					-->
+				<option selected> Ordina per... </option>										
+				<option value = "voto_prezzo" 	<?php selected( $order_by,'voto_prezzo'); ?>> voto prezzo </option> 
+				<option value = "voto_servizio" <?php selected( $order_by,'voto_servizio'); ?>> voto servizio </option> 
 			</select>			
 		</p>		
 		
-		<p>	&nbsp; META VALUE &nbsp;				
-			<select name = "meta_value" id = "meta_value" >							
-				<!-- <option selected> voto prezzo </option>		-->
-				
-				<!-- <option value = "voto_prezzo"	 <?php selected( $meta_value,'voto_prezzo'); ?>> voto prezzo </option> -->
-				<!-- <option value = "voto_servizio"  <?php selected( $meta_value,'voto_servizio'); ?>> voto servizio </option> -->
-				
-				<!-- <option value = "rating" 		 <?php //selected( $order_by,'rating'); ?>> rating (voto totale) </option> 					-->
-			</select>			
-		</p>	
 		<p>	&nbsp; ASC or DESC &nbsp;				
-			<select name = "asc_desc" id = "asc_desc" >
-				<!-- <option selected> DESC </option>	-->
+			<select name = "asc_desc" id = "asc_desc" >								
+				<option selected> ASC o DESC...</option>						
 				<option value = "asc" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
-				<option value = "desc" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 									
+				<option value = "desc" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 								
+				<!-- <option value = "0" <?php //selected( $asc_desc,0); ?>> non specificato </option> 									-->				
 			</select>			
 		</p>	
 
 		<p>	&nbsp; AUTHOR ID &nbsp;				
 			<select name = "author_id" id = "author_id" >				
-				<option value = "1" <?php selected( $author_id,1); ?>> 1 admin </option> 									
-				<option value = "10" <?php selected( $author_id,10); ?>> 10 andrea </option> 									
+				<option value = "0" <?php //selected( $author_id,0); ?>> 0 tutti gli autori di Review </option> 									
+				<option value = "1" <?php //selected( $author_id,1); ?>> 1 admin </option> 									
+				<option value = "10" <?php //selected( $author_id,10); ?>> 10 andrea </option> 									
 			</select>			
 		</p>	
-
-
 		
 		<div id="review-filter-submit">								
 			<input type="submit" name="review-filter-submit" id="review-filter-submit" value="<?php _e( 'Filtra', 'reviews' ); ?>" />
@@ -110,48 +131,44 @@ get_header() ?>
 </form>		
 
 <?php
-
 	
-		
-	//----------------------------------------------------------------------------------------------------------------------------------------------
-	//	
-	//----------------------------------------------------------------------------------------------------------------------------------------------
-	// IF - 	
-	//if($_SERVER['REQUEST_METHOD']=='GET' || isset($_GET['order_by']) ) 	
-	if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) ||  isset($_POST['asc_desc']) || isset($_POST['meta_value']) || isset($_POST['author_id']) )
-	{	
+	//----------------------------------------------------------------------------------------------------------------------------------------------			
+	if(		
+			$_SERVER['REQUEST_METHOD']=='POST' 
+		|| 	isset($_POST['order_by']) 
+		|| 	isset($_POST['asc_desc']) 
+		|| 	isset($_POST['author_id']) 
+	)//---------------------------------------------
 	
+	{		
 		//Recupera...
-		$order_by 	= stripslashes($_POST['order_by']);		//striptags
+		$order_by 	= stripslashes($_POST['order_by']);		//striptags  
 		$asc_desc 	= stripslashes($_POST['asc_desc']);
-		$meta_value = stripslashes($_POST['meta_value']);		
 		$author_id  = stripslashes($_POST['author_id']);		
-		//$author_id  = (int) $_POST['author_id'];		
-		
-		//$asc_desc = $_POST['asc_desc'];
-		//$asc_desc = $_GET['asc_desc'];
-		
+
+				
 		//---------------------------------------------------------------------------------------------------
 		// DEBUG		
 		//---------------------------------------------------------------------------------------------------
-		echo '<br/>'.'<br/>';
-		echo 'FORM inviato....';
-		echo '<br/>'.'<br/>';
-		echo 'POST order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-		echo '<br/>'.'<br/>';
-		echo 'POST meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
-		echo '<br/>'.'<br/>';
-		echo 'POST asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
-		echo '<br/>'.'<br/>';			
-		echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-		echo '<br/>'.'<br/>';	
-		echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
-		echo '<br/>'.'<br/>';
-		echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
+		if(DEBUG) 
+		{
+			echo '<br/>'.'<br/>';
+			echo 'FORM inviato....';
+			echo '<br/>'.'<br/>';
+			echo 'POST order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
+			echo '<br/>'.'<br/>';
+			echo 'POST meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
+			echo '<br/>'.'<br/>';
+			echo 'POST asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
+			echo '<br/>'.'<br/>';			
+			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
+			echo '<br/>'.'<br/>';	
+			//echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
+			//echo '<br/>'.'<br/>';
+			//echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
+		}
 		//---------------------------------------------------------------------------------------------------		
 		
-					
-			
 		$query_args = array
 		(
 				'post_status'		=> 'publish'
@@ -159,68 +176,52 @@ get_header() ?>
 
 //			,	'meta_query'		=> array()				//META_QUERY!
 
+//			,	'meta_key'			=> $order_by			//Meta_KEY!
 //			,	'orderby'			=> $order_by
+			
+//			, 	'order'				=> 'DESC'
 			, 	'order'				=> $asc_desc			
 
 //			,   'author'			=> $author_id
 //			,   'author'			=> 0
 		);
 	
-	
+		//è stato specificato....ASC o DESC		
+		if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
+		{
+			//$query_args['order'] = $asc_desc;
+		}
+					
+		// è stato specificato un AUTORE id
 		if ( $author_id )
-		{
-		
-			//$query_args['author'] = (array)$author_id;
-			$query_args['author'] = $author_id;
+		{					
+			$query_args['author'] = $author_id; //$query_args['author'] = (array)$author_id;
 			
-			echo '<br/>'.'<br/>';			
-			echo '-----author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-			echo '<br/>'.'<br/>';	
-		
+			if(DEBUG) 
+			{
+				echo 'AUTORE scelto!'.'--> author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
+				echo '<br/>'.'<br/>';	
+			}
 		}
-/*			
-		if ( $recipient_id ) 
-		{
-			$query_args['meta_query'][] = array
-			(
-				'key'	  => 'bp_review_recipient_id',
-				'value'	  => (array)$recipient_id,
-				'compare' => 'IN' 						
-			);
+
+		//è stato specificato....
+		if( $order_by =='voto_prezzo' || $order_by =='voto_servizio'  ) 
+		{		
+			//													//FUNZIONA!!!
+			$query_args['meta_key'] = $order_by;			
+			$query_args['orderby'] = 'meta_value_num';								
 		}
-*/
-		
-		if($order_by == 'meta_value' || $order_by == 'meta_key' ) 
-		{
-/*		
-			echo '<br/>'.'<br/>';
-			echo 'POST order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-			echo '<br/>'.'<br/>';
-			echo 'POST meta value:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $meta_value; 
-			
-			
-			$query_args['meta_query'][] = array								
-			(
-				'key'	  => $meta_value,
-				//'value'	  => (array)1, 	//'value'	  => 3,
-				//'value'	  => 
-				'compare' => 'IN' 							
-			);		
-			
-			    
-				
-			// ES 1
-			
-				'meta_key' => 'price', 
-				'orderby' => 'meta_value_num', 
-				'order' => 'ASC', 
-*/
-		}
-			
 
 		//lancia la QUERY!
-		$loop = new WP_Query($query_args);	
-	}		
+		$loop = new WP_Query($query_args);						
+	} 
+	else 
+	{		
+			
+		$loop = new WP_Query('post_type=review');				//post_type='review'
+	
+	} //end IF Request - form inviato
+			
 ?>
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 	
@@ -228,16 +229,19 @@ get_header() ?>
 <?php if ( $loop->have_posts() ) : ?>	
 	
 	<!------------------------------------------>
-	<?php //bp_dtheme_content_nav( 'nav-above' ); ?>
+	<?php bp_dtheme_content_nav( 'nav-above' ); ?>
 	<!------------------------------------------>
 	
 	<!-- WHILE -->
 	<?php while($loop->have_posts()): $loop->the_post();?>		
 	
 		<!-- DO-ACTION -->
-		<?php //do_action( 'bp_before_blog_post' ) ?>		
+		<?php do_action( 'bp_before_blog_post' ) ?>		
 
-		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>> 
+		<!-- <article id="post-<?php //the_ID(); ?>" <?php //post_class(); ?>>
+		
+			<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies ?!-->
 
 			<div class="author-box">
 				<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
@@ -249,23 +253,45 @@ get_header() ?>
 
 				<p class="date"><?php printf( __( '%1$s <span>in %2$s</span>', 'buddypress' ), get_the_date(), get_the_category_list( ', ' ) ); ?></p>
 
+				<!-- ENTRY -->
 				<div class="entry">
 					<?php the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 				</div>
-
-				<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?> <span class="comments"><?php comments_popup_link( __( 'No Comments &#187;', 'buddypress' ), __( '1 Comment &#187;', 'buddypress' ), __( '% Comments &#187;', 'buddypress' ) ); ?></span></p>
-			</div>
-		</div>
+			
+				<!-- -->
+				<p class="postmetadata">
+					<?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?> 
+					<span class="comments">
+						<?php comments_popup_link( __( 'No Comments &#187;', 'buddypress' ), __( '1 Comment &#187;', 'buddypress' ), __( '% Comments &#187;', 'buddypress' ) ); ?>
+					</span>
+				</p>							
+				
+				<!-- REVIEW-META-->
+				<div class = "review-meta" >
+					<h4> Prezzo: 	<?php echo get_post_meta($post->ID, 'voto_prezzo',true); 	?> 	  </h4>
+					<h4> Serivzio: 	<?php echo get_post_meta($post->ID, 'voto_servizio',true); ?> </h4>
+				</div>
+				
+			</div>	<!-- chiude CONTENT -->							
+		</div> <!-- chiude POST -->
+		<!-- </article>-->
+		
+		<?php
+			if (($wp_query->current_post + 1) < ($wp_query->post_count)) 
+			{
+				echo '<div class="post-item-divider"><hr/></div>';				
+			}
+		?>
 		
 		<!-- DO-ACTION -->
-		<?php //do_action( 'bp_after_blog_post' ) ?>
+		<?php do_action( 'bp_after_blog_post' ) ?>
 
 	<!--END WHILE -->					
 	<?php endwhile; ?>
 	
 	<!------------------------------------------>
-	<?php //bp_dtheme_content_nav( 'nav-below' ); ?>
+	<?php bp_dtheme_content_nav( 'nav-below' ); ?>
 	<!------------------------------------------>	
 	
 <!-- ELSE -->
@@ -281,9 +307,7 @@ get_header() ?>
 								<?php wp_reset_postdata() ?>																	
 								
 								<!-- Reset QUERY	-->													<!-- IMPORTANTE ! -->
-								<?php wp_reset_query(); ?>																	
-								
-								
+								<?php //wp_reset_query(); ?>									<!-- solo quando si usa 'query_posts()'-->
 								
 </div><!-- .page -->
 

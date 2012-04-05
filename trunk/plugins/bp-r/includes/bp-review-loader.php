@@ -564,18 +564,7 @@ function save_review_meta_box( $post_id )
  */
 function show_archive_review_search_form() 
 {	
-/*
-la lista deve essere ordinata per data e filtrabile per 
-tutti alberghi/ristoranti
-tutti fornitori
-tutti miei contatti(Amici)
-miei contatti alberghi
-miei contatti fornitori
 
-ordinabile per data o per ratings (somma dei parametri)
-*/
-
- 
 
 //----------------------------------------------------------
 //VARIABILI
