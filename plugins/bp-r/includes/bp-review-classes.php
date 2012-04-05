@@ -178,7 +178,7 @@ class Review
 			
 			if ( $result ) 			
 			{
-				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										//[C] Rating
+				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										
 				update_post_meta( $result, 'voto_servizio',$voto_servizio);
 				update_post_meta( $result, 'voto_qualita',$voto_qualita);
 				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
@@ -219,7 +219,8 @@ class Review
 			$r = wp_parse_args( $args, $defaults );
 			extract( $r );
 
-			$query_args = array(
+			$query_args = array
+			(
 				'post_status'	 	=> 'publish',
 				'post_type'		 	=> 'review',									//post_type: 'review'
 				'posts_per_page'	=> $per_page,

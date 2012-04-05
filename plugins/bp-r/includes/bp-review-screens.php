@@ -14,16 +14,7 @@ e poi mandano l'output a file di template (le View).
 ----------------------------------------------------
 FILE, CLASSI, OGGETTI, METODI collegati o richiamati
 ----------------------------------------------------
-		
-	- [PHP file]	tutti in 'includes/' 
-	
-	- [PHP Class]	
-	
-		'Review'
-	
-	- [PHP Function]
-		
-		'bp_is_review_component()' in 'bp-review-classes.php' (classe Review)
+
 
 -----------------------------------------
 FUNZIONI e HOOKS (WordPress - Wp)
@@ -37,16 +28,8 @@ FUNZIONI e HOOKS (WordPress - Wp)
 FUNZIONI e HOOKS (BuddyPress - Bp)
 -----------------------------------------
 
-	bp_update_is_directory()
-	bp_current_action()
-	
 	bp_core_load_template()
-	
-	
-	
-	
-	bp_screens	-->	 bp_review_directory_setup
-	
+		
 -----------------------------------------
 global $bp
 -----------------------------------------
@@ -63,6 +46,8 @@ global $bp
 //
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
+
 /**
  * bp_review_screen_one()
  * 
@@ -77,7 +62,7 @@ function bp_review_screen_one()
 	//cancella le notifiche di review dell'utente
 	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');	
 	
-	//PHP Notice: 
+	// [W] - PHP Notice
 		// bp_core_delete_notifications_for_user_by_type � <strong>deprecata</strong> dalla versione 1.5! 
 		// Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
 		
@@ -94,6 +79,7 @@ function bp_review_screen_one()
 //
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
 /**
  * bp_review_screen_two()
  * 
@@ -180,6 +166,8 @@ function bp_review_screen_three()
         */					
 		//bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));				 		
 
+	
+	
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //  non le usa pennnnniente!		---BOH!
@@ -224,31 +212,5 @@ function bp_review_screen_one_content()
 */
 
 }
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  una volta che la DIRECTORY � disabilitata non serve pi� a niente  ---> lo stesso vale per il TEMPLATE index.php (*)
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * 
- *
- * @package BuddyPress_Template_Pack
- *
- */
- 
-	function bp_review_directory_setup() 
-	{
-		/*
-		if ( bp_is_review_component() && !bp_current_action() && !bp_current_item() ) 
-		{
-			bp_update_is_directory( true, 'review' );			
-			do_action( 'bp_review_directory_setup' );
-			bp_core_load_template( apply_filters( 'review_directory_template', 'review/index' ) );		// (*)
-		}
-		*/	
-	}
-	//add_action( 'bp_screens', 'bp_review_directory_setup' );
 	
 ?>

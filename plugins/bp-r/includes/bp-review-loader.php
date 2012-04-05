@@ -1,6 +1,12 @@
 <?php
 /*
 
+
+						
+			// REWRITE - SLUG
+			, 'rewrite' 			=> array('slug' => 'ureviews')								// [ST] [?] Ur*?! cambiare?!
+			
+			
 -----------------------------------------
 [C] changes
 -----------------------------------------
@@ -186,44 +192,44 @@ class BP_Review_Component extends BP_Component {
 	
 		global $bp;
 		
-		// 
 		$main_nav = array
 		(
-			'name' 		      => __( 'Review', 'reviews' ),																//[I] manca GET TOTAL COUNT delle reviews!---crea la funzione!		
-//			'name'          => sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),---get_total_count()----),			
-			'slug' 		      => bp_get_review_slug(), //&$this->slug			
-			'position' 	      => 80,														//[?]
-			'screen_function'     => 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE
-			//'default_subnav_slug' => 'screen-one'			 
-			'default_subnav_slug' => 'my-reviews',																		// [C] S
-			//'item_css_id'         => $this->id				
+			'name' 		      		=> __( 'Review', 'reviews' ),																//[I] manca GET TOTAL COUNT delle reviews!---crea la funzione!		
+//			'name'          		=> sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),---get_total_count()----),			
+
+			'slug' 		      		=> bp_get_review_slug(), //&$this->slug			
+			'position' 	      		=> 80,														//[?]
+			'screen_function'     	=> 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE
+			
+//			'default_subnav_slug' 	=> 'screen-one'			 
+			'default_subnav_slug' 	=> 'my-reviews',																		// [C] S
+			
+//			'item_css_id'         	=> $this->id				
 		);
 
 		$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
-		//$review_link = trailingslashit( $bp->loggedin_user->domain . $this->slug );		
-		
-		//---------------------------------------------------															//[C] S
+		//[ALT] //$review_link = trailingslashit( $bp->loggedin_user->domain . $this->slug );		
+				
 		if(bp_is_my_profile())
 		{
 			$nav_text	 =	sprintf(__('Review ricevute','reviews'));						
 			$review_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
-			//$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
+			//[ALT] //$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
 		}
 		else
 		{
 			$nav_text	 =	sprintf (__('Le Review per %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
 			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
-			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
-		}		  
-		//---------------------------------------------------
+			//[ALT] //$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
+		}		  		
 		
 		$sub_nav[] = array
 		(
 			//'name'            =>  __( 'Lista Review', 'reviews' ),
-			'name'            => $nav_text,																				//[C] S - vd IF sopra			
+			'name'            => $nav_text,																	
 			
 			//'slug'            => 'screen-one',																			
-			'slug'            => 'my-reviews',																			//[C] S					
+			'slug'            => 'my-reviews',																
 			
 			'parent_url'      => $review_link,				//			
 			'parent_slug'     => bp_get_review_slug(), 		// $this->slug,			
@@ -232,14 +238,14 @@ class BP_Review_Component extends BP_Component {
 //			'item_css_id'     => 'review-my-review'
 		);
 		
-		// aggiunge 		
+		// aggiunge...
 		if(review_current_user_can_write()) 																			//nome ambiguo!
 		{
 			$sub_nav[] = array
 			(
 					'name'            => __('Scrivi una Review', 'reviews' )				
 
-				,	'slug'            => 'screen-two'														// [S] create		---> devo cambiare il BOTTONE!!!
+				,	'slug'            => 'screen-two'						// [S] create ---> se cambio qui devo cambiare il link del BOTTONE AddReview!!!
 //				,	'slug'            => 'create'
 
 				,	'parent_url'      => $review_link
@@ -254,8 +260,7 @@ class BP_Review_Component extends BP_Component {
 				,	'position'        => 20
 			);
 		}
-		
-		//---------------------------------------------------															
+				
 		if(bp_is_my_profile())
 		{
 			$nav_text_2	 =	sprintf(__('Review scritte da me','reviews'));						
@@ -268,7 +273,6 @@ class BP_Review_Component extends BP_Component {
 			$review_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
 			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
 		}		  
-		//---------------------------------------------------
 		
 		$sub_nav[] = array
 		(
@@ -307,27 +311,23 @@ class BP_Review_Component extends BP_Component {
 	function register_post_types() 
 	{		
 		$labels = array(
-			'name'	   => __( 'User Reviews', 'reviews' ),												//[T]
-			//'singular_name' => __( 'User Review','reviews' )												//[?]
+			'name'	   => __( 'User Reviews', 'reviews' ),													//[T]			
 			'singular' => __( 'User Review', 'reviews' )			
+			//'singular_name' => __( 'User Review','reviews' )												//[?]
 		);
 		
-		$args = array(
-			'label'	   => __( 'User Reviews', 'reviews' )
-			,
-			'labels'   => $labels
+		$args = array
+		(
+				'label'	   => __( 'User Reviews', 'reviews' )
+			,	'labels'   => $labels
 			
-
-			// ARCHIVE page
-			// associa TEMPLATE....ma anche no!
-			// associa la pagine REVIEWS
-			//
-			
-			// , 'has_archive'   => 'archivio'				
-			// , 'has_archive'   => 'reviews_archive'
+			// ARCHIVE page -  associa TEMPLATE....ma anche no! - associa la pagine REVIEWS			
+/*			
+			//, 'has_archive'   => 'archivio'				
+			//, 'has_archive'   => 'reviews_archive'
 			//, 'has_archive'   => true
 			//, 'has_archive'   => 'review'
-			
+*/			
 			, 'has_archive'   => 'lista-reviews'
 			
 			// PUBLIC
@@ -343,7 +343,7 @@ class BP_Review_Component extends BP_Component {
 			, 'publicly_queryable'  => true														// 
 			
 			// SEARCH
-//				, 'exclude_from_search  => false													//
+//			, 'exclude_from_search  => false													//
 
 			// QUERY related 2
 			, 'query_var' 			=> true														// 

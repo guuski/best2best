@@ -27,7 +27,7 @@
 	<div id="main-column">
 <!------------------------------------------>				
 	
-<div id="item-body">											<!-- ma � ripetuto?!-->
+<div id="item-body">											
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
@@ -51,34 +51,28 @@
 
 		
 	<!-- MESSAGGIO  -->
-	<h4><?php _e( 'Review ricevute', 'reviews' ) ?></h4>	
+	<h5><?php _e( 'Review ricevute', 'reviews' ) ?></h5>	
 		
 	<?php		
 	
 		$query_args = array
 		(
 				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'				//post_type: 'review'
+			,	'post_type'			=> 'review'				//'review'
 			,	'meta_query'		=> array()				//META_QUERY!
-//			,	'orderby'			=> 'title'
-//			,	'order'				=> 'ASC'
-//			, 	'posts_per_page		=> -1					//(?)
 		);
 
-		$query_args['meta_query'][] = array										//META_QUERY!
+		$query_args['meta_query'][] = array					//META_QUERY!
 		(
 				'key'	  => 'bp_review_recipient_id',
-				//'value'	  => (array)$recipient_id,
-				//'value'	  => (array)1,
 				'value'	  => (array)bp_displayed_user_id(),
-				'compare' => 'IN' 							// Allows $recipient_id to be an array ---eh?!
+				'compare' => 'IN' 							// Allows $recipient_id to be an array 
 		);		
 		
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);	
 	?>
-		
-		
+				
 	<!-- IF -->					
 	<?php if ( $loop->have_posts() ) : ?>	
 		
@@ -102,12 +96,12 @@
 			
 			<!--CUSTOM FIELDS-->
 			<div>								
-						<?php 	
-				$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
-				$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
-				$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
-				$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
-				$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+				<?php 	
+					$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
+					$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
+					$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
+					$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
+					$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
 				?>
 		<div id="new-review-rating">	
 			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	

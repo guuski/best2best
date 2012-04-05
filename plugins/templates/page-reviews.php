@@ -6,14 +6,20 @@ Template Name: Elenco Reviews
 */
 /*
 /*
-la lista deve essere ordinata per data e filtrabile per 
+
+la lista deve essere ordinata per DATA e filtrabile per 
+
 tutti alberghi/ristoranti
 tutti fornitori
-tutti miei contatti(Amici)
-miei contatti alberghi
-miei contatti fornitori
+	
+	tutti miei contatti(Amici)
 
-ordinabile per data o per ratings (somma dei parametri)				---- OK singolo RATING (prezzo, servizio)
+	miei contatti alberghi
+	miei contatti fornitori
+
+ordinabile per 
+	- DATA 
+	- RATINGS (somma dei parametri)				---- OK singolo RATING (prezzo, servizio)
 
 */
 get_header() ?>
@@ -44,6 +50,7 @@ get_header() ?>
 	$order_by 	= stripslashes($_POST['order_by']);		//striptags 
 	$asc_desc 	= stripslashes($_POST['asc_desc']);	
 	$author_id  = stripslashes($_POST['author_id']);		
+	$author_type  = stripslashes($_POST['author_type']);		
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	
 	//---------------------------------------------------------------------------------------------------
@@ -57,7 +64,7 @@ get_header() ?>
 			echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
 			echo '<br/>'.'<br/>';
 			
-			if($wp_guery != NULL) {
+			if($query != NULL) {
 				echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
 				echo '<br/>'.'<br/>';			
 			}
@@ -86,54 +93,103 @@ get_header() ?>
 	<?php do_action( 'before_review_filter_form' ) ?>
 
 	<!-- MESSAGGIO -->
-	<h5> <?php  //_e('Ordina....','reviews');?> </h5>
+	<h5> <?php  _e('Filtra le Reviews facendo clic sulle caselle di scelta: ','reviews');?> </h5>
 				
-	<div id="review-filter-select">
+	<div id="review-filter-select"> 
 			
-		<p>	&nbsp; ORDINAMENTO &nbsp;				
-			<select name = "order_by" id = "order_by" >
-				<option selected> Ordina per... </option>										
-				<option value = "data" 	<?php selected( $order_by,'data'); ?>> data </option> 
-				<option value = "voto_prezzo" 	<?php selected( $order_by,'voto_prezzo'); ?>> voto prezzo </option> 
-				<option value = "voto_servizio" <?php selected( $order_by,'voto_servizio'); ?>> voto servizio </option> 
+		<!-- By default the first coded <option> will be displayed or selected as the default. We can change this using the selected attribute.	-->
+		<!-- <option selected		=	"yes"			>Conneticut -- CN</option>-->		
+		<!--
+		Preselected Select Option
+		The options can be preselected using the entity "selected".
+			<option name=three value=three selected> three </option>	
+		-->
+				
+		<div style = "float: left">
+			<label for="order_by"> &nbsp; ORDINAMENTO &nbsp; </label>	
+			<select name = "order_by" id = "order_by" 
+					size="5"
+					onchange = 'this.form.submit()'
+			>				
+				<!-- <option selected> Ordina per... </option>														-->
+				<option value = "data" 				<?php selected( $order_by,'data'); ?>			> Data </option> 
+				<option value = "voto_prezzo" 		<?php selected( $order_by,'voto_prezzo'); ?>	> Prezzo </option> 
+				<option value = "voto_servizio" 	<?php selected( $order_by,'voto_servizio'); ?>	> Servizio </option> 
+				
+				<option value = "voto_qualita" > 													Qualit&agrave; </option> 
+				<option value = "voto_puntualita" > 												Puntualit&agrave; </option> 
+				<option value = "voto_affidabilita" > 												Affidabilit&agrave; </option> 
 			</select>			
-		</p>		
-		
-		<p>	&nbsp; ASC or DESC &nbsp;				
-			<select name = "asc_desc" id = "asc_desc" >								
-				<option selected> ASC o DESC...</option>						
-				<option value = "asc" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
-				<option value = "desc" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
+		</div>
+			
+		<div>
+			<label for="asc_desc"> &nbsp; ASC or DESC &nbsp; </label>		
+			<select name = "asc_desc" id = "asc_desc"  
+					size="2"
+					onchange = 'this.form.submit()'
+			>				
+				<!-- <option selected> ASC o DESC...</option> -->
+				<option value = "ASC" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
+				<option value = "DESC" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
 			</select>			
-		</p>	
+		</div>			
 
-		<p>	&nbsp; AUTHOR ID &nbsp;				
-			<select name = "author_id" id = "author_id" >				
-				<option value = "0" <?php selected( $author_id,0); ?>> 0 tutti gli autori di Review </option> 									
-				<option value = "1" <?php selected( $author_id,1); ?>> 1 admin </option> 									
-				<option value = "10" <?php selected( $author_id,10); ?>> 10 andrea </option> 									
+		<div> 
+<!--	
+			<label for="author_id"> &nbsp; AUTHOR ID &nbsp;	</label>					
+			<select name = "author_id" id = "author_id" 
+					size = "3"
+					onchange = 'this.form.submit()'
+			>				
+				<option value = "0" 	<?php //selected( $author_id,0); ?>	> 0 tutti gli autori di Review </option> 									
+				<option value = "1"		<?php //selected( $author_id,1); ?>	> 1 admin </option> 									
+				<option value = "10" 	<?php //selected( $author_id,10); ?>	> 10 andrea </option> 									
 			</select>			
-		</p>	
-		
-		<p>	&nbsp; TIPOLOGIA &nbsp;				
-			<select name = "tipologia" id = "tipologia" >				
-				<option value = "tutti" 				<?php selected( $tipologia,'tutti') ?>> tutti </option> 									
-				<option value = "fornitori" 			<?php selected( $tipologia,'fornitori') ?>> fornitori </option> 									
-				<option value = "alberghi/ristoranti"	<?php selected( $tipologia,'alberghi/ristoranti'); ?>> alberghi/ristoranti </option> 													
+		</div>
+-->				
+		<div>
+			<label for="author_type"> &nbsp; Tipologia AUTORE Review &nbsp; </label>					
+			<select name = "author_type" id = "author_type" 					
+					size = "3"
+					onchange = 'this.form.submit()'
+			>	
+				<option value = "tutti" 					<?php selected( $author_type,'tutti') ?>					  	> tutti </option> 									
+				<option value = "solo_amici" 				<?php selected( $author_type,'solo_amici') ?>			  		> tutti gli AMICI </option> 														
+				<option value = "amici_fornitori" 			<?php selected( $author_type,'amici_fornitori') ?>			  	> AMICI fornitori </option> 													
+				<option value = "amici_alberghi_ristoranti"	<?php selected( $author_type,'amici_alberghi_ristoranti'); ?>	> AMICI Alberghi/Ristoranti </option> 													
+				<option value = "fornitori" 				<?php selected( $author_type,'fornitori') ?>				 	> Fornitori </option> 									
+				<option value = "alberghi_ristoranti"		<?php selected( $author_type,'alberghi/ristoranti'); ?>		  	> Alberghi/Ristoranti </option> 													
+
 			</select>			
-		</p>	
+		</div>
+
 		
+<!--		
+		<div>
+			<label for="recipient_type"> &nbsp; Tipologia DESTINATARIO Review &nbsp; </label>					
+			<select name = "recipient_type" id = "recipient_type" 					
+					size = "3"
+					onchange = 'this.form.submit()'
+			>	
+				<option value = "tutti" 				<?php selected( $recipient_type,'tutti') ?>					> tutti </option> 									
+				<option value = "fornitori" 			<?php selected( $recipient_type,'fornitori') ?>				> fornitori </option> 									
+				<option value = "alberghi/ristoranti"	<?php selected( $recipient_type,'alberghi/ristoranti'); ?>	> alberghi/ristoranti </option> 													
+			</select>			
+		</div>
+-->		
+
+
+		<!--		
 		<div id="review-filter-submit">								
 			<input type="submit" name="review-filter-submit" id="review-filter-submit" value="<?php _e( 'Filtra', 'reviews' ); ?>" />
 		</div>			
-			
+		-->					
 	</div>		
 	 
 	<!-- DO ACTION After - Search Form -->
 	<?php do_action( 'after_review_filter_form' ) ?>	
-			
-	<!-- [WPNONCE] -->
-	<?php //wp_nonce_field( 'bp_review_filter_review' ); ?>				
+				
+	<?php //wp_nonce_field( 'bp_review_filter_review' ); ?>	 <!-- [WPNONCE] -->
 </form>		
 
 <?php
@@ -143,16 +199,18 @@ get_header() ?>
 			$_SERVER['REQUEST_METHOD']=='POST' 
 		|| 	isset($_POST['order_by']) 
 		|| 	isset($_POST['asc_desc']) 
-		|| 	isset($_POST['author_id']) 
-	)//---------------------------------------------
+		|| 	isset($_POST['author_id'])
+		|| 	isset($_POST['author_type'])
+	)
+	//---------------------------------------------
 	
 	{		
 		//Recupera...
-		$order_by 	= stripslashes($_POST['order_by']);		//striptags  
-		$asc_desc 	= stripslashes($_POST['asc_desc']);
-		$author_id  = stripslashes($_POST['author_id']);		
+		$order_by 	 = stripslashes($_POST['order_by']);		//striptags  
+		$asc_desc 	 = stripslashes($_POST['asc_desc']);
+		$author_id	 = stripslashes($_POST['author_id']);		
+		$author_type = stripslashes($_POST['author_type']);		
 
-				
 		//---------------------------------------------------------------------------------------------------
 		// DEBUG		
 		//---------------------------------------------------------------------------------------------------
@@ -178,17 +236,16 @@ get_header() ?>
 			,	'post_type'			=> 'review'				//post_type: 'review'
 
 //			,	'meta_query'		=> array()				//META_QUERY!
-
 //			,	'meta_key'			=> $order_by			//Meta_KEY!
 //			,	'orderby'			=> $order_by
 			
-//			, 	'order'				=> $asc_desc			
+			, 	'order'				=> $asc_desc			//MET 2		
 		);
 	
 		//è stato specificato....ASC o DESC		
 		if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
 		{
-			$query_args['order'] = $asc_desc;
+			//$query_args['order'] = $asc_desc;			// MET 1 - non va! --> vd MET 2	
 		}
 					
 		// è stato specificato un AUTORE id
@@ -273,8 +330,11 @@ get_header() ?>
 				
 				<!-- REVIEW-META-->
 				<div class = "review-meta" >
-					<h4> Prezzo: 	<?php echo get_post_meta($post->ID, 'voto_prezzo',true); 	?> 	  </h4>
-					<h4> Serivzio: 	<?php echo get_post_meta($post->ID, 'voto_servizio',true); ?> </h4>
+					<h4> Prezzo: 				<?php echo get_post_meta($post->ID, 'voto_prezzo',true); 		?></h4>
+					<h4> Serivzio: 				<?php echo get_post_meta($post->ID, 'voto_servizio',true); 		?></h4>
+					<h4> Qualit&agrave;: 		<?php echo get_post_meta($post->ID, 'voto_qualita',true); 		?></h4>
+					<h4> Puntualit&agrave;:		<?php echo get_post_meta($post->ID, 'voto_puntualita',true); 	?></h4>
+					<h4> Affidabilit&agrave;: 	<?php echo get_post_meta($post->ID, 'voto_affidabilita',true);	?></h4>
 				</div>
 				
 			</div>	<!-- chiude CONTENT -->							
