@@ -498,65 +498,13 @@ function save_review_meta_box( $post_id )
 }
 
 
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//			tanto per capire il meccanismo ma lasciamo perdere per orA!
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-//add_action('bp_screens','save_review',4);
-
-
-//
-    function save_review()
-	{
-/*     
-	 global $bp;
-     
-		if( 	
-				bp_is_current_component($bp->review->slug)
-			&&  bp_is_current_action('screen-two')													//SCREEN_TWO o CREATE
-			&&	!empty($_POST['review-submit'])
-			)										
-		{
-			
-			// [WPNONCE]
-			check_admin_referer( 'bp_review_new_review' );		
-			
-			$error   = false;
-			$message = 'ciao benvenuto';
-
-
-			//[...]
-				
-			bp_core_add_message($message,$error);      
-			
-			//redirect
-			bp_core_redirect(wp_get_referer()); 
-		}    
-		*/
-    }   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //			 
+//										---------still need to figure it out!
+//
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-												//ACTION
-												//add_action('bp_before_archive','show_archive_review_search_form');
 
 /**
  * show_archive_review_search_form()
@@ -566,147 +514,33 @@ function show_archive_review_search_form()
 {	
 
 
-//----------------------------------------------------------
-//VARIABILI
+?> <!------------------ TAG Open ------------------------------------>								
 
-	//$order_by = "date";
-	
-//----------------------------------------------------------
+<!-- potrei mettere queste 3 righe in 'bp-review-loader' se uso l'ACTION  'bp_before_blog_post' 	-- E IGNORARE IL loop PRECEDENTE
+<?php //endwhile; ?>
+<?php //else : ?>
+<?php //endif; ?>
 
-
-?> <!------------------ TAG Open ----------------------------------------------------->								
-
-
-<!--
-<fieldset>
-<legend>Input Your name</legend>
-<form method="post" action="">
-	<p><label for="user_name">Your Name: <input type="text" name="user_name" value="Your name" onclick="javascript: if(this.value=='Your name') this.value = '';" /></label></p>
-	<p><input type="submit" value="Submit" /></p>
-</form>
-</fieldset>
-<?php
-/*
-if($_SERVER['REQUEST_METHOD']=='POST') {
-?>
-<p>Hello <?php echo stripslashes($_POST['user_name']); ?>. I hope you liked it!</p>
-<?php
-}
-*/
-?>
-
-<?php //smart_archives(); ?>
-
-<!-- ---------------------------------------------------------------->										
-						<!-- potrei mettere queste 3 righe in 'bp-review-loader' se uso l'ACTION  'bp_before_blog_post' 
-												<?php //endwhile; ?>
-												<?php //else : ?>
-												<?php //endif; ?>
-<!-- ---------------------------------------------------------------->								
 
 
 <!------------------------ FORM ---------------------------->
-<!-- action = "<?php //bp_review_form_action()  ?> " -->
-<form 
-	action = ""
-	method="post" id="review-filter-post-form" class="standard-form">
-	
-		<!-- DO ACTION -->
-		<?php //do_action( 'bp_before_review_search_post_form' ); ?>
-	
-		<!-- MESSAGGIO -->
-		<h5> <?php  _e('Ordina....','reviews');?> </h5>
-					
-		<div id="review-filter-select">
-				
-			<p>	&nbsp; Orderby &nbsp;				
-				<select name = "order_by" id = "order_by" >
-					<!-- <option selected> date </option>		-->
-					<option value = "date" <?php selected( $order_by,'date'); ?>> date </option> 					
-					<option value = "voto_prezzo" <?php selected( $order_by,'voto_prezzo'); ?>> voto prezzo </option> 
-					<option value = "voto_servizio" <?php selected( $order_by,'voto_servizio'); ?>> voto servizio </option> 
-					<option value = "rating" <?php selected( $order_by,'rating'); ?>> rating (voto totale) </option> 
-					
-				</select>			
-			</p>		
-			
-			<div id="review-filter-submit">								
-				<input type="submit" name="review-filter-submit" id="review-filter-submit" value="<?php _e( 'Filtra', 'reviews' ); ?>" />
-			</div>			
-				
-		</div>		
-		  
-		<!-- DO ACTION -->
-		<?php //do_action( 'bp_after_review_filter_post_form' ); ?>								
+<form>
 
-		<!-- [WPNONCE] -->
-		<?php //wp_nonce_field( 'bp_review_filter_review' ); ?>				
+	<!-- [...] -->
+		
 </form>		
 
 <?php
 
-	if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) ) 	
-	{		
+if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) ) 	
+{		
 
-		//RESET previous QUERY
-		//wp_reset_query();
-		//wp_reset_postdata();
+	//[....]
 
-		//GLOBALS
-			//global $query_string; // ---- 1
-			//global $query; 		  // ---- 2
-?>
-		<p>
-<?php		
-		echo 'POST Var Orderby:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .stripslashes($_POST['order_by']); 
-?>
-<br>	
-<?php	
-		echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
-?>
-<br>	
-<?php			
-		echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
-?>
-		</p>
-<?php				
-		
-		//------ 1 	
-		//$query_string =	'post_status' 'post_type'			=> 'review'				//post_type: 'review'
-		
-		//$posts = query_posts($query_string . "&orderby=$_POST['order_by']");
-		//$posts = query_posts($query_string . '&orderby=voto_prezzo');
-
-		//------ 2
-		//$query->query_vars['orderby'] = stripslashes($_POST['order_by']);
-	}
+	//lancia la QUERY!
+	$loop = new WP_Query($query_args);	
 
 ?>
-<?php		
-/*	
-		$query_args = array
-		(
-				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'				//post_type: 'review'
-//			,	'meta_query'		=> array()				//META_QUERY!
-			,	'orderby'			=> $order_by
-			,	'order'				=> 'ASC'
-//			, 	'posts_per_page		=> -1					//(?)
-		);
-
-		$query_args['meta_query'][] = array										//META_QUERY!
-		(
-				'key'	  => 'bp_review_recipient_id',
-				//'value'	  => (array)$recipient_id,
-				//'value'	  => (array)1,
-				'value'	  => (array)bp_displayed_user_id(),
-				'compare' => 'IN' 							// Allows $recipient_id to be an array ---eh?!
-		);		
-
-		//lancia la QUERY!
-		$loop = new WP_Query($query_args);	
-*/				
-	?>
 		
 		
 	<!-- IF -->					
@@ -718,12 +552,16 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
 		<!-- WHILE -->
 		<?php //while($loop->have_posts()): $loop->the_post();?>			
 		
-<!----------------------------------------------------------- TAG Close -------------------------------------------->								
+<!----------------------- TAG Close -------------------------------------------->								
 <?php	
 
 }//chiude la FUNZIONE show_archive_review_search_form()
 
 
+				
+				
+//ACTION
+												//add_action('bp_before_archive','show_archive_review_search_form');
 
 
 
@@ -782,6 +620,10 @@ function change_review_post_type_archive_query($query)
 // ACTION
 							//add_action('pre_get_posts','change_review_post_type_archive_query');		 //PRIORITà 1 magari
 	
+
+	
+	
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -791,12 +633,15 @@ function change_review_post_type_archive_query($query)
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 
 
+
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 function orderby_review_query_filter( $orderby )
 {
-/*  
+
   if( is_post_type_archive('review') ) 
   {
      return "post_title ASC";
@@ -804,13 +649,21 @@ function orderby_review_query_filter( $orderby )
 
   // 
   return $orderby;
-*/
+
 }	
 
-//
-														//add_filter('posts_orderby', 'orderby_review_query_filter' );				//FILTER
+//FILTER
+													//add_filter('posts_orderby', 'orderby_review_query_filter' );				
 									
 	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 
 /**
@@ -819,7 +672,7 @@ function orderby_review_query_filter( $orderby )
  */
 function show_review_post_type($query) 
 {
-/*
+
 	//---------------------- NB : facendo così viene ignorato il template 'archive-review.php' -----------------	
 	if(	is_archive() ) 
 	{
@@ -828,12 +681,14 @@ function show_review_post_type($query)
 	}
 	
 	return $query;
-*/	
+
 }
 
 
-													//add_filter('pre_get_posts','show_review_post_type');			//FILTER
-	
+//FILTER
+													//add_filter('pre_get_posts','show_review_post_type');			
+													
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------			
 	
 	
 //----------------------------------------------------------------- REFERENCE	--------------------------------------------------------------------
