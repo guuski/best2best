@@ -19,6 +19,8 @@ form#review-form #new-review-content {
 	margin-left: 54px;
 	padding-left: 22px;
 }
+
+
 form#review-form textarea {
 	background: #fff;
 	border: 1px inset #ccc;
@@ -179,12 +181,18 @@ div.add-reviews:active{
 
 /* -------------------- RATING ------------------------------ */
 
+form#review-form #new-review-rating
+{	
+	margin-left:	70px;
+	margin-top: 	70px;
+}
+
 #review-rating 
 {
 	margin-top: 8px;
 	vertical-align: top;
-	width: 200px;
-	float: left;
+	width: 400px;
+	/* float: left;*/
 }
 
 div.star-holder 

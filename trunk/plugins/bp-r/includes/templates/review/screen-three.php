@@ -47,7 +47,7 @@
 	
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php _e( 'Le Reviews scritta da me', 'reviews' ) ?></h4>
+	<h4><?php //_e( 'Le Reviews scritta da me', 'reviews' ) ?></h4>
 		
 	<?php		
 	
@@ -72,7 +72,7 @@
 				
 				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
 			
-				<small><strong>
+				<small style = "float: right;"><strong>
 					<?php  _e('Recensione su: ');?> 
 					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) ?> </a></strong></small>
 					<br />
@@ -84,6 +84,8 @@
 				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
 				<?php the_excerpt();  ?>	
 			</div>			
+			
+			<br/> 
 			
 			<!--CUSTOM FIELDS-->
 			<div>								
@@ -120,6 +122,8 @@
 			</div>	<!-- fine sezione RATING -->
 				<!------------------------------------------------------------------------------------------------->					
 			</div>				
+			
+			<br/>
 			
 			<!-- COMMENTI -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 

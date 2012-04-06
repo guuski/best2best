@@ -4,25 +4,31 @@
 Template Name: Elenco Reviews
  
 */
-/*
+
 /*
 
 la lista deve essere ordinata per DATA e filtrabile per 
 
-tutti alberghi/ristoranti
-tutti fornitori
+1)
+
+tutti alberghi/ristoranti						-- OK
+tutti fornitori									-- OK
 	
 	tutti miei contatti(Amici)
 
 	miei contatti alberghi
 	miei contatti fornitori
 
+2)
+
 ordinabile per 
-	- DATA 
-	- RATINGS (somma dei parametri)				---- OK singolo RATING (prezzo, servizio)
+
+	- DATA 										-- OK
+	- RATINGS (somma dei parametri)				-- solo singolo RATING (prezzo, servizio,....)
 
 */
 get_header() ?>
+
 <div id="content">
 <div class="padder">
 
@@ -32,257 +38,148 @@ get_header() ?>
 <!-- PAGE-->
 <div class="page" id="blog-page" role="main">
 
-
-							
 <?php
 
 	//DEBUG
 	define('DEBUG',false);	//define('DEBUG',true); 
+	
+	//TEST
+	define('TEST',false);	//define('TEST',true); 
 
-	// -- GLOBALS
-	global $query; 
-	global $query_string;
-	global $wp_query;
-		
-	//------------------------------------------------------------- Inizializza------------------------------------------------------------------
-	
 	//Recupera...
-	$order_by 	= stripslashes($_POST['order_by']);		//striptags 
-	$asc_desc 	= stripslashes($_POST['asc_desc']);	
-	$author_id  = stripslashes($_POST['author_id']);		
-	$author_type  = stripslashes($_POST['author_type']);		
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	
-	//---------------------------------------------------------------------------------------------------
-	// DEBUG		
-	//--------------------------------------------------------------------------------------------------
-	
-	if(DEBUG ) 
-	{
-		if($_SERVER['REQUEST_METHOD'] != 'POST')
-		{
-			echo 'QUERY_STRING:	 '. "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $query_string;
-			echo '<br/>'.'<br/>';
-			
-			if($query != NULL) {
-				echo 'QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$query;
-				echo '<br/>'.'<br/>';			
-			}
-			if($wp_guery != NULL) {
-				echo 'WP_QUERY: '.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" .$wp_query;	//var dump
-				echo '<br/>'.'<br/>';		
-			}
-			
-			echo 'order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-			echo '<br/>'.'<br/>';			
-			echo 'asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
-			echo '<br/>'.'<br/>';	
-			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-			echo '<br/>'.'<br/>';	
-		}
-	}
-	//---------------------------------------------------------------------------------------------------
+	$order_by 	 = stripslashes($_POST['order_by']);		//striptags 
+	$asc_desc 	 = stripslashes($_POST['asc_desc']);		
+	$author_type = stripslashes($_POST['author_type']);			
 ?>
 	
-<!--------------------------------------------------------------------review_filter FORM ----------------------------------------------------------->
+<!--------------------------------------------------------------------review_filter_post_FORM ----------------------------------------------------------->
 <form 
 	action = ""
-	method="post" id="review-filter-post-form" class="standard-form">
+	method = "post" id="review-filter-post-form" 
+	class  = "standard-form">										<!-- CLASS -->
 		
-	<!-- DO ACTION Before - Search Form -->
+	<!-- DO ACTION Before Review Filter Form -->
 	<?php do_action( 'before_review_filter_form' ) ?>
 
 	<!-- MESSAGGIO -->
-	<h5> <?php  _e('Filtra le Reviews facendo clic sulle caselle di scelta: ','reviews');?> </h5>
+	<h5> <?php // _e('Filtra le Reviews facendo clic sulle caselle di scelta: ','reviews');?> </h5>
 				
-	<div id="review-filter-select"> 
-			
-		<!-- By default the first coded <option> will be displayed or selected as the default. We can change this using the selected attribute.	-->
-		<!-- <option selected		=	"yes"			>Conneticut -- CN</option>-->		
-		<!--
-		Preselected Select Option
-		The options can be preselected using the entity "selected".
-			<option name=three value=three selected> three </option>	
-		-->
-				
-		<div style = "float: left">
-			<label for="order_by"> &nbsp; ORDINAMENTO &nbsp; </label>	
-			<select name = "order_by" id = "order_by" 
-					size="6"
-					onchange = 'this.form.submit()'
-			>				
-				<!-- <option selected> Ordina per... </option>														-->
-				<option value = "data" 				<?php selected( $order_by,'data'); ?>			> Data </option> 
-				<option value = "voto_prezzo" 		<?php selected( $order_by,'voto_prezzo'); ?>	> Prezzo </option> 
-				<option value = "voto_servizio" 	<?php selected( $order_by,'voto_servizio'); ?>	> Servizio </option> 
-				
-				<option value = "voto_qualita" > 													Qualit&agrave; </option> 
-				<option value = "voto_puntualita" > 												Puntualit&agrave; </option> 
-				<option value = "voto_affidabilita" > 												Affidabilit&agrave; </option> 
-			</select>			
-		</div>
-			
-		<div>
-			<label for="asc_desc"> &nbsp; ASC or DESC &nbsp; </label>		
-			<select name = "asc_desc" id = "asc_desc"  
-					size="2"
-					onchange = 'this.form.submit()'
-			>				
-				<!-- <option selected> ASC o DESC...</option> -->
-				<option value = "ASC" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
-				<option value = "DESC" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
-			</select>			
-		</div>			
-<!--		
-		<div> 
-			<label for="author_id"> &nbsp; AUTHOR ID &nbsp;	</label>					
-			<select name = "author_id" id = "author_id" 
-					size = "3"
-					onchange = 'this.form.submit()'
-			>				
-				<option value = "0" 	<?php selected( $author_id,0); ?>	> 0 tutti gli autori di Review </option> 									
-				<option value = "1"		<?php selected( $author_id,1); ?>	> 1 admin </option> 									
-				<option value = "10" 	<?php selected( $author_id,10); ?>	> 10 andrea </option> 									
-			</select>			
-		</div>
--->
-		<div>
-			<label for="author_type"> &nbsp; Tipologia AUTORE Review &nbsp; </label>					
-			<select name = "author_type" id = "author_type" 					
-					size = "6"
-					onchange = 'this.form.submit()'
-			>	
-				<option value = "tutti" 					<?php selected( $author_type,'tutti') ?>					  	> tutti </option> 									
-<!--				<option value = "solo_amici" 				<?php selected( $author_type,'solo_amici') ?>			  		> tutti gli AMICI </option>			-->
-<!--				<option value = "amici_fornitori" 			<?php selected( $author_type,'amici_fornitori') ?>			  	> AMICI fornitori </option> 				-->									
-<!--				<option value = "amici_alberghi_ristoranti"	<?php selected( $author_type,'amici_alberghi_ristoranti'); ?>	> AMICI Alberghi/Ristoranti </option> 	-->												
-				<option value = "Fornitore" 				<?php selected( $author_type,'Fornitore') ?>				 	> Fornitore </option> 									
-				<option value = "Albergo/Ristorante"		<?php selected( $author_type,'Albergo/Ristorante'); ?>		  	> Albergo/Ristorante </option> 													
+	<div id="review-filter-select" > <!-- style = "display: inline; ">-->
 
-			</select>			
-		</div>
+	   <ul style = "display: inline; "> 
+			<li style = "float: left;"> 
+				<!-- <label for="order_by"> &nbsp; ORDINAMENTO &nbsp; </label>	-->
+				<select name = "order_by" id = "order_by" 										
+						onchange = "this.form.submit()"
+				>				
+					<!-- <option selected> Ordina per... </option>														-->
+					<option value = "data" 				<?php selected( $order_by,'data'); ?>			> Data </option> 
+					<option value = "voto_prezzo" 		<?php selected( $order_by,'voto_prezzo'); ?>	> Prezzo </option> 
+					<option value = "voto_servizio" 	<?php selected( $order_by,'voto_servizio'); ?>	> Servizio </option> 
+					
+					<option value = "voto_qualita" > 													Qualit&agrave; </option> 
+					<option value = "voto_puntualita" > 												Puntualit&agrave; </option> 
+					<option value = "voto_affidabilita" > 												Affidabilit&agrave; </option> 
+				</select>				
+			</li>
+			<li>
+				<!-- <label for="asc_desc"> &nbsp; ASC or DESC &nbsp; </label>	-->
+				<select name = "asc_desc" id = "asc_desc"  								
+						onchange = 'this.form.submit()'
+				>								
+					<option value = "ASC" <?php selected( $asc_desc,'ASC'); ?>> ASC </option> 									
+					<option value = "DESC" <?php selected( $asc_desc,'DESC'); ?>> DESC </option> 												
+				</select>			
+			</li>
+			<li>
+				<label for="author_type"> &nbsp; Autori </label>					
+				<select name = "author_type" id = "author_type" 										
+						onchange = 'this.form.submit()'
+				>	
+					<option value = "tutti" 					<?php selected( $author_type,'tutti') ?>					  	> tutti </option> 									
+					<option value = "solo_amici" 				<?php selected( $author_type,'solo_amici') ?>			  		> tutti gli AMICI </option>			
+					<option value = "amici_fornitori" 			<?php selected( $author_type,'amici_fornitori') ?>			  	> AMICI fornitori </option> 				
+					<option value = "amici_alberghi_ristoranti"	<?php selected( $author_type,'amici_alberghi_ristoranti'); ?>	> AMICI Alberghi/Ristoranti </option> 												
+					<option value = "Fornitore" 				<?php selected( $author_type,'Fornitore') ?>				 	> Fornitore </option> 									
+					<option value = "Albergo/Ristorante"		<?php selected( $author_type,'Albergo/Ristorante'); ?>		  	> Albergo/Ristorante </option> 													
 
-		
-<!--		
-		<div>
-			<label for="recipient_type"> &nbsp; Tipologia DESTINATARIO Review &nbsp; </label>					
-			<select name = "recipient_type" id = "recipient_type" 					
-					size = "3"
-					onchange = 'this.form.submit()'
-			>	
-				<option value = "tutti" 				<?php selected( $recipient_type,'tutti') ?>					> tutti </option> 									
-				<option value = "fornitori" 			<?php selected( $recipient_type,'fornitori') ?>				> fornitori </option> 									
-				<option value = "alberghi/ristoranti"	<?php selected( $recipient_type,'alberghi/ristoranti'); ?>	> alberghi/ristoranti </option> 													
-			</select>			
-		</div>
--->		
+				</select>	
+			</li>
+<!--			
+			<li>			
+				<label for="recipient_type"> &nbsp; Destinatari </label>					
+				<select name = "recipient_type" id = "recipient_type" 										
+						onchange = 'this.form.submit()'
+				>	
+					<option value = "tutti" 				<?php selected( $recipient_type,'tutti') ?>					> tutti </option> 									
+					<option value = "fornitori" 			<?php selected( $recipient_type,'fornitori') ?>				> fornitori </option> 									
+					<option value = "alberghi/ristoranti"	<?php selected( $recipient_type,'alberghi/ristoranti'); ?>	> alberghi/ristoranti </option> 													
+				</select>					
+			</li>
+-->			
+		</ul>	
+	</div>
 
-
-		<!--		
-		<div id="review-filter-submit">								
-			<input type="submit" name="review-filter-submit" id="review-filter-submit" value="<?php _e( 'Filtra', 'reviews' ); ?>" />
-		</div>			
-		-->					
-	</div>		
-	 
-	<!-- DO ACTION After - Search Form -->
+	<hr/>
+ 
+	<!-- DO ACTION After Review Filter Form -->
 	<?php do_action( 'after_review_filter_form' ) ?>	
-				
-	<?php //wp_nonce_field( 'bp_review_filter_review' ); ?>	 <!-- [WPNONCE] -->
+					
 </form>		
+<!------------------------------------------------------------------------------------------------------------------------------------------------->
 
 <?php
 	
-	//----------------------------------------------------------------------------------------------------------------------------------------------			
-	if(		
-			$_SERVER['REQUEST_METHOD']=='POST' 
-		|| 	isset($_POST['order_by']) 
-		|| 	isset($_POST['asc_desc']) 
-		|| 	isset($_POST['author_id'])
-		|| 	isset($_POST['author_type'])
-	)
-	//---------------------------------------------
+//---------------------------------------------
+if(		
+		$_SERVER['REQUEST_METHOD']=='POST' 
+	|| 	isset($_POST['order_by']) 
+	|| 	isset($_POST['asc_desc']) 		
+	|| 	isset($_POST['author_type'])
+)
+//---------------------------------------------	
+{		
+	//Recupera...
+	$order_by 	 = stripslashes($_POST['order_by']);		//striptags  
+	$asc_desc 	 = stripslashes($_POST['asc_desc']);
+	$author_id	 = stripslashes($_POST['author_id']);		
+	$author_type = stripslashes($_POST['author_type']);			
 	
-	{		
-		//Recupera...
-		$order_by 	 = stripslashes($_POST['order_by']);		//striptags  
-		$asc_desc 	 = stripslashes($_POST['asc_desc']);
-		$author_id	 = stripslashes($_POST['author_id']);		
-		$author_type = stripslashes($_POST['author_type']);		
+	$query_args = array
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'
+		,	'posts_per_page'	=> -1
+		, 	'order'				=> $asc_desc			//MET 2		
+	);
 
-		//---------------------------------------------------------------------------------------------------
-		// DEBUG		
-		//---------------------------------------------------------------------------------------------------
-		if(DEBUG) 
-		{
-			echo '<br/>'.'<br/>';
-			echo 'FORM inviato....';
-			echo '<br/>'.'<br/>';
-			
-			echo 'POST order_by:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $order_by; 
-			echo '<br/>'.'<br/>';			
-			echo 'POST asc_desc:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $asc_desc; 
-			echo '<br/>'.'<br/>';			
-			echo 'author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-			echo '<br/>'.'<br/>';	
-
-		}
-		//---------------------------------------------------------------------------------------------------		
-		
-		$query_args = array
-		(
-				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'				//post_type: 'review'
-
-//			,	'meta_query'		=> array()				//META_QUERY!
-//			,	'meta_key'			=> $order_by			//Meta_KEY!
-//			,	'orderby'			=> $order_by
-			
-			, 	'order'				=> $asc_desc			//MET 2		
-		);
-	
-		//è stato specificato....ASC o DESC		
-		if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
-		{
-			//$query_args['order'] = $asc_desc;			// MET 1 - non va! --> vd MET 2	
-		}
-					
-		// è stato specificato un AUTORE id
-		if ( $author_id )
-		{					
-			$query_args['author'] = $author_id; //$query_args['author'] = (array)$author_id;
-			
-			if(DEBUG) 
-			{
-				echo 'AUTORE scelto!'.'--> author_id:	'.  "&nbsp" . "&nbsp" . "&nbsp" . "&nbsp" . $author_id; 
-				echo '<br/>'.'<br/>';	
-			}
-		}
-
-		//è stato specificato....
-		if( $order_by =='voto_prezzo' || $order_by =='voto_servizio'  ) 
-		{		
-			//													//FUNZIONA!!!
-			$query_args['meta_key'] = $order_by;			
-			$query_args['orderby'] = 'meta_value_num';								
-			//$query_args['orderby'] = 'meta_value';			
-		}
-		else //ORDINA PER DATA
-		{
-			//$query_args['orderby'] = 'date';								
-		}
-
-		//lancia la QUERY!
-		$loop = new WP_Query($query_args);						
-	} 
+	//è stato specificato ASC o DESC		
+	if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
+	{
+		//$query_args['order'] = $asc_desc;			// MET 1 - non va! --> vd MET 2	sopra
+	}
+				
+	//è stato specificato....
+	if( $order_by =='voto_prezzo' || $order_by =='voto_servizio' 							 ) 
+	{					
+		$query_args['meta_key'] = $order_by;			
+		$query_args['orderby'] = 'meta_value_num';	//'meta_value';						
+	}
 	else 
-	{		
-			
-		$loop = new WP_Query('post_type=review');				//post_type='review'
-	
-	} //end IF Request - form inviato
+	{
+		//ORDINA PER DATA
+			//$query_args['orderby'] = 'date';								
+	}
 
-			
+	//lancia la QUERY!
+	$loop = new WP_Query($query_args);						
+} 
+else 
+{		
+	//lancia la QUERY!	
+	$loop = new WP_Query('post_type=review');		//e post_status?!
+
+}//end IF Request - FORM inviato			
 ?>
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 	
@@ -293,35 +190,150 @@ get_header() ?>
 	<?php bp_dtheme_content_nav( 'nav-above' ); ?>
 	<!------------------------------------------>
 	
-	<!-- WHILE -->
+	<!-- WHILE 1 loop -->
 	<?php while($loop->have_posts()): $loop->the_post();?>		
 	
 			
 		<?php
-		
-		if($author_type == 'Fornitore' || $author_type == 'Albergo/Ristorante' )
-		{			
-			$tipo_profilo = xprofile_get_field_data( "Tipo profilo" , $post->post_author);			
 			
-			if($tipo_profilo != $author_type)  
-			{				
-				continue;						
-			}
-			else 
+			$author_type_params_checked = false;
+			
+			//WHILE 2
+//			while( !$author_type_param_checked ) 
+//			{
+//----------------------------------------------------------
+
+				//$post->post_author; --> salvalo in una VAR
+				
+			if(	$author_type != 'tutti' )
 			{
-				echo $tipo_profilo;
-			}
+
+				// IF - E1
+				if(		
+						$author_type == 'Fornitore' 
+					||  $author_type == 'Albergo/Ristorante' 
+					|| 	$author_type == 'amici_fornitori' 
+					|| 	$author_type == 'amici_alberghi_ristoranti'
+					//||  !$author_type_params_checked					//? è sicuro FALSE! togliere!
+				)
+				{			
+				
+					//---------------//---------------//---------------//---------------
+					
+					if(DEBUG) 
+						echo '<br/>' . 'DENTRO IF - E1';
+					
+					$type = $author_type;
+					
+					if(DEBUG) {
+						echo '<br/>' . 'type: ' . $type;
+						echo '<br/>' . 'author_type: ' . $author_type;					
+						echo '<br/>' . '...cambia type: ';
+					}
+					
+					//---------------------------------------------------------------------------------------------
+					if ($author_type == 'amici_fornitori' || $author_type == 'Fornitore') 
+					{
+						$type = 'Fornitore';
+					}
+					else if ($author_type == 'amici_alberghi_ristoranti' || $author_type == 'Albergo/Ristorante') 
+					{
+						$type = 'Albergo/Ristorante';
+					}
+					//---------------------------------------------------------------------------------------------	
+					
+					if(DEBUG) {
+						echo '<br/>' . 'type: ' . $type;
+						echo '<br/>' . 'author_type: ' . $author_type;
+					}
+					//---------------//---------------//---------------//---------------
+				
+					//IMPORTANTE
+					$tipo_profilo = xprofile_get_field_data( "Tipo profilo" , $post->post_author);			
+					
+					//IF - I 						
+					if($tipo_profilo != $type)  //if($tipo_profilo != $author_type)  			
+					{				
+					
+						if(DEBUG) 
+							echo '<br/>' . 'DENTRO IF - I';	
+					
+						//IMPORTANTE
+						//------------------------------------------
+						//
+						$author_type_params_checked = true;
+						//vai avanti!
+						continue;						
+						//------------------------------------------
+					}
+					else 
+					{
+						if(DEBUG) {
+							echo '<br/>' .'<br/>' . $tipo_profilo;						
+							echo '<br/>' . 'ID: ' . $post->post_author;
+						}
+					}			
+				}//chiude IF - E1
+
+				// IF - E2
+				if(		
+						//!$author_type_params_checked //== false
+					//||	
+						$author_type == 'solo_amici' 
+					|| 	$author_type == 'amici_fornitori' 
+					|| 	$author_type == 'amici_alberghi_ristoranti'					
+				)
+				{
+				
+				
+// 	[BUG] - senza l'IF 'andrea' utente loggato viene escluso da risultati della ricerca!		
+					if(bp_loggedin_user_id() != $post->post_author) 
+					{
+						$are_friends = friends_check_friendship( bp_loggedin_user_id() , $post->post_author );					
+					
+						//IF - I 
+						if( !$are_friends )  
+						{				
+						
+							//IMPORTANTE
+							//------------------------------------------
+							//
+							$author_type_params_checked = true;
+							//
+							//vai avanti!
+							continue;						
+							//------------------------------------------
+						}
+						else 
+						{
+							if(DEBUG) {
+								echo 'AMICI?: ' . $are_friends;	
+								echo '<br/>' . 'ID: ' . $post->post_author;						
+							}
+						}							
+					}	
+					else 
+					{
+						continue;	
+					}
+				}//chiude IF - E2
+				
+			}//end IF	
 			
-		}
+			$author_type_params_checked = false;
+
+//----------------------------------------------------------
+				//$author_type_params_checked = false;
+				
+//			}// chiude il WHILE 2
 		?>		
 		
 		<!-- DO-ACTION -->
 		<?php do_action( 'bp_before_blog_post' ) ?>			
 
-		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>> 
-		<!-- <article id="post-<?php //the_ID(); ?>" <?php //post_class(); ?>>
+		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>> 		
 		
-			<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies ?!-->
+			<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies !-->
 
 			<div class="author-box">
 				<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
@@ -330,6 +342,7 @@ get_header() ?>
 			
 
 			<div class="post-content">
+			
 				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
 				<p class="date"><?php printf( __( '%1$s <span>in %2$s</span>', 'buddypress' ), get_the_date(), get_the_category_list( ', ' ) ); ?></p>
@@ -340,38 +353,64 @@ get_header() ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 				</div>
 			
+				<br/>
+				
+				<!--CUSTOM FIELDS-->
+				<div>								
+					<?php 						
+						$prezzo 		= get_post_meta( $post->ID, 'voto_prezzo', true );		
+						$servizio 		= get_post_meta( $post->ID, 'voto_servizio', true );
+						$qualita 		= get_post_meta( $post->ID, 'voto_qualita', true );
+						$puntualita		= get_post_meta( $post->ID, 'voto_puntualita', true );
+						$affidabilita	= get_post_meta( $post->ID, 'voto_affidabilita', true );
+					?>
+					
+					<div id="new-review-rating">	
+						<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+						</ul>
+						</div>		
+						<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+						</ul>
+						</div>	
+						<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+						</ul>
+						</div>		
+						<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+						</ul>
+						</div>	
+						<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+						</ul>
+						</div>		
+						<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->					  
+				
+					</div>	<!-- fine sezione RATING -->
+					
+				</div>								
+				
+				<br/>
+
 				<!-- -->
 				<p class="postmetadata">
 					<?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?> 
 					<span class="comments">
 						<?php comments_popup_link( __( 'No Comments &#187;', 'buddypress' ), __( '1 Comment &#187;', 'buddypress' ), __( '% Comments &#187;', 'buddypress' ) ); ?>
 					</span>
-				</p>							
-				
-				<!-- REVIEW-META-->
-				<div class = "review-meta" >
-					<h4> Prezzo: 				<?php echo get_post_meta($post->ID, 'voto_prezzo',true); 		?></h4>
-					<h4> Serivzio: 				<?php echo get_post_meta($post->ID, 'voto_servizio',true); 		?></h4>
-					<h4> Qualit&agrave;: 		<?php echo get_post_meta($post->ID, 'voto_qualita',true); 		?></h4>
-					<h4> Puntualit&agrave;:		<?php echo get_post_meta($post->ID, 'voto_puntualita',true); 	?></h4>
-					<h4> Affidabilit&agrave;: 	<?php echo get_post_meta($post->ID, 'voto_affidabilita',true);	?></h4>
-				</div>
-				
+				</p>											
 			</div>	<!-- chiude CONTENT -->							
-		</div> <!-- chiude POST -->
-		<!-- </article>-->
+		</div> <!-- chiude POST -->		
 		
-		<?php
-			if (($wp_query->current_post + 1) < ($wp_query->post_count)) 
-			{
-				echo '<div class="post-item-divider"><hr/></div>';				
-			}
-		?>
+		<?php if (($wp_query->current_post + 1) < ($wp_query->post_count)) 	
+				echo '<div class="post-item-divider"><hr/></div>';	?>
 		
 		<!-- DO-ACTION -->
 		<?php do_action( 'bp_after_blog_post' ) ?>
 
-	<!--END WHILE -->					
+	<!--End WHILE 1 loop -->					
 	<?php endwhile; ?>
 	
 	<!------------------------------------------>
@@ -380,18 +419,15 @@ get_header() ?>
 	
 <!-- ELSE -->
 <?php else : ?>
-	
+																										<!-- [I] -->
 	<h2 class="center"><?php //_e( 'Not Found', 'buddypress' ) ?></h2>
 	<?php //get_search_form() ?>
 	
 <!-- End IF -->
 <?php endif; ?>
-			
-								<!-- Reset POSTDATA	-->													<!-- IMPORTANTE ! -->
-								<?php wp_reset_postdata() ?>																	
-								
-								<!-- Reset QUERY	-->													<!-- IMPORTANTE ! -->
-								<?php //wp_reset_query(); ?>									<!-- solo quando si usa 'query_posts()'-->
+
+<!-- Reset POSTDATA	-->													<!-- IMPORTANTE ! -->
+<?php wp_reset_postdata() ?>																	
 								
 </div><!-- .page -->
 
