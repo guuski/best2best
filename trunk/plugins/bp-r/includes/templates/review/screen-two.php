@@ -76,18 +76,18 @@ get_header() ?>
 
 			<div id="new-review-textarea">	
 				<label for="review-title"> Titolo Review </label>			
-				<textarea name="review-title" id="review-title" cols="2" rows="2">
-					<?php echo $titolo?>
-				</textarea>
+				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
+				echo $titolo
+				?></textarea>
 			</div>
 			
 			<br/>
 			
 			<div id="new-review-textarea">			
 				<label for="review-content"> Testo </label>			
-				<textarea name="review-content" id="review-content" cols="50" rows="10">
-					<?php echo $contenuto?>
-				</textarea>
+				<textarea name="review-content" id="review-content" cols="50" rows="10"><?php 
+				echo $contenuto
+				?></textarea>
 			</div>
 										
 			<div id="new-review-options">
