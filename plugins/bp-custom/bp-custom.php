@@ -112,9 +112,9 @@ class bpcustom_Widget extends WP_Widget
 					echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
 					$cont++;
 				}
-				
-	 
 			}
+			
+			echo "<br /><br />";
 		?>
 		
 	
