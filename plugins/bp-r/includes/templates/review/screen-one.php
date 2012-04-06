@@ -51,7 +51,7 @@
 
 		
 	<!-- MESSAGGIO  -->
-	<h5><?php _e( 'Review ricevute', 'reviews' ) ?></h5>	
+	<h5><?php //_e( 'Review ricevute', 'reviews' ) ?></h5>	
 		
 	<?php		
 	
@@ -78,11 +78,12 @@
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-		
+				
 			<div class="title">		
 			<?php $authorlogin= get_the_author_meta('user_login')?>
-				<small><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
-					<br />
+				<small style = "float: right;"><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
+
+				<br /> 				
 				<?php  
 					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
 				?>
@@ -94,8 +95,12 @@
 				<?php the_excerpt();  ?>	
 			</div>			
 			
+			
+			<br/> 
+			
+			
 			<!--CUSTOM FIELDS-->
-			<div>								
+<div>								
 				<?php 	
 					$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
 					$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
@@ -130,11 +135,15 @@
   																								
 																								
 				<!------------------------------------------------------------------------------------------------->					
-			</div>				
+</div>				
+			
+			<br/> 
 			
 			<!-- commenti -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
+			
 			<hr />
+			
 		<?php endwhile; ?>
 
 		
