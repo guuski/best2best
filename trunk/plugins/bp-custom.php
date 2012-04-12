@@ -105,4 +105,48 @@ function my_custom_login_title($title) {
 
 require_once("bp-custom-jcrop.php");
 
+
+function nuovo_user_meta($user) {
+	?>
+    <h3>Campi aggiuntivi</h3>
+        <table class="form-table">
+		   <tbody><tr>
+				<th scope="row">Ghost Account?<?php print_r($profilo)?></th>
+				<td><label for="user_is_ghost"><input name="user_is_ghost" type="checkbox" id="user_is_ghost" value="true" <?php echo esc_attr( get_the_author_meta( 'user_is_ghost', $user->ID ) )=='true'?"checked=checked":"" ; ?> /> <?php _e('Ghost Account')?></label></td>
+			</tr>
+			</tbody>
+		</table>
+<?php }
+
+// Aggiungiamo la nostra funzione all'amministrazione di Wordpress
+// in questo "semplice" caso, la funzione "mostra" (show_user_profile)
+// e quella di "modifica" (edit_user_profile) coincidono, ma in casi
+// più articolati potrebbero essere differenti
+add_action( 'show_user_profile', 'nuovo_user_meta' );
+add_action( 'edit_user_profile', 'nuovo_user_meta' );
+// Memorizza, per l'utente $user_id, un nuovo campo identificato come
+// 'nuovo_user_meta'
+function nuovo_user_meta_update( $user_id ) {
+	// solo chi ha i permessi di editing
+	if ( !current_user_can( 'edit_user', $user_id ) ) return false;
+
+	/* Copy and paste this line for additional fields. Make sure to change 'twitter' to the field ID. */
+	update_usermeta( $user_id, 'user_is_ghost', $_POST['user_is_ghost'] );
+}
+// Anche in questo caso ci avvaliamo della add_action() per aggiungere
+// il nostro pezzo di codice. Notate che permettiamo l'aggiornamento
+// sia all'utente che visualizza il proprio profilo (personal_options_update)
+// che a qualsiasi utente amministratore o che ha i permessi di edit (edit_user_profile_update)
+add_action( 'personal_options_update', 'nuovo_user_meta_update' );
+add_action( 'edit_user_profile_update', 'nuovo_user_meta_update' );
+add_action( 'bp_before_member_header_meta'	, 'show_ghost_info',1);
+
+function show_ghost_info() {
+	if(get_the_author_meta('user_is_ghost',bp_displayed_user_id())=='true') {?>
+	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p><?php _e('Attenzione, questo account non è stato verificato. Contattaci se sei tu il proprietario','buddypress'); 
+	?></p></div>
+	<?php 
+	}	
+}
+
 ?>
