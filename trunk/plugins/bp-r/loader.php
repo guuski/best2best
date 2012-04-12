@@ -70,7 +70,9 @@ function bp_review_init()
 	{
 		$can_write=false;
 		 
-		if(is_user_logged_in()&&!bp_is_my_profile()&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id()))
+		if(is_user_logged_in()&&!bp_is_my_profile()
+			//	&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
+			)
 			$can_write=true;
 
 		return apply_filters('bp_reviews_can_user_write',$can_write);
