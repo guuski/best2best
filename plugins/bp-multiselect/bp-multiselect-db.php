@@ -9,6 +9,20 @@ include_once(ABSPATH .'wp-includes/wp-db.php');
 
 $ms_nome ='box selezione multipla raggruppata';
 
+$group_id=3;
+$type='multiselectboxrag';
+$description='ms Categorie Acquisti';
+$is_required=0;
+$is_default_option=0;
+$field_order=0;
+$option_order=0;
+$order_by='id';
+$can_delete=1;
+$cnt= 0;
+							
+$ms_1 = "INSERT INTO wp_bp_xprofile_fields ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES ($group_id,";
+$ms_3 = " ,	'$description',$is_required,$is_default_option,$field_order,$option_order,$order_by,$can_delete) ";
+
 /*Questa funzione controlla se nella tabella wp_bp_xprofile_fields è 
  * presente un record con descriptio = ms Categorie Acquisti. in questo 
  * caso ho gia provveduto all'aggiornamento del database*/
@@ -63,42 +77,42 @@ function ms_getCategorieUTENTE(){
 }
 
 
-/*Questa funzione controlla se la tabella wp_bp_xprofile_fields è stata
- * aggiornata dopo l'installazione del plugin. In caso contrario effettua
- * un update del database*/
 function ms_updateDBfield(){
 	global $bp;
 	global $wpdb;
 	$ms_parent=ms_newfieldisset();
 	if (!ms_installed() && ($ms_parent!=-1)) {
-		$group_id=3;
-		$type='multiselectboxrag';
-		$description='ms Categorie Acquisti';
-		$is_required=0;
-		$is_default_option=0;
-		$field_order=0;
-		$option_order=0;
-		$order_by='id';
-		$can_delete=1;
-								
 		$ms_insert = ms_insert(); //matrice di tutte le categorie e macrocategorie
-	
-		$ms_1 = "INSERT INTO wp_bp_xprofile_fields ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES ";
-		$ms_3 = " ,	'$description',$is_required,$is_default_option,$field_order,$option_order,$order_by,$can_delete) ";
-	
-		foreach($ms_insert as $macro => $subs) {
-			$ms_2 = "($group_id,$ms_parent,'$type','$macro'";
-			$wpdb->get_results( $wpdb->prepare($ms_1."".$ms_2."".$ms_3));	
-			$current_id= $wpdb->insert_id;//ID MACROCATEGORIA
-			foreach($subs as $sub) {
-				$ms_2 = "($group_id,$current_id,'$type','$sub'";
-				$wpdb->get_results( $wpdb->prepare($ms_1."".$ms_2."".$ms_3));
-				}//end-foreach
-		}//end-foreach		
+		ms_generaDB_ric($ms_insert,$ms_parent);
 	}//end-if
 		
 	}
 
+		
+	function ms_generaDB_ric($ms_mat, $ms_par){
+		global $ms_1,$ms_3;
+		global $type;
+		global $bp;
+		global $wpdb;
+		
+		if (is_array($ms_mat)){
+		
+			foreach ($ms_mat as $k => $v){
+				if (is_array($v)){
+					$ms_2 = "$ms_par,'$type','$k'";
+					$wpdb->get_results( $wpdb->prepare($ms_1."".$ms_2."".$ms_3));	
+					
+					$current_id= $wpdb->insert_id;//ID MACROCATEGORIA
+					ms_generaDB_ric($v,$current_id);
+				}//end-if
+				else{
+					$ms_2 = "$ms_par,'$type','$v'";
+					$wpdb->get_results( $wpdb->prepare($ms_1."".$ms_2."".$ms_3));	
+					
+				}//end-else
+			}//end-foreach
+		}//end-if
+	}//end-function
 
 
 /*Questo metodo leggendo da DB restituisce una matrice contenente tutte
@@ -113,19 +127,22 @@ function ms_caricaCategorie(){
 	$query = "SELECT f.id, f.parent_id, f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag'";
 	$ms_array=array();
 	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
-	foreach ($ms_output as $key =>$macrocat){
-		if ($macrocat->parent_id==$ms_parent){ //sto considerando solo le macrocategorie
-			$ms_array["$macrocat->name"]=array();
-			
-			foreach ($ms_output as $k =>$subcat){
-				if ($macrocat->id==$subcat->parent_id){
-					$ms_array["$macrocat->name"]["$subcat->name"]=$subcat->name;
-				}
-			}
-		}
-	}
-	return $ms_array;
+	 
+	return  ms_caricaCT_ric($ms_output,$ms_parent);
 }
+function ms_caricaCT_ric($ms_db,$ms_par){
+	
+		if (is_array($ms_db)){
+			$ms_mat='';
+			foreach ($ms_db as $k => $v){
+				if ($v->parent_id==$ms_par){
+						$ms_mat["$v->name"]= ms_caricaCT_ric($ms_db,$v->id);
+				}//end-if
+			}//end-foreach
+			return $ms_mat;
+		}//end-if
+	return '';
+	}
 /*genero l'HTML da visualizzare lato front-end*/
 function ms_getHTMLfrontend(){
 	$ms_insert = ms_caricaCategorie();
@@ -134,20 +151,9 @@ function ms_getHTMLfrontend(){
 	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
 	$HTML= ms_getScript();
 	$HTML.="<div class='ms_divfrontend'>";
-	$cnt= 0;
-	foreach($ms_insert as $macro => $subs) {
-			$HTML.="<h5>$macro</h5>";
-			
-			foreach($subs as $sub) {
-				$checked="";
-				if(in_array($sub,$ms_mycategorie)){ $checked="checked=\"checked\""; } else {$checked="";}
-				$HTML.="<label onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>" .
-						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$sub\" onclick=\"ms_check()\" />" .
-						"$sub</label>"; 
-				$cnt++;
-				
-			}//end-foreach
-		}//end-foreach		
+	
+	$HTML.=ms_getHTML_ric($ms_insert,$ms_mycategorie);
+
 	$HTML.= "
 			</div>
 			<br />
@@ -158,7 +164,41 @@ function ms_getHTMLfrontend(){
 	echo $HTML;
 	ms_caricaCategorie();
 	}
-			
+/*
+function ms_myinarray($val,$array){
+	if (is_array($array)){
+		foreach ($array as $k => $v) {
+			if ($v=='Contabilità') echo $val."==".$v."<br/>";	
+			if ($val==$v) {
+				echo $val."==".$v."<br/>";	
+				return true;
+			}
+		}
+	}
+	return false;
+	}
+**/
+function ms_getHTML_ric($ms_ins,$ms_mycat){
+	$HTML="";
+	global $cnt;
+	foreach($ms_ins as $k => $v) {
+			if (is_array($v)){
+					$HTML.="<label>$k</label>";
+					$HTML.="<div style='margin-left:20px;'>";
+						$HTML.=ms_getHTML_ric($v,$ms_mycat);
+					$HTML.="</div>";
+				}
+			else{
+				if(in_array($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
+				//if(ms_myinarray($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
+				$HTML.="<label onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>" .
+						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$k\" onclick=\"ms_check()\" />" .
+						"$k</label>"; 
+				$cnt++;
+			}
+		}//end-foreach	
+	return $HTML;
+}
 /*genero l'HTML da visualizzare lato back-end*/	
 function ms_getHTMLbackend(){
 	$ms_insert = ms_caricaCategorie(); //matrice di tutte le categorie e macrocategorie
