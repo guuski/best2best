@@ -115,9 +115,9 @@ class bp_friends extends WP_Widget
 		*/
 		$user_type=$this->get_type($user_info->ID);
 		if ($user_type=="Fornitore")
-			$title = apply_filters('widget_title', empty($instance['titolo']) ? ' Gli Alberghi/Ristoranti di '.bp_get_displayed_user_username().' sono:' : $instance['titolo'], $instance, $this->id_base);
+			$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
 		else
-			$title = apply_filters('widget_title', empty($instance['titolo']) ? ' I Fornitori di '.bp_get_displayed_user_username().' sono:' : $instance['titolo'], $instance, $this->id_base);
+			$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
 		// outputs the content of the widget
 		
 		echo $before_widget;
