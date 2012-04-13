@@ -11,26 +11,34 @@ function ms_insert(){
 	
 	$ms_insert=array( 
 	'Investimenti Edili'=> array(
-			"Imprese Edili-Scavi",
-			"Imprese Edili-Edilizia",
-			"Arredo-Mobili",
-			"Arredo-Materassi" ,
-			"Arredo-Tendaggi" ,
+			'Imprese Edili'=> array(
+				"Scavi", 
+				"Edilizia"
+				),
+			'Arredo'=> array(
+				"Mobili", 
+				"Materassi", 
+				"Tendaggi"
+				),
 			"Idraulico/Sanitari" ,
 			"Falegname" ,
 			"Cartongesso/Pittore" ,
 			"Ascensore incl. servizio assistenza" ,
 			"Elettricista" ,
-			"Impianti ventilazione" ,
+			"Impianti di ventilazione" ,
 			"Grandi Cucine" ,
-			"Impianti refrigerazione" ,
+			"Impianti di refrigerazione" ,
 			"Banchi Bar" ,
-			"Prodotti per sicurezza/Casseforti" ,
-			"Prodotti per sicurezza/Controllo accesso" ,
-			"Prodotti per sicurezza/Videosorveglianza" ,
-			"Piscine-Saune.Piscine" ,
-			"Piscine-Saune.Saune" ,
-			"Piscine-Saune.Purificazione acqua piscina" ,
+			'Prodotti per la sicurezza'=> array(
+				"Casseforti" , 
+				"Controllo accesso/ chiavi" , 
+				"Videosorveglianza" 
+				),
+			'Piscine-Saune'=> array(
+				"Piscine" ,
+				"Saune" ,
+				"Purificazione acqua piscina" 
+				),
 			"Porte" ,
 			"Finestre" ,
 			"Copertura terrazzi" 
@@ -40,7 +48,7 @@ function ms_insert(){
 			"Decorazione" ,
 			"Fiori/Piante" ,
 			"Set Cortesia" ,
-			"Prodotti igiene (carta igienica-saponi ecc.)" ,
+			"Prodotti igiene(carta igienica-saponi ecc.)" ,
 			"Articoli regalo (gadget)" 
 			),
 	'Materiale elettrico' => array(
@@ -57,25 +65,32 @@ function ms_insert(){
 			"Latticini" ,
 			"Cereali" ,
 			"Gelato" ,
-			"Alcolici-Vino" ,
-			"Alcolici-Superalcolici/Grappe/Distillati" ,
+			'Alcolici' => array(
+				"Vino" ,
+				"Superalcolici/Grappe/Distillati" 
+				),
 			"Analcolici",
-			"Prodotti dietetici/senza Glutine"
+			'Prodotti dietetici'=> array(
+				"Senza Glutine"
+				)
 			),
-	'Consulenza' => array(
-			"Web-Pagine Web" ,
-			"Web-Gestione Portali" ,
-			"Web-Web Marketing" ,
+	'Consulenze' => array(
+			'Web' => array(	
+				"Pagine Web" ,
+				"Gestione Portali" ,	
+				"Web Marketing" ),
 			"Commercialista" ,
 			"Design" ,
 			"Architetto" ,
 			"Ingegneria" ,
 			"Consulenza buste paga" ,
-			"Contabilit&#225;" ,
+			"Contabilità" ,
 			"Motivazione formazione collaboratori" ,
 			"Sicurezza sul lavoro/certificazioni ecc." ,
-			"Consulenza Sviluppo aziendale-Revenue",
-			"Consulenza Sviluppo aziendale-Controllo Costi"
+			'Consulenza Sviluppo aziendale' => array(
+				"Revenue",
+				"Controllo Costi"
+				)
 			),
 	'Parco macchina' => array(
 			"Parco macchina"
@@ -84,17 +99,24 @@ function ms_insert(){
 			"Indumenti di lavoro"
 			),
 	'Servizi vari' => array(
-			"Pulizia-Stanze e Locali",
-			"Pulizia-Vetri",
+			'Pulizia' => array(	
+				"Stanze e Locali", 
+				"Vetri"
+				),
 			"Sicurezza",
 			"Corriere (pacchi)",
 			"Inserzioni su media stampati (giornali/riviste...)",
 			"Servizio affitto biancheria e asciugamani",
 			"Ricerca Personale/Headhunter",
-			"Servizi igiene generali (derattizzazione/colombe)-Purificazione aria",
-			"Telecomunicazioni-Telefonia fissa",
-			"Telecomunicazioni-Telefonia mobile",
-			"Telecomunicazioni-Dati (ADSL)",
+			'Servizi igiene generali' => array(
+				"derattizzazione/colombe",
+				"Purificazione aria"
+				),
+			'Telecomunicazioni' => array(
+				"Telefonia fissa", 
+				"Telefonia mobile", 
+				"Dati (ADSL)"
+				),
 			"Assicurazioni",
 			"Rifiuti/Smaltimento",
 			"Spazzacamino"
@@ -107,17 +129,21 @@ function ms_insert(){
 			"Ombrelloni"
 			),
 	'Prodotti mobili industriali'=> array(
-			"Macchinari per pulizia-Aspirapolveri/vaporelle ...",
-			"Macchina Caff&#233;",
+			'Macchinari per pulizia'=> array(
+				"Aspirapolveri/vaporelle ..."
+				),
+			"Macchina Caffè",
 			"Stufe",
 			"Caminetti",
 			"Casse sicurezza",
 			"Macchine Lavanderia",
-			"Attrezzature fitness",
-			"Attrezzature Wellness e spa."
+			'Attrezzature'=> array(
+				"Fitness", 
+				"Wellness e spa."
+				)
 			),
 	'Energia' => array(
-			"Elettricit&#225;" ,
+			"Elettricità" ,
 			"Gas" ,
 			"Gasolio" ,
 			"Benzina" ,
