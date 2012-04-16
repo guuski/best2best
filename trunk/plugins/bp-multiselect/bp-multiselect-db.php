@@ -183,19 +183,21 @@ function ms_getHTML_ric($ms_ins,$ms_mycat){
 	global $cnt;
 	foreach($ms_ins as $k => $v) {
 			if (is_array($v)){
-					$HTML.="<label>$k</label>";
-					$HTML.="<div style='margin-left:20px;'>";
+					$cnt++;
+					$HTML.="<label value='chiuso' onclick=\"ms_open('ms_div$cnt')\" onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>$k</label>";
+					$HTML.="<div id=\"ms_div$cnt\" style='margin-left:20px; background-color:white; display:none;'>";
 						$HTML.=ms_getHTML_ric($v,$ms_mycat);
 					$HTML.="</div>";
 				}
 			else{
+				$cnt++;
 				if(in_array($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
 				//if(ms_myinarray($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
 				$HTML.="<label onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>" .
 						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$k\" onclick=\"ms_check()\" />" .
 						"$k</label>"; 
-				$cnt++;
 			}
+			
 		}//end-foreach	
 	return $HTML;
 }
@@ -228,6 +230,17 @@ function ms_getScript(){ ?>
 
 			jQuery("#<?php echo(bp_get_the_profile_field_input_name())?>").val(selected);
 		}
+		function ms_open(divname)
+		{
+			if (jQuery('div#'+divname).val()=="aperto") {
+				jQuery('div#'+divname).hide("slow");	
+				jQuery('div#'+divname).val("chiuso");
+			}
+			else{
+				jQuery('div#'+divname).val("aperto");
+				jQuery('div#'+divname).show("slow");
+			}
+		}
 	//-->
 	</script>
 	
@@ -251,7 +264,7 @@ function ms_getScript(){ ?>
 	
 	<style type='text/css'>
 		.ms_divfrontend {
-			height: 500px; 
+			height: auto; 
 			overflow: auto; 
 			border: 1px solid rgb(238, 238, 238); 
 			padding:5px 0px 0px 0px; 
