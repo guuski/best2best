@@ -157,44 +157,43 @@ function ms_getHTMLfrontend(){
 	$HTML.= "
 			</div>
 			<br />
-			<input type='text' readonly='readonly' name='".bp_get_the_profile_field_input_name()."' id='".bp_get_the_profile_field_input_name()."' value=''/>
+			<input type='text' readonly='readonly' 
+				name='".bp_get_the_profile_field_input_name()."' 
+				id='".bp_get_the_profile_field_input_name()."' 
+				value=''
+				style='width:500px;'/>
 			<script>ms_check();</script>
 			";
 	
 	echo $HTML;
 	ms_caricaCategorie();
 	}
-/*
-function ms_myinarray($val,$array){
-	if (is_array($array)){
-		foreach ($array as $k => $v) {
-			if ($v=='Contabilità') echo $val."==".$v."<br/>";	
-			if ($val==$v) {
-				echo $val."==".$v."<br/>";	
-				return true;
-			}
-		}
-	}
-	return false;
-	}
-**/
+	
 function ms_getHTML_ric($ms_ins,$ms_mycat){
 	$HTML="";
 	global $cnt;
 	foreach($ms_ins as $k => $v) {
 			if (is_array($v)){
 					$cnt++;
-					$HTML.="<label value='chiuso' onclick=\"ms_open('ms_div$cnt')\" onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>$k</label>";
-					$HTML.="<div id=\"ms_div$cnt\" style='margin-left:20px; background-color:white; display:none;'>";
-						$HTML.=ms_getHTML_ric($v,$ms_mycat);
+					$HTML.="<label value='chiuso' 
+								onclick='ms_open(\"ms_div$cnt\")' 
+								onmouseover='ms_labelon(this)' 
+								onmouseout='ms_labeloff(this)'>
+							$k</label>";
+					$HTML.="<div id=\"ms_div$cnt\" 
+								style='margin-left:20px; background-color:white; display:none;'>";
+					$HTML.=ms_getHTML_ric($v,$ms_mycat);
 					$HTML.="</div>";
 				}
 			else{
 				$cnt++;
 				if(in_array($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
 				//if(ms_myinarray($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
-				$HTML.="<label onmouseover='ms_labelon(this)' onmouseout='ms_labeloff(this)'>" .
-						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$k\" onclick=\"ms_check()\" />" .
+				$HTML.="<label 
+							onmouseover='ms_labelon(this)' 
+							onmouseout='ms_labeloff(this)'>" .
+						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$k\" 
+								onclick=\"ms_check()\" />" .
 						"$k</label>"; 
 			}
 			
@@ -266,10 +265,10 @@ function ms_getScript(){ ?>
 		.ms_divfrontend {
 			height: auto; 
 			overflow: auto; 
-			border: 1px solid rgb(238, 238, 238); 
+			//border: 1px solid rgb(238, 238, 238); 
 			padding:5px 0px 0px 0px; 
 			margin: 0px;
-			width: 450px;
+			width: 500px;
 			}
 		.ms_divfrontend *{
 			margin: 0px;

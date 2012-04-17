@@ -157,4 +157,22 @@ add_action( 'admin_init', 'bpd_load_css' );
 add_action( 'init', 'bpd_load_css' );
 
 add_filter( 'xprofile_field_after_save', 'ms_updateDBfield' );
+
+
+/* Put setup procedures to be run when the plugin is activated in the following function */
+function bp_example_activate()
+{
+
+}
+
+register_activation_hook( __FILE__, 'bp_example_activate' );
+
+/* On deacativation, clean up anything your component has added. */
+function bp_example_deactivate()
+{
+    /* You might want to delete any options or tables that your component created. */
+}
+
+register_deactivation_hook( __FILE__, 'bp_example_deactivate' );
+
 ?>
