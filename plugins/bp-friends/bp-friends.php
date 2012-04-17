@@ -114,34 +114,47 @@ class bp_friends extends WP_Widget
 		 * $userinfo->user_status
 		*/
 		$user_type=$this->get_type($user_info->ID);
-		if ($user_type=="Fornitore")
-			$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
-		else
-			$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
-		// outputs the content of the widget
+		if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
+		{
+			if ($user_type=="Fornitore")
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+			else if ($user_type=="Albergo/Ristorante")
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+			else if ($user_type=="Utente")
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+				
+			// outputs the content of the widget
 		
-		echo $before_widget;
-		if ( $title )
-			echo $before_title . $title . $after_title;
+			echo $before_widget;
+			if ( $title )
+				echo $before_title . $title . $after_title;
 		
-		$listfriend = friends_get_friend_user_ids($user_ID);
-		
-		foreach ($listfriend as $k => $v){
-			$attivo = get_userdata($v);		
-				if ($user_type!=$this->get_type($v)){
-					echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
-				}
-		}
-		
-		echo "<br /><br />";
+			$listfriend = friends_get_friend_user_ids($user_ID);
 			
-		?>
+			foreach ($listfriend as $k => $v){
+				$attivo = get_userdata($v);		
+					if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
+						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";	
+					}
+					else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
+						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+					}
+					else if ($user_type=="Utente"){
+						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+					}					
+			}
+		
+			echo "<br /><br />";
+		
+			
+			?>
 		
 	
 			
 
 
-		<?php 
+			<?php 
+		}
 		}
 	}
 	
@@ -150,7 +163,7 @@ class bp_friends extends WP_Widget
 		global $bp;
 		global $wpdb;
 	
-		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d WHERE d.value='Albergo/Ristorante' OR d.value='Fornitore'";
+		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d WHERE d.value='Albergo/Ristorante' OR d.value='Fornitore' OR d.value='Utente'";
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 		$this->fr_type=$ms_output;
 		
@@ -162,10 +175,14 @@ class bp_friends extends WP_Widget
 			 $this->globalType();
 			 
 		
+		
 		foreach ( (array)$this->fr_type as $k){
 			if ($k->user_id==$ID)
 				return $k->value;
 		}
-		return "undefined";
+		return "Non riconosciuto";
 	}
 }
+
+
+//INSERT INTO wp_bp_xprofile_fields ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES (1,2,'option','Utente','',0,1,0,1,'',1)
