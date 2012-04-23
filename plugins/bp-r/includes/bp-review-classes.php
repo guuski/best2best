@@ -116,7 +116,7 @@ class Review
 	 * save()
 	 *
 	 */
-	function save($review_title, $review_content, $voti) 														
+	function save($review_title, $review_content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 														
 	{
 		//[C] Rating
 		global $wpdb, $bp;
@@ -126,11 +126,11 @@ class Review
 		$this->date	     		= apply_filters( 'bp_review_data_date_before_save', 			$this->date,		 	$this->id );
 		
 // 		aggiungere la variabile '$content' e title
-		$voto_prezzo =$voti['prezzo'];
-		$voto_servizio= $voti['servizio'];
-		$voto_qualita=$voti['qualita'];
-		$voto_puntualita=$voti['puntualita'];
-		$voto_affidabilita=$voti['affidabilita'];
+		$voto_prezzo 		= $voti['prezzo'];
+		$voto_servizio		= $voti['servizio'];
+		$voto_qualita		= $voti['qualita'];
+		$voto_puntualita	= $voti['puntualita'];
+		$voto_affidabilita	= $voti['affidabilita'];
 		
 		//DO ACTION
 		do_action( 'bp_review_data_before_save', $this );
@@ -160,6 +160,10 @@ class Review
 				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );				
 				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
+				
+				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
+				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
+				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
 			}
 		} 
 		else 
@@ -185,6 +189,10 @@ class Review
 				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);	
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
 				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );					// nu poco inutile! a
+				
+				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
+				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
+				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
 			}
 		}
 		

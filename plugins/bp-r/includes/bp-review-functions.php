@@ -73,7 +73,7 @@ function bp_reviews_post_form_action()
  * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
  *
  */
-function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $voti) 					//[C] Rating
+function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					//[C] Rating
 {
 	global $bp;
 			
@@ -107,7 +107,7 @@ function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $v
 		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
 		
 		//
-		$review->save($title,$content, $voti);																	
+		$review->save($title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti);																	
 		// [C] Rating
 	}
 	
