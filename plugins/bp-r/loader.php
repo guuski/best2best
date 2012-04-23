@@ -139,11 +139,21 @@ add_action( 'wp_print_scripts'  		, 'add_css');
  *
  * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_style
  */
-function add_css()
+function add_css()																						//---usa il metodo add_JS
 {
-//  	if(self::is_review_component())										
+
+	//CSS
+	
+//if(self::is_review_component())										
 	wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
+	
+	
+	//JS
 	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-core');
+	wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
+		
 }  
 
 ?>
