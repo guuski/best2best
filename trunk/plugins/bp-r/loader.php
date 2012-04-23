@@ -148,12 +148,48 @@ function add_css()																						//---usa il metodo add_JS
 	wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
 	
 	
+	
+/*	
+	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
+    wp_enqueue_style( 'datepicker-css');  
+	
+	wp_register_script('datepicker-js',  plugin_dir_url (__FILE__). 'includes/jquery-ui-1.8.19.custom.min.js');  
+    wp_enqueue_script( 'datepicker-js');  
+	
 	//JS
 	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
-		
+	//wp_enqueue_script('jquery-ui-core.min');
+	//wp_enqueue_script('jquery-ui-datepicker.min');
+	
+	//wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
+	//wp_enqueue_script('jquery-ui-datepicker', plugin_dir_url (__FILE__).'/includes/jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
+	
+*/		
 }  
 
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+add_action( 'wp_head' , 'add_js');					
+
+function add_js ()
+{	
+	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
+    wp_enqueue_style( 'datepicker-css');  
+	
+	wp_register_script('datepicker-js',  plugin_dir_url (__FILE__). 'includes/jquery-ui-1.8.19.custom.min.js');  
+    wp_enqueue_script( 'datepicker-js');  
+	
+	//JS
+	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-core');
+	//wp_enqueue_script('jquery-ui-core.min');
+	//wp_enqueue_script('jquery-ui-datepicker.min');
+	
+	//wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
+	//wp_enqueue_script('jquery-ui-datepicker', plugin_dir_url (__FILE__).'/includes/jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
+		
+}  
 ?>

@@ -89,7 +89,60 @@ get_header() ?>
 				echo $contenuto
 				?></textarea>
 			</div>
-										
+
+<br/>	
+
+<div id="new-review-fieldset">		
+	<label for = "review-giudizio"> Voto Complessivo Review </label>	
+	<fieldset name = "review-giudizio" id = "review-giudizio">
+	  <!-- <legend> Voto Complessivo Review </legend>				  -->				  	
+	  Positiva <input type="radio"  name="giudizio_review" value="positivo"/>
+	  Neutra   <input type="radio" name="giudizio_review" value="neutro"/>
+	  Negativa <input type="radio" name="giudizio_review" value="negativo"/>
+	</fieldset>			
+</div>
+
+<br/>	
+
+<div id="new-review-fieldset">		
+	<label for = "review-tipologia-rapporto"> Tipologia Rapporto Commerciale </label>	
+	<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
+	  Una Tantum   <input type="radio" name="tipologia" value="unatantum"/>
+	  Continuativo <input type="radio" name="tipologia" value="continuativo"/>
+	</fieldset>			
+</div>
+
+<br/>	
+
+<!-- <div id="new-review-input">		-->
+	<label for = "datepicker"> Data Inizio Rapporto Commerciale</label>	
+	<!-- <div name = "datepicker" id = "datepicker">-->	
+		<p>Date: <input type="text" name ="datapicker" id="datepicker" maxlength="10" size="10" value="<?php get_post_meta($post->ID, 'data_rapporto', TRUE) ?>">
+		</p>
+	<!-- </div>-->
+<!-- </div>-->
+
+<br/>	
+
+<div id="new-review-fieldset">		
+	<label for = "utente_consigliato"> Lo raccomanderesti?</label>	
+	<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
+	  Si<input type="radio" name="consigliato" value="si"/>
+	  No<input type="radio" name="consigliato" value="no"/>
+	  Non so<input type="radio" name="consigliato" value="nonso"/>
+	</fieldset>			
+</div>
+
+<br/>	
+
+<div id="new-review-fieldset">		
+	<label for = "disclaimer"> Disclaimer, Termini e Condizioni</label>	
+	<fieldset name = "disclaimer" id = "disclaimer">	  	  
+	  Accetto  <input type="checkbox" name="disclaimer" value="si"/>	  
+	</fieldset>			
+</div>
+
+		
 			<div id="new-review-options">
 				<div id="new-review-submit">								
 					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />

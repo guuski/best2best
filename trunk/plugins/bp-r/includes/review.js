@@ -20,3 +20,13 @@ function vote(point, field)
 	
 	return false;					
 }
+
+/*
+$(function() {
+	$( "#datepicker" ).datepicker();
+});
+*/
+
+jQuery(document).ready(function() { 
+	jQuery( "#datepicker" ).datepicker(); 
+});                     
