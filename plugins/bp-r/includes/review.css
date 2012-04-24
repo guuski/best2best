@@ -321,7 +321,7 @@ input[type="checkbox"],
 input[type="radio"]
 {
  -khtml-appearance: none;
- background: url('RadioAndCheckBoxSprite.gif') no-repeat;
+ background: url(img/RadioAndCheckBoxSprite.gif) no-repeat;
  width: 20px;
  height: 20px;
  vertical-align: middle;
