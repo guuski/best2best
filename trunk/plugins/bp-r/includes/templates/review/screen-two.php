@@ -78,9 +78,9 @@ get_header() ?>
 			<div id="new-review-fieldset">		
 				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>	-->
 				<fieldset name = "review-giudizio" id = "review-giudizio">
-				  <fieldset> <label for = "positivo"> Positiva </label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> </fieldset> 
-				  <label for = "neutro"  > Neutra   </label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>
-				  <label for = "negativo"> Negativa </label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>
+				  <label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> Positiva </label>				  
+				  <label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>    Neutra   </label>				  
+				  <label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  Negativa </label>
 				</fieldset>			
 			</div>
 
@@ -108,18 +108,15 @@ get_header() ?>
 <div id="new-review-fieldset">		
 	<label for = "review-tipologia-rapporto"> Tipologia Rapporto Commerciale </label>	
 	<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
-		<label for = "una tantum"	> Una Tantum   </label>   <input type="radio" name="tipologia" id="una tantum" value="una tantum"/>
-		<label for = "continuativo" > Continuativo </label>   <input type="radio" name="tipologia" id="continuativo" value="continuativo"/>
+		<label for = "una tantum"	> <input type="radio" name="tipologia" id="una tantum" value="una tantum"/> Una Tantum  </label> 
+		<label for = "continuativo" > <input type="radio" name="tipologia" id="continuativo" value="continuativo"/>  Continuativo </label>
 	</fieldset>			
 </div>
 
 <br/>	
 
 <!-- <div id="new-review-input">		-->
-	<label for = "datepicker"> Data Inizio Rapporto Commerciale</label>	
-	<!-- <div name = "datepicker" id = "datepicker">-->	
-		<p>Data: <input type="text" name ="datepicker" id="datepicker" maxlength="10" size="10" value="<?php get_post_meta($post->ID, 'data_rapporto', TRUE) ?>">
-		</p>
+	<label for = "datepicker"> Data Inizio Rapporto Comm. <input type="text" name ="datepicker" id="datepicker" maxlength="12" size="20"> </label>		
 	<!-- </div>-->
 <!-- </div>-->
 
@@ -128,9 +125,9 @@ get_header() ?>
 <div id="new-review-fieldset">		
 	<label for = "utente_consigliato"> Lo raccomanderesti?</label>	
 	<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
-		<label for = "si"> Si </label> 	 	  <input type="radio" name="consigliato" id="si" value="si"/>
-		<label for = "no"> No </label> 	 	  <input type="radio" name="consigliato" id="no" value="no"/>
-		<label for = "non so"> Non so</label> <input type="radio" name="consigliato" id="nonso" value="nonso"/>
+		<label for = "si"> <input type="radio" name="consigliato" id="si" value="si"/>  Si </label> 	 	
+		<label for = "no"> <input type="radio" name="consigliato" id="no" value="no"/>  No </label> 	 	  
+		<label for = "non so"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> Non so </label> 
 	</fieldset>			
 </div>
 
