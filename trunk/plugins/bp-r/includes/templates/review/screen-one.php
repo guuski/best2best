@@ -126,8 +126,7 @@
 			<p><strong> Tipologia:  </strong> <?php echo $tipologia_rapporto ?></p>
 		</div>		
 					
-			<br/> 
-				
+		<br/> 		
 			
 		<div id="new-review-rating">	
 			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
