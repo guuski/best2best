@@ -95,7 +95,25 @@
 					$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
 					$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
 					$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+				//--------------
+					
+					$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
+					$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
+					$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
+					
+					
+					//--------------
 				?>
+				
+					
+		<div>
+			<p><strong> Giudizio Review: </strong><?php echo $giudizio_review ?></p>
+			<p><strong> Data Inizio Rapporto:  </strong><?php echo $data_rapporto ?></p>
+			<p><strong> Tipologia:  </strong> <?php echo $tipologia_rapporto ?></p>
+		</div>		
+					
+		<br/> 	
+		
 			<div id="new-review-rating">	
 				<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
 					<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			

@@ -311,7 +311,7 @@ ul.star-rating, div.page ul, div.page ol, div.page dl, div.post ul, div.post ol,
 	
 fieldset
 {
-/* cursor: pointer;*/
+	cursor: pointer;
 }
 
 label
@@ -319,6 +319,10 @@ label
  font: normal 12px/20px Arial, Sans-serif;
  color: black;
  vertical-align: middle;
+ 
+ 
+ 	cursor: pointer;
+
 }
 
 /* common settings checkbox and radiobutton */
@@ -329,9 +333,10 @@ input[type="radio"]
  background: url(img/radioandcheckboxsprite.gif) no-repeat;
  width: 20px;
  height: 20px;
- vertical-align: middle;
  
- cursor: pointer;
+ 
+	 vertical-align: bottom; 
+	 cursor: pointer;
  
 }
 input[type="checkbox"]

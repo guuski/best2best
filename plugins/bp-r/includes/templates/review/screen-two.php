@@ -93,12 +93,11 @@ get_header() ?>
 <br/>	
 
 <div id="new-review-fieldset">		
-	<label for = "review-giudizio"> Giudizio Complessivo Review </label>	
+	<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>	-->
 	<fieldset name = "review-giudizio" id = "review-giudizio">
-	  <!-- <legend> Voto Complessivo Review </legend>				  -->				  	
-	  Positiva <input type="radio" name="giudizio_review" value="positivo"/>
-	  Neutra   <input type="radio" name="giudizio_review" value="neutro"  />
-	  Negativa <input type="radio" name="giudizio_review" value="negativo"/>
+	  <label for = "positivo"> Positiva </label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" />
+	  <label for = "neutro"  > Neutra   </label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>
+	  <label for = "negativo"> Negativa </label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>
 	</fieldset>			
 </div>
 
@@ -107,8 +106,8 @@ get_header() ?>
 <div id="new-review-fieldset">		
 	<label for = "review-tipologia-rapporto"> Tipologia Rapporto Commerciale </label>	
 	<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
-	  Una Tantum   <input type="radio" name="tipologia" value="una tantum"/>
-	  Continuativo <input type="radio" name="tipologia" value="continuativo"/>
+		<label for = "una tantum"	> Una Tantum   </label>   <input type="radio" name="tipologia" id="una tantum" value="una tantum"/>
+		<label for = "continuativo" > Continuativo </label>   <input type="radio" name="tipologia" id="continuativo" value="continuativo"/>
 	</fieldset>			
 </div>
 
@@ -127,9 +126,9 @@ get_header() ?>
 <div id="new-review-fieldset">		
 	<label for = "utente_consigliato"> Lo raccomanderesti?</label>	
 	<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
-	  Si<input type="radio" name="consigliato" value="si"/>
-	  No<input type="radio" name="consigliato" value="no"/>
-	  Non so<input type="radio" name="consigliato" value="nonso"/>
+		<label for = "si"> Si </label> 	 	  <input type="radio" name="consigliato" id="si" value="si"/>
+		<label for = "no"> No </label> 	 	  <input type="radio" name="consigliato" id="no" value="no"/>
+		<label for = "non so"> Non so</label> <input type="radio" name="consigliato" id="nonso" value="nonso"/>
 	</fieldset>			
 </div>
 
@@ -137,8 +136,8 @@ get_header() ?>
 
 <div id="new-review-fieldset">		
 	<label for = "disclaimer"> Disclaimer, Termini e Condizioni</label>	
-	<fieldset name = "disclaimer" id = "disclaimer">	  	  
-	  Accetto  <input type="checkbox" name="disclaimer" value="si"/>	  
+	<fieldset name = "disclaimer" id = "disclaimer">	  
+		<label for = "disclaimer"> Accetto </label> <input type="checkbox" name="disclaimer" value="si"/>	  
 	</fieldset>			
 </div>
 
