@@ -94,11 +94,10 @@ function salva()
 		$voto_servizio  	= $_POST['servizio'];	
 		$voto_qualita		= $_POST['qualita'];
 		$voto_puntualita	= $_POST['puntualita'];
-		$voto_affidabilita	= $_POST['affidabilita'];
-		
-		$giudizio_review    = $_POST['review-giudizio'];	//-------nome del FIELDSET ---nome IMPUT: 'giudizio_review'
-		$data_rapporto	    = $_POST['datepicker'];			//datepicker
-		$tipologia_rapporto	= $_POST['review-tipologia-rapporto'];	//-----nome IMPUT
+		$voto_affidabilita	= $_POST['affidabilita'];				
+		$giudizio_review    = $_POST['giudizio_review'];			
+		$data_rapporto	    = $_POST['datepicker'];				 
+		$tipologia_rapporto	= $_POST['tipologia'];	 
 		
 		
 		
@@ -113,19 +112,20 @@ function salva()
 			return;
 		}	
 		
-		if ( isset($giudizio_review)) 	//ISSET
+		if ( empty($giudizio_review)) 	//empty
 		{
 			bp_core_add_message( __( 'Assegna un giudizio alla review', 'reviews' ),'error' );						
+			//bp_core_add_message( __( $giudizio_review, 'reviews' ),'error' );						
 			return;
 		}	
 		
-		if ( isset($data_rapporto)) 	//ISSET
+		if ( empty($data_rapporto)) 	//empty
 		{
 			bp_core_add_message( __( 'Indica la data rapporto commerciale', 'reviews' ),'error' );						
 			return;
 		}	
 		
-		if ( isset($tipologia_rapporto)) 	//ISSET
+		if ( empty($tipologia_rapporto)) 	//empty
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'reviews' ),'error' );					
 			return;

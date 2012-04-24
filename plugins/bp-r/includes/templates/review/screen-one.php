@@ -121,12 +121,14 @@
 				
 					
 		<div>
-			<p>Giudizio Review: <?php echo $giudizio_review ?></p>
-			<p>Data Rapporto:   <?php echo $data_rapporto ?></p>
-			<p>Data Rapporto:   <?php echo $tipologia_rapporto ?></p>
+			<p><strong> Giudizio Review: </strong><?php echo $giudizio_review ?></p>
+			<p><strong> Data Inizio Rapporto:  </strong><?php echo $data_rapporto ?></p>
+			<p><strong> Tipologia:  </strong> <?php echo $tipologia_rapporto ?></p>
 		</div>		
 					
+			<br/> 
 				
+			
 		<div id="new-review-rating">	
 			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
 				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
