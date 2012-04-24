@@ -7,6 +7,9 @@ include_once('bp-multiselect.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
+load_plugin_textdomain( 'multiselect', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+
 $ms_nome ='box selezione multipla raggruppata';
 
 $group_id=3;
@@ -148,7 +151,7 @@ function ms_getHTMLfrontend(){
 	$ms_insert = ms_caricaCategorie();
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	            
-	echo "<span class='label'>".bp_get_the_profile_field_name()."</span>";
+	echo "<span class='label'>".__(bp_get_the_profile_field_name(),'multiselect')."</span>";
 	$HTML= ms_getScript();
 	$HTML.="<div class='ms_divfrontend'>";
 	
@@ -175,11 +178,11 @@ function ms_getHTML_ric($ms_ins,$ms_mycat){
 	foreach($ms_ins as $k => $v) {
 			if (is_array($v)){
 					$cnt++;
-					$HTML.="<label value='chiuso' 
+					$HTML.="<label value='".__('chiuso','multiselect')."' 
 								onclick='ms_open(\"ms_div$cnt\")' 
 								onmouseover='ms_labelon(this)' 
 								onmouseout='ms_labeloff(this)'>
-							$k</label>";
+							".__("$k",'multiselect')."</label>";
 					$HTML.="<div id=\"ms_div$cnt\" 
 								style='margin-left:20px; background-color:white; display:none;'>";
 					$HTML.=ms_getHTML_ric($v,$ms_mycat);
@@ -192,9 +195,9 @@ function ms_getHTML_ric($ms_ins,$ms_mycat){
 				$HTML.="<label 
 							onmouseover='ms_labelon(this)' 
 							onmouseout='ms_labeloff(this)'>" .
-						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"$k\" 
+						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"".__("$k",'multiselect')."\" 
 								onclick=\"ms_check()\" />" .
-						"$k</label>"; 
+						"".__("$k",'multiselect')."</label>"; 
 			}
 			
 		}//end-foreach	
@@ -205,7 +208,7 @@ function ms_getHTMLbackend(){
 	$ms_insert = ms_caricaCategorie(); //matrice di tutte le categorie e macrocategorie
 	$ms_mycategorie = ms_getCategorieUTENTE(); //vettore che contiene le categorie dell'utente
 	
-	$HTML="<h1>QUESTA SEZIONE NON È AGGIORNATA...</h1>";
+	$HTML="<h1>".__("QUESTA SEZIONE NON È AGGIORNATA",'multiselect')."</h1>";
 	
 	echo $HTML;
 	}

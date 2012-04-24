@@ -148,40 +148,15 @@ class bpcustom_Widget extends WP_Widget
 		
 		//echo $before_widget;
 		
+/*
 		$group_name = bp_get_profile_group_name();
 		echo "get_profile_group_name = ".$group_name."<br />";
 		
 		$field_group=xprofile_get_field_group(1);
 		echo "xprofile_get_field_group = ".$field_group->name." <br />";
-		
-		$current = $this->get_current_field($user_ID);
-		$total = $this->get_total_field();
-		
-		$cPar=0;
-		//echo "current <br />";
-		foreach($current as $k => $v) {
-			//echo $v->field_id ."<br />";
-			$cPar++;
-		}
-		
-		$meta=$this->get_meta($user_ID);
-		if ($meta=="") $this->add_meta($user_ID);
+*/
 		
 		
-		echo "total <br />";
-		$cTot=0;
-		foreach($total as $k => $v) {
-			$trovato=false;
-			foreach($current as $kcur => $vcur) {
-				if ($vcur->field_id==$v->id) $trovato=true;
-			}
-			if ($trovato)
-				echo "<b>".$v->id." ".$v->group_id." ".$v->name."</b><br />";
-			else
-				echo $v->id." ".$v->group_id." ".$v->name."<br />";
-			$cTot++;
-		}
-		echo "Percentuale di completamento: ".(int)(100*$cPar/$cTot)."%";
 /*
 		$field_name= bp_the_profile_field_name();
 		echo "the_profile_field_name = ". $field_name ."<br />";
@@ -205,8 +180,8 @@ class bpcustom_Widget extends WP_Widget
 		
 		if ( $title )
 			echo $before_title . $title . $after_title;
+			
 			$listfriend = friends_get_friend_user_ids($user_ID);
-		
 			$cont=0;
 			foreach ($listfriend as $k => $v){
 				$attivo = get_userdata($v);
@@ -217,9 +192,39 @@ class bpcustom_Widget extends WP_Widget
 				}
 			}
 			
-			echo "<br /><br />";
+			echo "<br /><br /><br /><br /><hr />";
+		
+		//completamento Registrazione===================================
+		$current = $this->get_current_field($user_ID);
+		$total = $this->get_total_field();
+		
+		$cPar=0;
+		//echo "current <br />";
+		foreach($current as $k => $v) {
+			//echo $v->field_id ."<br />";
+			$cPar++;
+		}
+		
+		$meta=$this->get_meta($user_ID);
+		if ($meta=="") $this->add_meta($user_ID);
+		
+		
+		echo "Completamento Profilo <br />";
+		$cTot=0;
+		foreach($total as $k => $v) {
+			$trovato=false;
+			foreach($current as $kcur => $vcur) {
+				if ($vcur->field_id==$v->id) $trovato=true;
+			}
+			if ($trovato)
+				echo "<b>".$v->id." ".$v->group_id." ".$v->name."</b><br />";
+			else
+				echo $v->id." ".$v->group_id." ".$v->name."<br />";
+			$cTot++;
+		}
+		echo "Percentuale di completamento: ".(int)(100*$cPar/$cTot)."%";
 			
-			
+		//==============================================================
 		?>
 		
 	

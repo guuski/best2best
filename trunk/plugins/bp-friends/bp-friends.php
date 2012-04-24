@@ -126,7 +126,7 @@ class bp_friends extends WP_Widget
 			// outputs the content of the widget
 		
 
-		echo $before_widget;
+		//echo $before_widget;
 		if ( $title )
 			echo $before_title . $title . $after_title.'<div class="avatar-block">';
 
