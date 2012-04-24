@@ -59,7 +59,7 @@ get_header() ?>
 			<a href="<?php echo bp_loggedin_user_domain(); ?>">
 				<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
 			</a>
-		</div>		
+		</div>				
 		
 		<?php 
 				$prezzo 		= $_POST['prezzo'] 			or 0;
@@ -70,10 +70,21 @@ get_header() ?>
 				$titolo 		= $_POST['review-title'] 	or '';
 				$contenuto 		= $_POST['review-content']	or '';
 		?>
+				
 		
 		<!-- Review -->
 		<div id="new-review-content">
 
+			<div id="new-review-fieldset">		
+				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>	-->
+				<fieldset name = "review-giudizio" id = "review-giudizio">
+				  <fieldset> <label for = "positivo"> Positiva </label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> </fieldset> 
+				  <label for = "neutro"  > Neutra   </label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>
+				  <label for = "negativo"> Negativa </label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>
+				</fieldset>			
+			</div>
+
+			<br/>	
 			<div id="new-review-textarea">	
 				<label for="review-title"> Titolo Review </label>			
 				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
@@ -92,16 +103,7 @@ get_header() ?>
 
 <br/>	
 
-<div id="new-review-fieldset">		
-	<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>	-->
-	<fieldset name = "review-giudizio" id = "review-giudizio">
-	  <label for = "positivo"> Positiva </label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" />
-	  <label for = "neutro"  > Neutra   </label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>
-	  <label for = "negativo"> Negativa </label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>
-	</fieldset>			
-</div>
 
-<br/>	
 
 <div id="new-review-fieldset">		
 	<label for = "review-tipologia-rapporto"> Tipologia Rapporto Commerciale </label>	
