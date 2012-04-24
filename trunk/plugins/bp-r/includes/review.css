@@ -306,8 +306,13 @@ ul.star-rating, div.page ul, div.page ol, div.page dl, div.post ul, div.post ol,
 		margin-right: 8px;
 		white-space: nowrap;
 	}
-	
 
+
+	
+fieldset
+{
+/* cursor: pointer;*/
+}
 
 label
 {
@@ -321,10 +326,13 @@ input[type="checkbox"],
 input[type="radio"]
 {
  -khtml-appearance: none;
- background: url(img/RadioAndCheckBoxSprite.gif) no-repeat;
+ background: url(img/radioandcheckboxsprite.gif) no-repeat;
  width: 20px;
  height: 20px;
  vertical-align: middle;
+ 
+ cursor: pointer;
+ 
 }
 input[type="checkbox"]
 {
