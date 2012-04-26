@@ -89,3 +89,11 @@ div.item-list-tabs ul li:hover {
 	background: #444;
 	border-color: #444;
 }
+
+#sidebar-squeeze div#sidebar h3.widgettitle {
+	margin: 15px -19px 10px -18px;
+}
+a.logout {
+	height: 20px;
+	display: inline-block;
+}
