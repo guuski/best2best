@@ -43,12 +43,6 @@ defined("DS") or define("DS", DIRECTORY_SEPARATOR);
 //=========================================================================================================================
 
 add_action( 'widgets_init', create_function( '', 'register_widget("listaAmici_Widget");' ) );
-
-/**
- * 
- * @author byrd
- * Document Widget
- */
 class listaAmici_Widget extends WP_Widget
 {
 	/**
@@ -74,8 +68,8 @@ class listaAmici_Widget extends WP_Widget
 		$titolo = strip_tags( $instance['titolo'] );
 
 		?>
-		<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 80%" /></label></p>
-		<p><label>Numero Amici 	<input id="<?php echo $this->get_field_id( 'numero' ); ?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 80%" /></label></p>
+		<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>"  style="width: 50%; float:right;"  /></label></p>
+		<p><label>Numero Amici 	<input id="<?php echo $this->get_field_id( 'numero' ); ?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>"  style="width: 50%; float:right;"  /></label></p>
 		
 		<?php 
 	}
@@ -164,7 +158,7 @@ class completaProfilo_Widget extends WP_Widget {
 		$titolo = strip_tags( $instance['titolo'] );
 
 		?>
-		<p><label>Titolo		 <input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 80%" /></label></p>
+			<label>Titolo <input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>"  style="width: 70%; float:right;"  /></label>
 		<?php 
 	}
 
@@ -223,9 +217,9 @@ class completaProfilo_Widget extends WP_Widget {
 				if ($vcur->field_id==$v->id) $trovato=true;
 			}
 			if ($trovato)
-				$profilo.= "<b>".$v->id." ".$v->group_id." ".$v->name."</b><br />";
+				$profilo.= "<b style='text-decoration: line-through;'>".$v->name."</b><br />";
 			else
-				$profilo.= $v->id." ".$v->group_id." ".$v->name."<br />";
+				$profilo.= $v->name."<br />";
 			$cTot++;
 		}
 		
@@ -236,23 +230,32 @@ class completaProfilo_Widget extends WP_Widget {
 		if ($cPar==$cTot) { echo "Il tuo profilo è completo"; }
 		else {
 			//completamento Registrazione===================================
-		
-			echo "		<b>
-							<label value='chiuso' 
-								onclick='ms_openprofilo(\"completaprofilo\")'
+			$perc=(int)(100*$cPar/$cTot);
+			echo "		<div class='box_percentuale_profilo'
+								onmouseover='ms_labelprofiloon(this)' 
+								onmouseout='ms_labelprofilooff(this)'
+								onclick='ms_openprofilo(\"completaprofilo\")'>
+								
+								<div class='box_percentuale_profilo_perc' style='width:$perc%;'
+								onmouseover='ms_labelprofiloon(this)' 
+								onmouseout='ms_labelprofilooff(this)'></div> 
+								
+								<label value='chiuso' 
 								onmouseover='ms_labelprofiloon(this)' 
 								onmouseout='ms_labelprofilooff(this)'>			
-							Completamento Profilo " .(int)(100*$cPar/$cTot)."% 
-							</label>
-						</b>
+									Completamento Profilo " .$perc."% 
+								</label>
 							
-							<div id=\"completaprofilo\" style='display:none;'>
+						</div>
+							
+							<div id=\"completaprofilo\" class='box_completa_profilo' style='display:none;'>
 								$profilo
 							</div>
-							<br />				
+					Migliora la tua visibilità:
 					<a href='".bp_loggedin_user_domain()."profile/edit/group' style='width:80%;'>
-						Per migliorare la tua visibilità completa il tuo profilo!
-					</a>";
+						Completa il tuo profilo!
+					</a>
+					";
 							
 		
 		}
@@ -278,6 +281,7 @@ class completaProfilo_Widget extends WP_Widget {
 			if (jQuery('div#'+divname).val()=="aperto") {
 				jQuery('div#'+divname).hide("slow");	
 				jQuery('div#'+divname).val("chiuso");
+				//jQuery('div#'+divname).css("color","red");
 			}
 			else{
 				jQuery('div#'+divname).val("aperto");
@@ -286,15 +290,11 @@ class completaProfilo_Widget extends WP_Widget {
 		}
 		function ms_labelprofiloon(t)
 		{	
-			t.style.color = '#ffffff';
-			t.style.background ='#888888' ;
 			t.style.cursor = 'pointer';
 		}
 
 		function ms_labelprofilooff(t)
 		{
-			t.style.color = 'rgb(68,68,68)';
-			t.style.background ='#ffffff' ;
 			t.style.cursor = 'default';
 		}	
 	//-->
@@ -305,7 +305,7 @@ class completaProfilo_Widget extends WP_Widget {
 		function ms_labelon(t)
 		{	
 			t.style.color = '#ffffff';
-			t.style.background ='#888888' ;
+			t.style.background ='#eaeaea' ;
 			t.style.cursor = 'pointer';
 		}
 
@@ -319,7 +319,36 @@ class completaProfilo_Widget extends WP_Widget {
 	</script>
 	
 	<style type='text/css'>
-		
+		.box_percentuale_profilo{
+			position:relative;
+			background-color:#87badd;
+			color:rgb(68,68,68);
+			border:2px solid #ffffff;
+			font-weight:bold;
+			height:20px;
+			}
+		.box_percentuale_profilo label{
+			position:relative;
+			margin: 0px auto;
+			margin-left:10px;
+			color:#ffffff;
+			}
+			
+		.box_percentuale_profilo_perc{
+			position:absolute;
+			top:0px; left:0px; bottom:0px;
+			margin:0px; 
+			padding:0px; 
+			height:100%; 
+			background-color:#0a76b7;
+			//border-right: 1px solid #555555;
+		}
+		.box_completa_profilo{
+			border:2px solid #ffffff;
+			border-top:0px;
+			padding-left:4px;
+			background-color:white;
+		}
 	</style>
 
 	<?php
@@ -328,20 +357,12 @@ class completaProfilo_Widget extends WP_Widget {
 
 }
 
-/**
- * Actions and Filters
- * 
- * Register any and all actions here. Nothing should actually be called 
- * directly, the entire system will be based on these actions and hooks.
- */
  
 //=========================================================================================================================
 //===============LISTA FORNITORI E ALBERGHI================================================================================
 //=========================================================================================================================
 
 add_action( 'widgets_init', create_function( '', 'register_widget("FornitoriAlberghi_Widget");' ) );
-
-
 class FornitoriAlberghi_Widget extends WP_Widget {
 	/**
 	 * Constructor
@@ -464,17 +485,13 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 		return "Non riconosciuto";
 	}
 }
-
-
 //INSERT INTO wp_bp_xprofile_fields ( group_id, parent_id, type, name , description , is_required , is_default_option, field_order, option_order , order_by, can_delete) VALUES (1,2,'option','Utente','',0,1,0,1,'',1)
 
-add_action( 'widgets_init', create_function( '', 'register_widget("MessaggiAdmin_Widget");' ) );
 
-/**
- * 
- * @author byrd
- * Document Widget
- */
+//=========================================================================================================================
+//===============MESSAGGI ADMIN============================================================================================
+//=========================================================================================================================
+add_action( 'widgets_init', create_function( '', 'register_widget("MessaggiAdmin_Widget");' ) );
 class MessaggiAdmin_Widget extends WP_Widget{
 	/**
 	 * Constructor
@@ -495,11 +512,15 @@ class MessaggiAdmin_Widget extends WP_Widget{
 		$numero = strip_tags( $instance['numero'] );
 		$titolo = strip_tags( $instance['titolo'] );
 
+		
 		?>
 		
-		<p><label>Titolo	<input id="<?php echo $this->get_field_id( 'titolo' ); 	?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 30%" /></label></p>
-		<p><label>Numero	<input id="<?php echo $this->get_field_id( 'numero' );?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 30%" /></label></p>
-		<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio' );?>" name="<?php echo $this->get_field_name( 'messaggio' ); ?>" type="text" value="<?php echo esc_attr( $messaggio ); ?>" style="width: 80%" /></label></p>
+		<div style="float:left;">
+			<p><label>Titolo	<input id="<?php echo $this->get_field_id( 'titolo' ); 	?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 50%; float:right;" /></label></p>
+			<p><label>Numero	<input id="<?php echo $this->get_field_id( 'numero' );	?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 50%; float:right;" /></label></p>
+			<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" value="<?php echo esc_attr( $messaggio);?>"style="width: 50%; float:right;" /></label></p>
+		</div>
+		
 		
 		<?php 
 		$messaggi = $this->getMessage();
