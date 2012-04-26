@@ -143,10 +143,12 @@ class completaProfilo_Widget extends WP_Widget {
 	 */
 	function completaProfilo_Widget()
 	{
-		// widget actual processes
-		//parent::WP_Widget( $id = 'bpcustom_Widget', $name = get_class($this), $options = array( 'description' => 'bpcustom_Widget' ) );
-		//parent::WP_Widget( false, $name = __( 'Groups', 'buddypress' ) );
-		parent::WP_Widget( $id = 'completaProfilo_Widget', $name = 'Completa Profilo', $options = array( 'titolo' => 'Completamento Profilo '));
+		$id_base = 'completaProfilo_Widget';
+		$name = 'Completa Profilo';
+		$widget_options = array( 'titolo' => 'Completamento Profilo ');
+		$control_ops = '';
+		
+		parent::WP_Widget($id_base, $name, $widget_options, $control_ops);
 		
 	}
 	
@@ -227,11 +229,39 @@ class completaProfilo_Widget extends WP_Widget {
 		//if ( $title )
 			//echo $before_title . $title .(int)(100*$cPar/$cTot)."% ". $after_title;
 			
-		if ($cPar==$cTot) { echo "Il tuo profilo è completo"; }
+		if ($cPar==$cTot) { 
+			$perc=(int)(100*$cPar/$cTot);
+			echo "		<div class='box_percentuale_profilo'
+								onmouseover='ms_labelprofiloon(this)' 
+								onmouseout='ms_labelprofilooff(this)'
+								onclick='ms_openprofilo(\"completaprofilo\")'>
+								
+								<div class='box_percentuale_profilo_perc' style='width:$perc%;'
+								onmouseover='ms_labelprofiloon(this)' 
+								onmouseout='ms_labelprofilooff(this)'></div> 
+								
+								<label value='chiuso' 
+								onmouseover='ms_labelprofiloon(this)' 
+								onmouseout='ms_labelprofilooff(this)'>			
+									Profilo Completo " .$perc."% 
+								</label>
+							
+						</div>
+							
+							<div id=\"completaprofilo\" class='box_completa_profilo' style='display:none;'>
+								$profilo
+							</div>";
+		}
 		else {
 			//completamento Registrazione===================================
 			$perc=(int)(100*$cPar/$cTot);
-			echo "		<div class='box_percentuale_profilo'
+			echo "		
+			
+						Migliora la tua visibilità:<br />
+						<a href='".bp_loggedin_user_domain()."profile/edit/group' style='width:80%;'>
+							Completa il tuo profilo!
+						</a>
+						<div class='box_percentuale_profilo'
 								onmouseover='ms_labelprofiloon(this)' 
 								onmouseout='ms_labelprofilooff(this)'
 								onclick='ms_openprofilo(\"completaprofilo\")'>
@@ -251,10 +281,7 @@ class completaProfilo_Widget extends WP_Widget {
 							<div id=\"completaprofilo\" class='box_completa_profilo' style='display:none;'>
 								$profilo
 							</div>
-					Migliora la tua visibilità:
-					<a href='".bp_loggedin_user_domain()."profile/edit/group' style='width:80%;'>
-						Completa il tuo profilo!
-					</a>
+					
 					";
 							
 		
@@ -500,7 +527,12 @@ class MessaggiAdmin_Widget extends WP_Widget{
 	 */
 	function MessaggiAdmin_Widget()
 	{
-		parent::WP_Widget( $id = 'MessaggiAdmin_Widget', $name = 'Messaggi Admin', $options = array( 'titolo' => 'Messaggi', 'numero'=> 3, 'messaggio'=> ''));	
+		$id_base = 'MessaggiAdmin_Widget';
+		$name = 'Messaggi Admin';
+		$widget_options = array( 'titolo' => 'Messaggi', 'numero'=> 3, 'messaggio'=> '');
+		$control_ops = array( 'width' => 600, 'height' => 350 );
+		
+		parent::WP_Widget($id_base, $name, $widget_options, $control_ops);
 	}
 	
 
@@ -514,23 +546,33 @@ class MessaggiAdmin_Widget extends WP_Widget{
 
 		
 		?>
-		
-		<div style="float:left;">
-			<p><label>Titolo	<input id="<?php echo $this->get_field_id( 'titolo' ); 	?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 50%; float:right;" /></label></p>
-			<p><label>Numero	<input id="<?php echo $this->get_field_id( 'numero' );	?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 50%; float:right;" /></label></p>
-			<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" value="<?php echo esc_attr( $messaggio);?>"style="width: 50%; float:right;" /></label></p>
-		</div>
-		
-		
-		<?php 
-		$messaggi = $this->getMessage();
-			$num=0;
-			foreach ($messaggi as $k => $v){
-				if ($num<$numero){
-					echo ($num+1).") ".$v->date_sent." <br />".$v->message."<br />";
-					$num++;
-					}
-			}
+		<table style='font-size:12px;'>
+		<tr>
+			<td>
+				<div>
+					<p><label>Titolo	<input id="<?php echo $this->get_field_id( 'titolo' ); 	?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 50%; float:right;" /></label></p>
+					<p><label>Numero	<input id="<?php echo $this->get_field_id( 'numero' );	?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 50%; float:right;" /></label></p>
+					<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" value="<?php echo esc_attr( $messaggio);?>"style="width: 50%; float:right;" /></label></p>
+				</div>
+			</td>
+			<td>
+				<div>
+					<?php 
+						$messaggi = $this->getMessage();
+						$num=0;
+						foreach ($messaggi as $k => $v){
+							if ($num<$numero){
+								echo "<p>".($num+1).") ".$v->date_sent." <b>".$v->message."</b></p>";
+								$num++;
+							}
+						}
+					?>
+				</div>
+			</td>
+			
+		</tr>
+		</table>
+		<?php
 	}
 
 	function update($new_instance, $old_instance)
@@ -574,15 +616,16 @@ class MessaggiAdmin_Widget extends WP_Widget{
 						//echo $v->date_sent." ".$v->message."<br />";
 						
 						//verifico se è stato creato il metadato in caso contrario lo creo
-						if ($this->get_meta($user_ID,$v->id)==""){
-							$this->add_meta($user_ID,$v->id);
+						if ($this->get_meta($user_ID)==""){
+							$this->add_meta($user_ID);
 							//echo "creato metadato per ".$user_ID."<br />";
 						}	
 						//verifico se l'utente non ha letto il messaggio	
-						if ($this->get_meta($user_ID,$v->id)=="false"){
+						if ($this->get_meta($user_ID)=="false"){
 							echo ($num+1).") ".$v->message."<br />";
 							$num++;
 						}
+						//echo $this->get_meta($user_ID);
 					}
 				}
 			
@@ -591,7 +634,33 @@ class MessaggiAdmin_Widget extends WP_Widget{
 		
 		}
 	}
-	
+	/*
+	 * Come inviare un post e leggerlo
+	 * 
+	 *
+	 * =================================================================
+	 $(function() {
+ 
+    $('#text').keyup(function(event) {
+ 
+        var char = event.keyCode;
+        var value = $(this).val();
+ 
+        if(char == 188) {
+ 
+            $(this).val(value.replace(/<+/g, '&lt;'));
+ 
+        }
+ 
+        if(value.indexOf('>') != -1) {
+ 
+            $(this).val(value.replace(/>+/g, '&gt;'));
+ 
+        }  
+    });
+ 
+});
+	 * */
 	//==================================================================
 	/*
 	wp_usermeta
@@ -609,19 +678,19 @@ class MessaggiAdmin_Widget extends WP_Widget{
 	*/
 
 	//==================================================================
-	function get_meta($user_id,$key){
+	function get_meta($user_id){
 		//echo "<br />".$user_id." ".$key."<br />";
-		return get_user_meta($user_id, $key, true);
+		return get_user_meta($user_id, 'MessaggiAdmin', true);
 	}
-	function update_meta($user_id,$message_id,$meta_value){
-		update_user_meta( $user_id, $message_id, $meta_value, '' );
+	function update_meta($user_id,$meta_value){
+		update_user_meta( $user_id, 'MessaggiAdmin', $meta_value, '' );
 	}
-	function delete_meta($user_id,$message_id){
-		delete_user_meta( $user_id, $message_id);
+	function delete_meta($user_id){
+		delete_user_meta( $user_id, 'MessaggiAdmin');
 	}
-	function add_meta($user_id,$message_id){
+	function add_meta($user_id){
 		//metavalue è false di partenza ed indica che il messaggio non è stato letto
-		add_user_meta( $user_id, $message_id, 'false', true );
+		add_user_meta( $user_id, 'MessaggiAdmin', '', true );
 	}
 	
 	
