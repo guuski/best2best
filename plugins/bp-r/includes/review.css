@@ -183,8 +183,8 @@ div.add-reviews:active{
 
 form#review-form #new-review-rating
 {	
-	margin-left:	70px;
-	margin-top: 	70px;
+	margin-left:	0px;
+	margin-top: 	20px;
 }
 
 #review-rating 
@@ -309,6 +309,11 @@ ul.star-rating, div.page ul, div.page ol, div.page dl, div.post ul, div.post ol,
 
 
 	
+	
+	
+/* --------------------  RADIO LABEL CHECKBOXES------------------------------ */
+	
+	
 fieldset
 {
 	cursor: pointer;
@@ -316,16 +321,66 @@ fieldset
 
 label
 {
+	cursor: pointer;	
+	display: inline !important;
+}
+
+
+#radio-toolbar input[type="radio"]
+ {
+    display:none; 
+}
+
+
+#radio-toolbar label 
+{
+    /* display:inline-block;*/
+    
+	/* background-color:#ddd;*/
+
+	padding:4px 11px;
+/*    	
+    font-family:Arial;
+    font-size:16px;
+*/
+}
+
+#radio-toolbar input[type="radio"]:checked + label 
+{ 
+    background-color:#bbb;
+}
+
+/*
+#radio-toolbar#positivo input[type="radio"]:checked + label 
+{ 
+    background-color:#bbb;
+}
+
+#radio-toolbar#neutro input[type="radio"]:checked + label 
+{ 
+    background-color:#fff;
+}
+
+#radio-toolbal#negativo input[type="radio"]:checked + label 
+{ 
+    background-color:#ggg;
+}
+*/
+
+/*
+label
+{
  font: normal 12px/20px Arial, Sans-serif;
  color: black;
  vertical-align: middle;
- 
- 
+
  	cursor: pointer;
+	display: inline !important;
 
 }
 
 /* common settings checkbox and radiobutton */
+/*
 input[type="checkbox"],
 input[type="radio"]
 {
@@ -362,9 +417,11 @@ input[type="radio"]:checked:hover
 {
  background-position-y: -60px;
 }
-/* disabled settings for checkbox and radiobutton */
+
+// disabled settings for checkbox and radiobutton 
 input[type="radio"]:disabled,
 input[type="checkbox"]:disabled
 {
  opacity: .3;
 }
+*/

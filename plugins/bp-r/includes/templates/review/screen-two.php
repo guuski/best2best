@@ -74,17 +74,26 @@ get_header() ?>
 		
 		<!-- Review -->
 		<div id="new-review-content">
-
-			<div id="new-review-fieldset">		
-				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>	-->
+<!--		
+			<div id="radio-toolbar">
 				<fieldset name = "review-giudizio" id = "review-giudizio">
 				  <label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> Positiva </label>				  
 				  <label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>    Neutra   </label>				  
 				  <label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  Negativa </label>
 				</fieldset>			
-			</div>
-
-			<br/>	
+			</div>	
+-->			
+			<div id="radio-toolbar">			<!-- -->
+				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>					-->
+				<!-- <fieldset name = "review-giudizio" id = "review-giudizio">-->
+				  <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> <label for = "positivo" > Positiva </label>				  
+				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>    <label for = "neutro" > Neutra   </label>				  
+				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label for = "negativo"> Negativa </label>
+				<!-- </fieldset>			-->
+			</div>	
+			
+			<br/>			
+			
 			<div id="new-review-textarea">	
 				<label for="review-title"> Titolo Review </label>			
 				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
@@ -103,8 +112,6 @@ get_header() ?>
 
 <br/>	
 
-
-
 <div id="new-review-fieldset">		
 	<label for = "review-tipologia-rapporto"> Tipologia Rapporto Commerciale </label>	
 	<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
@@ -121,36 +128,18 @@ get_header() ?>
 <!-- </div>-->
 
 <br/>	
+<br/>	
 
 <div id="new-review-fieldset">		
 	<label for = "utente_consigliato"> Lo raccomanderesti?</label>	
 	<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
 		<label for = "si"> <input type="radio" name="consigliato" id="si" value="si"/>  Si </label> 	 	
 		<label for = "no"> <input type="radio" name="consigliato" id="no" value="no"/>  No </label> 	 	  
-		<label for = "non so"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> Non so </label> 
+		<label for = "nonso"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> Non so </label> 
 	</fieldset>			
 </div>
-
-<br/>	
-
-<div id="new-review-fieldset">		
-	<label for = "disclaimer"> Disclaimer, Termini e Condizioni</label>	
-	<fieldset name = "disclaimer" id = "disclaimer">	  
-		<label for = "disclaimer"> Accetto </label> <input type="checkbox" name="disclaimer" value="si"/>	  
-	</fieldset>			
-</div>
-
-		
-			<div id="new-review-options">
-				<div id="new-review-submit">								
-					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />
-				</div>
-			</div>
-			
-		</div>
-		  
-			
-		<!--------------------------------------------- sezione RATING ------------------------------------->
+	
+<!--------------------------------------------- sezione RATING ------------------------------------->
 		<div id="new-review-rating">			
 					
 			<div class="rating-container"><span class="rating-title">Prezzo</span> 
@@ -202,9 +191,28 @@ get_header() ?>
 			</div>		
 			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
 					  
-		</div>	<!-- fine sezione RATING -->
-  
-		  		  		  
+		</div>	<!-- fine sezione RATING -->			
+
+<br />
+		
+<div id="new-review-fieldset">		
+	<label for = "disclaimer"> Disclaimer, Termini e Condizioni</label>	
+	<fieldset name = "disclaimer" id = "disclaimer">	  
+		<label for = "disclaimer"> Accetto </label> <input type="checkbox" name="disclaimer" value="si"/>	  
+	</fieldset>			
+</div>
+
+<br />
+		<!-- bottone INVIA -->	
+		<div id="new-review-options">
+			<br />
+			<div id="new-review-submit">								
+				<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />
+			</div>
+		</div>		
+			
+</div> <!-- chiude NEW REVIEW CONTENT -->
+		  					  	  		  		 
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_after_review_post_form' ); ?>								
 

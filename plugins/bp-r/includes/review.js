@@ -21,12 +21,42 @@ function vote(point, field)
 	return false;					
 }
 
+jQuery(document).ready(function() { 
+	jQuery( "#datepicker" ).datepicker(); 
+});                     
+
+
 /*
 $(function() {
 	$( "#datepicker" ).datepicker();
 });
 */
 
-jQuery(document).ready(function() { 
-	jQuery( "#datepicker" ).datepicker(); 
-});                     
+
+
+
+/*
+function Toggle() 
+{
+	$('.d').toggle();
+}
+
+
+function SelectOpt(rlName, value) 
+{
+	$('input[name="' + rlName + '"]').each(function () 
+	{
+		if ($(this).val() == value) 
+		{
+			$(this).attr('checked', true).parent().addClass('h');
+		} 
+		else 
+		{
+			$(this).attr('checked', false).parent().removeClass('h');
+		}
+
+	});
+
+	$('#Selection').text("You selected : " + value);
+}
+*/
