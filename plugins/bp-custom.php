@@ -15,13 +15,13 @@ function manageOptionalFieldsJS() {
 	      if(field=='Fornitore') {	
 	        jQuery('div.field_numero-letti-coperti').hide(); 
 	        jQuery('div.field_numero-stelle').hide();
-		jQuery('div.field_macro-categoria-attivita').show();
+		jQuery('div.field_categoria-attivita').show();
 		jQuery('.button-nav li:last-child').show();
 	      } 
 	      else {
 		jQuery('div.field_numero-letti-coperti').show(); 
 		jQuery('div.field_numero-stelle').show();
-		jQuery('div.field_macro-categoria-attivita').hide();
+		jQuery('div.field_categoria-attivita').hide();
 		jQuery('.button-nav li:last-child').hide();
 	      }
 	      }".
@@ -87,12 +87,14 @@ echo '<div style="width:960px; margin:0 auto;"><div>
 //modifica del logo e dei link nella pagina di login
 function my_custom_login_logo() {
     echo '<style type="text/css">
-        h1 a { background-image:url(/wp-content/uploads/2011/06/Logo_web_insolaria_ok.png) !important; width: 400px  !important;}
-	#login { width: 390px !important; }
+        h1 a { background-image:url(/wp-content/themes/frisco-for-buddypress/images/Best2Best2H.png) !important; 
+        	width: 400px  !important; margin-bottom: 20px !important; padding-bottom: 35px !important; }
+        body.login {background: #FFFFFF;}
+		#login { width: 390px !important; }
     </style>';
 }
 
-//add_action('login_head', 'my_custom_login_logo');
+add_action('login_head', 'my_custom_login_logo');
 
 add_filter( 'login_headerurl', 'my_custom_login_url' );
 function my_custom_login_url($url) {
@@ -149,4 +151,37 @@ function show_ghost_info() {
 	}	
 }
 
+
+add_filter( 'avatar_defaults', 'newgravatar' );
+
+function newgravatar ($avatar_defaults) {
+	$myavatar = get_stylesheet_directory_uri() . '/images/Best2Best2H_gravatar.png';
+	$avatar_defaults[$myavatar] = "Best2Best avatar";
+	return $avatar_defaults;
+}
+// add_action('bp_activity_syndication_options', 'show_group_list');
+function prova() {
+	//echo "lista miei gruppi";
+}
+add_action('bp_after_activity_post_form', 'echo_commercial');
+function echo_commercial() {
+	echo "Il network utile per i tuoi contatti commerciali";
+}
+add_action('wp_before_admin_bar_render', 'menu_fix'); 
+function menu_fix() {
+	global $wp_admin_bar;
+	echo "<!-- gbp ";
+// 	print_r($wp_admin_bar);
+	
+	
+	$dashboard= $wp_admin_bar->get_node('site-name');
+	
+	$dashboard->href="/about/";
+	print_r($dashboard);
+	$wp_admin_bar->add_node($dashboard);
+	print_r($wp_admin_bar->get_node('dashboard'));
+	
+	echo "-->";
+	return true;
+}
 ?>
