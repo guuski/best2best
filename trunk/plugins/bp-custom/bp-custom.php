@@ -141,6 +141,7 @@ class completaProfilo_Widget extends WP_Widget {
 	 * 
 	 * Registers the widget details with the parent class
 	 */
+	var $fr_type=null;
 	function completaProfilo_Widget()
 	{
 		$id_base = 'completaProfilo_Widget';
@@ -177,8 +178,31 @@ class completaProfilo_Widget extends WP_Widget {
 	
 		$query = "SELECT d.field_id FROM wp_bp_xprofile_data d WHERE d.user_id=$id";
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+		
 		return $ms_output;
 	}
+	//effettua la query per caricare tutti i tipi dei vari utenti
+	function globalType(){
+		global $bp;
+		global $wpdb;
+	
+		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d WHERE d.value='Albergo/Ristorante' OR d.value='Fornitore' OR d.value='Utente'";
+		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+		$this->fr_type=$ms_output;
+		
+	}
+	//ritorna il tipo (Albergo/Ristorante o Fornitore) dell'utente avente id =$ID
+	function get_type($ID){
+		if ($this->fr_type==null)
+			 $this->globalType();
+			 
+		foreach ( (array)$this->fr_type as $k){
+			if ($k->user_id==$ID)
+				return $k->value;
+		}
+		return "Non riconosciuto";
+	}
+	
 	function get_total_field(){
 		global $bp;
 		global $wpdb;
@@ -186,7 +210,38 @@ class completaProfilo_Widget extends WP_Widget {
 	
 		$query = "SELECT f.id , f.group_id, f.name FROM wp_bp_xprofile_fields f WHERE parent_id=0";
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
-		return $ms_output;
+		
+		$user_info = get_userdata($user_ID);
+		//$user_type=$this->get_type($user_info->ID);
+		$user_type=BP_XProfile_ProfileData::get_value_byfieldname("Tipo profilo");
+		
+		$output=array();
+		$count=0;
+		foreach ($ms_output as $k =>$value){
+			if (	$user_type=='Albergo/Ristorante' &&
+					$value->name=='Numero letti / coperti' ||
+					$value->name=='Numero stelle' ) {
+						
+			}
+			if ($value->name=='Categoria' ||
+				$value->name=='Lista aree di copertura' ||
+				$value->name=='Descrivi prodotti / servizi') {
+					if ($user_type=='Fornitore'){
+						$output[$count]=$value;
+						$count++;
+						}
+			} else if (	$value->name=='Numero letti / coperti' ||
+						$value->name=='Numero stelle' ) {
+							if ($user_type=='Albergo/Ristorante' ){
+									$output[$count]=$value;
+									$count++;
+								}
+			} else {
+				$output[$count]=$value;
+				$count++;
+				}
+		}
+		return $output;
 	}
 	
 	function widget($args, $instance)
@@ -210,19 +265,21 @@ class completaProfilo_Widget extends WP_Widget {
 		$total = $this->get_total_field();
 		
 		$cPar=count($current);
-		
-		$cTot=0;
+		$cTot=count($total);
 		$profilo="";
 		foreach($total as $k => $v) {
 			$trovato=false;
+			$visibile=false;
+			
 			foreach($current as $kcur => $vcur) {
 				if ($vcur->field_id==$v->id) $trovato=true;
 			}
+			
 			if ($trovato)
 				$profilo.= "<b style='text-decoration: line-through;'>".$v->name."</b><br />";
 			else
 				$profilo.= $v->name."<br />";
-			$cTot++;
+			//$cTot++;
 		}
 		
 		
