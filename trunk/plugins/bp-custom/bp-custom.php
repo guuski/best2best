@@ -176,7 +176,7 @@ class completaProfilo_Widget extends WP_Widget {
 		global $bp;
 		global $wpdb;
 	
-		$query = "SELECT d.field_id FROM wp_bp_xprofile_data d WHERE d.user_id=$id";
+		$query = "SELECT d.field_id, d.value FROM wp_bp_xprofile_data d WHERE d.user_id=$id";
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 		
 		return $ms_output;
@@ -218,24 +218,21 @@ class completaProfilo_Widget extends WP_Widget {
 		$output=array();
 		$count=0;
 		foreach ($ms_output as $k =>$value){
-			if (	$user_type=='Albergo/Ristorante' &&
-					$value->name=='Numero letti / coperti' ||
-					$value->name=='Numero stelle' ) {
-						
-			}
 			if ($value->name=='Categoria' ||
+				$value->name=='Categoria attivita&#39;' ||
 				$value->name=='Lista aree di copertura' ||
-				$value->name=='Descrivi prodotti / servizi') {
+				$value->name=='Descrivi prodotti / servizi' ||
+				$value->name=='Macro categoria attività') {
 					if ($user_type=='Fornitore'){
 						$output[$count]=$value;
 						$count++;
 						}
-			} else if (	$value->name=='Numero letti / coperti' ||
+			} else if (	$value->name=='Numero letti / coperti' || 
 						$value->name=='Numero stelle' ) {
 							if ($user_type=='Albergo/Ristorante' ){
-									$output[$count]=$value;
-									$count++;
-								}
+								$output[$count]=$value;
+								$count++;
+							}
 			} else {
 				$output[$count]=$value;
 				$count++;
@@ -243,7 +240,25 @@ class completaProfilo_Widget extends WP_Widget {
 		}
 		return $output;
 	}
-	
+	function adatta($tot,$parz){
+		
+		foreach ($parz as $k => $v){
+			$trovato=false;
+			foreach ($tot as $k1 =>$v1){
+				
+				if ($v->field_id==$v1->id && $v->value!='' && $v->value!='a:0:{}'){
+					$trovato=true;
+					//echo  "#".$v->value."#<br />";
+				}
+			}
+			
+			if (!$trovato){
+				unset($parz[$k]);
+				
+				}
+			}
+		return $parz;
+	}
 	function widget($args, $instance)
 	{
 		global $bp;
@@ -263,6 +278,7 @@ class completaProfilo_Widget extends WP_Widget {
 		//analizzo il profilo
 		$current = $this->get_current_field($user_ID);
 		$total = $this->get_total_field();
+		$current = $this->adatta($total,$current);
 		
 		$cPar=count($current);
 		$cTot=count($total);
@@ -286,7 +302,7 @@ class completaProfilo_Widget extends WP_Widget {
 		//if ( $title )
 			//echo $before_title . $title .(int)(100*$cPar/$cTot)."% ". $after_title;
 			
-		if ($cPar==$cTot) { 
+		if ($cPar>=$cTot) { 
 			$perc=(int)(100*$cPar/$cTot);
 			echo "		<div class='box_percentuale_profilo'
 								onmouseover='ms_labelprofiloon(this)' 
