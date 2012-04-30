@@ -94,7 +94,8 @@ function salva()
 		$voto_servizio  	= $_POST['servizio'];	
 		$voto_qualita		= $_POST['qualita'];
 		$voto_puntualita	= $_POST['puntualita'];
-		$voto_affidabilita	= $_POST['affidabilita'];				
+		$voto_affidabilita	= $_POST['affidabilita'];		
+		
 		$giudizio_review    = $_POST['giudizio_review'];			
 		$data_rapporto	    = $_POST['datepicker'];				 
 		$tipologia_rapporto	= $_POST['tipologia'];	 
