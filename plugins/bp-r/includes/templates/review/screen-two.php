@@ -49,7 +49,7 @@ get_header() ?>
 <!--  FORM - met 2	- no inclusione ESTERNA
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-	<form action = "<?php bp_reviews_post_form_action() ?> " method="post" id="review-form" class="standard-form">
+	<form action = "<?php bp_reviews_post_form_action() ?> " method="post" id="review-form" class="standard-form"> <!--- REVIEW-FORM-->
 	
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>
@@ -62,13 +62,15 @@ get_header() ?>
 		</div>				
 		
 		<?php 
-				$prezzo 		= $_POST['prezzo'] 			or 0;
-				$servizio 		= $_POST['servizio'] 		or 0;
-				$qualita 		= $_POST['qualita'] 		or 0;
-				$puntualita 	= $_POST['puntualita'] 		or 0;
-				$affidabilita 	= $_POST['affidabilita'] 	or 0;
-				$titolo 		= $_POST['review-title'] 	or '';
-				$contenuto 		= $_POST['review-content']	or '';
+				$prezzo 			= $_POST['prezzo'] 			or 0;
+				$servizio 			= $_POST['servizio'] 		or 0;
+				$qualita 			= $_POST['qualita'] 		or 0;
+				$puntualita 		= $_POST['puntualita'] 		or 0;
+				$affidabilita 		= $_POST['affidabilita'] 	or 0;
+				$titolo 			= $_POST['review-title'] 	or '';
+				$contenuto 			= $_POST['review-content']	or '';
+
+				$giudizio_review    = $_POST['giudizio_review']	or 'positivo'; 
 		?>
 				
 		
@@ -86,11 +88,18 @@ get_header() ?>
 			<div id="radio-toolbar">			<!-- -->
 				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>					-->
 				<!-- <fieldset name = "review-giudizio" id = "review-giudizio">-->
-				  <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> <label for = "positivo" > Positiva </label>				  
-				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>    <label for = "neutro" > Neutra   </label>				  
-				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label for = "negativo"> Negativa </label>
+<!--				
+				  <input type="radio" name="giudizio_review" id="positivo" value="positivo" checked = "<?php checked( $giudizio_review,'positivo') ?>"/> <label for = "positivo" > Positiva </label>				  
+				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  checked = "<?php checked( $giudizio_review,'neutro') ?>"/>     <label for = "neutro" > Neutra   </label>				  
+				  <input type="radio" name="giudizio_review" id="negativo" value="negativo" checked = "<?php checked( $giudizio_review,'negativo') ?>"/>  <label for = "negativo"> Negativa </label>								 
+-->				  
+  				  <input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label for = "positivo" > Positiva </label>				  
+				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label for = "neutro" > Neutra   </label>				  
+				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label for = "negativo"> Negativa </label>								 
 				<!-- </fieldset>			-->
 			</div>	
+			
+			<!-- <option value = "tutti" 	<?php selected( $author_type,'tutti') ?>> tutti </option> 	-->
 			
 			<br/>			
 			
@@ -99,6 +108,7 @@ get_header() ?>
 				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
 				echo $titolo
 				?></textarea>
+				<span id="nameInfo"> Inserisci un titolo...</span>
 			</div>
 			
 			<br/>
@@ -208,6 +218,8 @@ get_header() ?>
 			<br />
 			<div id="new-review-submit">								
 				<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />
+				<!-- <input type="submit" hidden="hidden" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
+				<!-- <input type="button" name="form_button" id="form_button" onclick="form_submit()" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
 			</div>
 		</div>		
 			
