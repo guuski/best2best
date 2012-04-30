@@ -169,7 +169,7 @@ function ms_getHTMLfrontend(){
 			";
 	
 	echo $HTML;
-	ms_caricaCategorie();
+	//ms_caricaCategorie();
 	}
 	
 function ms_getHTML_ric($ms_ins,$ms_mycat){
@@ -194,7 +194,7 @@ function ms_getHTML_ric($ms_ins,$ms_mycat){
 				//if(ms_myinarray($k,$ms_mycat)){ $checked="checked=\"checked\""; } else {$checked="";}
 				$HTML.="<label 
 							onmouseover='ms_labelon(this)' 
-							onmouseout='ms_labeloff(this)'>" .
+							onmouseout='ms_labeloff(this)' style='font-weight:normal;'>" .
 						"<input class=\"multicheck\" name=\"ms_$cnt\" ".$checked."  type=\"checkbox\" value=\"".__("$k",'multiselect')."\" 
 								onclick=\"ms_check()\" />" .
 						"".__("$k",'multiselect')."</label>"; 
@@ -215,7 +215,7 @@ function ms_getHTMLbackend(){
 	
 function ms_getScript(){ ?>
 	
-	<script language='JavaScript' type='text/javascript'>
+	<script type='text/javascript'>
 	<!--
 		function ms_check()
 		{
