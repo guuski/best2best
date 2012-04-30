@@ -71,6 +71,13 @@ jQuery(document).ready(function()
 		
 		) 
 		{
+				
+			if(!validateGiudizio_Review()) 
+			{
+				alert('Manca Giudizio sulla Review!');
+				return true		
+			}
+			
 			if(!validateTitle() ) 
 			{
 				alert('Titolo Review mancante!');
@@ -82,13 +89,7 @@ jQuery(document).ready(function()
 				alert('Manca il Contenuto della Review!');
 				return true		
 			}
-			
-			if(!validateGiudizio_Review()) 
-			{
-				alert('Manca Giudizio sulla Review!');
-				return true		
-			}
-			
+				
 			if(!validateData_Rapporto()) 
 			{
 				alert('Manca la Data inizio Rapporto commerciale!');
