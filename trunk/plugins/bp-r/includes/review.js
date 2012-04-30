@@ -66,8 +66,13 @@ jQuery(document).ready(function()
 		
 		if
 		(
-			!validateGiudizio_Review() || !validateTitle() || !validateMessage() || !validateData_Rapporto() || !validateConsigliato()
-		||  !validateDisclaimer()
+				!validateGiudizio_Review() 
+			||  !validateTitle() 
+			||  !validateMessage() 
+			||  !validateTipologia() 
+			||	!validateData_Rapporto()   
+			||  !validateConsigliato()
+			||  !validateDisclaimer()
 		
 		) 
 		{
@@ -89,6 +94,12 @@ jQuery(document).ready(function()
 				alert('Manca il Contenuto della Review!');
 				return false;		
 			}
+				
+			if(!validateTipologia()) 
+			{
+				alert('Manca la Tipologia Rapporto commerciale!');
+				return false;			
+			}	
 				
 			if(!validateData_Rapporto()) 
 			{
@@ -125,9 +136,21 @@ jQuery(document).ready(function()
 //		}
 		
 });
-	
-
-	
+		
+	function validateGiudizio_Review()
+	{	
+		
+		if(!jQuery('input[name=giudizio_review]').is(':checked'))
+		{
+			//alert('GIUDIZIO REVIEW non checked');			
+			return false;
+		}		
+		else
+		{	
+			//alert('GIUDIZIO REVIEW Settata');					
+			return true;
+		}
+	}
 	
 	function validateTitle()
 	{
@@ -161,22 +184,20 @@ jQuery(document).ready(function()
 		}
 	}
 	
-
-	function validateGiudizio_Review()
+	function validateTipologia()
 	{	
-		
-		if(!jQuery('input[name=giudizio_review]').is(':checked'))
+		if(!jQuery('input[name=tipologia]').is(':checked'))
 		{
-			//alert('GIUDIZIO REVIEW non checked');			
+			//alert('tipologia non checked');			
 			return false;
 		}		
 		else
 		{	
-			//alert('GIUDIZIO REVIEW Settata');					
+			//alert('tipologia Settata');					
 			return true;
 		}
 	}
-
+	
 	function validateData_Rapporto () 
 	{
 		if(data_rapporto.val().length < 10)
@@ -191,19 +212,7 @@ jQuery(document).ready(function()
 	}
 	
 	
-	function validateTipologia()
-	{	
-		if(!jQuery('input[name=tipologia]').is(':checked'))
-		{
-			//alert('tipologia non checked');			
-			return false;
-		}		
-		else
-		{	
-			//alert('tipologia Settata');					
-			return true;
-		}
-	}
+
 
 	function validateConsigliato()
 	{	
