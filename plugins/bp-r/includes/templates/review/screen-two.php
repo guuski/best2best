@@ -93,9 +93,9 @@ get_header() ?>
 				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  checked = "<?php checked( $giudizio_review,'neutro') ?>"/>     <label for = "neutro" > Neutra   </label>				  
 				  <input type="radio" name="giudizio_review" id="negativo" value="negativo" checked = "<?php checked( $giudizio_review,'negativo') ?>"/>  <label for = "negativo"> Negativa </label>								 
 -->				  
-  				  <input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label for = "positivo" > Positiva </label>				  
-				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label for = "neutro" > Neutra   </label>				  
-				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label for = "negativo"> Negativa </label>								 
+  				  <input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > Positiva </label>				  
+				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > Neutra   </label>				  
+				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"> Negativa </label>								 
 				<!-- </fieldset>			-->
 			</div>	
 			
@@ -221,7 +221,9 @@ get_header() ?>
 				<!-- <input type="submit" hidden="hidden" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
 				<!-- <input type="button" name="form_button" id="form_button" onclick="form_submit()" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
 			</div>
+			<br />
 		</div>		
+		
 			
 </div> <!-- chiude NEW REVIEW CONTENT -->
 		  					  	  		  		 

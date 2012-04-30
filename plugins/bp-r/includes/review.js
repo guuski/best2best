@@ -75,41 +75,41 @@ jQuery(document).ready(function()
 			if(!validateGiudizio_Review()) 
 			{
 				alert('Manca Giudizio sulla Review!');
-				return true		
+				return false;			
 			}
 			
 			if(!validateTitle() ) 
 			{
 				alert('Titolo Review mancante!');
-				return true		
+				return false;			
 			}
 
 			if(!validateMessage()) 
 			{
 				alert('Manca il Contenuto della Review!');
-				return true		
+				return false;		
 			}
 				
 			if(!validateData_Rapporto()) 
 			{
 				alert('Manca la Data inizio Rapporto commerciale!');
-				return true		
+				return false;			
 			}
 			
 			if(!validateConsigliato()) 
 			{
 				alert('Manca il campo "Lo Raccomdanderesti?"');
-				return true		
+				return false;			
 			}
 			
 			if(!validateDisclaimer()) 
 			{
 				alert('Devi accettare il Disclaimer');
-				return true		
+				return false;		
 			}
 		}		
 		//
-		return false;
+		return true;
 		
 		
 		

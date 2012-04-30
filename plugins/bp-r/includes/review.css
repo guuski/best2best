@@ -215,9 +215,9 @@ div.star-holder div.star
 }
 
 
-ul.star-rating, div.page ul, div.page ol, div.page dl, div.post ul, div.post ol, div.post dl {
+ul.star-rating,  div.post ul, div.post ol, div.post dl {
 		list-style:none;
-		margin: 0;
+		margin: 0 !important;
 		margin-left:5px !important;
 		padding:0px;
 		width: 125px;
@@ -319,7 +319,7 @@ fieldset
 	cursor: pointer;
 }
 
-label
+#radio-toolbar label
 {
 	cursor: pointer;	
 	display: inline !important;
