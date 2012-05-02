@@ -342,8 +342,17 @@ else
 			
 
 			<div class="post-content">
-			
+
+<!------------------------------------->						
+<small style = "float: right;"><strong>
+	<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
+	<?php  _e('Recensione su: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) ?> </a></strong>
+</small>
+<br />	
+<!------------------------------------->																
 				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+
+
 
 				<p class="date"><?php printf( __( '%1$s <span>in %2$s</span>', 'buddypress' ), get_the_date(), get_the_category_list( ', ' ) ); ?></p>
 
