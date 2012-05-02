@@ -1,4 +1,4 @@
-<?php 
+l<?php 
 /**
  * @Author	Giovanni Giannone
  * @link http://
@@ -37,14 +37,14 @@ defined("DS") or define("DS", DIRECTORY_SEPARATOR);
  */
  
 //localizzazione
-add_action( 'init', 'load_my_textdomain');
+add_action( 'init', 'bc_load_my_textdomain');
 
 
 /**
  *
  * @see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain
  */
-function load_my_textdomain()
+function bc_load_my_textdomain()
 {
 	load_plugin_textdomain( 'custom', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
