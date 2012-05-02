@@ -335,21 +335,42 @@ else
 		
 			<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies !-->
 
-			<div class="author-box">
-				<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
-				<p><?php printf( _x( 'by %s', 'Post written by...', 'buddypress' ), bp_core_get_userlink( $post->post_author ) ) ?></p>
-			</div>
-			
 
+<!-- DESTINATARIO BOX -->			
+<div class="author-box"> <!-- continua a chiamarsi AUTHOR BOX! -->
+
+	<?php $destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
+	<?php $nome = xprofile_get_field_data( "Nome" , $destinatario_review_id);?>	
+			
+	<?php //echo $destinatario_review_id ?>
+	<?php echo get_avatar( $destinatario_review_id  , '70' ); ?>
+	
+	<p>		
+		<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
+	</p>
+	
+</div>
+<!-- fine BOX -->		
+
+			
 			<div class="post-content">
 
-<!------------------------------------->						
-<small style = "float: right;"><strong>
-	<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
-	<?php  _e('Recensione su: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) ?> </a></strong>
-</small>
-<br />	
-<!------------------------------------->																
+
+<!------v2 AUTORE: ------------------------------->					
+<small style = "float: right;"> <strong>	
+
+	<?php $authorlogin= get_the_author_meta('user_login')?>
+	<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
+	<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
+	
+	<?php _e('Autore: ');?> 
+	<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin ?>">
+		<?php //the_author_meta('user_nicename');?>
+		<?php echo $nome; ?>	
+	</a>
+</strong></small>
+
+															
 				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
 
