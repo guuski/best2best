@@ -367,3 +367,12 @@ fieldset
 { 
     background-color:#bbb;
 }
+
+
+
+
+/* --------------nascondi FORM ricerca 'page-review.php' -----*/
+#review-filter-post-form 
+{
+	display: none;
+}
