@@ -14,7 +14,7 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		$name = __('Completa Profilo',"custom");
 		
-		$widget_options = array( 'titolo' => __('Completamento Profilo '),"custom");
+		$widget_options = array( 'titolo' => __('Completamento Profilo'),"custom");
 		
 		$control_ops = '';
 		
@@ -27,7 +27,7 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		// outputs the options form on admin
 		
-		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Completamento Profilo ' ),"custom"));
+		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Completamento Profilo' ),"custom"));
 		
 		$titolo = __(strip_tags( $instance['titolo'] ),"custom");
 		?>
@@ -166,7 +166,7 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		$attivo=array();
 		extract($args);
-		$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Completamento Profilo ','custom') : $instance['titolo'], $instance, $this->id_base);
+		$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Completamento Profilo','custom') : $instance['titolo'], $instance, $this->id_base);
 		
 		//analizzo il profilo
 		$current = $this->get_current_field($user_ID);
@@ -241,7 +241,7 @@ class completaProfilo_Widget extends WP_Widget {
 								<label value='chiuso' 
 								onmouseover='ms_labelprofiloon(this)' 
 								onmouseout='ms_labelprofilooff(this)'>			
-									".__("Completamento Profilo ","custom").$perc."% 
+									".__("Completamento Profilo","custom")." ".$perc."% 
 								</label>
 							
 						</div>
