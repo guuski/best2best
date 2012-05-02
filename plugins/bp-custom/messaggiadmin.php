@@ -1,4 +1,8 @@
 <?php
+
+//questo plugin è da finire
+
+
 class MessaggiAdmin_Widget extends WP_Widget{
 	/**
 	 * Constructor
@@ -119,33 +123,6 @@ class MessaggiAdmin_Widget extends WP_Widget{
 		
 		}
 	}
-	/*
-	 * Come inviare un post e leggerlo
-	 * 
-	 *
-	 * =================================================================
-	 $(function() {
- 
-    $('#text').keyup(function(event) {
- 
-        var char = event.keyCode;
-        var value = $(this).val();
- 
-        if(char == 188) {
- 
-            $(this).val(value.replace(/<+/g, '&lt;'));
- 
-        }
- 
-        if(value.indexOf('>') != -1) {
- 
-            $(this).val(value.replace(/>+/g, '&gt;'));
- 
-        }  
-    });
- 
-});
-	 * */
 	//==================================================================
 	/*
 	wp_usermeta
@@ -210,16 +187,6 @@ class MessaggiAdmin_Widget extends WP_Widget{
 		$query = "INSERT INTO wp_bp_messages_messages ( thread_id, sender_id, subject, message , date_sent) VALUES ( 1,1,'Comunicazioni Amministratore','$message',CURRENT_TIMESTAMP)";
 		echo $query;
 		$wpdb->get_results( $wpdb->prepare($query));
-		
-	}
-	function deleteALLMessage(){
-		global $bp;
-		global $wpdb;
-		global $user_ID;
-		$query = "INSERT INTO wp_bp_messages_messages ( thread_id, sender_id, subject, message , date_sent) VALUES ( 1,1,'Comunicazioni Amministratore','$message',CURRENT_TIMESTAMP)";
-		$wpdb->get_results( $wpdb->prepare($query));
-	}
-	function getMessagebyThreadId($thread_id){
 		
 	}
 }
