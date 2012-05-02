@@ -500,16 +500,34 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 
 	function widget($args, $instance){
 		global $bp;
-		//$user_ID=$bp->displayed_user->id;
-		$user_ID=bp_displayed_user_id();
+		global $user_ID;
+		$fullname=$bp->loggedin_user->fullname;
+		$user = $bp->displayed_user->id;
 		
-		if ($user_ID==0) $user_ID=$bp->displayed_user->id;
+		if ($user!=0) {
+			$user_ID=$user;
+			$fullname=bp_get_displayed_user_fullname();
+		}
+		
 		if ($user_ID==0) {
+			//visualizzo 8 utenti (amici dell'amministatore)
+			$listfriend = friends_get_friend_user_ids(1);
+			$cont=0;
+			
+			echo "<div>";
+			foreach ($listfriend as $k => $v){
+				$attivo = get_userdata($v);
+				
+				if ($cont<8){
+					echo  "<a href='".get_bloginfo('url').DS."registrati/' >".get_avatar($v,42)."</a>";
+					$cont++;
+				}
+			}
+			echo "</div>";
 			//non visualizzo nulla
 			}
 		else
 		{
-		
 		
 		$attivo=array();
 		extract($args);
@@ -519,11 +537,11 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 		if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
 		{
 			if ($user_type=="Fornitore")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ').$fullname: $instance['titolo'], $instance, $this->id_base);
 			else if ($user_type=="Albergo/Ristorante")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ').$fullname: $instance['titolo'], $instance, $this->id_base);
 			else if ($user_type=="Utente")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ').bp_get_displayed_user_fullname(): $instance['titolo'], $instance, $this->id_base);
+				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ').$fullname: $instance['titolo'], $instance, $this->id_base);
 				
 			// outputs the content of the widget
 		
