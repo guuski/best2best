@@ -87,15 +87,15 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 			
 				if ($user_type=="Fornitore")
 				{
-					$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
+					$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di','custom')." ".$fullname: $instance['titolo'], $instance, $this->id_base);
 				}
 				else if ($user_type=="Albergo/Ristorante")
 					{
-						$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
+						$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di','custom')." ".$fullname: $instance['titolo'], $instance, $this->id_base);
 					}
 					else if ($user_type=="Utente") 
 						{
-							$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
+							$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di','custom')." ".$fullname: $instance['titolo'], $instance, $this->id_base);
 							
 						}
 			}
