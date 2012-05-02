@@ -66,7 +66,7 @@ get_header() ?>
 				
 	<div id="review-filter-select" > <!-- style = "display: inline; ">-->
 
-	   <ul style = "display: inline; list-style-type: none; "> 
+	   <ul style = "display: inline; "> 
 			<li style = "float: left;"> 
 				<!-- <label for="order_by"> &nbsp; ORDINAMENTO &nbsp; </label>	-->
 				<select name = "order_by" id = "order_by" 										
@@ -153,13 +153,13 @@ if(
 		, 	'order'				=> $asc_desc			//MET 2		
 	);
 
-	//ï¿½ stato specificato ASC o DESC		
+	//è stato specificato ASC o DESC		
 	if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
 	{
 		//$query_args['order'] = $asc_desc;			// MET 1 - non va! --> vd MET 2	sopra
 	}
 				
-	//ï¿½ stato specificato....
+	//è stato specificato....
 	if( $order_by =='voto_prezzo' || $order_by =='voto_servizio' 							 ) 
 	{					
 		$query_args['meta_key'] = $order_by;			
@@ -214,7 +214,7 @@ else
 					||  $author_type == 'Albergo/Ristorante' 
 					|| 	$author_type == 'amici_fornitori' 
 					|| 	$author_type == 'amici_alberghi_ristoranti'
-					//||  !$author_type_params_checked					//? ï¿½ sicuro FALSE! togliere!
+					//||  !$author_type_params_checked					//? è sicuro FALSE! togliere!
 				)
 				{			
 				
