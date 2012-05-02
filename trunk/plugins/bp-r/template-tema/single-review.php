@@ -47,38 +47,41 @@
 		
 <br/>
 			
-<div>
-	<p><strong> Giudizio Review: </strong><?php echo $giudizio_review ?></p>
-	<p><strong> Data Inizio Rapporto:  </strong><?php echo $data_rapporto ?></p>
-	<p><strong> Tipologia:  </strong> <?php echo $tipologia_rapporto ?></p>
-</div>		
-
-<br/>
-<!-------------------------------------------------------------------------------------->	
+		<div>
+			<p><strong> <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong><?php echo $giudizio_review ?></p>
+			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
+			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
+		</div>		
+		<!-------------------------------------------------------------------------------------->		
+		
+		<br/> 		
+			
 		<div id="new-review-rating">	
-			<div class="rating-container"><span class="rating-title">Prezzo</span> <ul id="prezzo" class='star-rating'>	
+		
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
 				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
 			</ul>
 			</div>		
-			<div class="rating-container"><span class="rating-title">Servizio</span> <ul id="servizio" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
 				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
 			</ul>
 			</div>	
-			<div class="rating-container"><span class="rating-title">Qualit&agrave;</span> <ul id="qualita" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
 				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
 			</ul>
 			</div>		
-			<div class="rating-container"><span class="rating-title">Puntualit&agrave;</span> <ul id="puntualita" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
 				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
 			</ul>
 			</div>	
-			<div class="rating-container"><span class="rating-title">Affidabilit&agrave;</span> <ul id="affidabilita" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
 				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
 			</ul>
 			</div>		
 			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
 					  
-		</div>	<!-- fine sezione RATING -->
+		</div>	<!-- fine sezione RATING -->		
+		
 						<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
 
 						<div class="alignleft"><?php //previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'buddypress' ) . '</span> %title' ); ?></div>
@@ -86,8 +89,27 @@
 					</div>
 
 				</div>
+				
+				
+<!-- FORM per COMMENTI -->
 
-			<?php comments_template(); ?>
+	<?php
+		$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
+	
+		if(
+				bp_loggedin_user_id() == $post->post_author 
+			||  bp_loggedin_user_id() == $id_recipient
+		)  
+		{
+			comments_template();
+		}		
+				
+	?>		
+<!-- fine FORM per COMMENTI -->			
+			
+			
+			
+			
 
 			<?php endwhile; else: ?>
 
