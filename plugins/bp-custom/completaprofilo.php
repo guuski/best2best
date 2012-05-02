@@ -54,58 +54,55 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 		
+/*INFO*///echo "get_current_field($id) ".count($ms_output)."<br />";
+		
 		return $ms_output;
 	}
 	
 	//effettua la query per caricare tutti i tipi dei vari utenti e li inserisce dentro la variabile fr_type
-	function globalType(){
+	function globalType($id){
 		
 		global $bp;
 		
 		global $wpdb;
 	
-		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d WHERE d.value='Albergo/Ristorante' OR d.value='Fornitore' OR d.value='Utente'";
+		$query = "SELECT d.value FROM wp_bp_xprofile_data d WHERE d.user_id='$id' && (d.value='Albergo/Ristorante' OR d.value='Fornitore' OR d.value='Utente')";
 		
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+		
+/*INFO*///echo "globalType($id) ".count($ms_output)."<br />";
 		
 		$this->fr_type=$ms_output;
 	}
 	
 	//ritorna il tipo (Albergo/Ristorante o Fornitore) dell'utente avente id =$ID
-	function get_type($ID){
+	function get_type($id){
 		
 		if ($this->fr_type==null)
 		
-			 $this->globalType();
-			 
-		foreach ( (array)$this->fr_type as $k){
-			
-			if ($k->user_id==$ID)
-			
-				return __($k->value,"custom");
-		}
-		
-		return __("Non riconosciuto","custom");
+			 $this->globalType($id);
+
+/*INFO*///echo "get_type($id) #".$this->fr_type[0]->value."<br />";			
+
+		return __($this->fr_type[0]->value,"custom");
 		
 	}
 	
-	function get_total_field(){
+	function get_total_field($id){
 		
 		global $bp;
 		
 		global $wpdb;
-		
-		global $user_ID;
 	
 		$query = "SELECT f.id , f.group_id, f.name FROM wp_bp_xprofile_fields f WHERE parent_id=0";
 		
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 		
-		$user_info = get_userdata($user_ID);
+		$user_info = get_userdata($id);
 		
-		//$user_type=$this->get_type($user_info->ID);
+		$user_type=$this->get_type($id);
 		
-		$user_type=BP_XProfile_ProfileData::get_value_byfieldname("Tipo profilo");
+		//$user_type=BP_XProfile_ProfileData::get_value_byfieldname("Tipo profilo");
 		
 		$output=array();
 		
@@ -145,7 +142,6 @@ class completaProfilo_Widget extends WP_Widget {
 				
 				if ($v->field_id==$v1->id && $v->value!='' && $v->value!='a:0:{}'){
 					$trovato=true;
-					//echo  "#".$v->value."#<br />";
 				}
 			}
 			
@@ -174,11 +170,13 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		//analizzo il profilo
 		$current = $this->get_current_field($user_ID);
-		$total = $this->get_total_field();
+		$total = $this->get_total_field($user_ID);
+		
 		$current = $this->adatta($total,$current);
 		
 		$cPar=count($current);
 		$cTot=count($total);
+		
 		$profilo="";
 		foreach($total as $k => $v) {
 			$trovato=false;
@@ -227,7 +225,7 @@ class completaProfilo_Widget extends WP_Widget {
 			$perc=(int)(100*$cPar/$cTot);
 			echo "		
 			
-						Migliora la tua visibilità:<br />
+						".__("Migliora la tua visibilità:","custom")."<br />
 						<a href='".bp_loggedin_user_domain()."profile/edit/group' style='width:80%;'>
 							".__("Completa il tuo profilo!","custom")."
 						</a>

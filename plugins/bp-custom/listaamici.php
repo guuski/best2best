@@ -64,7 +64,7 @@ class listaAmici_Widget extends WP_Widget
 			$listfriend = friends_get_friend_user_ids($user_ID);
 			$cont=0;
 			
-			echo "<div>";
+			echo "<div class='avatar-block'>";
 			foreach ($listfriend as $k => $v){
 				$attivo = get_userdata($v);
 				
