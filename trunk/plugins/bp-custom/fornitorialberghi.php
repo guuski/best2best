@@ -36,22 +36,35 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 	}
 
 	function widget($args, $instance){
+		
 		global $bp;
+		
 		global $user_ID;
+		
+		$title=__("Diventa un utente registrato!","custom");
+		
 		$fullname=$bp->loggedin_user->fullname;
+		
 		$user = $bp->displayed_user->id;
 		
 		if ($user!=0) {
+			
 			$user_ID=$user;
+			
 			$fullname=bp_get_displayed_user_fullname();
 		}
 		
+		$attivo=array();
+		
+		extract($args);
+		
 		if ($user_ID==0) {
+			
+			echo $before_title . $title . $after_title.'<div class="avatar-block">';
 			//visualizzo 8 utenti (amici dell'amministatore)
 			$listfriend = friends_get_friend_user_ids(1);
 			$cont=0;
 			
-			echo "<div>";
 			foreach ($listfriend as $k => $v){
 				$attivo = get_userdata($v);
 				
@@ -65,44 +78,48 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 			}
 		else
 		{
+			$user_info = get_userdata($user_ID);
 		
-		$attivo=array();
-		extract($args);
-		$user_info = get_userdata($user_ID);
+			$user_type=$this->get_type($user_info->ID);
 		
-		$user_type=$this->get_type($user_info->ID);
-		if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
-		{
-			if ($user_type=="Fornitore")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
-			else if ($user_type=="Albergo/Ristorante")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
-			else if ($user_type=="Utente")
-				$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
-				
-			// outputs the content of the widget
-		
-
-		//echo $before_widget;
-		if ( $title )
-			echo $before_title . $title . $after_title.'<div class="avatar-block">';
-
-		
-			$listfriend = friends_get_friend_user_ids($user_ID);
+			if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
+			{
 			
-			foreach ($listfriend as $k => $v){
-				$attivo = get_userdata($v);		
-					if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
-						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";	
+				if ($user_type=="Fornitore")
+				{
+					$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I clienti di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
+				}
+				else if ($user_type=="Albergo/Ristorante")
+					{
+						$title = apply_filters('widget_title', empty($instance['titolo']) ? __('I fornitori di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
 					}
-					else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
-						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
-					}
-					else if ($user_type=="Utente"){
-						echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
-					}					
+					else if ($user_type=="Utente") 
+						{
+							$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di ','custom').$fullname: $instance['titolo'], $instance, $this->id_base);
+							
+						}
 			}
-			echo "</div>";
+		
+		//echo $before_widget;
+			if ( $title )
+				echo $before_title . $title . $after_title.'<div class="avatar-block">';
+
+		
+				$listfriend = friends_get_friend_user_ids($user_ID);
+			
+				foreach ($listfriend as $k => $v){
+					$attivo = get_userdata($v);		
+						if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
+							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";	
+						}
+						else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
+							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+						}
+						else if ($user_type=="Utente"){
+							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
+						}					
+				}
+				echo "</div>";
 
 			
 			?>
@@ -113,7 +130,7 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 
 			<?php 
 		}
-		}
+		
 	}
 	
 	//effettua la query per caricare tutti i tipi dei vari utenti
