@@ -103,11 +103,10 @@
 															
 				?>
 				
-					
 		<div>
-			<p><strong> Giudizio Review: </strong><?php echo $giudizio_review ?></p>
-			<p><strong> Data Inizio Rapporto:  </strong><?php echo $data_rapporto ?></p>
-			<p><strong> Tipologia:  </strong> <?php echo $tipologia_rapporto ?></p>
+			<p><strong> <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong><?php echo $giudizio_review ?></p>
+			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
+			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
 		</div>		
 		<!-------------------------------------------------------------------------------------->	
 		
