@@ -77,3 +77,12 @@ add_action( 'widgets_init', create_function( '', 'register_widget("FornitoriAlbe
 //=========================================================================================================================
 include_once('messaggiadmin.php');
 add_action( 'widgets_init', create_function( '', 'register_widget("MessaggiAdmin_Widget");' ) );
+
+
+//=========================================================================================================================
+//===============COMMENT REVIEW============================================================================================
+//=========================================================================================================================
+
+include_once('comment_review.php');
+add_action( 'widgets_init', create_function( '', 'register_widget("commentReview_Widget");' ) );
+
