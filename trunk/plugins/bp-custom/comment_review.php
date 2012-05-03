@@ -1,22 +1,5 @@
 <?php
-/*[16:39:10 CEST] Giambattista Pisasale: ci sei ?!
-[16:39:14 CEST] Giambattista Pisasale: ho una bella micro attività per te
-[16:39:17 CEST] Giambattista Pisasale: sempre un widget
-[16:39:34 CEST] Giovanni Giannone: ok
-[16:39:39 CEST] Giambattista Pisasale: deve contenere per gli utenti non loggati la lista degli ultimi commenti a tutte le review
-[16:39:57 CEST] Giambattista Pisasale: 3 commenti per i non loggati, 6 per gli utenti loggati
-[16:40:21 CEST] Giambattista Pisasale: deve contenere pero' solo i primi N caratteri, poi cliccando si deve aprire la review intera
-[16:40:29 CEST] Giambattista Pisasale: N => configurabile lato amministratore
-[16:40:46 CEST] Giovanni Giannone: ok ci inizio a lavorare
-[16:40:47 CEST] Giambattista Pisasale: da fare in collaborazione con Andrea ovviamente
-[16:40:49 CEST] Giambattista Pisasale: yeah
-[16:41:00 CEST] Giovanni Giannone: si
-[16:41:01 CEST] Giambattista Pisasale: crea attività su jira, stimala, ti darò conferma della stima
-[16:41:09 CEST] Giovanni Giannone: ok
-[16:41:27 CEST] Giambattista Pisasale: penso non ci sia bisogno di sub-task, ma fai pure te, vedro' come lo imposti e ne parliamo assieme
-[16:41:46 CEST] Giovanni Giannone: ok
-*/
- 
+
 class commentReview_Widget extends WP_Widget
 {
 	
