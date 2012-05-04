@@ -1,4 +1,18 @@
 <?php
+/*
+ottimo lavoro, 
+occorre raffinarlo un attimo, prendi spunto da www.best2best.it, il secondo widget "Cosa succede in giro" contiene ad esempio 
+"fruttaverdurabio su Servizio inesistente" => link alla recensione. Ecco dovresti utilizzare lo stesso stile grafico e aggiungere 
+appunto il link alla recensione, per il resto ok.
+risultato finale: 
+"fruttaverdurabio su Servizio inesistente: Mi sembra una affermazione grat[...]"
+se riesci, puoi mettere sul nome dell'autore del commento (in questo caso fruttaverdurabio) il link al suo profilo per 
+gli utenti loggati, o alla pagina di registrazione per gli utenti non loggati !? 
+
+ci aggiorniamo
+
+GBP
+*/
 
 class commentReview_Widget extends WP_Widget
 {
@@ -9,7 +23,7 @@ class commentReview_Widget extends WP_Widget
 		
 		$name = __('Commenti alle review','custom');
 		
-		$widget_options = array( 'titolo' => __('Commenti alle review','custom'), 'numerolog'=> 6, 'numerounlog'=> 3, 'lunghezza'=> 30);
+		$widget_options = array( 'titolo' => __('Commenti alle review','custom'), 'numerolog'=> 6, 'numerounlog'=> 3, 'lunghezza'=> 20);
 		
 		$control_ops = array( 'width' => 300, 'height' => 350 );
 		
@@ -19,7 +33,7 @@ class commentReview_Widget extends WP_Widget
 
 	function form($instance)
 	{
-		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Commenti alle review','custom') ,  'numerolog'=> 6, 'numerounlog'=> 3, 'lunghezza' => 30) );
+		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Commenti alle review','custom') ,  'numerolog'=> 6, 'numerounlog'=> 3, 'lunghezza' => 20) );
 		
 		$titolo 		= __(strip_tags( $instance['titolo'] ),		'custom');
 		
@@ -74,22 +88,35 @@ class commentReview_Widget extends WP_Widget
 			
 		$lunghezza =  empty($instance['lunghezza']) ? 10000 : $instance['lunghezza'];	
 		
+		$cR_link = "";
+		
 		$this->cR_getScript();
 		
 		echo $before_title . $title . $after_title;
 		
 		//FRONT-END
 		if ($user_ID>0) //sono loggato
+		{
 			
-			$this->cR_getreview( $lunghezza ,$numerolog);
-				
+			$attivo = get_userdata($user_ID);
+			
+			$cR_link = bp_core_get_user_domain($attivo->user_login).$attivo->user_login;
+			
+			$this->cR_getreview( $lunghezza ,$numerolog, $cR_link);
+			
+		}
 		else
+		{
 			
-			$this->cR_getreview( $lunghezza ,$numerounlog);
+			$cR_link = get_bloginfo('url').DS."registrati";
+			
+			$this->cR_getreview( $lunghezza ,$numerounlog, $cR_link);
+		
+		}
 	}
 	
 	//FUNZIONI SPECIFICHE DEL WIDGET
-	function cR_getreview($lunghezza, $numero)
+	function cR_getreview($lunghezza, $numero, $cR_link)
 	{
 		$query_args = array(
 			'post_status'		=> 'publish',	
@@ -138,6 +165,22 @@ class commentReview_Widget extends WP_Widget
 //======================================================================						
 ?>
 
+
+									<?php
+										
+										echo ( 
+											"<a href='$cR_link'>"									.
+												$comment->comment_author							.
+											"</a>"													.
+											" su "													.
+											"<a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
+												substr($comment->comment_content, 0, $lunghezza)	.
+												" [...] "											.
+											"</a>"													.
+											"<br /><br />"
+											);
+											
+						/* *>
 						<div class='cR_box'
 								onmouseover='cR_labelon(this)' 
 								onmouseout='cR_labeloff(this)'
@@ -174,6 +217,10 @@ class commentReview_Widget extends WP_Widget
 								</label>
 							
 						</div>
+						<?php */
+									?>
+
+
 							
 <?php
 //======================================================================
