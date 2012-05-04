@@ -121,7 +121,10 @@ get_header() ?>
 			</div>
 
 <br/>	
-
+<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Comm. ', 'reviews' ); ?>
+	<input type="text" name ="datepicker" id="datepicker" maxlength="12" size="12" style="width:auto;"> 
+</label>		
+<br />
 <div id="new-review-tipologia">		
 	<label for = "review-tipologia-rapporto"> <?php _e( 'Tipologia Rapporto Commerciale ', 'reviews' ); ?></label>	
 	<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
@@ -132,10 +135,6 @@ get_header() ?>
 
 <br/>	
 
-<!-- <div id="new-review-input">		-->
-	<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Comm. ', 'reviews' ); ?><input type="text" name ="datepicker" id="datepicker" maxlength="12" size="20"> </label>		
-	<!-- </div>-->
-<!-- </div>-->
 
 <br/>	
 <br/>	

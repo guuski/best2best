@@ -1,3 +1,30 @@
+(function(jQuery) {
+	jQuery.datepicker.regional['it'] = {
+		monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+		'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+		monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
+		'Lug','Ago','Set','Ott','Nov','Dic'],
+		dayNames: ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'],
+		dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+		dayNamesMin: ['Do','Lu','Ma','Me','Gi','Ve','Sa'],
+		dateFormat: 'dd/mm/yyyy', firstDay: 1,
+		renderer: jQuery.datepicker.defaultRenderer,
+		prevText: '&#x3c;Prec', prevStatus: 'Mese precedente',
+		prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'Mostra l\'anno precedente',
+		nextText: 'Succ&#x3e;', nextStatus: 'Mese successivo',
+		nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'Mostra l\'anno successivo',
+		currentText: 'Oggi', currentStatus: 'Mese corrente',
+		todayText: 'Oggi', todayStatus: 'Mese corrente',
+		clearText: 'Svuota', clearStatus: 'Annulla',
+		closeText: 'Chiudi', closeStatus: 'Chiudere senza modificare',
+		yearStatus: 'Seleziona un altro anno', monthStatus: 'Seleziona un altro mese',
+		weekText: 'Sm', weekStatus: 'Settimana dell\'anno',
+		dayStatus: '\'Seleziona\' D, M d', defaultStatus: 'Scegliere una data',
+		isRTL: false
+	};
+	jQuery.datepicker.setDefaults(jQuery.datepicker.regional['it']);
+})(jQuery);
+
 jQuery(document).ready(function(){
   
 	var jq=jQuery;
@@ -29,7 +56,7 @@ jQuery(document).ready(function()
 */
 
 jQuery(function() {
-	jQuery("#datepicker" ).datepicker();
+	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
 });
 
 //------------------------------
@@ -243,7 +270,7 @@ jQuery(document).ready(function()
 	}
 	
 	
-	//$('input[name=foo]').attr('checked')
+	//jQuery('input[name=foo]').attr('checked')
 	
 });
 
@@ -328,3 +355,4 @@ function form_submit()
 		}
 	}
 */	
+
