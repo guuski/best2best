@@ -171,9 +171,9 @@ function add_css()																						//---usa il metodo add_JS
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head' , 'add_js');					
+add_action( 'wp_head' , 'add_js_review');					
 
-function add_js ()
+function add_js_review ()
 {	
 	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
     wp_enqueue_style( 'datepicker-css');  
