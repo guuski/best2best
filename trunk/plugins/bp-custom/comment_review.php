@@ -167,9 +167,9 @@ class commentReview_Widget extends WP_Widget
 
 
 									<?php
-										
+										//echo "<!-- gbp "; print_r($comment); echo " -->";
 										echo ( 
-											"<a href='$cR_link'>"									.
+											"<a href='".bp_core_get_user_domain( $comment->user_id )."'>"									.
 												$comment->comment_author							.
 											"</a>"													.
 											" su "													.
@@ -177,7 +177,7 @@ class commentReview_Widget extends WP_Widget
 												substr($comment->comment_content, 0, $lunghezza)	.
 												" [...] "											.
 											"</a>"													.
-											"<br /><br />"
+											"<br />"
 											);
 											
 						/* *>
