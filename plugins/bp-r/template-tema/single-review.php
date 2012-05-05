@@ -181,7 +181,11 @@
 			AND comment_type = '' AND post_password = '' ORDER BY comment_date_gmt DESC LIMIT 10";
 */			
 		//AND ID = '1'
+
 		
+		
+
+/*					
 			$sql = 				
 				"SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_date_gmt, comment_approved, comment_type,comment_author_url, SUBSTRING(comment_content,1,30) AS com_excerpt 
 			
@@ -196,27 +200,13 @@
 			
 				ORDER BY comment_date_gmt DESC LIMIT 10
 			";
-			
-/*			
-			$postids = $wpdb->get_col( 
-			$wpdb->prepare( 
-	"
-	SELECT      key1.post_id
-	FROM        $wpdb->postmeta key1
-	INNER JOIN  $wpdb->postmeta key2
-	            ON key2.post_id = key1.post_id
-	            AND key2.meta_key = %s
-	WHERE       key1.meta_key = %s
-	ORDER BY    key2.meta_value+(0) ASC
-	",
-        $meta_key2,
-	$meta_key1
-) ); 
-			
-*/
+
 
 			//$comments = $wpdb->get_results($sql);
+
 			
+			
+
 		$comments = 
 			$wpdb->get_results( 
 				$wpdb->prepare( 
@@ -279,6 +269,9 @@
 	
 			echo $output;
 
+*/			
+			
+			
 //---------------------------------------------------------------------------------------------------
   
   
@@ -350,9 +343,54 @@
 		<?php //wp_list_comments();?>
 		
 		
-		
-		
-		
+<?php
+/*
+$args = array(
+    'status' => 'approved',
+    'number' => '5',
+    'post_id' => get_the_ID()
+    );
+    $comments = get_comments($args);
+    foreach($comments as $comment) :
+        echo( $comment->get_avatar . $comment->comment_author . '<br />' . $comment->comment_content);
+    endforeach;		
+*/		
+?>
+
+
+
+<?php
+    
+	global $post, $wp_query;
+	
+    $args = array(
+        'ID'       => $post->ID,
+        'status' => 'approve',
+        'order'   => 'ASC'
+    );
+	
+	
+	
+	$args_2 = array(
+			'post_id'	 => get_the_ID()
+		,	'status'  	 => 'approved'
+		,	'style'		 => 'div'
+		,	'reply_text' => 'ciaodssfsd'
+	  //, 'number' => '5'		
+    );
+
+
+	$wp_query->comments = get_comments( $args_2);	
+    //$wp_query->comments = get_comments( $args );
+?>
+
+	<div class="commentlist">
+	<?php wp_list_comments( ); ?>
+	</div>
+
+<?php	
+    //comment_form();
+?>	
 		
 		
 </div>
