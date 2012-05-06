@@ -330,7 +330,7 @@
 						
 						
 <!--	
-						<?php if($comments) : ?>  
+						<?php if(isset($comments)) : ?>  
     <?php foreach($comments as $comment) : ?>  
         <?php if ($comment->comment_approved == '0') : ?>  
         <?php endif; ?>  
