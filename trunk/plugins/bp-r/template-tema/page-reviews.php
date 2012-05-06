@@ -5,6 +5,16 @@ Template Name: Elenco Reviews
  
 */
 
+
+
+
+/*
+	[C] - 3 righe commentate
+*/
+
+
+
+
 /*
 
 la lista deve essere ordinata per DATA e filtrabile per 
@@ -46,10 +56,15 @@ get_header() ?>
 	//TEST
 	define('TEST',false);	//define('TEST',true); 
 
+	$order_by 	 = '';
+	$asc_desc 	 = '';
+	$author_type = '';
+	
+																		//[C] - 3 righe commentate
 	//Recupera...
-	$order_by 	 = stripslashes($_POST['order_by']);		//striptags 
-	$asc_desc 	 = stripslashes($_POST['asc_desc']);		
-	$author_type = stripslashes($_POST['author_type']);			
+												//$order_by 	 = stripslashes($_POST['order_by']) or '';		//striptags 
+												//$asc_desc 	 = stripslashes($_POST['asc_desc']) or '';		
+												//$author_type = stripslashes($_POST['author_type']) or '';			
 ?>
 	
 <!--------------------------------------------------------------------review_filter_post_FORM ----------------------------------------------------------->
@@ -111,9 +126,9 @@ get_header() ?>
 				<select name = "recipient_type" id = "recipient_type" 										
 						onchange = 'this.form.submit()'
 				>	
-					<option value = "tutti" 				<?php selected( $recipient_type,'tutti') ?>					> tutti </option> 									
-					<option value = "fornitori" 			<?php selected( $recipient_type,'fornitori') ?>				> fornitori </option> 									
-					<option value = "alberghi/ristoranti"	<?php selected( $recipient_type,'alberghi/ristoranti'); ?>	> alberghi/ristoranti </option> 													
+					<option value = "tutti" 				<?php //selected( $recipient_type,'tutti') ?>					> tutti </option> 									
+					<option value = "fornitori" 			<?php //selected( $recipient_type,'fornitori') ?>				> fornitori </option> 									
+					<option value = "alberghi/ristoranti"	<?php //selected( $recipient_type,'alberghi/ristoranti'); ?>	> alberghi/ristoranti </option> 													
 				</select>					
 			</li>
 -->			
