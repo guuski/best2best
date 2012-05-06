@@ -82,11 +82,11 @@ class commentReview_Widget extends WP_Widget
 			
 		$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Commenti alle review','custom') : $instance['titolo'], $instance, $this->id_base);
 			
-		$numerolog =  empty($instance['numerolog']) ? 10000 : $instance['numerolog'];	
+		$numerolog =  empty($instance['numerolog']) ? 10 : $instance['numerolog'];	
 			
-		$numerounlog =  empty($instance['numerounlog']) ? 10000 : $instance['numerounlog'];	
+		$numerounlog =  empty($instance['numerounlog']) ? 10 : $instance['numerounlog'];	
 			
-		$lunghezza =  empty($instance['lunghezza']) ? 10000 : $instance['lunghezza'];	
+		$lunghezza =  empty($instance['lunghezza']) ? 30 : $instance['lunghezza'];	
 		
 		$cR_link = "";
 		
