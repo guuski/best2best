@@ -279,8 +279,8 @@
 				'walker'            => null,
 				'max_depth'         => 5,
 				'style'             => 'ul',
-				//'callback'          => null,
-												'callback'          => mytheme_comment,
+				'callback'          => null,
+												//'callback'          => mytheme_comment,
 				'end-callback'      => null,
 				'type'              => 'all',
 /*				
@@ -329,17 +329,7 @@
 						<div class="alignright"><?php //next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'buddypress' ) . '</span>' ); ?></div>
 						
 						
-<!--	
-						<?php if(isset($comments)) : ?>  
-    <?php foreach($comments as $comment) : ?>  
-        <?php if ($comment->comment_approved == '0') : ?>  
-        <?php endif; ?>  
-    <?php endforeach; ?>  
-<?php else : ?>  
-	<?php echo 'no commenti';?>
-<?php endif; ?>  
--->
-		
+
 		<?php //wp_list_comments();?>
 		
 		
