@@ -75,7 +75,6 @@ class commentReview_Widget extends WP_Widget
 	function widget($args, $instance)
 	{
 		global $user_ID;
-		
 		//utente loggato
 			
 		extract($args);
@@ -93,6 +92,7 @@ class commentReview_Widget extends WP_Widget
 		$this->cR_getScript();
 		
 		echo $before_title . $title . $after_title;
+		
 		
 		//FRONT-END
 		if ($user_ID>0) //sono loggato
