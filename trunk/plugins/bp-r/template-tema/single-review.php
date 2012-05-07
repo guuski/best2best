@@ -72,6 +72,8 @@
 	<div>
 		<?php 			
 			$giudizio_review = '';
+			$color = '';
+			
 			if($giudizio_review == 'positivo')  			
 			{
 				$color = 'green';
