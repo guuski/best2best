@@ -175,7 +175,7 @@ class commentReview_Widget extends WP_Widget
 											"<a href='".bp_core_get_user_domain( $comment->user_id )."'>"									.
 												$comment->comment_author							.
 											"</a>"													.
-											" su "													.
+											" su <br />"											.
 											"<a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
 												$cR_titleReview[$comment->comment_post_ID] 		.										
 												"<br />"											.
@@ -251,8 +251,8 @@ class commentReview_Widget extends WP_Widget
 				
 				function cR_labelon(t)
 				{	
-					t.style.color = '#000';
-					t.style.background ='#87badd' ;
+					t.style.color = '#87badd';
+					t.style.background ='transparent' ;
 					t.style.cursor = 'pointer';
 				}
 
@@ -277,11 +277,11 @@ class commentReview_Widget extends WP_Widget
 				}
 			
 				.cR_labelhidden{
-					color:#343434;
+					color:#787878;
 				}
 				
 				.cR_labelprev{
-					color:#343434;
+					color:#787878;
 					
 				}
 				
