@@ -18,7 +18,12 @@ function manageOptionalFieldsJS() {
 		jQuery('div.field_categoria-attivita').show();
 		jQuery('.button-nav li:last-child').show();
 	      } 
-	      else {
+	      else if(field=='Utente'){
+		jQuery('div.field_numero-letti-coperti').hide(); 
+		jQuery('div.field_numero-stelle').hide();
+		jQuery('div.field_categoria-attivita').hide();
+		jQuery('.button-nav li:last-child').hide();
+	      } else {
 		jQuery('div.field_numero-letti-coperti').show(); 
 		jQuery('div.field_numero-stelle').show();
 		jQuery('div.field_categoria-attivita').hide();
@@ -38,19 +43,22 @@ global $macroSettoreName;
 		"<style>#tos{float:left}</style>\n<div style='width:800px; white-space:nowrap; float:left;'>". __( 'Fields marked * are required', 'buddypress' ) ."</div>\n\n".
 		"<script>function correggiLetti(field) {
 			if(jQuery(field).val()=='Fornitore') {
-			  jQuery('".$numLettiName."').parent().hide();
-			  jQuery('".$numStelleName."').parent().hide();
-			  jQuery('".$macroSettoreName."').parent().show();
-			} 
-			else {
-			  jQuery('".$numLettiName."').parent().show();
-			  jQuery('".$numStelleName."').parent().show();
-			  jQuery('".$macroSettoreName."').parent().hide();
+			  jQuery('".$numLettiName."').parents('div.editfield').hide();
+			  jQuery('".$numStelleName."').parents('div.editfield').hide();
+			  jQuery('".$macroSettoreName."').parents('div.editfield').show();
+			} else if(jQuery(field).val()=='Utente') {
+			  jQuery('".$numLettiName."').parents('div.editfield').hide();
+			  jQuery('".$numStelleName."').parents('div.editfield').hide();
+			  jQuery('".$macroSettoreName."').parents('div.editfield').hide();
+			} else {
+			  jQuery('".$numLettiName."').parents('div.editfield').show();
+			  jQuery('".$numStelleName."').parents('div.editfield').show();
+			  jQuery('".$macroSettoreName."').parents('div.editfield').hide();
 			}}".
 		"jQuery('#field_2').click(function(){correggiLetti(this);}); ".
 		"jQuery(document).ready(function() {correggiLetti(jQuery('#field_2'));});</script>";
 }
-add_action("xprofile_template_loop_end", "manageOptionalFieldsJS");
+add_action("bp_after_profile_edit_content", "manageOptionalFieldsJS");
 add_action('bp_after_register_page', 'manageOptionalFieldsRegistrationJS' );
 
 //rimuove il logo dalla buddybar
@@ -72,15 +80,19 @@ $page_data = get_page( $page_id ); // You must pass in a variable to the get_pag
 
 $content = apply_filters('the_content', $page_data->post_content); // Get Content and retain Wordpress filters such as paragraph tags. Origin from: http://wordpress.org/support/topic/get_pagepost-and-no-paragraphs-problem
 $title = $page_data->post_title; // Get title
-echo '<div style="width:960px; margin:0 auto;"><div>
-<div>
-<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
-</div>
-<p><img class="alignleft size-full wp-image-56" title="Best 2 Best Network" src="wp-content/uploads/2012/01/network.jpg" alt="Best 2 Best Network" width="225" height="224">Best2best &egrave; la novit&agrave; nel mondo del B2B per il settore turismo.</p>
-<p>Grazie a Best2best infatti, le aziende dell&amp;Alto Adige avranno a disposizione uno strumento valido per incrementare le efficienze delle proprie relazioni d&apos;affari ed approfittare delle occasioni che le aziende vorranno mettere loro a disposizione online.</p>
-<p>Con Best2Best.it, l&apos;azienda potr&agrave; individuare il partner commerciale che meglio si addice alle caratteristiche ricercate e condividere la propria esperienza con la propria community.</p>
-<p>&nbsp;</p>
-<p>Recensioni ed opinioni possono essere indicate con diverso livello di profondit&agrave;, garantendo cos&igrave; a chi ricerca un fornitore la migliore esperienza possibile. <a href="about">...continua</a> oppure <a href="registrati">...registrati!</a></p></div></div><hr />'; // Output Content
+	echo '<div style="width:960px; margin:0 auto;"><div>
+	<div>
+	<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
+	</div>
+	<p><img class="alignleft size-full wp-image-56" title="Best 2 Best Network" src="wp-content/uploads/2012/01/network.jpg" alt="Best 2 Best Network" width="225" height="224">Best2best &egrave; la novit&agrave; nel mondo del B2B per il settore turismo.</p>
+	<p>Grazie a Best2best infatti, le aziende dell&apos;Alto Adige avranno a disposizione uno strumento valido per incrementare le efficienze delle proprie relazioni d&apos;affari ed approfittare delle occasioni che le aziende vorranno mettere loro a disposizione online.</p>
+	<p>Con Best2Best.it, l&apos;azienda potr&agrave; individuare il partner commerciale che meglio si addice alle caratteristiche ricercate e condividere la propria esperienza con la propria community.</p>
+	<p>&nbsp;</p>
+	<p>Recensioni ed opinioni possono essere indicate con diverso livello di profondit&agrave;, garantendo cos&igrave; a chi ricerca un fornitore la migliore esperienza possibile. <a href="about">...continua</a> oppure <a href="registrati">...registrati!</a></p></div></div><hr />'; // Output Content
+	 	
+	//nasconde la searchbar  e la nav bar
+	echo "<style>#search-form{display: none;} </style>";
+
  }
 }
 
@@ -165,23 +177,21 @@ function prova() {
 }
 add_action('bp_after_activity_post_form', 'echo_commercial');
 function echo_commercial() {
-	echo "Il network utile per i tuoi contatti commerciali";
+	echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
 }
 add_action('wp_before_admin_bar_render', 'menu_fix'); 
 function menu_fix() {
 	global $wp_admin_bar;
-	echo "<!-- gbp ";
-// 	print_r($wp_admin_bar);
-	
-	
 	$dashboard= $wp_admin_bar->get_node('site-name');
-	
 	$dashboard->href="/about/";
-	print_r($dashboard);
 	$wp_admin_bar->add_node($dashboard);
-	print_r($wp_admin_bar->get_node('dashboard'));
-	
-	echo "-->";
 	return true;
 }
+add_action("wp_footer", "hide_menu_non_logged");
+function hide_menu_non_logged(){
+	if(is_user_logged_in()) {
+		echo "<style>div.nav-wrap{display: none;}</style>";
+	}	
+}
+
 ?>
