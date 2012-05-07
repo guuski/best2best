@@ -171,6 +171,8 @@ function add_css()																						//---usa il metodo add_JS
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------------
 add_action( 'wp_head' , 'add_js_review');					
 
 function add_js_review ()
@@ -195,7 +197,7 @@ function add_js_review ()
 
 
 
-
+//--------------------------------------------------------------------------------------------------------------//--------------------------------------------------------------------------------------------------------------
 //add_action( 'bp_before_comments', 'show_comments',1);
 
 function show_comments() 
@@ -219,5 +221,73 @@ function show_comments()
 	}
 }
 
+//--------------------------------------------------------------------------------------------------------------//--------------------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------------------------------------//--------------------------------------------------------------------------------------------------------------//--------------------------------------------------------------------------------------------------------------
+add_action( 'show_user_profile', 'my_show_extra_profile_fields' );
+add_action( 'edit_user_profile', 'my_show_extra_profile_fields' );
+
+function my_show_extra_profile_fields( $user ) { 
+
+	//$num_review_ricevute = get_post_meta( $user->ID, 'num_review_ricevute', true );
+	//$media_voto_review 	 = get_post_meta( $user->ID, 'media_voto_review', true );	
+?>
+
+	<h3>Extra profile information</h3>
+	
+	
+
+	<table class="form-table">
+
+		<tr>
+			<th><label for="num_review_ricevute"> NUM Review Ricevute</label></th>
+
+			<td>
+				<input type="text" name="num_review_ricevute" id="num_review_ricevute" value="<?php echo esc_attr( get_the_author_meta( 'num_review_ricevute', $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description">inserisci num_review_ricevute</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<th><label for="media_voto_review">Media Voto Review</label></th>
+
+			<td>
+				<input type="text" name="media_voto_review" id="media_voto_review" value="<?php echo esc_attr( get_the_author_meta( 'media_voto_review', $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description">inserisci Media Voto Review</span>
+			</td>
+		</tr>
+		
+
+
+	</table>
+<?php }
+
+
+?>
+
+<?php
+add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
+
+function my_save_extra_profile_fields( $user_id ) {
+
+	if ( !current_user_can( 'edit_user', $user_id ) )
+		return false;
+
+		
+	if ( isset( $_POST['media_voto_review'] ) ) 		
+		update_usermeta( $user_id, 'media_voto_review', strip_tags($_POST['media_voto_review']));		//striptags
+		
+	if ( isset( $_POST['num_review_ricevute'] ) ) 		
+		update_usermeta( $user_id, 'num_review_ricevute', strip_tags($_POST['num_review_ricevute']));		//striptags
+}
+
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------
+
+//add_action( 'bp_review_data_after_save', $this );
 ?>

@@ -106,10 +106,18 @@ function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $g
 		//
 		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
 		
+	
+		//$num_reviews = get_user_meta( $to_user_id, 'reviews', true );
+		//$num_reviews = $existing_reviews;
+		//$content = count(serialize($existing_reviews));
+		//$content = count($num_reviews);
+		//echo count($existing_reviews);
+		
 		//
 		$review->save($title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti);																	
 		// [C] Rating
-	}
+				
+	}//chiude l'IF
 	
 	//-------------------- 2 parte ---------------------------------------------------------------------------
 
