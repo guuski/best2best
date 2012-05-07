@@ -259,7 +259,7 @@ class commentReview_Widget extends WP_Widget
 				function cR_labeloff(t)
 				{
 					t.style.color = '#000';
-					t.style.background ='#0a76b7' ;
+					t.style.background ='transparent' ;
 					t.style.cursor = 'default';
 				}	
 			//-->
@@ -268,8 +268,8 @@ class commentReview_Widget extends WP_Widget
 			<style type='text/css'>
 				.cR_box{
 					position:relative;
-					background-color:#0a76b7;
-					border:2px solid #ffffff;
+					background-color:transparent;
+					border:1px solid #ffffff;
 					font-weight:bold;
 					color:#000;
 					margin-bottom:5px;
@@ -277,11 +277,11 @@ class commentReview_Widget extends WP_Widget
 				}
 			
 				.cR_labelhidden{
-					color:#fff;
+					color:#343434;
 				}
 				
 				.cR_labelprev{
-					color:#fff;
+					color:#343434;
 					
 				}
 				
