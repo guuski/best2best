@@ -45,11 +45,13 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 		
 		$fullname=$bp->loggedin_user->fullname;
 		
-		$user = $bp->displayed_user->id;
+		$user_disp = $bp->displayed_user->id;
 		
-		if ($user!=0) {
+		$user_attivo = $user_ID;
+		
+		if ($user_disp!=0) {
 			
-			$user_ID=$user;
+			$user_attivo=$user_disp;
 			
 			$fullname=bp_get_displayed_user_fullname();
 		}
@@ -58,7 +60,7 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 		
 		extract($args);
 		
-		if ($user_ID==0) {
+		if ($user_attivo==0) {
 			
 			echo $before_title . $title . $after_title.'<div class="avatar-block">';
 			//visualizzo 8 utenti (amici dell'amministatore)
@@ -78,7 +80,7 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 			}
 		else
 		{
-			$user_info = get_userdata($user_ID);
+			$user_info = get_userdata($user_attivo);
 		
 			$user_type=$this->get_type($user_info->ID);
 		
@@ -105,7 +107,7 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 				echo $before_title . $title . $after_title.'<div class="avatar-block">';
 
 		
-				$listfriend = friends_get_friend_user_ids($user_ID);
+				$listfriend = friends_get_friend_user_ids($user_attivo);
 			
 				foreach ($listfriend as $k => $v){
 					$attivo = get_userdata($v);		

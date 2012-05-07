@@ -159,6 +159,7 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		if ($user_ID==0) {
 			//non visualizzo nulla
+			
 			}
 		else
 		{
