@@ -140,6 +140,8 @@ class commentReview_Widget extends WP_Widget
 				
 		$cR_idReview = array();
 		
+		$cR_titleReview = array();
+		
 		if ( $loop->have_posts() ) :
 		
 		
@@ -147,7 +149,8 @@ class commentReview_Widget extends WP_Widget
 			
 				$loop->the_post();
 				
-				$cR_idReview[$loop->post->ID]=$loop->post->ID;
+				$cR_idReview[$loop->post->ID]	=$loop->post->ID;
+				$cR_titleReview[$loop->post->ID]=$loop->post->post_title;
 				
 /*#*/			//echo 'ID: '.$loop->post->ID.' POST_TYPE: '.$loop->post->post_type.'<br />';
 				
@@ -174,29 +177,18 @@ class commentReview_Widget extends WP_Widget
 											"</a>"													.
 											" su "													.
 											"<a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
-												substr($comment->comment_content, 0, $lunghezza)	.
-												" [...] "											.
-											"</a>"													.
-											"<br />"
+												$cR_titleReview[$comment->comment_post_ID] 		.										
+												"<br />"											.
+											"</a>"													
 											);
 											
-						/* *>
+?>
+
 						<div class='cR_box'
 								onmouseover='cR_labelon(this)' 
 								onmouseout='cR_labeloff(this)'
 								onclick='cR_open("cR_labelhidden<?php echo $numero;?>","cR_labelprev<?php echo $numero;?>")'>
 								
-								<label id='cR_label<?php echo $numero;?>' class="cR_label" value='chiuso' >	
-									<?php
-										//==============================
-										echo ( 
-											//$comment->comment_post_ID. ' )  ' .
-											//$comment->comment_date_gmt . '<br />' . 
-											$comment->comment_author ."<br />"
-											);
-										//==============================
-									?>		
-								</label>
 								<label id='cR_labelprev<?php echo $numero;?>' class='cR_labelprev'>
 									<?php
 										//======================================
@@ -217,8 +209,7 @@ class commentReview_Widget extends WP_Widget
 								</label>
 							
 						</div>
-						<?php */
-									?>
+					
 
 
 							
