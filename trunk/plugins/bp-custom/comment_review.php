@@ -122,7 +122,7 @@ class commentReview_Widget extends WP_Widget
 			'post_status'		=> 'publish',	
 			'post_type'			=> 'review'	,
 			'orderby' 			=> 'date',
-		 	'order'				=> 'ASC'		
+		 	'order'				=> 'DESC'		
 		);
 		
 		$comment_args = array(
@@ -152,7 +152,7 @@ class commentReview_Widget extends WP_Widget
 				$cR_idReview[$loop->post->ID]	=$loop->post->ID;
 				$cR_titleReview[$loop->post->ID]=$loop->post->post_title;
 				
-/*#*/			//echo 'ID: '.$loop->post->ID.' POST_TYPE: '.$loop->post->post_type.'<br />';
+/*#*/			//echo 'ID: '.$loop->post->ID. ' POST_date: '.$loop->post->post_date."<br />";
 				
 			endwhile;
 			
