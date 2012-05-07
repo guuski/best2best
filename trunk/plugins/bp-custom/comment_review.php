@@ -168,7 +168,7 @@ class commentReview_Widget extends WP_Widget
 //======================================================================						
 ?>
 
-
+<div>
 									<?php
 										//echo "<!-- gbp "; print_r($comment); echo " -->";
 										echo ( 
@@ -184,7 +184,7 @@ class commentReview_Widget extends WP_Widget
 											
 ?>
 
-						<div class='cR_box'
+						<span class='cR_box'
 								onmouseover='cR_labelon(this)' 
 								onmouseout='cR_labeloff(this)'
 								onclick='cR_open("cR_labelhidden<?php echo $numero;?>","cR_labelprev<?php echo $numero;?>")'>
@@ -193,7 +193,7 @@ class commentReview_Widget extends WP_Widget
 									<?php
 										//======================================
 										echo (
-										"visualizza ..."
+										"Vedi ..."
 											
 											); 
 										//======================================
@@ -209,9 +209,9 @@ class commentReview_Widget extends WP_Widget
 										?>
 								</label>
 							
-						</div>
+						</span>
 					
-
+</div>
 
 							
 <?php
@@ -234,20 +234,9 @@ class commentReview_Widget extends WP_Widget
 
 				function cR_open(labelhidden, labelprev)
 				{
-					if (jQuery('label#'+labelhidden).val()=="aperto") 
-					{
-						jQuery('label#'+labelhidden).hide("slow");	
-						jQuery('label#'+labelhidden).val("chiuso");
-				
-						jQuery('label#'+labelprev).show();
-					}
-					else
-					{
-						jQuery('label#'+labelhidden).val("aperto");
-						jQuery('label#'+labelhidden).show("slow");
-						
-						jQuery('label#'+labelprev).hide();	
-					}
+					jQuery('label#'+labelhidden).fadeToggle("fast");
+					jQuery('label#'+labelprev).toggle();
+					
 				}
 				
 				function cR_labelon(t)
@@ -268,7 +257,7 @@ class commentReview_Widget extends WP_Widget
 
 			<style type='text/css'>
 				.cR_box{
-					float:right;
+					
 					background-color:transparent;
 					
 					font-weight:bold;
