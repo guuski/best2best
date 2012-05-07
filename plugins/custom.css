@@ -48,7 +48,7 @@ background: linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%);
 {
 	display:block;
 	width:520px;
-	height:98px;
+	height:120px;
 	background:url(images/Best2Best2H.png) no-repeat scroll left top transparent;
 	text-indent: -9999px;
 	padding-top: 0em;
@@ -93,7 +93,39 @@ div.item-list-tabs ul li:hover {
 #sidebar-squeeze div#sidebar h3.widgettitle {
 	margin: 15px -19px 10px -18px;
 }
+
 a.logout {
 	height: 20px;
 	display: inline-block;
 }
+
+div.commercial {
+	font-size: 18px;
+	font-family: helvetica, arial, sans-serif;
+	margin: 20px 0 0 0;
+	text-shadow: 2px 2px 2px white;
+	text-align: center;
+}
+
+div.generic-button a.remove {
+	font-size: 12px;
+	padding: 5px;
+	
+}
+div.activity-meta a.fav {display: none;}
+div.activity-meta a.delete-activity,div.acomment-options a.acomment-delete { 
+	float: right; margin-right: 10px; position:relative; top: -25px; background: #FFF9DB;
+	border-bottom: none;
+	color: #FFA200;
+	border: none;
+	padding: 2px;
+	line-height: 10px;
+}
+div.activity-meta a.delete-activity:hover {
+	background: #F91616;
+	color: white;
+	border: none;
+}
+.acomment-options {float: none;}
+
+#search-form{display: none;}
