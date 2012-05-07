@@ -126,48 +126,25 @@
 <!-- FORM per COMMENTI -->
 
 <?php
-
+comments_template();
 if ( !empty( $bp->loggedin_user->id ) ) 
 {
-		//L' UTENTE è LOGGATO!
-				
+		
 		$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
-	
+		//L' UTENTE ï¿½ LOGGATO!
 		if(
 				bp_loggedin_user_id() == $post->post_author 
 			||  bp_loggedin_user_id() == $destinatario_review_id
 		)  
 		{
-			comments_template();
+// 			comments_template();
 		}		
 		else 
 		{
-			//echo ' <div id = "respond" style = "display: none"> </div>';		
-			global $wp_query;
-			
-			$args = array
-			(
-					'post_id'	 => get_the_ID()
-				,	'status'  	 => 'approved'
-//				,	'style'		 => 'div'
-//				,	'reply_text' => 'ciaodssfsd'
-//				,   'number' => '5'		
-			);
-
-			$wp_query->comments = get_comments( $args);	
-						
-			?>
-			<!-- <div class="commentlist">-->
-			<?php wp_list_comments(); ?>								
-			<!-- </div>-->
-			<?php			
+			echo "<style>div.comment-options{display:none} div#respond{display:none}</style>";
 		}//chiude ELSE
 }
-else 
-{
-	//UTENTE NON LOGGATO	
-	comments_template();
-}	
+
 
 ?>		
 	
