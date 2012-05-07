@@ -178,7 +178,7 @@ class commentReview_Widget extends WP_Widget
 											" su <br />"											.
 											"<a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
 												$cR_titleReview[$comment->comment_post_ID] 		.										
-												"<br />"											.
+																						
 											"</a>"													
 											);
 											
@@ -193,7 +193,8 @@ class commentReview_Widget extends WP_Widget
 									<?php
 										//======================================
 										echo (
-											substr($comment->comment_content, 0, $lunghezza)." [...]"
+										"visualizza ..."
+											
 											); 
 										//======================================
 										?>
@@ -267,13 +268,13 @@ class commentReview_Widget extends WP_Widget
 
 			<style type='text/css'>
 				.cR_box{
-					position:relative;
+					float:right;
 					background-color:transparent;
-					border:1px solid #ffffff;
+					
 					font-weight:bold;
 					color:#000;
-					margin-bottom:5px;
-					padding:4px;
+					
+					
 				}
 			
 				.cR_labelhidden{
