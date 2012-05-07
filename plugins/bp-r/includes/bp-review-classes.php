@@ -132,8 +132,8 @@ class Review
 		$voto_puntualita	= $voti['puntualita'];
 		$voto_affidabilita	= $voti['affidabilita'];
 		
-		//DO ACTION
-		do_action( 'bp_review_data_before_save', $this );
+//DO ACTION
+do_action( 'bp_review_data_before_save', $this );
 
 		if ( $this->id ) 			
 		{					
@@ -164,6 +164,7 @@ class Review
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
 				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
+							
 			}
 		} 
 		else 
@@ -193,11 +194,63 @@ class Review
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
 				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
+				
 			}
-		}
+			
+		////////////////////////////////////////
+
 		
-		//DO ACTION
-		do_action( 'bp_review_data_after_save', $this );
+		
+		////////////////////////////////////////	
+						
+		}//chiude l' IF
+		
+		
+	
+	////////////////////////////////////////
+	
+	//-------------------calcola Media RATING
+	$media_voti_rating = ($voto_prezzo + $voto_servizio + $voto_qualita + $voto_puntualita + $voto_affidabilita) / 5;	
+	
+	
+	//recipient_id
+	//$this->recipient_id 	
+	
+	//$user_id = $this->recipient_id;
+	$user_id = get_post_meta( $result, 'bp_review_recipient_id', true );		
+	
+					
+	$num_review_ricevute = get_user_meta( $user_id , 'num_review_ricevute', true );
+	$media_voto_review   = get_user_meta( $user_id , 'media_voto_review', true );
+					
+	//-------------------aggiorna MEDIA
+	
+	//è la prima volta?
+	if(	$num_review_ricevute == 0) 
+	{	
+		$media_voto_review = $media_voti_rating;
+	}
+	else 
+	{
+	
+		$media_voto_review = $media_voti_rating;
+	/*
+		for( $i=0; $i< $num_review_ricevute; $i++) {
+			$media_voto_review = 
+		}
+	*/
+	}
+
+	//
+	$num_review_ricevute = $num_review_ricevute + 1;	
+	
+	update_usermeta( $user_id, 'num_review_ricevute', $num_review_ricevute );		
+	update_usermeta( $user_id, 'media_voto_review'	, $media_voto_review   );		
+	////////////////////////////////////////		
+		
+		
+//DO ACTION
+do_action( 'bp_review_data_after_save', $this );
 
 		return $result;
 	}
