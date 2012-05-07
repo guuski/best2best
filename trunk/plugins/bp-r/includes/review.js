@@ -356,3 +356,21 @@ function form_submit()
 	}
 */	
 
+
+jQuery(document).ready(function() {
+
+
+//var display = jQuery("#respond").css("display", "none")
+
+//var display2 = jQuery("reply").css("display", "none")
+
+//var display3 = jQuery("comment-reply-link").css("display", "none")
+
+//var display4 = jQuery("comment-options").css("display", "none")
+
+});
+
+jQuery('#respond').focus( function(){
+	//jQuery('#respond')//.animate({height:'200px'});
+});
+

@@ -376,7 +376,3 @@ fieldset
 {
 	display: none;
 }
-/* correzione altezza datepicker */
-.ui-datepicker td span, .ui-datepicker td a {
-	padding: 0px 2px;
-}
