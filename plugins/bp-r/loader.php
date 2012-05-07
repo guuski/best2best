@@ -192,4 +192,32 @@ function add_js_review ()
 	//wp_enqueue_script('jquery-ui-datepicker', plugin_dir_url (__FILE__).'/includes/jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
 		
 }  
+
+
+
+
+//add_action( 'bp_before_comments', 'show_comments',1);
+
+function show_comments() 
+{
+
+	$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
+
+	if(
+			bp_loggedin_user_id() == $post->post_author 
+		||  bp_loggedin_user_id() == $destinatario_review_id
+	)  
+	{
+		echo 'COMMENTI version 1';
+		comments_template();
+	}		
+	else 
+	{
+		echo 'COMMENTI version 2';
+		comments_template();
+		echo '<div id="respond" style = "display: none" > <div>';
+	}
+}
+
+
 ?>
