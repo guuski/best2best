@@ -152,7 +152,6 @@ class commentReview_Widget extends WP_Widget
 				$cR_idReview[$loop->post->ID]	=$loop->post->ID;
 				$cR_titleReview[$loop->post->ID]=$loop->post->post_title;
 				
-/*#*/			//echo 'ID: '.$loop->post->ID. ' POST_date: '.$loop->post->post_date."<br />";
 				
 			endwhile;
 			
@@ -168,9 +167,7 @@ class commentReview_Widget extends WP_Widget
 //======================================================================						
 ?>
 
-<div>
-									<?php
-										//echo "<!-- gbp "; print_r($comment); echo " -->";
+<div style="border-bottom: 1px solid #FFF;"><?php
 										echo ( 
 											"<a href='".bp_core_get_user_domain( $comment->user_id )."'>"									.
 												$comment->comment_author							.
@@ -179,7 +176,7 @@ class commentReview_Widget extends WP_Widget
 											"<a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
 												$cR_titleReview[$comment->comment_post_ID] 		.										
 																						
-											"</a>"													
+											": </a>"													
 											);
 											
 ?>
@@ -188,27 +185,27 @@ class commentReview_Widget extends WP_Widget
 								onmouseover='cR_labelon(this)' 
 								onmouseout='cR_labeloff(this)'
 								onclick='cR_open("cR_labelhidden<?php echo $numero;?>","cR_labelprev<?php echo $numero;?>")'>
-								
-								<label id='cR_labelprev<?php echo $numero;?>' class='cR_labelprev'>
-									<?php
+								<?php if($lunghezza<=strlen($comment->comment_content)) :?>
+								<label id='cR_labelprev<?php echo $numero;?>' class='cR_labelprev'><?php
 										//======================================
-										echo (
-										"Vedi ..."
-											
-											); 
+										
+										echo ("\"".substr($comment->comment_content,0,$lunghezza)."...\""); 
 										//======================================
-										?>
-								</label>
-								<label id='cR_labelhidden<?php echo $numero;?>' class='cR_labelhidden'  style='display:none;'>
-									<?php
+										
+							?></label>
+							<label id='cR_labelhidden<?php echo $numero;?>' class='cR_labelhidden'  style='display:none;'><?php
 										//======================================
-										echo (
-											$comment->comment_content
-											); 
+										echo ("\"".$comment->comment_content."\""); 
 										//======================================
-										?>
-								</label>
-							
+										
+								?></label>
+							<?php else: ?><label class='cR_labelprev' ><?php
+										//======================================
+										echo ("\"".$comment->comment_content."\""); 
+										//======================================
+										
+								?></label>
+							<?php endif; ?>
 						</span>
 					
 </div>
