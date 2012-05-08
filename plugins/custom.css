@@ -47,7 +47,7 @@ background: linear-gradient(top, #EAEAEA 0%,#EAEAEA 15%,#D2D3D4 100%);
 #logo a
 {
 	display:block;
-	width:520px;
+	width:270px;
 	height:120px;
 	background:url(images/Best2Best2H.png) no-repeat scroll left top transparent;
 	text-indent: -9999px;
@@ -128,4 +128,54 @@ div.activity-meta a.delete-activity:hover {
 }
 .acomment-options {float: none;}
 
-#search-form{display: none;}
+/* #search-form{display: none;} */
+
+.mh_struttura{
+
+	height:35px;
+	margin-top: 25px;
+	width: 688px;
+	float:right;
+}
+
+.mh_contenitore{
+	position:relative;
+	height:30px;
+	
+}
+.mh_link{
+	float: left;
+	width: 135px;
+	height: 30px;
+	margin-left: 10px;
+	text-align: left !important;
+	vertical-align: middle;
+	
+}
+.mh_separatore{
+	position:relative;
+	height:50px;
+	weight:100%;
+}
+
+.mh_big {
+	padding-left: 50px !important; 
+	line-height: 30px !important;
+	height: 30px;
+	display: inline-block;
+	text-shadow: 2px 2px 1px white;
+}
+.mh_messaggi_big {
+	background: url(images/Communicate32.png) left center no-repeat !important;
+}
+.mh_attivita_big {
+	background: url(images/Refresh32.png) left center no-repeat !important;
+}
+.mh_review_big {
+	color: green !important;
+	background: url(images/File_info32.png) left center no-repeat !important;
+}
+.mh_offerte_big {
+	color: red !important;
+	background: url(images/Shoppingcart32.png) left center no-repeat !important;
+}

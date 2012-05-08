@@ -71,10 +71,10 @@ get_header();
 						<!-- <a href="<?php echo bp_core_get_user_domain($attivo->user_login).$attivo->user_login.DS ?>review" class="mh_link button"><span class="mh_messaggi_big mh_big">Recensioni</span></a>
 							 -->
 						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big">Recensioni</span></a>
-						<a href="#" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
+						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
 					</div>	
 				</div>
-	
+		<script>function alert_offerte(){window.alert("Manca poco, stiamo implementando una nuova funzionalita' che vi permettera' di realizzare una vetrina dei vostri prodotti e servizi. \n\nContinuate a sostenerci. \n - Lo staff.")};</script>
 <?php 
 
 
@@ -92,7 +92,7 @@ get_header();
 
 							<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 							
-							<?php edit_post_link( __( 'Edit this page.', 'buddypress' ), '<p class="edit-link">', '</p>'); ?>
+							<?php //edit_post_link( __( 'Edit this page.', 'buddypress' ), '<p class="edit-link">', '</p>'); ?>
 
 						</div>
 
@@ -106,7 +106,7 @@ get_header();
 			endif;
 //======================================================================
 ?>
-				<div style="width:100%; margin:0 auto;">
+				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
 					<div>
 						<div>
 							<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
