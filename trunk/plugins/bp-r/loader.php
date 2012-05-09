@@ -280,8 +280,16 @@ function my_save_extra_profile_fields( $user_id ) {
 }
 
 
-
-
+add_action( 'bp_before_member_header_meta'	, 'show_points',1);
+function show_points() {
+	$points=get_the_author_meta('media_voto_review',bp_displayed_user_id());
+	if($points!='') {?>
+		<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
+		<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
+			<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li></ul>
+		</div>	</div>
+<?php }
+}
 
 
 //--------------------------------------------------------------------------------------------------------------

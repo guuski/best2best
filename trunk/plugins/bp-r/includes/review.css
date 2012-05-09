@@ -180,11 +180,17 @@ div.add-reviews:active{
 
 
 /* -------------------- RATING ------------------------------ */
+#new-review-rating {
+	background-color: white;
+	width: 290px;
+	margin: 5px 0 0px 0;
+}
 
 form#review-form #new-review-rating
 {	
 	margin-left:	0px;
-	margin-top: 	20px;
+	margin-top: 	10px;
+	margin-bottom: 	10px;
 }
 
 #review-rating 
