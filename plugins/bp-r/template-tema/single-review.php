@@ -13,35 +13,37 @@
 <!-- POST -->			
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-
-
 <!-- DESTINATARIO Review BOX -->			
-<div class="author-box"> <!-- continua a chiamarsi AUTHOR BOX! -->
-	<?php $destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
-	<?php $nome = xprofile_get_field_data( "Nome" , $destinatario_review_id);?>					
-	<?php //echo $destinatario_review_id ?>
-	<?php echo get_avatar( $destinatario_review_id  , '70' ); ?>		
-	<p>	<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?></p>		
+<div class="author-box"> 														<!-- NOTA BENE: continua a chiamarsi AUTHOR BOX! -->
+	
+	<?php
+		$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); 
+		$nome = xprofile_get_field_data( "Nome" , $destinatario_review_id);
+	?>					
+		
+	<?php echo get_avatar( $destinatario_review_id  , '70' ); //echo $destinatario_review_id  ?>		
+	<p>	
+		<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
+	</p>		
+	
 </div> <!-- fine BOX -->		
-
 
 <!----------------------------------- CONTENUTO Post----------------------->
 <div class="post-content">
 
 <!------ AUTORE Review BOX -------->					
-<small style = "float: right;"> 
-	<strong>	
-		<?php $authorlogin= get_the_author_meta('user_login')?>
-		<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
-		<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
-		
-		<?php _e('Autore: ');?> 
-		<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin ?>">
-			<?php //the_author_meta('user_nicename');?>
-			<?php echo $nome; ?>	
-		</a>
-	</strong>
-</small> <!-- fine BOX -->									
+<small style = "float: right;"> <strong>	
+	<?php
+		$authorlogin= get_the_author_meta('user_login');
+		$autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); 
+		$nome = xprofile_get_field_data( "Nome" , $autore_review_id);
+	?>	
+	
+	<?php _e('Autore: ');?> 
+	<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin ?>">		
+		<?php echo $nome; //the_author_meta('user_nicename');?>
+	</a>
+</strong> </small> <!-- fine BOX -->									
 						
 <!-- -->						
 <h2 class="posttitle"><?php the_title(); ?>	</h2>
@@ -57,38 +59,59 @@
 	</div>
 	
 	<?php 	
-		$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
-		$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
-		$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
-		$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
-		$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );		
-		$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
-		$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
-		$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
-	?>
+	
+		$prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
+		$servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );
+		$qualita 			= get_post_meta( $post->ID, 'voto_qualita', true );
+		$puntualita 		= get_post_meta( $post->ID, 'voto_puntualita', true );
+		$affidabilita 		= get_post_meta( $post->ID, 'voto_affidabilita', true );		
+		$giudizio_review	= get_post_meta( $post->ID, 'giudizio_review', true );
+		$data_rapporto 		= get_post_meta( $post->ID, 'data_rapporto', true );
+		$tipologia_rapporto = get_post_meta( $post->ID, 'tipologia_rapporto', true );
+		
+		
+	
+		$giudizio_review = '';
+		$color = '';
+		
+		if($giudizio_review == 'positivo')  			
+		{
+			$color = 'green';
+		}
+		
+		if($giudizio_review == 'neutro')  
+		{
+			$color = 'orange';
+		}
+		
+		if($giudizio_review == 'negativo')  
+		{
+			$color = 'red';
+		}
+		
+		$points = get_the_author_meta('media_voto_review',bp_displayed_user_id());
+		
+		if($points != '') 
+		{
+		?>
+			<br/>
+			
+			<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
+				<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
+					<ul id="prezzo" class='star-rating'>	
+						<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li>
+					</ul>
+				</div>	
+			</div>
+			
+			<br/> 
+		<?php 
+		}
+		?>
 
 	<br/>
 			
 	<div>
-		<?php 			
-			$giudizio_review = '';
-			$color = '';
-			
-			if($giudizio_review == 'positivo')  			
-			{
-				$color = 'green';
-			}
-			
-			if($giudizio_review == 'neutro')  
-			{
-				$color = 'orange';
-			}
-			
-			if($giudizio_review == 'negativo')  
-			{
-				$color = 'red';
-			}
-		?>					
 		<p>
 			<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
 			<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
@@ -120,39 +143,43 @@
 <br/> 
 <br/>
 
-<!-- DO_ACTION --->
-<?php do_action( 'bp_before_comments' ) ?>	
 
-<!-- FORM per COMMENTI -->
+<!----------------- FORM per COMMENTI ------------------------->
+
+
+<!-- DO_ACTION --->
+<?php do_action( 'bp_before_comments' ) ?>
 
 <?php
+
 comments_template();
+
 if ( !empty( $bp->loggedin_user->id ) ) 
 {
 		
-		$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
-		//L' UTENTE � LOGGATO!
-		if(
-				bp_loggedin_user_id() == $post->post_author 
-			||  bp_loggedin_user_id() == $destinatario_review_id
-		)  
-		{
-// 			comments_template();
-		}		
-		else 
-		{
-			echo "<style>div.comment-options{display:none} div#respond{display:none}</style>";
-		}//chiude ELSE
+	$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
+	//L' UTENTE � LOGGATO!
+	if(
+			bp_loggedin_user_id() == $post->post_author 
+		||  bp_loggedin_user_id() == $destinatario_review_id
+	)  
+	{
+		//comments_template();
+	}		
+	else 
+	{
+		echo "<style>div.comment-options{display:none} div#respond{display:none}</style>";
+	}//chiude ELSE
 }
 
-
 ?>		
+
+<!-- DO_ACTION --->
+<?php do_action( 'bp_after_comments' ) ?>
 	
 <!-- fine FORM per COMMENTI -->			
 
-	<!-- DO_ACTION --->
-	<?php do_action( 'bp_after_comments' ) ?>
-				
+					
 	<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
 
 	<div class="alignleft"><?php //previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'buddypress' ) . '</span> %title' ); ?></div>
@@ -163,7 +190,9 @@ if ( !empty( $bp->loggedin_user->id ) )
 </div>
 
 <?php endwhile; else: ?>
-	<p><?php _e( 'Sorry, no posts matched your criteria.', 'buddypress' ) ?></p>
+
+	<p><?php _e( 'Sorry, no posts matched your criteria.', 'buddypress' ) ?></p>						<!-- LOCALIZATION! -->
+	
 <?php endif; ?>
 		
 </div> <!-- page -->
