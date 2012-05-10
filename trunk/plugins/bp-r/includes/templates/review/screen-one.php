@@ -38,9 +38,6 @@
 		</ul>
 	</div>
 
-
-	
-	
 	
 <!----------------------------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->	
 
@@ -99,27 +96,18 @@
 			<br/> 
 			
 			
-			<!--CUSTOM FIELDS-->
-<div>								
-				<?php 	
-					$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
-					$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
-					$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
-					$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
-					$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
-					
-					
-		//---------------------------------------------------------------------------------------
-					
-					$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
-					$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
-					$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
-															
-				?>
+		<!--CUSTOM FIELDS-->
+		<div>								
+			<?php 	
+				$prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
+				$servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );
+				$qualita 			= get_post_meta( $post->ID, 'voto_qualita', true );
+				$puntualita 		= get_post_meta( $post->ID, 'voto_puntualita', true );
+				$affidabilita 		= get_post_meta( $post->ID, 'voto_affidabilita', true );				
+				$giudizio_review	= get_post_meta( $post->ID, 'giudizio_review', true );
+				$data_rapporto 		= get_post_meta( $post->ID, 'data_rapporto', true );
+				$tipologia_rapporto = get_post_meta( $post->ID, 'tipologia_rapporto', true );														
 				
-					
-		<div>
-			<?php 			
 				if($giudizio_review == 'positivo')  			
 				{
 					$color = 'green';
@@ -133,8 +121,25 @@
 				{
 					$color = 'red';
 				}
-			?>			
-			
+				
+				$points = get_the_author_meta('media_voto_review',bp_displayed_user_id());
+
+				if($points != '') 
+				{
+				?>										
+					<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
+						<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
+							<ul id="prezzo" class='star-rating'>	
+								<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li>
+							</ul>
+						</div>	
+					</div>
+					
+					<br/> <br/> 
+				<?php 
+				}
+				?>				
+		<div>
 			<p>
 				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
 				<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
@@ -142,8 +147,7 @@
 			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
 			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
 		</div>		
-		<!-------------------------------------------------------------------------------------->		
-		
+			
 		<br/> 		
 			
 		<div id="new-review-rating">	
@@ -173,7 +177,7 @@
 		</div>	<!-- fine sezione RATING -->
   																								
 																								
-				<!------------------------------------------------------------------------------------------------->					
+				
 </div>				
 			
 			<br/> 
@@ -184,22 +188,19 @@
 			<hr />
 			
 		<?php endwhile; ?>
-
 		
 	<?php else: ?>		
 		
-	
 		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>																	
 	
 	<?php endif; ?>
 	
-	
+	<!-- RESET -->
 	<?php wp_reset_postdata() ?>		
 			
 <?php else: ?>	
 	
 		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>	
-														
 
 <?php endif; ?>
 
