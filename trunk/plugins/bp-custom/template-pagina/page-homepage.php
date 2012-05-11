@@ -28,9 +28,10 @@ get_header();
 
 ?>
 
-	<style type="text/css">
-		
-	</style>
+<style type="text/css">
+	.fadein { position:relative; width:500px; height:332px; }
+	.fadein img { position:absolute; left:0; top:0; }
+</style>
 
 	
 	<div id="content">
@@ -41,6 +42,8 @@ get_header();
 		
 			if ( is_user_logged_in() ) : 
 				locate_template( array( 'activity/post-form.php'), true );
+			?><script>jQuery(document).ready(function(){jQuery("#aw-whats-new-submit").click(function(){location.href="attivita"; return true;});});</script>
+			<?php 
 			endif; 
 ?>
 <div class="page" id="blog-page" role="main">
@@ -106,7 +109,27 @@ get_header();
 			endif;
 //======================================================================
 ?>
-				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
+<?php 		
+			if (!is_user_logged_in() ) : 
+?>
+<div class="fadein">
+  <img src="<?php echo get_stylesheet_directory_uri() ?>/images/Best2Best1.png" width="696"/>
+  <img src="<?php echo get_stylesheet_directory_uri() ?>/images/Best2Best2.png" width="696"/>
+  <img src="<?php echo get_stylesheet_directory_uri() ?>/images/Best2Best3.png" width="696"/>
+</div>
+<script>jQuery(document).ready(function(){
+	
+	    jQuery('.fadein img:gt(0)').hide();
+	    setInterval(function(){
+	      jQuery('.fadein :first-child').fadeOut()
+	         .next('img').fadeIn()
+	         .end().appendTo('.fadein');}, 
+	      5000);
+});</script>
+<?php 
+			endif; 
+?>
+<!-- 				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
 					<div>
 						<div>
 							<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
@@ -127,7 +150,7 @@ get_header();
 						</p>
 					</div>
 				</div>
-					
+	 -->				
 
 		</div><!-- .page -->
 
