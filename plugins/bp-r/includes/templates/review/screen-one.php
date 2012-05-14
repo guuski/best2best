@@ -75,30 +75,7 @@
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-				
-			<div class="title">		
-			<?php $authorlogin= get_the_author_meta('user_login')?>
-				<small style = "float: right;"><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
-
-				<br /> 				
-				<?php  
-					the_title('<h4 class="pagetitle"> <a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a></h4>');
-				?>
-			</div>	
-			
-			<div class="entry">
-				<?php //the_content();  ?>	
-				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
-				<?php the_excerpt();  ?>	
-			</div>			
-			
-			
-			<br/> 
-			
-			
-		<!--CUSTOM FIELDS-->
-		<div>								
-			<?php 	
+				<?php 	
 				$prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
 				$servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );
 				$qualita 			= get_post_meta( $post->ID, 'voto_qualita', true );
@@ -107,7 +84,7 @@
 				$giudizio_review	= get_post_meta( $post->ID, 'giudizio_review', true );
 				$data_rapporto 		= get_post_meta( $post->ID, 'data_rapporto', true );
 				$tipologia_rapporto = get_post_meta( $post->ID, 'tipologia_rapporto', true );														
-				
+				$media= ($prezzo + $servizio + $qualita + $puntualita + $affidabilita) / 5;
 				if($giudizio_review == 'positivo')  			
 				{
 					$color = 'green';
@@ -122,23 +99,34 @@
 					$color = 'red';
 				}
 				
-				$points = get_the_author_meta('media_voto_review',bp_displayed_user_id());
+				
+				?>		
+			<div class="title">		
+			<?php $authorlogin= get_the_author_meta('user_login')?>
+				<small style = "float: right;"><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
 
-				if($points != '') 
-				{
-				?>										
-					<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
-						<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
-							<ul id="prezzo" class='star-rating'>	
-								<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li>
-							</ul>
-						</div>	
-					</div>
+				<br /> 				
+				<h4><?php  
+					the_title('<a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a>');
+				?><ul id="prezzo" class='star-rating'>	
+						<li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>
+					</ul></h4>
+				
+			</div>	
+			
+			<div class="entry">
+				<?php //the_content();  ?>	
+				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
+				<?php the_excerpt();  ?>	
+			</div>			
+			
+			
+			<br/> 
+			
+			
+		<!--CUSTOM FIELDS-->
+		<div>								
 					
-					<br/> <br/> 
-				<?php 
-				}
-				?>				
 		<div>
 			<p>
 				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
