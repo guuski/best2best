@@ -168,13 +168,13 @@ if(
 		, 	'order'				=> $asc_desc			//MET 2		
 	);
 
-	//è stato specificato ASC o DESC		
+	//ï¿½ stato specificato ASC o DESC		
 	if( $asc_desc =='ASC' ||  $asc_desc =='DESC' ) 
 	{
 		//$query_args['order'] = $asc_desc;			// MET 1 - non va! --> vd MET 2	sopra
 	}
 				
-	//è stato specificato....
+	//ï¿½ stato specificato....
 	if( $order_by =='voto_prezzo' || $order_by =='voto_servizio' 							 ) 
 	{					
 		$query_args['meta_key'] = $order_by;			
@@ -229,7 +229,7 @@ else
 					||  $author_type == 'Albergo/Ristorante' 
 					|| 	$author_type == 'amici_fornitori' 
 					|| 	$author_type == 'amici_alberghi_ristoranti'
-					//||  !$author_type_params_checked					//? è sicuro FALSE! togliere!
+					//||  !$author_type_params_checked					//? ï¿½ sicuro FALSE! togliere!
 				)
 				{			
 				
@@ -345,23 +345,29 @@ else
 		
 		<!-- DO-ACTION -->
 		<?php do_action( 'bp_before_blog_post' ) ?>			
-
+		
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>> 		
 		
-			<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies !-->
-
+			<?php 
+			//<!-- domain SBAGLIATO! -- correggere! ES: __( '%1$s <span>in %2$s</span>', 'buddypress' ) ----- sost buddypress con revies !-->
+			?>
 
 <!-- DESTINATARIO BOX -->			
 <div class="author-box"> <!-- continua a chiamarsi AUTHOR BOX! -->
 
-	<?php $destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
-	<?php $nome = xprofile_get_field_data( "Nome" , $destinatario_review_id);?>	
+	<?php 
+		$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); 
+		$points = get_the_author_meta('media_voto_review',$destinatario_review_id);
+	 	$nome = xprofile_get_field_data( "Nome" , $destinatario_review_id);
+	 ?>	
 			
 	<?php //echo $destinatario_review_id ?>
 	<?php echo get_avatar( $destinatario_review_id  , '70' ); ?>
 	
 	<p>		
 		<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
+		<br /><?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
+		<?php endif;?>
 	</p>
 	
 </div>
@@ -384,9 +390,27 @@ else
 		<?php echo $nome; ?>	
 	</a>
 </strong></small>
-
+<?php 						
+						$prezzo 		= get_post_meta( $post->ID, 'voto_prezzo', true );		
+						$servizio 		= get_post_meta( $post->ID, 'voto_servizio', true );
+						$qualita 		= get_post_meta( $post->ID, 'voto_qualita', true );
+						$puntualita		= get_post_meta( $post->ID, 'voto_puntualita', true );
+						$affidabilita	= get_post_meta( $post->ID, 'voto_affidabilita', true );
+						
+						$media= ($prezzo + $servizio + $qualita + $puntualita + $affidabilita) / 5;
+						
+	//---------------------------------------------------------------------------------------
+				
+				$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
+				$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
+				$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
+														
+			?>
 															
-				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+				<ul id="prezzo" class='star-rating'>	
+				<li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>			
+			</ul></h2>
 
 
 
@@ -402,22 +426,7 @@ else
 				
 				<!--CUSTOM FIELDS-->
 				<div>								
-					<?php 						
-						$prezzo 		= get_post_meta( $post->ID, 'voto_prezzo', true );		
-						$servizio 		= get_post_meta( $post->ID, 'voto_servizio', true );
-						$qualita 		= get_post_meta( $post->ID, 'voto_qualita', true );
-						$puntualita		= get_post_meta( $post->ID, 'voto_puntualita', true );
-						$affidabilita	= get_post_meta( $post->ID, 'voto_affidabilita', true );
-						
-						
-						
-	//---------------------------------------------------------------------------------------
-				
-				$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
-				$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
-				$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
-														
-			?>
+					
 			
 				
 	<div>

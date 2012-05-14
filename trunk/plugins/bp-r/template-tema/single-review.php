@@ -26,7 +26,7 @@
 	<?php echo get_avatar( $destinatario_review_id  , '70' ); //echo $destinatario_review_id  ?>		
 	<p>	
 		<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
-		<?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
+		<br /><?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
 		<?php endif;?>  
 	</p>		
 	
