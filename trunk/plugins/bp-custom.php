@@ -171,8 +171,14 @@ function prova() {
 	//echo "lista miei gruppi";
 }
 add_action('bp_after_activity_post_form', 'echo_commercial');
+add_action ( 'bp_after_header', 'echo_commercial_2', 0 );
 function echo_commercial() {
 	echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
+}
+function echo_commercial_2() {
+	if(!is_user_logged_in() && is_front_page() ) {
+		echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
+	}
 }
 add_action('wp_before_admin_bar_render', 'menu_fix'); 
 function menu_fix() {
@@ -196,6 +202,7 @@ function display_menu() {
 	global $bp;
 	$attivo = get_userdata($user_ID);
 	if(!is_front_page() && is_user_logged_in()) : ?>
+	
 <div class="mh_struttura">
 	<div class="mh_contenitore">
 		<a href="/attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
