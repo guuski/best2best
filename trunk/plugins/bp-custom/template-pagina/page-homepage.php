@@ -29,7 +29,7 @@ get_header();
 ?>
 
 <style type="text/css">
-	.fadein { position:relative; width:500px; height:332px; }
+	.fadein { position:relative; width:696px; height:270px; }
 	.fadein img { position:absolute; left:0; top:0; }
 </style>
 
@@ -65,14 +65,9 @@ get_header();
 					<div class="mh_contenitore">
 						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
 						<a href="<?php echo bp_core_get_user_domain($attivo->user_login).$attivo->user_login.DS ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
-				<!-- 	</div>
-					
+				 	</div>				
 					<div class="mh_separatore"></div>
-					
 					<div class="mh_contenitore">
-					 -->
-						<!-- <a href="<?php echo bp_core_get_user_domain($attivo->user_login).$attivo->user_login.DS ?>review" class="mh_link button"><span class="mh_messaggi_big mh_big">Recensioni</span></a>
-							 -->
 						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big">Recensioni</span></a>
 						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
 					</div>	
@@ -109,9 +104,7 @@ get_header();
 			endif;
 //======================================================================
 ?>
-<?php 		
-			if (!is_user_logged_in() ) : 
-?>
+
 <div class="fadein">
   <img src="<?php echo get_stylesheet_directory_uri() ?>/images/Best2Best1.png" width="696"/>
   <img src="<?php echo get_stylesheet_directory_uri() ?>/images/Best2Best2.png" width="696"/>
@@ -126,10 +119,11 @@ get_header();
 	         .end().appendTo('.fadein');}, 
 	      5000);
 });</script>
-<?php 
-			endif; 
+<?php 		
+			if (!is_user_logged_in() ) : 
 ?>
-<!-- 				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
+
+ 				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
 					<div>
 						<div>
 							<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
@@ -150,7 +144,9 @@ get_header();
 						</p>
 					</div>
 				</div>
-	 -->				
+<?php 
+			endif; 
+?>				
 
 		</div><!-- .page -->
 
