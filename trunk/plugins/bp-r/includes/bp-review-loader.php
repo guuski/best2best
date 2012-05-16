@@ -128,13 +128,13 @@ class BP_Review_Component extends BP_Component {
 		$includes = array(
 			'includes/bp-review-actions.php',
 			'includes/bp-review-screens.php',
-			'includes/bp-review-filters.php',
+//			'includes/bp-review-filters.php',
 			'includes/bp-review-classes.php',
 			'includes/bp-review-activity.php',
 			'includes/bp-review-template.php',
 			'includes/bp-review-functions.php',
 			'includes/bp-review-notifications.php',
-			'includes/bp-review-ajax.php'
+//			'includes/bp-review-ajax.php'
 		);
 
 		//inclusione Automatica con la funzione 'includes' di BP_Component
