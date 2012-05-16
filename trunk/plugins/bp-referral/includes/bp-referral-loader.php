@@ -85,93 +85,41 @@ class BP_Example_Component extends BP_Component
 
 	function setup_nav() 
 	{
-/*
-		$main_nav = array
-		(
-			'name' 		  		  => __( 'Referral', 'referrals' ),
-			'slug' 		    	  => bp_get_referral_slug(),					//get_ref
-			'position' 	    	  => 80,
-			'screen_function'     => 'bp_referral_screen_one',					//screen ONE	
-			'default_subnav_slug' => 'screen-one'
-		);
-
-		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_referral_slug() );//get_ref
-
-		$sub_nav[] = array
-		(
-			'name'            =>  __( 'Referral', 'referrals' ),
-			'slug'            => 'screen-one',
-			'parent_url'      => $referral_link,
-			'parent_slug'     => bp_get_referral_slug(),				//get_ref
-			'screen_function' => 'bp_referral_screen_one',				//screen ONE	
-			'position'        => 10
-		);
-*/
-
-
-
-
-
-
-//-------------------------------------------------------------------------------------
-/*
-		$main_nav = array
-		(
-			'name' 		  		  => __( 'Referral', 'referrals' ),
-			'slug' 		    	  => bp_get_example_slug(),
-			'position' 	    	  => 80,
-			'screen_function'     => 'bp_example_screen_one',
-			'default_subnav_slug' => 'screen-one'
-		);
-
-		$example_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );
-*/
-//-------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------
-/*
-		$main_nav = array
-		(
-			'name' 		  		  => __( 'Referral', 'referrals' ),
-			'slug' 		    	  => bp_get_example_slug(),
-			'position' 	    	  => 80,
-			'screen_function'     => 'bp_example_screen_two',
-			'default_subnav_slug' => 'screen-two'
-		);
-
-		$example_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );
-*/
-//-------------------------------------------------------------------------------------
+	
+		global $bp;
 
 		$main_nav = array
 		(
 			'name' 		  		  => __( 'Referral', 'referrals' ),
 			
 			'slug' 		    	  => bp_get_example_slug(),
-//			'slug' 		    	  => &$this->slug,
+//			'slug' 		    	  => $this->slug, //&$this->slug,
 			
 			'position' 	    	  => 80,
 			'screen_function'     => 'bp_example_screen_one',
 
 			'default_subnav_slug' => 'screen-one'
-			,
+			
+			//,
 
 			//			'default_subnav_slug' => 'my-referrals'
 
 		);
 		
+		//$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );	
 		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );	
+		
+		 //$bp->displayed_user->domain.$bp->example->slug."/screen-one/"
 				
 		if(bp_is_my_profile())
 		{
 			$nav_text	 =	sprintf(__('Referral ricevute','referrals'));						
-			//$referral_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
-			$referral_link = 	trailingslashit( $bp->loggedin_user->domain . bp_get_example_slug() );
+			$referral_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
 			$nav_text	 =	sprintf (__('Referral per %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			//$referral_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
-            $referral_link = 	trailingslashit( $bp->displayed_user->domain . bp_get_example_slug() );
+			$referral_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
 		}		  		
 		
 		$sub_nav[] = array
@@ -182,7 +130,11 @@ class BP_Example_Component extends BP_Component
 			'slug'            => 'screen-one',																			
 			
 			'parent_url'      => $referral_link,				
-			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
+
+//			'parent_slug'     => '',
+			'parent_slug'     => '$bp->displayed_user->domain . $bp->example->slug',														//?!:D
+//			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
+
 			'screen_function' => 'bp_example_screen_one',													//EXAMPLE
 			'position'        => 10			
 		);
@@ -196,6 +148,7 @@ class BP_Example_Component extends BP_Component
 				,	'slug'            => 'screen-two'					
 				,	'parent_url'      => $referral_link
 
+//				,	'parent_slug'     => ''
 				,	'parent_slug'     => $this->slug															
 //				,	'parent_slug'     => bp_get_example_slug() 														// EXAMPLE				
 				
@@ -231,36 +184,6 @@ class BP_Example_Component extends BP_Component
 			,	'position'        => 30
 		);
 	
-	
-		
-//-------------------------------------------------------------------------------------
-/*
-		$sub_nav[] = array
-		(
-			'name'            =>  __( 'Referral', 'referrals' ),
-			'slug'            => 'screen-one',
-			'parent_url'      => $example_link,
-			'parent_slug'     => bp_get_example_slug(),
-			'screen_function' => 'bp_example_screen_one',
-			'position'        => 10
-		);
-*/
-//-------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------
-/*
-		$sub_nav[] = array
-		(
-			'name'            =>  __( 'Referral', 'referrals' ),
-			'slug'            => 'screen-two',
-			'parent_url'      => $example_link,
-			'parent_slug'     => bp_get_example_slug(),
-			'screen_function' => 'bp_example_screen_two',
-			'position'        => 10
-		);
-*/		
-//-------------------------------------------------------------------------------------
-
 
 		//-----------------------------------------
 		parent::setup_nav( $main_nav, $sub_nav );
