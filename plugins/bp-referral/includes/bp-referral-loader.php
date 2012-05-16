@@ -185,6 +185,35 @@ class BP_Example_Component extends BP_Component
 		);
 	
 
+		if(bp_is_my_profile())
+		{
+			$nav_text_3	 =	sprintf(__('Referral da moderare','referrals'));						
+			$referral_link_3 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+		}
+		else
+		{
+		//////
+			$nav_text_3	 =	sprintf (__('I Referral da moderare di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link_3 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+		//////
+		}		  
+		
+		$sub_nav[] = array
+		(
+				'name'            => $nav_text_3				
+			,	'slug'            => 'screen-four'															
+			,	'parent_url'      => $referral_link_3
+			,	'parent_slug'     => $this->slug														
+			, 	'screen_function' => 'bp_example_screen_four'													//EXAMPLE
+			,	'position'        => 40
+							
+			// ACCESS RESTRICTION 
+			,	'user_has_access' => (		is_user_logged_in()										
+										&&	bp_is_my_profile()
+										//&&	bp_is_user()
+									)
+		);
+	
 		//-----------------------------------------
 		parent::setup_nav( $main_nav, $sub_nav );
 
