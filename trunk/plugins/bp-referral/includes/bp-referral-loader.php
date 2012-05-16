@@ -132,8 +132,8 @@ class BP_Example_Component extends BP_Component
 			'parent_url'      => $referral_link,				
 
 //			'parent_slug'     => '',
-			'parent_slug'     => '$bp->displayed_user->domain . $bp->example->slug',														//?!:D
-//			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
+//			'parent_slug'     => '$bp->displayed_user->domain . $bp->example->slug',														//?!:D
+			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
 
 			'screen_function' => 'bp_example_screen_one',													//EXAMPLE
 			'position'        => 10			
