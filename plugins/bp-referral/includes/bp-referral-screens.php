@@ -8,6 +8,19 @@
  * functions, then pass on the user to a template file.
  */
 
+ 
+ 
+ 
+function bp_referral_screen_one() 
+{
+	global $bp;
+	
+	do_action( 'bp_referral_screen_one' );	
+	
+	bp_core_load_template( apply_filters( 'bp_referral_template_screen_one', 'example/screen-one' ) );
+}
+
+
 
 
 /**

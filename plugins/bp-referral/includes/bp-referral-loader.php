@@ -21,11 +21,15 @@ class BP_Example_Component extends BP_Component
 			'example',
 			__( 'Referral', 'referrals' ),
 			BP_EXAMPLE_PLUGIN_DIR
-/*		
+
+			
+/*			
+
 			'referral',
 			__( 'Referral', 'referrals' ),
 			BP_REFERRAL_PLUGIN_DIR
-*/									
+*/
+			
 		);
 
 		$this->includes();
@@ -78,28 +82,29 @@ class BP_Example_Component extends BP_Component
 
 	function setup_nav() 
 	{
-/*	
+/*
 		$main_nav = array
 		(
 			'name' 		  		  => __( 'Referral', 'referrals' ),
-			'slug' 		    	  => bp_get_referral_slug(),
+			'slug' 		    	  => bp_get_referral_slug(),					//get_ref
 			'position' 	    	  => 80,
-			'screen_function'     => 'bp_referral_screen_one',
+			'screen_function'     => 'bp_referral_screen_one',					//screen ONE	
 			'default_subnav_slug' => 'screen-one'
 		);
 
-		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_referral_slug() );
+		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_referral_slug() );//get_ref
 
 		$sub_nav[] = array
 		(
-			'name'            =>  __( 'Screen One', 'referrals' ),
+			'name'            =>  __( 'Referral', 'referrals' ),
 			'slug'            => 'screen-one',
 			'parent_url'      => $referral_link,
-			'parent_slug'     => bp_get_referral_slug(),
-			'screen_function' => 'bp_example_screen_one',
+			'parent_slug'     => bp_get_referral_slug(),				//get_ref
+			'screen_function' => 'bp_referral_screen_one',				//screen ONE	
 			'position'        => 10
 		);
 */
+
 		$main_nav = array
 		(
 			'name' 		  		  => __( 'Referral', 'referrals' ),
@@ -138,7 +143,7 @@ class BP_Example_Component extends BP_Component
 			'labels'   => $labels,
 			'public'   => false,
 			'show_ui'  => true,
-			'supports' => array( 'title' )
+			'supports' => array( 'title' )							//solo?
 		);
 
 		register_post_type( $this->id, $args );
@@ -147,22 +152,15 @@ class BP_Example_Component extends BP_Component
 	}
 
 }
-/*
+
 function bp_referral_load_core_component() 
 {
 	global $bp;
 
-	$bp->referral = new BP_Referral_Component;
-}
-add_action( 'bp_loaded', 'bp_referral_load_core_component' );
-
-*/
-function bp_example_load_core_component() 
-{
-	global $bp;
-
+	//$bp->referral = new BP_Referral_Component;
+	
 	$bp->example = new BP_Example_Component;
 }
-add_action( 'bp_loaded', 'bp_example_load_core_component' );
+add_action( 'bp_loaded', 'bp_referral_load_core_component' );
 
 ?>

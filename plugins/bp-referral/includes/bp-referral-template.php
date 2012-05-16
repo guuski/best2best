@@ -223,7 +223,7 @@ function bp_is_example_component() {
 
 
 
-
+//-----------------------------------------------------------------------------------------------------
 function bp_referral_slug() {
 	echo bp_get_referral_slug();
 }
@@ -250,7 +250,7 @@ function bp_referral_root_slug() {
 		return apply_filters( 'bp_get_referral_root_slug', $referral_root_slug );
 	}
 
-	
+//-----------------------------------------------------------------------------------------------------	
 	
 	
 	
