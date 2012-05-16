@@ -5,7 +5,6 @@ Plugin Name: bp-referral - sk
 
 
 define( 'BP_REFERRAL_PLUGIN_DIR', dirname( __FILE__ ) );
-
 		define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );
 
 
