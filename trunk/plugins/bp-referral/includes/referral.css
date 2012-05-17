@@ -1,9 +1,9 @@
 div#item-header a.add-referrals {
-	color:green;
+	color: #D85347;
 	padding: 3px 12px 2px 25px;
     background-repeat: no-repeat;
 	background-position: 5% 50%;
-	background-image: url(img/File_add16.png);
+	background-image: url(img/Star_full16.png);
 	line-height: 19px;
 	margin: 0;
 	border-color: #CCC #AAA #AAA #CCC;
@@ -15,10 +15,10 @@ div#item-header a.add-referrals {
     border-width: 1px;
 }
 div#item-header a.add-referrals:active, a.add-referrals:hover {
-	color:green;
+	color: #D85347;
     background-repeat: no-repeat;
 	background-position: 5% 50%;
-	background-image: url(img/File_add16.png);
+	background-image: url(img/Star_full16.png);
 	margin: 0;
 	border-color: #888 #AAA #AAA #888;
 	-moz-border-radius: 3px;
