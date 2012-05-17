@@ -69,7 +69,7 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
  *
  *
  */
-function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id )
+function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo )
 {
 	global $bp;
 			
@@ -79,13 +79,10 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id )
 	// FUNCTION call 2
 	$result_2 = change_referral_title($id_post, 'Referral');		
 	
-	
-////////////////////////////////////////////	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNCTION call 3
-		//$result_3 = add_referral_metatags($id_post, 				);		
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	$result_3 = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
 	
-	if($result1 && $result2 && $result_3) 
+	if($result_1 && $result_2 && $result_3) 
 	{			
 		// --------------------------- NOTIFICATION  --------------------------------------
 		
@@ -264,7 +261,7 @@ function change_referral_title($id_post, $post_title)
  *
  *
  */
-function add_referral_metatags($id_post, $array) 
+function add_referral_metatags(($id_post , $tipologia_rapporto , $anzianita_rapporto , $utente_consigliato , $voto_complessivo ) 
 {
 	$wp_update_post_args = array
 	(
@@ -274,6 +271,14 @@ function add_referral_metatags($id_post, $array)
 	);
 		
 	$result = wp_update_post( $wp_update_post_args );
+	
+	if($result) 
+	{			
+		update_post_meta( $result, 'tipologia_rapporto',$tipologia_rapporto);			
+		update_post_meta( $result, 'anzianita_rapporto',$anzianita_rapporto);			
+		update_post_meta( $result, 'utente_consigliato',$utente_consigliato);			
+		update_post_meta( $result, 'voto_complessivo',$voto_complessivo);			
+	}
 
 	return $result;	
 }

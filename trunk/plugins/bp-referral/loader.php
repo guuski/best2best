@@ -9,6 +9,8 @@ Plugin Name: bp-referral - sk
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 define( 'BP_REFERRAL_PLUGIN_DIR', dirname( __FILE__ ) );
 
+
+		//CANCELLARE appena possible!
 		define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );
 
 
@@ -23,6 +25,31 @@ function bp_referral_init()
 add_action( 'bp_include', 'bp_referral_init' );
 
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+// vd BP-REFERRAL-LOADER all'inizio prima di ATTIVARE questa!!!!
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+/*
+add_action( 'init', 'bp_referral_load_my_textdomain');
+
+
+function bp_referral_load_my_textdomain()
+{
+	load_plugin_textdomain( 'referrals', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+*/
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+add_action( 'wp_head' , 'add_js_referral');					
+
+function add_js_referral ()
+{	
+	//JS
+	wp_enqueue_script('referral',  plugin_dir_url (__FILE__).'/includes/referral.js');
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-core');
+}  
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	---> SPOSTA nel file 'bp-referral-functions.php'
