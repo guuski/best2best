@@ -59,9 +59,19 @@ function accetta_referral()
 
 		$id_post = $_POST['id-post'];					
 		
-		$result = change_referral_post_status($id_post, 'publish');
+		// FUNCTION call
+		$result_1 = change_referral_post_status($id_post, 'publish');
+		
+////////////////////////////////////////////////////////////////////////		
+		//elimina la parola RICHIESTA dal Title del REFERRAL e....
+////////////////////////////////////////////////////////////////////////				
+		
+		// FUNCTION call
+		$result_2 = change_referral_title($id_post, 'Referral');
+		
+////////////////////////////////////////////////////////////////////////		
 							
-		if($result)
+		if($result_1 && $result_2 )		//2 CONDIZIONI
 		{				
 			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
 		}
