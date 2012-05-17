@@ -1,16 +1,22 @@
 <?php
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// //VECCHIO sistema --> cambiare
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 if ( file_exists( dirname( __FILE__ ) . '/languages/' . get_locale() . '.mo' ) )
-	load_textdomain( 'referrals', dirname( __FILE__ ) . '/bp-referral/languages/' . get_locale() . '.mo' );
+	load_textdomain( 'referrals', dirname( __FILE__ ) . '/bp-referral/languages/' . get_locale() . '.mo' );									
 
 	
-	
-	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+// ------------------------------------------------------------------------------------ CLASSE -----------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //class BP_Referral_Component extends BP_Component 
 class BP_Example_Component extends BP_Component 
-
 {
-
+	/**
+	 *
+	 */
 	function __construct() 
 	{
 		global $bp;
@@ -21,7 +27,6 @@ class BP_Example_Component extends BP_Component
 			'example',
 			__( 'Referral', 'referrals' ),
 			BP_EXAMPLE_PLUGIN_DIR
-
 			
 /*			
 
@@ -39,6 +44,9 @@ class BP_Example_Component extends BP_Component
 		add_action( 'init', array( &$this, 'register_post_types' ) );
 	}
 
+	/**
+	 *
+	 */
 	function includes() 
 	{
 		// Files to include
@@ -56,14 +64,16 @@ class BP_Example_Component extends BP_Component
 		parent::includes( $includes );
 	}
 
+	/**
+	 *
+	 */
 	function setup_globals() 
 	{
 		global $bp;
 
-		if ( !defined( 'BP_REFERRAL_SLUG' ) ) {
+		if ( !defined( 'BP_REFERRAL_SLUG' ) ) 
+		{
 			define( 'BP_REFERRAL_SLUG', $this->id );
-			//define( 'BP_REFERRAL_SLUG', 'example' );
-			//define( 'BP_REFERRAL_SLUG', 'referral' );
 		}
 		
 		$global_tables = array(
@@ -75,14 +85,17 @@ class BP_Example_Component extends BP_Component
 			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_REFERRAL_SLUG,
 			
 			'has_directory'         => false, // Set to false if not required
-//			'notification_callback' => 'bp_example_format_notifications',
-//			'search_string'         => __( 'Search Examples...', 'buddypress' ),
+			'notification_callback' => 'bp_example_format_notifications',															//NOTIFICATIONS callback!
+			'search_string'         => __( 'Search Examples...', 'buddypress' ),
 			'global_tables'         => $global_tables
 		);
 
 		parent::setup_globals( $globals );
 	}
 
+	/**
+	 *
+	 */
 	function setup_nav() 
 	{
 	
@@ -91,53 +104,44 @@ class BP_Example_Component extends BP_Component
 		$main_nav = array
 		(
 			'name' 		  		  => __( 'Referral', 'referrals' ),
-			
-			'slug' 		    	  => bp_get_example_slug(),
-//			'slug' 		    	  => $this->slug, //&$this->slug,
-			
+			'slug' 		    	  => bp_get_example_slug(),			
 			'position' 	    	  => 80,
 			'screen_function'     => 'bp_example_screen_one',
 
-			'default_subnav_slug' => 'screen-one'
-			
-			//,
-
-			//			'default_subnav_slug' => 'my-referrals'
-
+			'default_subnav_slug' => 'screen-one'			
 		);
 		
-		//$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );	
+		//togliere?!
 		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );	
-		
-		 //$bp->displayed_user->domain.$bp->example->slug."/screen-one/"
+				
+		// 
+		// ------- screen 1 -------
+		//		
 				
 		if(bp_is_my_profile())
 		{
-			$nav_text	 =	sprintf(__('Referral ricevute','referrals'));						
+			$nav_text	 =	sprintf(__('Referral confermati da me','referrals'));						
 			$referral_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
-			$nav_text	 =	sprintf (__('Referral per %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$nav_text	 =	sprintf (__('Referral confermati da %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
 			$referral_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
 		}		  		
 		
 		$sub_nav[] = array
 		(			
-			'name'            => $nav_text,																						
-
-//			'slug'            => 'my-referrals',																			
+			'name'            => $nav_text,																																					
 			'slug'            => 'screen-one',																			
-			
 			'parent_url'      => $referral_link,				
-
-//			'parent_slug'     => '',
-//			'parent_slug'     => '$bp->displayed_user->domain . $bp->example->slug',														//?!:D
 			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
-
 			'screen_function' => 'bp_example_screen_one',													//EXAMPLE
 			'position'        => 10			
 		);
+		
+		// 
+		// ------- screen 2 -------
+		//
 		
 		// aggiunge...
 		if(referral_current_user_can_write()) 																			//nome ambiguo!
@@ -147,11 +151,7 @@ class BP_Example_Component extends BP_Component
 					'name'            => __('Chiedi un Referral', 'referrals' )				
 				,	'slug'            => 'screen-two'					
 				,	'parent_url'      => $referral_link
-
-//				,	'parent_slug'     => ''
-				,	'parent_slug'     => $this->slug															
-//				,	'parent_slug'     => bp_get_example_slug() 														// EXAMPLE				
-				
+				,	'parent_slug'     => $this->slug																			
 				, 	'screen_function' => 'bp_example_screen_two'													//EXAMPLE
 				
 				// ACCESS RESTRICTION - only allow on other's profile
@@ -162,6 +162,10 @@ class BP_Example_Component extends BP_Component
 				,	'position'        => 20
 			);
 		}
+		
+		// 
+		// ------- screen 3 -------
+		//		
 				
 		if(bp_is_my_profile())
 		{
@@ -183,19 +187,22 @@ class BP_Example_Component extends BP_Component
 			, 	'screen_function' => 'bp_example_screen_three'													//EXAMPLE
 			,	'position'        => 30
 		);
+		
+		// 
+		// ------- screen 4 -------
+		//
 	
-
 		if(bp_is_my_profile())
 		{
-			$nav_text_3	 =	sprintf(__('Referral da moderare','referrals'));						
+			$nav_text_3	 =	sprintf(__('Richieste Referral da acc o rifiut','referrals'));						
 			$referral_link_3 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
-		//////
-			$nav_text_3	 =	sprintf (__('I Referral da moderare di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			$nav_text_3	 =	sprintf (__('Richieste Referral da acc o rifiut di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
 			$referral_link_3 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
-		//////
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}		  
 		
 		$sub_nav[] = array
@@ -213,17 +220,41 @@ class BP_Example_Component extends BP_Component
 										//&&	bp_is_user()
 									)
 		);
+		
+		// 
+		// ------- screen 5 -------
+		//
+		
+		if(bp_is_my_profile())
+		{
+			$nav_text_4	 =	sprintf(__('Le mie Referral','referrals'));						
+			$referral_link_4 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+		}
+		else
+		{
+			$nav_text_4	 =	sprintf (__('I Referral di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link_4 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+		}		  
+		
+		$sub_nav[] = array
+		(
+				'name'            => $nav_text_4				
+			,	'slug'            => 'screen-five'															
+			,	'parent_url'      => $referral_link_4
+			,	'parent_slug'     => $this->slug														
+			, 	'screen_function' => 'bp_example_screen_five'													//EXAMPLE
+			,	'position'        => 40
+		);
 	
-		//-----------------------------------------
+		//-----------------------------------------------------------------------------------------------
 		parent::setup_nav( $main_nav, $sub_nav );
 
 	}
 	
 	
-	
-	
-	
-	
+	/**
+	 *
+	 */
 	function register_post_types() 
 	{
 	
@@ -236,11 +267,8 @@ class BP_Example_Component extends BP_Component
 		(
 			  'label'	   => __( 'Referrals', 'referrals' )
 			, 'labels'   => $labels
-			
-		
+					
 			// PUBLIC
-			// if False --> show_ui(F), publicly_queryable (F), exclude_from_search(T), show_in_nav_menus(F)
-			// if True  --> show_ui(T), publicly_queryable (T), exclude_from_search(F), show_in_menu(T)
 			, 'public' 				=> true																	
 
 			, 'show_ui'				=> true																											
@@ -249,9 +277,6 @@ class BP_Example_Component extends BP_Component
 
 			// QUERY related 1
 			, 'publicly_queryable'  => true														// 
-			
-			// SEARCH
-//			, 'exclude_from_search  => false													//
 
 			// QUERY related 2
 			, 'query_var' 			=> true														// 
@@ -263,27 +288,28 @@ class BP_Example_Component extends BP_Component
 			, 'menu_position'		=> 6														// 
 							
 			// REWRITE - SLUG
-			, 'rewrite' 			=> array('slug' => 'referrals')								// [ST] [?] Ur*?! cambiare?!
+			, 'rewrite' 			=> array('slug' => 'referrals')								
 			
 			// SUPPORT 			
 			//, 'supports' 			=> array('title','editor','author','comments','custom_fields','excerpt')   		
-			, 'supports' => array( 'title' )							//solo?
+			, 'supports' => array( 'title','editor','author')																					//solo?
 			
-			// Export
-//				, 'can_export'		  	=> true
-			
-			// CUSTOM FIELDS - META BOXES -	in prova
-			, 'custom-fields'		 => true				//anche se False ? possibile aggiungere custom fields 				
-			//, 'register_meta_box_cb' => true				//You can create a custom callback function that is called when the meta boxes for the post form are set up.
-
 		);
 
 		register_post_type( $this->id, $args );
 
 		parent::register_post_types();
 	}
-}// chiude la CLASSE
+}// ------------------------------------------------------------- chiude la CLASSE ------------------------------------------------------------------------------------
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ */
 function bp_referral_load_core_component() 
 {
 	global $bp;

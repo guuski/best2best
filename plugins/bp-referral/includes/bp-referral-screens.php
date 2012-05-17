@@ -68,4 +68,18 @@ function bp_example_screen_four()
 
 	bp_core_load_template( apply_filters( 'bp_example_template_screen_four', 'example/screen-four' ) );
 }
+
+/**
+ * bp_example_screen_five
+ * 
+ */
+function bp_example_screen_five() 
+{
+
+	global $bp;
+	
+	do_action( 'bp_example_screen_five' );
+
+	bp_core_load_template( apply_filters( 'bp_example_template_screen_five', 'example/screen-five' ) );
+}
 ?>
