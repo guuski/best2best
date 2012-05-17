@@ -1,5 +1,10 @@
 <?php
 
+function check_voto($voto) 
+{
+	return (empty($voto) || $voto==0);
+}
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,34 +63,52 @@ function accetta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'accetta-referral' );			
 
-		$id_post 			= $_POST['id-post'];				
-		$tipologia_rapporto	= $_POST['tipologia'];	 
-		
-		/////////////////////////////////////////////////////////////////////////////
-		
-		//$anzianita_rapporto	= $_POST[' 					  '];	 
-		//$utente_consigliato	= $_POST[' 					  '];	 
-		
-		/////////////////////////////////////////////////////////////////////////////
+		// [POST_vars]
+		$id_post 			= $_POST['id-post'];					
+		$tipologia_rapporto		= $_POST['tipologia'];	 
+		$anzianita_rapporto		= $_POST[' 					  '];	 
+		$utente_consigliato		= $_POST['consigliato'];	 		
+		$voto_complessivo 		= $_POST['voto-complessivo'];			
 			
-			if ( empty($tipologia_rapporto)) 	//empty
-			{
-				bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'referrals' ),'error' );					
-				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4
-				//return;
-			}		
-		
+		if ( empty($tipologia_rapporto)) 	//empty
+		{
+			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'referrals' ),'error' );					
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4  //EXAMPLE --> REFERRAL
+			//return;
+		}		
+	
+		if ( empty($anzianita_rapporto)) 	//empty
+		{
+			bp_core_add_message( __( 'Indica anzianita del rapporto commerciale', 'referrals' ),'error' );					
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			//return;
+		}		
+	
+		if ( empty($utente_consigliato)) 	//empty
+		{
+			bp_core_add_message( __( 'Raccomanderesti questo utente?', 'referrals' ),'error' );					
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			//return;
+		}		
+					
+		if (check_voto( $voto_complessivo ) ) 	//check_voto
+		{
+			bp_core_add_message( __( 'Assegna un voto complessivo per l utente', 'referrals' ),'error' );					
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			//return;
+		}		
+			
 		$from_user_id = bp_displayed_user_id();
 		$to_user_id   = bp_loggedin_user_id();	
 		
 		// FUNCTION call 
 		$result = 
 			
-			bp_ref_accept_referral_request ($id_post, $from_user_id ,$to_user_id 	
-					
+			bp_ref_accept_referral_request ($id_post, $from_user_id, $to_user_id 						
 					
 					////////////////////////////////////////////////////////////////////////////////////////
-					);//, $tipologia_rapporto		,$anzianita_rapporto , $utente_consigliato	) ;
+					//);
+					, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo ) ;
 					////////////////////////////////////////////////////////////////////////////////////////
 			
 		if($result)	
