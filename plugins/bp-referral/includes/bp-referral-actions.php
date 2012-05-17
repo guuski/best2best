@@ -69,7 +69,7 @@ function accetta_referral()
 		
 		$result = wp_update_post( $wp_update_post_args );
 			
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+/////////////////////////////////////////////////////////////////////////////
 		
 		if($result)
 		{				
@@ -103,14 +103,18 @@ function rifiuta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'rifiuta-referral');			
 
-///////////////////
-		
+/////////////////////////////////////////////////////////
 		$id_post = $_POST['id-post'];					
 		
-		$result = true;
+		$wp_update_post_args = array
+		(
+				'ID'			=> $id_post
+			,   'post_status'   => 'trash'
+		);
 		
-		
-///////////////////		
+		$result = wp_update_post( $wp_update_post_args );
+				
+/////////////////////////////////////////////////////////		
 		
 		if($result)
 		{				
