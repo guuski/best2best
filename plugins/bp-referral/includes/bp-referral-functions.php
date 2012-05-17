@@ -28,24 +28,30 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 	// [WPNONCE]
 	check_admin_referer( 'bp_ref_new_referral' );															//ma non è ripetuto?! - vedi FILE Actions!
 
-	$result= create_referral_post($to_user_id,$from_user_id );																	
+	//
+	$result = create_referral_post($to_user_id,$from_user_id );																	
 								
-	// --------------------------- NOTIFICATION  e ACTIVITY --------------------------------------
-	/*
+	// --------------------------- NOTIFICATION  --------------------------------------
 	
-	bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_referral_pending' );		//new_referral_pending	
 	
-	$to_user_link = bp_core_get_userlink( $to_user_id );
+	bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_pending' );		//NOTIFICATIOIN: 'new_referral_pending'
+	
+																											// EXAMPLE --> REFERRAL
+	
+	
+	// --------------------------- ACTIVITY --------------------------------------
+	
+	$to_user_link   = bp_core_get_userlink( $to_user_id );
 	$from_user_link = bp_core_get_userlink( $from_user_id );
 	
 	bp_review_record_activity( array
-		(
-			'type' => 'rejected_terms',
-			'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
-			'item_id' => $to_user_id,
-		) );
+	(
+		'type' => 'rejected_terms',			//?!
+		'action' => apply_filters( 'bp_review_new_referral_pending_activity_action', sprintf( __( '%s ha richiesto un Referral a %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+		'item_id' => $to_user_id,			//ITEM_ID
+	) );
 	
-	*/
+	
 	// ------------------------------------------------------------------------------------------
 	
 	//
