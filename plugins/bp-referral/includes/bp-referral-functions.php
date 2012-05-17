@@ -59,7 +59,7 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 function save_referral($to_user_id , $from_user_id) 
 {
 	
-	$referral_title = sprintf( __( 'Referral di %1$s per %2$s', 'referrals' ), bp_core_get_user_displayname( $from_user_id ), bp_core_get_user_displayname( $to_user_id ) );
+	$referral_title = sprintf( __( 'Richiesta referral da parte di %1$s a %2$s', 'referrals' ), bp_core_get_user_displayname( $from_user_id ), bp_core_get_user_displayname( $to_user_id ) );
 
 	$wp_insert_post_args = array
 	(
@@ -68,17 +68,7 @@ function save_referral($to_user_id , $from_user_id)
 		,   'post_author'	=> $from_user_id 
 		,	'post_title'	=> $referral_title			
 	);
-/*
-'new' - When there's no previous status
-'publish' - A published post or page
-'pending' - post in pending review
-'draft' - a post in draft status
-'auto-draft' - a newly created post, with no content
-'future' - a post to publish in the future
-'private' - not visible to users who are not logged in
-'inherit' - a revision. see get_children.
-'trash' - post is in trashbin. added with Version 2.9.
-*/	
+
 	//
 	$result = wp_insert_post( $wp_insert_post_args );
 	
@@ -95,24 +85,44 @@ function save_referral($to_user_id , $from_user_id)
 
 
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+/**
+ *
+ *
+ */
+function change_referral_post_status($id_post, $new_post_status) 
+{
+	$wp_update_post_args = array
+	(
+			'ID'			=> $id_post
+		,   'post_status'   => $new_post_status
+	);
+		
+	$result = wp_update_post( $wp_update_post_args );
 
+	return $result;	
+}
 
-
-
-
-
-
-
+/*
+'new' - When there's no previous status
+'publish' - A published post or page
+'pending' - post in pending review
+'draft' - a post in draft status
+'auto-draft' - a newly created post, with no content
+'future' - a post to publish in the future
+'private' - not visible to users who are not logged in
+'inherit' - a revision. see get_children.
+'trash' - post is in trashbin. added with Version 2.9.
+*/	
 
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 
 /**

@@ -58,31 +58,22 @@ function accetta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'accetta-referral' );			
 
-////////////////////////////////////////////////////////////////////////////
 		$id_post = $_POST['id-post'];					
 		
-		$wp_update_post_args = array
-		(
-				'ID'			=> $id_post
-			,   'post_status'   => 'publish'
-		);
-		
-		$result = wp_update_post( $wp_update_post_args );
-			
-/////////////////////////////////////////////////////////////////////////////
-		
+		$result = change_referral_post_status($id_post, 'publish');
+							
 		if($result)
 		{				
-			bp_core_add_message( __( 'referral accettato' . 'ID POST: ' . $id_post, 'referrals' ) );
+			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
 		}
 		else 
 		{			
 			bp_core_add_message( __( 'errore accettazione referral 	', 'referrals' ) );			
 		}	
 					
-				// fa il REDIRECT
-					//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-					bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
+		// fa il REDIRECT
+		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
 	}	
 }
 
@@ -103,32 +94,23 @@ function rifiuta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'rifiuta-referral');			
 
-/////////////////////////////////////////////////////////
-		$id_post = $_POST['id-post'];					
+		$id_post = $_POST['id-post'];		
 		
-		$wp_update_post_args = array
-		(
-				'ID'			=> $id_post
-			,   'post_status'   => 'trash'
-		);
-		
-		$result = wp_update_post( $wp_update_post_args );
-				
-/////////////////////////////////////////////////////////		
+		$result = change_referral_post_status($id_post, 'trash');
 		
 		if($result)
 		{				
-			bp_core_add_message( __( 'referral rifiutato		'. 'ID POST: ' . $id_post, 'referrals' ) );
+			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post, 'referrals' ) );
 		}
 		else 
 		{
 			//[W] - ATTENZIONE: non ci va mai qui!
-			bp_core_add_message( __( 'errorre rifiuto referral 	msg2	', 'referrals' ) );			
+			bp_core_add_message( __( 'errore rifiuto referral ', 'referrals' ) );			
 		}	
 			
-					// fa il REDIRECT
-						//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-						bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
+		// fa il REDIRECT
+		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
 	}	
 }
 
