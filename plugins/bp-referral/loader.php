@@ -104,9 +104,9 @@ function add_referral_button()
 	if(referral_current_user_can_write())
 	{
 		echo '
-		<div class = "add-referral" >
+		<div class = "add-referrals" >
 		<a
-		class = "add-referral button"
+		class = "add-referrals button"
 		title = "Chiedi un Referral all\'utente."
 		href="'.bp_get_displayed_user_link().'example/screen-two#user-activity"											 
 		>
