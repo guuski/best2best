@@ -65,10 +65,10 @@ function accetta_referral()
 
 		// [POST_vars]
 		$id_post 			= $_POST['id-post'];					
-		$tipologia_rapporto		= $_POST['tipologia'];	 
-		$anzianita_rapporto		= $_POST['anzianita'];	 
-		$utente_consigliato		= $_POST['consigliato'];	 		
-		$voto_complessivo 		= $_POST['voto-complessivo'];			
+		$tipologia_rapporto	= $_POST['tipologia'];	 
+		$anzianita_rapporto	= $_POST['anzianita'];	 
+		$utente_consigliato	= $_POST['consigliato'];	 		
+		$voto_complessivo 	= $_POST['voto-complessivo'];			
 			
 		if ( empty($tipologia_rapporto)) 	//empty
 		{
