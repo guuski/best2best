@@ -180,8 +180,10 @@ function rifiuta_referral()
 
 		$id_post = $_POST['id-post'];		
 		
-		$from_user_id = bp_displayed_user_id();
+		////////////////////////////////////////////////////////////
+		$from_user_id = bp_displayed_user_id();							//COINCIDONO!
 		$to_user_id   = bp_loggedin_user_id();	
+		////////////////////////////////////////////////////////////
 		
 		// FUNCTION call 
 		$result = bp_ref_deny_referral_request ($id_post, $from_user_id ,$to_user_id ) ;
