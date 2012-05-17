@@ -103,16 +103,14 @@ $contenuto = 'Gentile Cliente, avendo ....';			//
 <!--------------------------------------------------------------------------fine FORM -------------------------------------------------------------------------------------->						
 
 
-<!-------------------------------------------------------------------------------------------------------->				
-				
 
 </div><!-- #item-body -->
-</div><!-- .padder -->
-	
-	<?php locate_template( array( 'sidebar.php' ), true ) ?>
-	</div><!-- #content -->
+</div> <!--#main-column -->
 
-</div> <!-- chiude SIDEBAR --->
+<?php locate_template( array( 'sidebar.php' ), true ) ?>	
+</div><!-- .padder -->
+</div><!-- #content -->
+</div>
 
 <!-- FOOTER -->	
 <?php get_footer() ?>
