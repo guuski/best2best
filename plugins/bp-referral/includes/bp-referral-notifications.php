@@ -12,10 +12,15 @@ function bp_referral_remove_screen_notifications()
 																															//new_referral_pending
 }
 
+
+
 add_action( 'bp_example_screen_four', 'bp_referral_remove_screen_notifications' );									//ACTION del plugin -- 'screen_four'  --- SCREEN 4
 																							//EXAMPLE --> REFERRAL
 																							
-//------------io la toglierei! 																							
+	//add_action( 'bp_example_screen_		', 'bp_referral_remove_screen_notifications' );									//ACTION del plugin -- 'screen_     '  --- SCREEN 
+	//EXAMPLE --> REFERRAL
+																							
+//------------io la toglierei!  - ma manco funziona forse?!																							
 add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications' );	
 
 
@@ -54,13 +59,34 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 		// 
 		case 'new_referral_accepted':																			//new_referral_accepted  - La mia richiesta Referral ACCETTATA
 		
+			// $item_id e' l'user ID dell'utente che ha inviato la richiesta REFERRAL
+
+			if ( (int)$total_items > 1 ) 
+			{
+				$text_title = sprintf( __( '%d referral accettati', 'referrals' ), (int)$total_items );
+			}
+			else 
+			{
+				$user_fullname 	= bp_core_get_user_displayname( $item_id, false );
+				$text_title		= apply_filters( 'bp_ref_single_new_referral_accepted_notification', sprintf( __( '%s ha accettato la tua richiesta di Referral', 'referrals' ), $user_fullname ) , $user_fullname );
+			}
 		break;
 		
 		// 
 		// 3
 		// 
-		case 'new_referral_accepted':																			//new_referral_rejected -  La mia richiesta Referral RIFIUTATA
-		
+		case 'new_referral_denied':																			//new_referral_denied -  La mia richiesta Referral RIFIUTATA
+			// $item_id e' l'user ID dell'utente che ha inviato la richiesta REFERRAL
+
+			if ( (int)$total_items > 1 ) 
+			{
+				$text_title = sprintf( __( '%d referral non accettati', 'referrals' ), (int)$total_items );
+			}
+			else 
+			{
+				$user_fullname 	= bp_core_get_user_displayname( $item_id, false );
+				$text_title		= apply_filters( 'bp_ref_single_new_referral_denied_notification', sprintf( __( '%s ha rifiutato la tua richiesta di Referral', 'referrals' ), $user_fullname ) , $user_fullname );
+			}
 		break;
 	}
 

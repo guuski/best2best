@@ -14,7 +14,7 @@ function bp_ref_post_form_action()
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
-// viene chiamata dal metodo 'invia_referral()' (in 'bp-review-actions.php') dopo che e' stato inviato il FORM
+// viene chiamata dal metodo 'invia_referral()' (in 'bp-referral-actions.php') dopo che e' stato inviato il FORM
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -30,27 +30,29 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 
 	//
 	$result = create_referral_post($to_user_id,$from_user_id );																	
-								
-	// --------------------------- NOTIFICATION  --------------------------------------
 	
-	
-	bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_pending' );		//NOTIFICATIOIN: 'new_referral_pending'
-	
-																											// EXAMPLE --> REFERRAL
-	
-	
-	// --------------------------- ACTIVITY --------------------------------------
-	
-	$to_user_link   = bp_core_get_userlink( $to_user_id );
-	$from_user_link = bp_core_get_userlink( $from_user_id );
-	
-	bp_review_record_activity( array
-	(
-		'type' => 'rejected_terms',			//?!
-		'action' => apply_filters( 'bp_review_new_referral_pending_activity_action', sprintf( __( '%s ha richiesto un Referral a %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
-		'item_id' => $to_user_id,			//ITEM_ID
-	) );
-	
+	if($result) 
+	{									
+		// --------------------------- NOTIFICATION  --------------------------------------
+		
+		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_pending' );		//NOTIFICATIOIN: 'new_referral_pending'
+		
+																												// EXAMPLE --> REFERRAL
+		
+		
+		// --------------------------- ACTIVITY --------------------------------------
+		
+		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+		
+		bp_referral_record_activity( array
+		(
+			'type' => 'rejected_terms',			//?!
+			'action' => apply_filters( 'bp_ref_new_referral_pending_activity_action', sprintf( __( '%s ha richiesto un Referral a %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+			'item_id' => $to_user_id,			//ITEM_ID
+		) );
+	}
 	
 	// ------------------------------------------------------------------------------------------
 	
@@ -58,6 +60,107 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 	return $result;											
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+// chiamata 'accetta_referral()' (in 'bp-referral-actions.php') 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id )
+{
+	global $bp;
+			
+	// FUNCTION call 1
+	$result_1 = change_referral_post_status($id_post, 'publish');
+	
+	// FUNCTION call 2
+	$result_2 = change_referral_title($id_post, 'Referral');		
+	
+	
+////////////////////////////////////////////	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// FUNCTION call 3
+		//$result_3 = add_referral_metatags($id_post, 				);		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	if($result1 && $result2 && $result_3) 
+	{			
+		// --------------------------- NOTIFICATION  --------------------------------------
+		
+		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_accepted' );		//NOTIFICATIOIN: 'new_referral_accepted'
+		
+																												// EXAMPLE --> REFERRAL
+		
+		
+		// --------------------------- ACTIVITY --------------------------------------
+		
+		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+		
+		bp_referral_record_activity( array
+		(
+			'type' => 'rejected_terms',			//?!
+			'action' => apply_filters( 'bp_ref_new_referral_accepted_activity_action', sprintf( __( '%s ha accettato la richiesta di Referral di %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+			'item_id' => $to_user_id,			//ITEM_ID
+		) );
+		
+		
+		// ------------------------------------------------------------------------------------------
+	}
+	
+	//
+	return $result;											
+}
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+// chiamata 'rifiuta_referral()' (in 'bp-referral-actions.php') 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
+{
+	global $bp;
+			
+	$result = change_referral_post_status($id_post, 'trash');
+		
+	if($result) 
+	{	
+		// --------------------------- NOTIFICATION  --------------------------------------
+		
+		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_denied' );		//NOTIFICATIOIN: 'new_referral_denied'
+		
+																												// EXAMPLE --> REFERRAL
+		
+		
+		// --------------------------- ACTIVITY --------------------------------------
+		
+		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+		
+		bp_referral_record_activity( array
+		(
+			'type' => 'rejected_terms',			//?!
+			'action' => apply_filters( 'bp_ref_new_referral_denied_activity_action', sprintf( __( '%s ha rifiutato la richiesta di Referral di %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+			'item_id' => $to_user_id,			//ITEM_ID
+		) );
+		
+		
+		// ------------------------------------------------------------------------------------------
+	}
+	
+	//
+	return $result;											
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
@@ -152,6 +255,28 @@ function change_referral_title($id_post, $post_title)
 
 
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function add_referral_metatags($id_post, $array) 
+{
+	$wp_update_post_args = array
+	(
+			'ID'			=> $id_post
+			
+		//,	'post_title'	=> $post_title		
+	);
+		
+	$result = wp_update_post( $wp_update_post_args );
+
+	return $result;	
+}
 
 
 

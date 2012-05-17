@@ -16,6 +16,7 @@ function invia_referral()
 
 		//$title = $_POST['referral-title'];			
 		
+		// FUNCTION call
 		$result = bp_ref_send_referral
 		(	
 				bp_displayed_user_id()
@@ -57,21 +58,37 @@ function accetta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'accetta-referral' );			
 
-		$id_post = $_POST['id-post'];					
+		$id_post 			= $_POST['id-post'];				
+		$tipologia_rapporto	= $_POST['tipologia'];	 
 		
-		// FUNCTION call
-		$result_1 = change_referral_post_status($id_post, 'publish');
+		/////////////////////////////////////////////////////////////////////////////
 		
-////////////////////////////////////////////////////////////////////////		
-		//elimina la parola RICHIESTA dal Title del REFERRAL e....
-////////////////////////////////////////////////////////////////////////				
+		//$anzianita_rapporto	= $_POST[' 					  '];	 
+		//$utente_consigliato	= $_POST[' 					  '];	 
 		
-		// FUNCTION call
-		$result_2 = change_referral_title($id_post, 'Referral');
+		/////////////////////////////////////////////////////////////////////////////
+			
+			if ( empty($tipologia_rapporto)) 	//empty
+			{
+				bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'referrals' ),'error' );					
+				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4
+				//return;
+			}		
 		
-////////////////////////////////////////////////////////////////////////		
-							
-		if($result_1 && $result_2 )		//2 CONDIZIONI
+		$from_user_id = bp_displayed_user_id();
+		$to_user_id   = bp_loggedin_user_id();	
+		
+		// FUNCTION call 
+		$result = 
+			
+			bp_ref_accept_referral_request ($id_post, $from_user_id ,$to_user_id 	
+					
+					
+					////////////////////////////////////////////////////////////////////////////////////////
+					);//, $tipologia_rapporto		,$anzianita_rapporto , $utente_consigliato	) ;
+					////////////////////////////////////////////////////////////////////////////////////////
+			
+		if($result)	
 		{				
 			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
 		}
@@ -82,11 +99,46 @@ function accetta_referral()
 					
 		// fa il REDIRECT
 		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
+	
+				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4
+									
+									
+									
+								//------Vd funzione successiva
+									
+									//REDIRECT su Screen 6
+									//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE slug		-Screen 6
 	}	
 }
 
 add_action( 'bp_actions', 'accetta_referral' );
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+function accetta_referral() 
+{
+
+	global $bp;
+	
+	if ( isset( $_POST['accetta-referral'] ) )		
+	{		
+		// [WPNONCE]
+		check_admin_referer( 'accetta-referral' );			
+
+		$id_post = $_POST['id-post'];					
+		
+														
+													//REDIRECT su Screen 6
+													bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE slug		-Screen 6
+														
+	}	
+}
+
+add_action( 'bp_actions', 'accetta_referral' );
+*/
+
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +157,13 @@ function rifiuta_referral()
 
 		$id_post = $_POST['id-post'];		
 		
-		$result = change_referral_post_status($id_post, 'trash');
+		$from_user_id = bp_displayed_user_id();
+		$to_user_id   = bp_loggedin_user_id();	
+		
+		// FUNCTION call 
+		$result = bp_ref_deny_referral_request ($id_post, $from_user_id ,$to_user_id ) ;
+		
+		/* $result = change_referral_post_status($id_post, 'trash');*/
 		
 		if($result)
 		{				
