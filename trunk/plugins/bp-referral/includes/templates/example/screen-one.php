@@ -106,8 +106,6 @@
 </div><!-- #content -->
 </div>
 <!-- SIDEBAR --->
-
-
 </div>
 <!-- FOOTER -->	
 <?php get_footer() ?>
