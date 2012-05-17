@@ -9,7 +9,7 @@ function invia_referral()
 	global $bp;
 	
 	if ( isset( $_POST['referral-submit'] ) 
-		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 	
+		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 											//EXAMPLE --> REFERRAL
 	{		
 		// [WPNONCE]
 		check_admin_referer( 'bp_ref_new_referral' );			
@@ -20,18 +20,17 @@ function invia_referral()
 		(	
 				bp_displayed_user_id()
 			, 	bp_loggedin_user_id()
-			//, 
-			//$title						
+		  //,   $title						
 		);																																						
 		
 		if($result)
 		{				
-			bp_core_add_message( __( 'referral inviato correttamente', 'referrals' ) );
+			bp_core_add_message( __( 'Richiesta REFERRAL inviata correttamente', 'referrals' ) );
 		}
 		else 
 		{
 			//[W] - ATTENZIONE: non ci va mai qui!
-			bp_core_add_message( __( 'referral non inviato', 'referrals' ) );			
+			bp_core_add_message( __( 'Richiesta REFERRAL non inviato --> ERRORE!', 'referrals' ) );			
 		}	
 			
 		// fa il REDIRECT
