@@ -33,7 +33,7 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 	// --------------------------- NOTIFICATION  e ACTIVITY --------------------------------------
 	/*
 	
-	bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
+	bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_referral_pending' );		//new_referral_pending	
 	
 	$to_user_link = bp_core_get_userlink( $to_user_id );
 	$from_user_link = bp_core_get_userlink( $from_user_id );

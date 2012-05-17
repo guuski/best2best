@@ -85,7 +85,7 @@ class BP_Example_Component extends BP_Component
 			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_REFERRAL_SLUG,
 			
 			'has_directory'         => false, // Set to false if not required
-			'notification_callback' => 'bp_example_format_notifications',															//NOTIFICATIONS callback!
+			'notification_callback' => 'bp_referral_format_notifications',															//NOTIFICATIONS callback!
 			'search_string'         => __( 'Search Examples...', 'buddypress' ),
 			'global_tables'         => $global_tables
 		);
