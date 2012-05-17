@@ -51,6 +51,24 @@ function add_js_referral ()
 	wp_enqueue_script('jquery-ui-core');
 }  
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+
+add_action( 'wp_print_scripts'  		, 'add_css_referral');					
+
+/**
+ *
+ * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_style
+ */
+function add_css_referral()																						//---usa il metodo add_JS
+{
+	//CSS	
+	wp_enqueue_style ('referral',  plugin_dir_url (__FILE__).'/includes/referral.css');
+		
+}  
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	---> SPOSTA nel file 'bp-referral-functions.php'
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -67,5 +85,36 @@ function referral_current_user_can_write()
 
 	return apply_filters('bp_referral_can_user_write',$can_write);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+// 	IMPORTANTE 
+//
+//	il link! ---> example/screen-two			SCREEN-TWO  
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+add_action( 'bp_member_header_actions'	, 'add_referral_button',1);				
+
+/**	 
+ * 	
+ *																								//EXAMPLE --> REFERRAL
+ */
+function add_referral_button()																	
+{
+	if(referral_current_user_can_write())
+	{
+		echo '
+		<div class = "add-referral" >
+		<a
+		class = "add-referral button"
+		title = "Chiedi un Referral all\'utente."
+		href="'.bp_get_displayed_user_link().'example/screen-two#user-activity"											 
+		>
+		'.__('Add Referral','referrals').'
+		</a>
+		</div>';
+	}
+}
+
 
 ?>
