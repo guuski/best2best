@@ -12,7 +12,8 @@ function bp_referral_remove_screen_notifications()
 																															//new_referral_pending
 }
 
-add_action( 'bp_referral_screen_five', 'bp_referral_remove_screen_notifications' );									//ACTION del plugin -- 'screen_five'  --- SCREEN 5
+add_action( 'bp_example_screen_four', 'bp_referral_remove_screen_notifications' );									//ACTION del plugin -- 'screen_four'  --- SCREEN 4
+																							//EXAMPLE --> REFERRAL
 																							
 //------------io la toglierei! 																							
 add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications' );	
@@ -43,8 +44,8 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			else 
 			{
-				$user_fullname = bp_core_get_user_displayname( $item_id, false );
-				$text_title = apply_filters( 'bp_review_single_new_referral_request_notification', sprintf( __( '%s ti ha mandato una richiesta Referral', 'referrals' ), $user_fullname ) , $user_fullname );
+				$user_fullname 	= bp_core_get_user_displayname( $item_id, false );
+				$text_title		= apply_filters( 'bp_ref_single_new_referral_request_notification', sprintf( __( '%s ti ha mandato una richiesta Referral', 'referrals' ), $user_fullname ) , $user_fullname );
 			}
 		break;
 		
