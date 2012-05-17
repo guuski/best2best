@@ -26,10 +26,11 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 	global $bp;
 			
 	// [WPNONCE]
-	check_admin_referer( 'bp_ref_new_referral' );
+	check_admin_referer( 'bp_ref_new_referral' );															//ma non è ripetuto?! - vedi FILE Actions!
 
-	$r = save_referral($to_user_id,$from_user_id );																	
-									
+	$result= create_referral_post($to_user_id,$from_user_id );																	
+								
+	// --------------------------- NOTIFICATION  e ACTIVITY --------------------------------------
 	/*
 	
 	bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
@@ -45,10 +46,10 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 		) );
 	
 	*/
-
-	//-------------------- incredibile! ---------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------
+	
 	//
-	return $r;																					//ATTENZIONE: ritorna sempre TRUE --?!?!? non va proprio!!!
+	return $result;											
 }
 
 
@@ -56,9 +57,12 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 // 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function save_referral($to_user_id , $from_user_id) 
-{
-	
+/**
+ *
+ *
+ */
+function create_referral_post($to_user_id , $from_user_id) 
+{	
 	$referral_title = sprintf( __( 'Richiesta referral da parte di %1$s a %2$s', 'referrals' ), bp_core_get_user_displayname( $from_user_id ), bp_core_get_user_displayname( $to_user_id ) );
 
 	$wp_insert_post_args = array
@@ -79,10 +83,6 @@ function save_referral($to_user_id , $from_user_id)
 
 	return $result;
 }
-
-
-
-
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
