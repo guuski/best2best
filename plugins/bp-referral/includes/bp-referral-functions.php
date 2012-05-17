@@ -261,7 +261,7 @@ function change_referral_title($id_post, $post_title)
  *
  *
  */
-function add_referral_metatags(($id_post , $tipologia_rapporto , $anzianita_rapporto , $utente_consigliato , $voto_complessivo ) 
+function add_referral_metatags($id_post , $tipologia_rapporto , $anzianita_rapporto , $utente_consigliato , $voto_complessivo ) 
 {
 	$wp_update_post_args = array
 	(
