@@ -136,12 +136,12 @@ function change_referral_post_status($id_post, $new_post_status)
  *
  *
  */
-function change_referral_title($id_post, $string) 
+function change_referral_title($id_post, $post_title) 
 {
 	$wp_update_post_args = array
 	(
-			'ID'		=> $id_post
-		,   'title'   	=> $string
+			'ID'			=> $id_post
+		,	'post_title'	=> $post_title		
 	);
 		
 	$result = wp_update_post( $wp_update_post_args );
