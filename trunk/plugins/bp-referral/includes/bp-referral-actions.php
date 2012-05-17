@@ -1,6 +1,6 @@
 <?php
 
-function check_voto($voto) 
+function bp_ref_check_voto($voto) 
 {
 	return (empty($voto) || $voto==0);
 }
@@ -66,7 +66,7 @@ function accetta_referral()
 		// [POST_vars]
 		$id_post 			= $_POST['id-post'];					
 		$tipologia_rapporto		= $_POST['tipologia'];	 
-		$anzianita_rapporto		= $_POST[' 					  '];	 
+		$anzianita_rapporto		= $_POST['anzianita'];	 
 		$utente_consigliato		= $_POST['consigliato'];	 		
 		$voto_complessivo 		= $_POST['voto-complessivo'];			
 			
@@ -91,7 +91,7 @@ function accetta_referral()
 			//return;
 		}		
 					
-		if (check_voto( $voto_complessivo ) ) 	//check_voto
+		if (bp_ref_check_voto( $voto_complessivo ) ) 	//bp_ref_check_voto
 		{
 			bp_core_add_message( __( 'Assegna un voto complessivo per l utente', 'referrals' ),'error' );					
 			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
