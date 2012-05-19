@@ -1,6 +1,7 @@
 <?php
 
 //-----------------------------------------------------------------------------------------------------
+/*
 function bp_referral_slug() {
 	echo bp_get_referral_slug();
 }
@@ -26,14 +27,14 @@ function bp_referral_root_slug() {
 
 		return apply_filters( 'bp_get_referral_root_slug', $referral_root_slug );
 	}
-
+*/
 //-----------------------------------------------------------------------------------------------------	
 	
 	
 	
 	
-function bp_example_slug() {
-	echo bp_get_example_slug();
+function bp_example_slug() {																										//EXAMPLE --> REFERRAL
+	echo bp_get_example_slug();	
 }
 	function bp_get_example_slug() {
 		global $bp;

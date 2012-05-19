@@ -9,7 +9,13 @@ function bp_ref_check_voto($voto)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function invia_referral() 
+//[OSS] - se stacco l'action funziona lo stesso secondo me!
+add_action( 'bp_actions', 'invia_richiesta_referral' );
+
+/**
+ *
+ */
+function invia_richiesta_referral() 
 {
 	global $bp;
 	
@@ -41,19 +47,20 @@ function invia_referral()
 			
 		// fa il REDIRECT
 			//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE --> REFERRAL		- SCREEN 1
 	
 	}	
 }
 
-//[OSS] - se stacco l'action funziona lo stesso secondo me!
-add_action( 'bp_actions', 'invia_referral' );
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	ACCETTA
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+add_action( 'bp_actions', 'accetta_referral' );
 
-
+/**
+ *
+ */
 function accetta_referral() 
 {
 	global $bp;
@@ -73,28 +80,28 @@ function accetta_referral()
 		if ( empty($tipologia_rapporto)) 	//empty
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'referrals' ),'error' );					
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4  //EXAMPLE --> REFERRAL
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL		- SCREEN 4  
 			//return;
 		}		
 	
 		if ( empty($anzianita_rapporto)) 	//empty
 		{
 			bp_core_add_message( __( 'Indica anzianita del rapporto commerciale', 'referrals' ),'error' );					
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4  
 			//return;
 		}		
 	
 		if ( empty($utente_consigliato)) 	//empty
 		{
 			bp_core_add_message( __( 'Raccomanderesti questo utente?', 'referrals' ),'error' );					
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4  
 			//return;
 		}		
 /*					
 		if (bp_ref_check_voto( $voto_complessivo ) ) 	//bp_ref_check_voto
 		{
 			bp_core_add_message( __( 'Assegna un voto complessivo per l utente', 'referrals' ),'error' );					
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4 //EXAMPLE --> REFERRAL
+			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL   - SCREEN 4  
 			//return;
 		}		
 */			
@@ -123,20 +130,16 @@ function accetta_referral()
 		// fa il REDIRECT
 		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
 	
-				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE slug		- SCREEN 4
+				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4
 									
 									
 									
 								//------Vd funzione successiva
 									
 									//REDIRECT su Screen 6
-									//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE slug		-Screen 6
+									//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE --> REFERRAL		-Screen 6
 	}	
 }
-
-add_action( 'bp_actions', 'accetta_referral' );
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -165,10 +168,14 @@ add_action( 'bp_actions', 'accetta_referral' );
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+//	RIFIUTA
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+add_action( 'bp_actions', 'rifiuta_referral' );
 
+/**
+ *
+ */
 function rifiuta_referral() 
 {
 	global $bp;
@@ -202,9 +209,7 @@ function rifiuta_referral()
 			
 		// fa il REDIRECT
 		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE slug		- SCREEN 1
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE --> REFERRAL		- SCREEN 1
 	}	
 }
-
-add_action( 'bp_actions', 'rifiuta_referral' );
 ?>
