@@ -2,10 +2,10 @@
 
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-// ------------------------------------------------------------------------------------ CLASSE -----------------------------------------------------------------------
+// 																		CLASSE: BP_Example_Component 																
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//class BP_Referral_Component extends BP_Component 
-class BP_Example_Component extends BP_Component 
+class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFERRAL
+//class BP_Referral_Component extends BP_Component 											
 {
 	/**
 	 *
@@ -17,24 +17,23 @@ class BP_Example_Component extends BP_Component
 		parent::start
 		(
 
-			'example',
+			'example',																					//EXAMPLE --> REFERRAL
 			__( 'Referral', 'referrals' ),
 			BP_EXAMPLE_PLUGIN_DIR
 			
-/*			
-
+		/*			
 			'referral',
 			__( 'Referral', 'referrals' ),
 			BP_REFERRAL_PLUGIN_DIR
-*/
+		*/
 			
 		);
 
 		$this->includes();
 
-//		$bp->active_components[$this->id] = '1';
+		//$bp->active_components[$this->id] = '1';
 
-		add_action( 'init', array( &$this, 'register_post_types' ) );
+		add_action( 'init', array( &$this, 'register_post_types' ) );							//ACTION
 	}
 
 	/**
@@ -66,12 +65,14 @@ class BP_Example_Component extends BP_Component
 
 		if ( !defined( 'BP_REFERRAL_SLUG' ) ) 
 		{
-			define( 'BP_REFERRAL_SLUG', $this->id );
+			define( 'BP_REFERRAL_SLUG', $this->id );										
 		}
 		
+		/*	
 		$global_tables = array(
 			'table_name'      => $bp->table_prefix . 'bp_referral'
 		);
+		*/
 
 		$globals = array(
 			'slug'                  => BP_REFERRAL_SLUG,
@@ -79,8 +80,8 @@ class BP_Example_Component extends BP_Component
 			
 			'has_directory'         => false, // Set to false if not required
 			'notification_callback' => 'bp_referral_format_notifications',															//NOTIFICATIONS callback!
-			'search_string'         => __( 'Search Examples...', 'buddypress' ),
-			'global_tables'         => $global_tables
+			//'search_string'         => __( 'Search Examples...', 'buddypress' ),
+			//'global_tables'         => $global_tables
 		);
 
 		parent::setup_globals( $globals );
@@ -97,15 +98,15 @@ class BP_Example_Component extends BP_Component
 		$main_nav = array
 		(
 			'name' 		  		  => __( 'Referral', 'referrals' ),
-			'slug' 		    	  => bp_get_example_slug(),			
+			'slug' 		    	  => bp_get_example_slug(),															//EXAMPLE --> REFERRAL
 			'position' 	    	  => 80,
-			'screen_function'     => 'bp_example_screen_one',
+			'screen_function'     => 'bp_example_screen_one',														//EXAMPLE --> REFERRAL
 
 			'default_subnav_slug' => 'screen-one'			
 		);
 		
 		//togliere?!
-		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );	
+		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );						//EXAMPLE --> REFERRAL
 				
 		// 
 		// ------- screen 1 -------
@@ -127,8 +128,8 @@ class BP_Example_Component extends BP_Component
 			'name'            => $nav_text,																																					
 			'slug'            => 'screen-one',																			
 			'parent_url'      => $referral_link,				
-			'parent_slug'     => bp_get_example_slug(), 														// EXAMPLE
-			'screen_function' => 'bp_example_screen_one',													//EXAMPLE
+			'parent_slug'     => bp_get_example_slug(), 														//EXAMPLE --> REFERRAL
+			'screen_function' => 'bp_example_screen_one',														//EXAMPLE --> REFERRAL
 			'position'        => 10			
 		);
 		
@@ -145,7 +146,7 @@ class BP_Example_Component extends BP_Component
 				,	'slug'            => 'screen-two'					
 				,	'parent_url'      => $referral_link
 				,	'parent_slug'     => $this->slug																			
-				, 	'screen_function' => 'bp_example_screen_two'													//EXAMPLE
+				, 	'screen_function' => 'bp_example_screen_two'													//EXAMPLE --> REFERRAL
 				
 				// ACCESS RESTRICTION - only allow on other's profile
 				,	'user_has_access' => (		is_user_logged_in()										
@@ -177,7 +178,7 @@ class BP_Example_Component extends BP_Component
 			,	'slug'            => 'screen-three'															
 			,	'parent_url'      => $referral_link_2
 			,	'parent_slug'     => $this->slug														
-			, 	'screen_function' => 'bp_example_screen_three'													//EXAMPLE
+			, 	'screen_function' => 'bp_example_screen_three'													//EXAMPLE --> REFERRAL
 			,	'position'        => 30
 		);
 		
@@ -204,7 +205,7 @@ class BP_Example_Component extends BP_Component
 			,	'slug'            => 'screen-four'															
 			,	'parent_url'      => $referral_link_3
 			,	'parent_slug'     => $this->slug														
-			, 	'screen_function' => 'bp_example_screen_four'													//EXAMPLE
+			, 	'screen_function' => 'bp_example_screen_four'													//EXAMPLE --> REFERRAL
 			,	'position'        => 40
 							
 			// ACCESS RESTRICTION 
@@ -235,16 +236,15 @@ class BP_Example_Component extends BP_Component
 			,	'slug'            => 'screen-five'															
 			,	'parent_url'      => $referral_link_4
 			,	'parent_slug'     => $this->slug														
-			, 	'screen_function' => 'bp_example_screen_five'													//EXAMPLE
+			, 	'screen_function' => 'bp_example_screen_five'													//EXAMPLE --> REFERRAL
 			,	'position'        => 40
 		);
 	
-		//-----------------------------------------------------------------------------------------------
+		//---------------------------------------
 		parent::setup_nav( $main_nav, $sub_nav );
 
 	}
-	
-	
+		
 	/**
 	 *
 	 */
@@ -284,8 +284,7 @@ class BP_Example_Component extends BP_Component
 			, 'rewrite' 			=> array('slug' => 'referrals')								
 			
 			// SUPPORT 			
-			//, 'supports' 			=> array('title','editor','author','comments','custom_fields','excerpt')   		
-			, 'supports' => array( 'title','editor','author')																					//solo?
+			, 'supports' => array( 'title','editor','author')																					
 			
 		);
 
@@ -293,12 +292,15 @@ class BP_Example_Component extends BP_Component
 
 		parent::register_post_types();
 	}
+	
 }// ------------------------------------------------------------- chiude la CLASSE ------------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'bp_loaded', 'bp_referral_load_core_component' );
 
 /**
  *
@@ -307,10 +309,7 @@ function bp_referral_load_core_component()
 {
 	global $bp;
 
+	$bp->example = new BP_Example_Component;														//EXAMPLE --> REFERRAL
 	//$bp->referral = new BP_Referral_Component;
-					
-	$bp->example = new BP_Example_Component;														//EXAMPLE
 }
-add_action( 'bp_loaded', 'bp_referral_load_core_component' );
-
 ?>

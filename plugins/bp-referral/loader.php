@@ -3,60 +3,50 @@
 Plugin Name: bp-referral - sk
 */
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-define( 'BP_REFERRAL_PLUGIN_DIR', dirname( __FILE__ ) );
-
-
-		//CANCELLARE appena possible!
-		define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );
+		
+define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );										//EXAMPLE --> REFERRAL
+//define( 'BP_REFERRAL_PLUGIN_DIR', dirname( __FILE__ ) );
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
+add_action( 'bp_include', 'bp_referral_init' );
+
 function bp_referral_init() 
 {
 	if ( version_compare( BP_VERSION, '1.3', '>' ) )
 		require( dirname( __FILE__ ) . '/includes/bp-referral-loader.php' );
 }
-add_action( 'bp_include', 'bp_referral_init' );
-
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
  
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-
 add_action( 'init', 'bp_referral_load_my_textdomain');
-
 
 function bp_referral_load_my_textdomain()
 {
 	load_plugin_textdomain( 'referrals', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-
+//	JAVASCRIPT
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'wp_head' , 'add_js_referral');					
 
 function add_js_referral ()
-{	
-	//JS
+{		
 	wp_enqueue_script('referral',  plugin_dir_url (__FILE__).'/includes/referral.js');
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-core');
 }  
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+//	CSS	
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-
-
 add_action( 'wp_print_scripts'  		, 'add_css_referral');					
 
 /**
@@ -65,12 +55,11 @@ add_action( 'wp_print_scripts'  		, 'add_css_referral');
  */
 function add_css_referral()																						//---usa il metodo add_JS
 {
-	//CSS	
-	wp_enqueue_style ('referral',  plugin_dir_url (__FILE__).'/includes/referral.css');
-		
+	wp_enqueue_style ('referral',  plugin_dir_url (__FILE__).'/includes/referral.css');		
 }  
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//	---> SPOSTA nel file 'bp-referral-functions.php'
+//	---> SPOSTA nel file 'bp-referral-functions.php'	(non ha ACTION!)
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
 //can user ask for a referral
@@ -91,7 +80,6 @@ function referral_current_user_can_write()
 //
 //	il link! ---> example/screen-two			SCREEN-TWO  
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 add_action( 'bp_member_header_actions'	, 'add_referral_button',1);				
 
@@ -115,6 +103,4 @@ function add_referral_button()
 		</div>';
 	}
 }
-
-
 ?>
