@@ -2,7 +2,7 @@
 
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-// 																		CLASSE: BP_Example_Component 																
+// 													CLASSE: BP_Example_Component 																
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFERRAL
 //class BP_Referral_Component extends BP_Component 											
@@ -102,39 +102,49 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 			'position' 	    	  => 80,
 			'screen_function'     => 'bp_example_screen_one',														//EXAMPLE --> REFERRAL
 
-			'default_subnav_slug' => 'screen-one'			
+			//'default_subnav_slug' => 'screen-one'			
+			'default_subnav_slug' => 'screen-five'				//SCREEN 5
 		);
 		
 		//togliere?!
 		$referral_link = trailingslashit( bp_loggedin_user_domain() . bp_get_example_slug() );						//EXAMPLE --> REFERRAL
 				
 		// 
-		// ------- screen 1 -------
+		// ------- screen 1 ---------- Referral confermati/lasciati/accettati dall'utente ad altri utenti-------------------------------------
 		//		
 				
 		if(bp_is_my_profile())
 		{
-			$nav_text	 =	sprintf(__('Referral confermati da me','referrals'));						
-			$referral_link = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			$nav_text		= sprintf(__('Referral confermati da me','referrals'));						
+			$referral_link 	= trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
-			$nav_text	 =	sprintf (__('Referral confermati da %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$referral_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			$nav_text		= sprintf (__('Referral confermati da %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link 	= trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}		  		
 		
 		$sub_nav[] = array
 		(			
-			'name'            => $nav_text,																																					
-			'slug'            => 'screen-one',																			
-			'parent_url'      => $referral_link,				
-			'parent_slug'     => bp_get_example_slug(), 														//EXAMPLE --> REFERRAL
-			'screen_function' => 'bp_example_screen_one',														//EXAMPLE --> REFERRAL
-			'position'        => 10			
+				'name'            => $nav_text
+			,	'slug'            => 'screen-one'
+			,	'parent_url'      => $referral_link
+			,	'parent_slug'     => bp_get_example_slug() 														//EXAMPLE --> REFERRAL
+			,	'screen_function' => 'bp_example_screen_one'													//EXAMPLE --> REFERRAL
+			,	'position'        => 10			
+			
+			// ACCESS RESTRICTION - only allow on YOUR OWN profile
+			,	'user_has_access' =>
+									(		is_user_logged_in()										
+										&&	bp_is_my_profile()
+									//	&&	bp_is_user()
+									)						
 		);
 		
 		// 
-		// ------- screen 2 -------
+		// ------- screen 2 ------------------------	Chiedi un REFERRAL - Lascia una richiesta di REFERRAL-----------------------------------
 		//
 		
 		// aggiunge...
@@ -147,29 +157,32 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 				,	'parent_url'      => $referral_link
 				,	'parent_slug'     => $this->slug																			
 				, 	'screen_function' => 'bp_example_screen_two'													//EXAMPLE --> REFERRAL
+				,	'position'        => 20
 				
-				// ACCESS RESTRICTION - only allow on other's profile
-				,	'user_has_access' => (		is_user_logged_in()										
+				// ACCESS RESTRICTION - only allow on OTHER'S profile
+				,	'user_has_access' => 
+										(		is_user_logged_in()										
 											&&	!bp_is_my_profile()
 											&&	bp_is_user()
-										)
-				,	'position'        => 20
+										)				
 			);
 		}
 		
 		// 
-		// ------- screen 3 -------
+		// ------- screen 3 ------- RICHIESTE Referral fatta dall utente agli altri utenti ----------------------------------------------------
 		//		
 				
 		if(bp_is_my_profile())
 		{
-			$nav_text_2	 =	sprintf(__('Referral richieste da me','referrals'));						
-			$referral_link_2 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			$nav_text_2		 = sprintf(__('Referral richieste da me','referrals'));						
+			$referral_link_2 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
-			$nav_text_2	 =	sprintf (__('I Referral richiesti da %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$referral_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			$nav_text_2	 	 = sprintf (__('I Referral richiesti da %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link_2 = trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}		  
 		
 		$sub_nav[] = array
@@ -180,22 +193,29 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 			,	'parent_slug'     => $this->slug														
 			, 	'screen_function' => 'bp_example_screen_three'													//EXAMPLE --> REFERRAL
 			,	'position'        => 30
+			
+			// ACCESS RESTRICTION - only allow on YOUR OWN profile 
+			,	'user_has_access' => 
+									(		is_user_logged_in()										
+										&&	bp_is_my_profile()
+									//	&&	bp_is_user()
+									)
 		);
 		
 		// 
-		// ------- screen 4 -------
+		// ------- screen 4 ------- --------------------------------------------------------------------------------------------------------
 		//
 	
 		if(bp_is_my_profile())
 		{
-			$nav_text_3	 =	sprintf(__('Richieste Referral da acc o rifiut','referrals'));						
-			$referral_link_3 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			$nav_text_3		 = sprintf(__('Richieste Referral da acc o rifiut','referrals'));						
+			$referral_link_3 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			$nav_text_3	 =	sprintf (__('Richieste Referral da acc o rifiut di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$referral_link_3 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			$nav_text_3		 = sprintf (__('Richieste Referral da acc o rifiut di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link_3 = trailingslashit( $bp->displayed_user->domain . $this->slug);	
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}		  
 		
@@ -216,7 +236,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 		);
 		
 		// 
-		// ------- screen 5 -------
+		// ------- screen 5 ------- ---------------------------------------------------- ----------------------------------------------------
 		//
 		
 		if(bp_is_my_profile())
@@ -242,6 +262,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 	
 		//---------------------------------------
 		parent::setup_nav( $main_nav, $sub_nav );
+		//---------------------------------------
 
 	}
 		
@@ -284,7 +305,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 			, 'rewrite' 			=> array('slug' => 'referrals')								
 			
 			// SUPPORT 			
-			, 'supports' => array( 'title','editor','author')																					
+			, 'supports'			=> array( 'title','editor','author')																					
 			
 		);
 
