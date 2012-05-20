@@ -6,7 +6,7 @@ function bp_ref_check_voto($voto)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+// INVIA RICHIESTA Referral
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //[OSS] - se stacco l'action funziona lo stesso secondo me!
@@ -23,7 +23,7 @@ function invia_richiesta_referral()
 		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 											//EXAMPLE --> REFERRAL
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'bp_ref_new_referral' );			
+		//check_admin_referer( 'bp_ref_new_referral' );			
 
 		//$title = $_POST['referral-title'];			
 		
@@ -68,7 +68,7 @@ function accetta_referral()
 	if ( isset( $_POST['accetta-referral'] ) )		
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'accetta-referral' );			
+		//check_admin_referer( 'accetta-referral' );			
 
 		// [POST_vars]
 		$id_post 			= $_POST['id-post'];					
@@ -105,8 +105,13 @@ function accetta_referral()
 			//return;
 		}		
 */			
-		$from_user_id = bp_displayed_user_id();
+
+
+
+
+		$from_user_id = bp_displayed_user_id();															//sono UGUALI?!?!
 		$to_user_id   = bp_loggedin_user_id();	
+		
 		
 		// FUNCTION call 
 		$result = 
@@ -183,20 +188,18 @@ function rifiuta_referral()
 	if ( isset( $_POST['rifiuta-referral'] ) )		
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'rifiuta-referral');			
+		//check_admin_referer( 'rifiuta-referral');			
 
 		$id_post = $_POST['id-post'];		
 		
 		////////////////////////////////////////////////////////////
-		$from_user_id = bp_displayed_user_id();							//COINCIDONO!
+		$from_user_id = bp_displayed_user_id();							//COINCIDONO!						//sono UGUALI?!?!
 		$to_user_id   = bp_loggedin_user_id();	
 		////////////////////////////////////////////////////////////
 		
 		// FUNCTION call 
-		$result = bp_ref_deny_referral_request ($id_post, $from_user_id ,$to_user_id ) ;
-		
-		/* $result = change_referral_post_status($id_post, 'trash');*/
-		
+		$result = bp_ref_deny_referral_request ($id_post, $from_user_id ,$to_user_id ) ;		
+						
 		if($result)
 		{				
 			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post, 'referrals' ) );
