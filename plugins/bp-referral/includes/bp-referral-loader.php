@@ -100,10 +100,14 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 			'name' 		  		  => __( 'Referral', 'referrals' ),
 			'slug' 		    	  => bp_get_example_slug(),															//EXAMPLE --> REFERRAL
 			'position' 	    	  => 80,
-			'screen_function'     => 'bp_example_screen_one',														//EXAMPLE --> REFERRAL
+			
+			//'screen_function'     => 'bp_example_screen_one',			// 1											//EXAMPLE --> REFERRAL
+			'screen_function'     => 'bp_example_screen_five',			// 5											//EXAMPLE --> REFERRAL
+			//'screen_function'     => 'bp_example_screen_two',			// 2											//EXAMPLE --> REFERRAL
 
 			//'default_subnav_slug' => 'screen-one'			
-			'default_subnav_slug' => 'screen-five'				//SCREEN 5
+			'default_subnav_slug' => 'screen-five'				// 5
+			//'default_subnav_slug' => 'screen-two'				// 2
 		);
 		
 		//togliere?!
@@ -241,13 +245,13 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 		
 		if(bp_is_my_profile())
 		{
-			$nav_text_4	 =	sprintf(__('Le mie Referral','referrals'));						
-			$referral_link_4 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			$nav_text_4		 = sprintf(__('Le mie Referral','referrals'));						
+			$referral_link_4 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
-			$nav_text_4	 =	sprintf (__('I Referral di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$referral_link_4 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
+			$nav_text_4	 	 = sprintf (__('I Referral di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$referral_link_4 = trailingslashit( $bp->displayed_user->domain . $this->slug);	
 		}		  
 		
 		$sub_nav[] = array

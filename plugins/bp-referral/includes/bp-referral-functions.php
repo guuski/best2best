@@ -8,7 +8,8 @@ function bp_ref_post_form_action()																										//EXAMPLE --> REFERR
 {
     global $bp;
 	
-	echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-one/"); 		// SCREEN 1		
+	//echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-one/"); 		// SCREEN 1		
+	echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-five/"); 		// SCREEN 5		
 }
 
 
@@ -73,23 +74,31 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	global $bp;
 			
 	// FUNCTION call 1
-	$result_1 = change_referral_post_status($id_post, 'publish');
+	$status_changed = change_referral_post_status($id_post, 'publish');
 	
-	//invertiti
-	$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $to_user_id ), bp_core_get_user_displayname( $from_user_id ) );
+////////////---- risultano uguali (REFERRAL di Andrea su Andrea) ------////////////////////////////////////
+	
+		//invertiti
+		$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $to_user_id ), bp_core_get_user_displayname( $from_user_id ) );
 	
 	// FUNCTION call 2
-	$result_2 = change_referral_title($id_post, $new_referral_title);		
-		
+	$title_changed = change_referral_title($id_post, $new_referral_title);		
+	
+//////////// devo invertire AUTORE e Recipient ////////////////////////////////////
+	
 	// FUNCTION call 3
-	$result_3 = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
+		//$author_inverted = 
 	
-	if($result_1 && $result_2 && $result_3) 
-	{			
-	
-		//
-		$result = true;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
+	// FUNCTION call 4
+	$metatags = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
+	
+		
+	//un IF SELETTIVO SAREBBE MEGLIO!!!! per capire quale errore si è verificato
+	if($status_changed && $title_changed && $author_inverted && $metatags) 				
+	{				
+
 		// --------------------------- NOTIFICATION  --------------------------------------
 		
 		
@@ -109,9 +118,12 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 			'action' => apply_filters( 'bp_ref_new_referral_accepted_activity_action', sprintf( __( '%s ha accettato la richiesta di Referral di %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
 			'item_id' => $to_user_id,			//ITEM_ID
 		) );
-		
-		
+				
 		// ------------------------------------------------------------------------------------------
+		
+		//IMPORTANTE!
+		$result = true;
+		
 	}
 	
 	//

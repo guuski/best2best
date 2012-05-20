@@ -44,7 +44,7 @@
 	<!--------------------------------------------------- LISTA 5 - Le mie Referrals  ------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php _e( 'Le mie Referrals', 'referrals' ) ?></h4>
+	<h4><?php //_e( 'Le mie Referrals', 'referrals' ) ?></h4>
 		
 	<?php		
 
@@ -129,7 +129,8 @@
 <?php else: ?>		
 		
 	<!-- MESSAGGIO -->
-	<h5><?php _e( 'le tue richieste REFERRAL non sono state ancore accettate (controlla richieste pendenti nella TAB: REFERRAL RICHIESTE DA ME) o non hai ancora chiesto nessun REFERRAL', 'referrals' ) ?></h5>												
+	<h6><?php _e( 'L\'utente non ha ricevuto alcun REFERRAL ancora', 'referrals' ) ?></h6>												
+		<h5><?php //_e( 'le richieste REFERRAL non sono state ancore accettate (controlla richieste pendenti nella TAB: REFERRAL RICHIESTE DA ME) o non hai ancora chiesto nessun REFERRAL', 'referrals' ) ?></h5>														
 		
 <?php endif; ?>
 	

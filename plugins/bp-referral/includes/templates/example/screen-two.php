@@ -1,4 +1,7 @@
-<?php get_header() ?>
+<?php
+//------------------------------------------- SCREEN 2  - Chiedi REFERRAL ---------------------------------------------------------------------------------
+?><?php get_header() ?>
+
 
 	<div id="content">
 		<div class="padder">
@@ -28,77 +31,71 @@
 						<?php bp_get_options_nav() ?>
 					</ul>
 				</div>
-
-				
-				
-	
-				<!-- MESSAGGIO  Opt 1 -->
-				<h4><?php //_e( 'Screen One', 'referrals' ) ?></h4>
-				
+												
+				<!-- MESSAGGIO -->
+				<h6 style = "display: inline;">										
+					<?php _e( 'Chiedi un Referral a', 'referrals' ) ?> 
+					<h5 style = "display: inline;">										
+						<strong> <?php _e( ''.bp_get_displayed_user_fullname(), 'referrals' ) ?> </strong>
+					</h5>
+				</h6>
+								
+				<br />				
 				<br />
-				
-				<!-- MESSAGGIO  Opt 2 -->
-				<h5><?php _e( 'Chiedi un Referral a '.bp_get_displayed_user_fullname() , 'referrals' ) ?></h5>
-				
-				<br />
-
-<!-------------------------------------------------------------------------------------------------------->				
-
-							
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->
-<!--  FORM - met 2	- no inclusione ESTERNA
+<!--  FORM
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-	<form action = "<?php bp_ref_post_form_action() ?> " method="post" id="referral-form" class="standard-form"> <!--- referral-FORM-->
+<!-- 
+
+NOTA BENE: ci sono 2 redirect: 
+
+	1) della funzione  'bp_ref_post_form_action()' 
 	
-		<!-- DO ACTION -->
+	2) la funzione 'invia_richiesta_referral()' nel FILE 'bp-referral-actions.php'
 	
+-->
 
-		<!-- Avatar -->
-		<div id="review-writer-avatar">
-			<a href="<?php echo bp_loggedin_user_domain(); ?>">
-				<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
-			</a>
-		</div>				
-		
-		<!-- MESSAGGIO  Opt 3 -->
-		<h5><?php //_e( 'Chiedi un Referral a '.bp_get_displayed_user_fullname() , 'referrals' ) ?></h5>
+<form action = "<?php bp_ref_post_form_action() ?> " method="post" id="referral-form" class="standard-form"> <!--- referral-FORM-->
+	
+	<!-- DO ACTION -->																				<!-- missing! -->
 
-
-<?php
-//SPOSTA nelle OPZIONDI del Plugin nel Back End
-$contenuto = 'Gentile Cliente, avendo ....';			//
-?>				
-			
-			
-		<!--  -->
-		<div id="new-referral-content">
-
-			<div id="new-referral-textarea">			
-				<label for="referral-content">  <?php //_e( 'Testo', 'referrals' ); ?>  </label>			
-				<textarea name="referral-content" id="referral-content" cols="50" rows="10"><?php 
-				echo $contenuto
-				?></textarea>
-			</div>
-		
-			<br />
-		
-			<!-- bottone INVIA -->	
-			<div>
-				<br />
-				<div id="new-referral-submit">								
-					<input type="submit" name="referral-submit" id="referral-submit" value="<?php _e( 'Invia', 'referrals' ); ?>" />
-				</div>
-				<br />
-			</div>		
+	<!-- Avatar -->
+	<div id="review-writer-avatar">
+		<a href="<?php echo bp_loggedin_user_domain(); ?>">
+			<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
+		</a>
+	</div>				
+	
+	<?php
+	//SPOSTA nelle OPZIONDI del Plugin nel Back End															//PLUGIN Options!
+		$contenuto = 'Gentile Cliente, avendo ....';			//
+	?>				
 					
-		</div> <!-- chiude NEW REFERRAL -->
-				
-        <!-- DO ACTION -->														
+	<!--  -->
+	<div id="new-referral-content">
 		
-		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'bp_ref_new_referral' ); ?>		
+		<!-- TextArea -->
+		<div id="new-referral-textarea">			
+			<label for="referral-content">  <?php //_e( 'Testo', 'referrals' ); ?>  </label>			
+			<textarea name="referral-content" id="referral-content" cols="50" rows="10"><?php 
+			echo $contenuto
+			?></textarea>
+		</div>
+	
+		<br />
+	
+		<!-- bottone INVIA -->	
+		<div id="new-referral-submit">								
+			<input type="submit" name="referral-submit" id="referral-submit" value="<?php _e( 'Invia', 'referrals' ); ?>" />
+		</div>							
 		
+	</div> <!-- chiude NEW REFERRAL CONTENT?-->
+			
+	<!-- DO ACTION -->																				<!-- missing! -->											
+	
+	<!-- [WPNONCE] -->
+	<?php wp_nonce_field( 'bp_ref_new_referral' ); ?>				
 </form>
 <!--------------------------------------------------------------------------fine FORM -------------------------------------------------------------------------------------->						
 
