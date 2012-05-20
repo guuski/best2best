@@ -44,7 +44,7 @@ function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
 		
 		// --------------------------- ACTIVITY --------------------------------------
 		
-		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$to_user_link   = bp_core_get_userlink( $to_user_id );												//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
 		
 		bp_referral_record_activity( array
@@ -75,13 +75,22 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	// FUNCTION call 1
 	$result_1 = change_referral_post_status($id_post, 'publish');
 	
+//////////////////////////////////////////////////////////////////////////
+		//$new_referral_title = 
+	
 	// FUNCTION call 2
 	$result_2 = change_referral_title($id_post, 'Referral');		
+	
+//////////////////////////////////////////////////////////////////////////	
 	
 	// FUNCTION call 3
 	//$result_3 = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
 	if($result_1 && $result_2  ) //&& $result_3) 
 	{			
+	
+		//
+		$result = true;
+		
 		// --------------------------- NOTIFICATION  --------------------------------------
 		
 		
@@ -92,7 +101,7 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 		
 		// --------------------------- ACTIVITY --------------------------------------
 		
-		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$to_user_link   = bp_core_get_userlink( $to_user_id );												//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
 		
 		bp_referral_record_activity( array
@@ -138,8 +147,8 @@ function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
 		
 		
 		// --------------------------- ACTIVITY --------------------------------------
-		
-		$to_user_link   = bp_core_get_userlink( $to_user_id );
+						
+		$to_user_link   = bp_core_get_userlink( $to_user_id );															//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
 		
 		bp_referral_record_activity( array
