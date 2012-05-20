@@ -2,6 +2,11 @@
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // REMOVE SCREEN Notifications - 1 - new_referral_pending (PENDING)
+
+
+
+												//ATTIVA l'action!
+												
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -10,19 +15,42 @@
 function bp_referral_remove_screen_notifications_pending()																					//EXAMPLE --> REFERRAL
 {
 	global $bp;	
-	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->slug, 'new_referral_pending' );			 
+	
+	//FUNZIONE DEPRECATA
+		//bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->slug, 'new_referral_pending' );	  //SLUG
+		//bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->id, 'new_referral_pending' );	  //ID			
+	
+	//FUNZIONE OK
+	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->id,'new_referral_pending');	
+
+					
 }
 //EXAMPLE --> REFERRAL																																			
-add_action( 'bp_example_screen_four', 'bp_referral_remove_screen_notifications' );		// SCREEN - 4																							
-																																
-//EXAMPLE --> REFERRAL																								
-	//add_action( 'bp_example_screen_		', 'bp_referral_remove_screen_notifications' );		// SCREEN - 		
-																																																								
+	//add_action( 'bp_example_screen_four', 'bp_referral_remove_screen_notifications' );		// SCREEN - 4																							
+
+	//altri SCRREN?
+		//add_action( 'bp_example_screen_		', 'bp_referral_remove_screen_notifications' );		// SCREEN - 		
+	
 //------------io la toglierei!  - ma manco funziona forse?!																							
 add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_pending' );	
 
+
+
+
+
+
+
+
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // REMOVE SCREEN Notifications - 2 - new_referral_accepted  (ACCEPTED)
+
+
+
+
+												//ATTIVA l'action!
+												
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -32,6 +60,14 @@ function bp_referral_remove_screen_notifications_accepted()																					
 {
 	global $bp;	
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->slug, 'new_referral_accepted' );			
+	
+						
+					
+					
+					//$bp->example->id	
+					
+					
+
 }
 
 //EXAMPLE --> REFERRAL																								
@@ -41,8 +77,23 @@ function bp_referral_remove_screen_notifications_accepted()																					
 	add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_accepted' );	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // REMOVE SCREEN Notifications - 3 - new_referral_denied  (DENIED)
+
+
+
+
+
+																//ATTIVA l'action!
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -52,16 +103,30 @@ function bp_referral_remove_screen_notifications_denied()																					//
 {
 	global $bp;	
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->slug, 'new_referral_denied' );			
+	
+	
+						
+					
+					
+					//$bp->example->id	
+					
+					
+
 }
 
 //EXAMPLE --> REFERRAL																								
 	//add_action( 'bp_example_screen_		', 'bp_referral_remove_screen_notifications' );		// SCREEN - 		
 																																																								
 //------------io la toglierei!  - ma manco funziona forse?!																							
-	add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_denied' );	
+add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_denied' );	
 	
 	
 
+	
+	
+	
+	
+	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // FORMAT Notifications
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +160,15 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			
 		break;
+/*		
+
+		//--------------------------------------------------
 		
+		//ATTIVA l'action!
+
+		//--------------------------------------------------
+
+
 		// 
 		// 2 - La mia richiesta Referral ACCETTATA
 		// 
@@ -112,6 +185,15 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			
 		break;
+*/		
+
+/*		
+
+		//--------------------------------------------------
+		
+		//ATTIVA l'action!
+
+		//--------------------------------------------------
 		
 		// 
 		// 3 - La mia richiesta Referral RIFIUTATA
@@ -129,14 +211,17 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			
 		break;
-	}
+		*/
+		
+	}// fine SWITCH
 
 	//
 	$return =  array
 	(
-			'text' => $text_title,
-			'link' => $bp->loggedin_user->domain . $bp->example->slug,														//EXAMPLE --> REFERRAL
-			'title' => __( 'Referrals', 'referrals' )
+		'text' 	=> $text_title,
+		'link' 	=> $bp->loggedin_user->domain . $bp->example->slug .'/screen-four',								//Screen 4 - REDIRECT!
+											//EXAMPLE --> REFERRAL
+		'title'	=> __( 'Referrals', 'referrals' )
 	);
 
 	//DO_ACTION

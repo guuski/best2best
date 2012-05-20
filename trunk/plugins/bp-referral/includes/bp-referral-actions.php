@@ -110,23 +110,27 @@ function accetta_referral()
 		}		
 */			
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-		$from_user_id = bp_displayed_user_id();															//sono UGUALI?!?!
+		//sono UGUALI?!?!
+		
+		$from_user_id = bp_displayed_user_id();															
 		$to_user_id   = bp_loggedin_user_id();	
 		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		
 		// FUNCTION call 
-		$result = 
-			
-			bp_ref_accept_referral_request ($id_post, $from_user_id, $to_user_id 						
-					
-					////////////////////////////////////////////////////////////////////////////////////////
-					//);
-					, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo ) ;
-					////////////////////////////////////////////////////////////////////////////////////////
-			
+		$result = bp_ref_accept_referral_request 
+		(
+				$id_post
+			, 	$from_user_id
+			,	$to_user_id
+			, 	$tipologia_rapporto
+			, 	$anzianita_rapporto 
+			, 	$utente_consigliato
+			,	$voto_complessivo
+		);	
+		
 		if($result)	
 		{				
 			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
@@ -136,17 +140,14 @@ function accetta_referral()
 			bp_core_add_message( __( 'errore accettazione referral 	', 'referrals' ) );			
 		}	
 					
-		// fa il REDIRECT
+		// fa il REDIRECT		
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4
 		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-	
-				bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4
-									
-									
-									
-								//------Vd funzione successiva
-									
-									//REDIRECT su Screen 6
-									//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE --> REFERRAL		-Screen 6
+			
+		//------Vd funzione successiva
+			
+			//REDIRECT su Screen 6
+			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE --> REFERRAL		-Screen 6
 	}	
 }
 
@@ -196,10 +197,10 @@ function rifiuta_referral()
 
 		$id_post = $_POST['id-post'];		
 		
-		////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		$from_user_id = bp_displayed_user_id();							//COINCIDONO!						//sono UGUALI?!?!
 		$to_user_id   = bp_loggedin_user_id();	
-		////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// FUNCTION call 
 		$result = bp_ref_deny_referral_request ($id_post, $from_user_id ,$to_user_id ) ;		

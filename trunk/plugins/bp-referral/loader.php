@@ -1,10 +1,20 @@
 <?php
 /*
-Plugin Name: bp-referral - sk
+Plugin Name: bp-referral
+Plugin URI:
+Description: 
+Version: 0.0.1
+Revision Date: MMMM DD, YYYY
+Requires at least: 
+Tested up to: 
+License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
+Author: Andrea Sangiorgio
+Author URI:
+Network: true
 */
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+// COSTANTI
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 		
 define( 'BP_EXAMPLE_PLUGIN_DIR', dirname( __FILE__ ) );										//EXAMPLE --> REFERRAL
@@ -23,7 +33,7 @@ function bp_referral_init()
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
- 
+//	LOCALIZZAZIONE / TRADUZIONE 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 add_action( 'init', 'bp_referral_load_my_textdomain');
 
