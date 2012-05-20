@@ -75,17 +75,16 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	// FUNCTION call 1
 	$result_1 = change_referral_post_status($id_post, 'publish');
 	
-//////////////////////////////////////////////////////////////////////////
-		//$new_referral_title = 
+	//invertiti
+	$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $to_user_id ), bp_core_get_user_displayname( $from_user_id ) );
 	
 	// FUNCTION call 2
-	$result_2 = change_referral_title($id_post, 'Referral');		
-	
-//////////////////////////////////////////////////////////////////////////	
-	
+	$result_2 = change_referral_title($id_post, $new_referral_title);		
+		
 	// FUNCTION call 3
-	//$result_3 = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
-	if($result_1 && $result_2  ) //&& $result_3) 
+	$result_3 = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
+	
+	if($result_1 && $result_2 && $result_3) 
 	{			
 	
 		//
@@ -182,7 +181,7 @@ function create_referral_post($to_user_id , $from_user_id)
 	(
 			'post_status'	=> 'pending'		//PENDING!!!
 		,	'post_type'		=> 'referral'										//post_type
-		,   'post_author'	=> $from_user_id 
+				,   'post_author'	=> $from_user_id 																//? è SBAGLIATO!!!
 		,	'post_title'	=> $referral_title			
 	);
 
