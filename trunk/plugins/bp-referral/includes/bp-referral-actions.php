@@ -23,7 +23,7 @@ function invia_richiesta_referral()
 		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 											//EXAMPLE --> REFERRAL
 	{		
 		// [WPNONCE]
-		//check_admin_referer( 'bp_ref_new_referral' );			
+		check_admin_referer( 'bp_ref_new_referral' );			
 
 		//$title = $_POST['referral-title'];			
 		
@@ -45,9 +45,13 @@ function invia_richiesta_referral()
 			bp_core_add_message( __( 'Richiesta REFERRAL non inviato --> ERRORE!', 'referrals' ) );			
 		}	
 			
-		// fa il REDIRECT
-			//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE --> REFERRAL		- SCREEN 1
+		// fa il REDIRECT			
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-five' );			//EXAMPLE --> REFERRAL		- SCREEN 5
+		
+		// opt 1 - però deve essere abilitata la restrizione che impedisce di chiedere più di un REFERRAL! - deve comparire un messaggio invece del FORM
+			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-two' );			//EXAMPLE --> REFERRAL		- SCREEN 2
+				
+		// opt 2 - lo SCREEN 5 non compare proprio!
 	
 	}	
 }
@@ -68,7 +72,7 @@ function accetta_referral()
 	if ( isset( $_POST['accetta-referral'] ) )		
 	{		
 		// [WPNONCE]
-		//check_admin_referer( 'accetta-referral' );			
+		check_admin_referer( 'accetta-referral' );			
 
 		// [POST_vars]
 		$id_post 			= $_POST['id-post'];					
@@ -188,7 +192,7 @@ function rifiuta_referral()
 	if ( isset( $_POST['rifiuta-referral'] ) )		
 	{		
 		// [WPNONCE]
-		//check_admin_referer( 'rifiuta-referral');			
+		check_admin_referer( 'rifiuta-referral');			
 
 		$id_post = $_POST['id-post'];		
 		
