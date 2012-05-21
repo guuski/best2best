@@ -17,7 +17,7 @@
  * bp_example_screen_one()																								 
  *
  */
-function bp_example_screen_one() 																								//EXAMPLE --> REFERRAL
+function bp_example_screen_one() 												//EXAMPLE --> REFERRAL
 {
 	global $bp;
 	
@@ -31,7 +31,7 @@ function bp_example_screen_one() 																								//EXAMPLE --> REFERRAL
  * bp_example_screen_two)
  * 
  */
-function bp_example_screen_two() 																								//EXAMPLE --> REFERRAL
+function bp_example_screen_two() 												//EXAMPLE --> REFERRAL
 {
 
 	global $bp;
@@ -45,12 +45,22 @@ function bp_example_screen_two() 																								//EXAMPLE --> REFERRAL
  * bp_example_screen_three
  * 
  */
-function bp_example_screen_three() 																							//EXAMPLE --> REFERRAL
+function bp_example_screen_three() 															//EXAMPLE --> REFERRAL
 {
 
 	global $bp;
 	
 	do_action( 'bp_example_screen_three' );
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	//cancella le notifiche di REFERRAL ACCEPTED (N2) e REFERRAL DENIED (N3) dell'utente
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	
+	//- (v SLUG)
+	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_accepted');	 // (N2)	
+	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_denied');		 // (N3)
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 
 	bp_core_load_template( apply_filters( 'bp_example_template_screen_three', 'example/screen-three' ) );
 }
@@ -59,7 +69,7 @@ function bp_example_screen_three() 																							//EXAMPLE --> REFERRAL
  * bp_example_screen_four
  * 
  */
-function bp_example_screen_four() 																						//EXAMPLE --> REFERRAL
+function bp_example_screen_four() 														//EXAMPLE --> REFERRAL
 {
 
 	global $bp;
@@ -67,14 +77,14 @@ function bp_example_screen_four() 																						//EXAMPLE --> REFERRAL
 	do_action( 'bp_example_screen_four' );
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	//cancella le notifiche di REFERRAL PENDING dell'utente
+	//cancella le notifiche di REFERRAL PENDING (N1) dell'utente
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	//vedi se funziona pure! - (v ID)
 	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->id,'new_referral_pending');	
 	
 	//- (v SLUG)
-	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_pending');	
+	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_pending');	         //(N1) 
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
@@ -85,7 +95,7 @@ function bp_example_screen_four() 																						//EXAMPLE --> REFERRAL
  * bp_example_screen_five
  * 
  */
-function bp_example_screen_five() 																							//EXAMPLE --> REFERRAL
+function bp_example_screen_five() 													//EXAMPLE --> REFERRAL
 {
 
 	global $bp;

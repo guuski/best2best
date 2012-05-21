@@ -4,14 +4,29 @@
 // FORM
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function bp_ref_post_form_action()																										//EXAMPLE --> REFERRAL
+function bp_ref_post_form_action()			//EXAMPLE --> REFERRAL																										
 {
     global $bp;
-	
-	//echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-one/"); 		// SCREEN 1		
-	echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-five/"); 		// SCREEN 5		
+		
+	// SCREEN 5		
+	echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-five/"); 		
+		
 }
 
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// FORM	2
+			//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+			/*
+			function bp_ref_post_form_action		()					//EXAMPLE --> REFERRAL																										
+			{
+				global $bp;
+				
+				// SCREEN 5		
+				echo apply_filters('bp_ref_post_form_action',  $bp->displayed_user->domain.$bp->example->slug."/screen-five/"); 		
+				
+			}
+			*/
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -23,39 +38,42 @@ function bp_ref_post_form_action()																										//EXAMPLE --> REFERR
  *
  *
  */
-function bp_ref_send_referral( $to_user_id, $from_user_id ) //, $title)
+function bp_ref_send_referral( $to_user_id, $from_user_id )
 {
 	global $bp;
 			
 	// [WPNONCE]
-	//check_admin_referer( 'bp_ref_new_referral' );															//ma non è ripetuto?! - vedi FILE Actions!
+	check_admin_referer( 'bp_ref_new_referral' );											//ma non è ripetuto?! - vedi FILE Actions!
 
-	//
+	// FUNCTION CALL
 	$result = create_referral_post($to_user_id,$from_user_id );																	
 	
 	if($result) 
 	{									
 		// --------------------------- NOTIFICATION  --------------------------------------
-		
-		
+		// EXAMPLE --> REFERRAL		
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_pending' );		//NOTIFICATIOIN: 'new_referral_pending'
 		
-																												// EXAMPLE --> REFERRAL
+		// --------------------------- ACTIVITY -------------------------------------------
 		
-		
-		// --------------------------- ACTIVITY --------------------------------------
-		
-		$to_user_link   = bp_core_get_userlink( $to_user_id );												//sono UGUALI?!?!
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
+		$to_user_link   = bp_core_get_userlink( $to_user_id );					//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
 		
-		bp_referral_record_activity( array
-		(
-			'type' => 'rejected_terms',			//?!
-			'action' => apply_filters( 'bp_ref_new_referral_pending_activity_action', sprintf( __( '%s ha richiesto un Referral a %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
-			'item_id' => $to_user_id,			//ITEM_ID
-		) );
-	}
-			
+		bp_referral_record_activity( 
+			array
+			(
+					'type'		=>  'rejected_terms'							//?!
+				,	'action' 	=>  apply_filters
+												( 	'bp_ref_new_referral_pending_activity_action', 
+													sprintf( __( '%s ha richiesto un Referral a %s!', 'referrals' ), 
+													$from_user_link, $to_user_link ), $from_user_link, $to_user_link 
+												)
+				,	'item_id'	=>  $to_user_id									//ITEM_ID
+			) 
+		);
+	}			
 	return $result;											
 }
 
@@ -75,42 +93,47 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 			
 	// FUNCTION call 1
 	$status_changed = change_referral_post_status($id_post, 'publish');
-	
-////////////---- risultano uguali (REFERRAL di Andrea su Andrea) ------////////////////////////////////////
+		
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	//---> BUG: risultano uguali (REFERRAL di Andrea su Andrea) 
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 		//invertiti
 		$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $to_user_id ), bp_core_get_user_displayname( $from_user_id ) );
+		
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 	
 	// FUNCTION call 2
 	$title_changed = change_referral_title($id_post, $new_referral_title);		
 	
-//////////// devo invertire AUTORE e Recipient ////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	// ---> IMPLEM: devo invertire AUTORE e Recipient forse!!! 
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	// FUNCTION call 3
 		//$author_inverted = 
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
 	// FUNCTION call 4
 	$metatags = add_referral_metatags($id_post, $tipologia_rapporto, $anzianita_rapporto , $utente_consigliato, $voto_complessivo );		
 	
-		
-	//un IF SELETTIVO SAREBBE MEGLIO!!!! per capire quale errore si è verificato
+	//
+	//----> CHANGE: un IF SELETTIVO SAREBBE MEGLIO!!!! per capire quale errore si è verificato
+	//
 	if($status_changed && $title_changed && $author_inverted && $metatags) 				
 	{				
-
-		// --------------------------- NOTIFICATION  --------------------------------------
+		// --------------------------- NOTIFICATION  --------------------------------------		
 		
+		// EXAMPLE --> REFERRAL
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_accepted' ); //NOTIFICATIOIN: 'new_referral_accepted'
 		
-		//bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_accepted' );		//NOTIFICATIOIN: 'new_referral_accepted'
+		// --------------------------- ACTIVITY -------------------------------------------
 		
-																													// EXAMPLE --> REFERRAL
-		
-		
-		// --------------------------- ACTIVITY --------------------------------------
-		
-		$to_user_link   = bp_core_get_userlink( $to_user_id );												//sono UGUALI?!?!
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
+		$to_user_link   = bp_core_get_userlink( $to_user_id );								//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
 		
 		bp_referral_record_activity( array
 		(
@@ -119,14 +142,9 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 			'item_id' => $to_user_id,			//ITEM_ID
 		) );
 				
-		// ------------------------------------------------------------------------------------------
-		
 		//IMPORTANTE!
-		$result = true;
-		
-	}
-	
-	//
+		$result = true;	
+	}	
 	return $result;											
 }
 
@@ -134,7 +152,8 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
-// chiamata 'rifiuta_referral()' (in 'bp-referral-actions.php') 
+// chiamata da 'rifiuta_referral()' (in 'bp-referral-actions.php') 
+//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -151,16 +170,13 @@ function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
 	{	
 		// --------------------------- NOTIFICATION  --------------------------------------
 		
-		
-		//bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_denied' );		//NOTIFICATIOIN: 'new_referral_denied'
-		
-																												// EXAMPLE --> REFERRAL
-		
-		
-		// --------------------------- ACTIVITY --------------------------------------
+		// EXAMPLE --> REFERRAL		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_denied' );		//NOTIFICATIOIN: 'new_referral_denied'
+				
+		// --------------------------- ACTIVITY -------------------------------------------
 						
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
-		$to_user_link   = bp_core_get_userlink( $to_user_id );															//sono UGUALI?!?!
+		$to_user_link   = bp_core_get_userlink( $to_user_id );						//sono UGUALI?!?!
 		$from_user_link = bp_core_get_userlink( $from_user_id );
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
 		
@@ -169,10 +185,7 @@ function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
 			'type' => 'rejected_terms',			//?!
 			'action' => apply_filters( 'bp_ref_new_referral_denied_activity_action', sprintf( __( '%s ha rifiutato la richiesta di Referral di %s!', 'referrals' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
 			'item_id' => $to_user_id,			//ITEM_ID
-		) );
-		
-		
-		// ------------------------------------------------------------------------------------------
+		) );						
 	}
 	
 	//
@@ -195,7 +208,7 @@ function create_referral_post($to_user_id , $from_user_id)
 	(
 			'post_status'	=> 'pending'		//PENDING!!!
 		,	'post_type'		=> 'referral'										//post_type
-				,   'post_author'	=> $from_user_id 																//? è SBAGLIATO!!!
+				,   'post_author'	=> $from_user_id 														//? è SBAGLIATO!!!
 		,	'post_title'	=> $referral_title			
 	);
 
@@ -233,19 +246,16 @@ function change_referral_post_status($id_post, $new_post_status)
 }
 
 /*
-'new' - When there's no previous status
-'publish' - A published post or page
-'pending' - post in pending review
-'draft' - a post in draft status
-'auto-draft' - a newly created post, with no content
-'future' - a post to publish in the future
-'private' - not visible to users who are not logged in
-'inherit' - a revision. see get_children.
-'trash' - post is in trashbin. added with Version 2.9.
+	'new' 		 - When there's no previous status
+	'publish' 	 - A published post or page
+	'pending' 	 - post in pending review
+	'draft' 	 - a post in draft status
+	'auto-draft' - a newly created post, with no content
+	'future'     - a post to publish in the future
+	'private' 	 - not visible to users who are not logged in
+	'inherit' 	 - a revision. see get_children.
+	'trash' 	 - post is in trashbin. added with Version 2.9.
 */	
-
-
-
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -270,9 +280,6 @@ function change_referral_title($id_post, $post_title)
 }
 
 
-
-
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -285,9 +292,7 @@ function add_referral_metatags($id_post , $tipologia_rapporto , $anzianita_rappo
 {
 	$wp_update_post_args = array
 	(
-			'ID'			=> $id_post
-			
-		//,	'post_title'	=> $post_title		
+		'ID' => $id_post					
 	);
 		
 	$result = wp_update_post( $wp_update_post_args );
@@ -305,19 +310,11 @@ function add_referral_metatags($id_post , $tipologia_rapporto , $anzianita_rappo
 
 
 
-
-
-
-
-
-
-
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// 
+//  è usata?!													//EXAMPLE --> REFERRAL
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-																														//EXAMPLE --> REFERRAL
+																										
 /**
  * bp_example_load_template_filter()
  *
