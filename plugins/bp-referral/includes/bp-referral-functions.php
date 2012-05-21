@@ -51,6 +51,7 @@ function bp_ref_send_referral( $to_user_id, $from_user_id )
 	if($result) 
 	{									
 		// --------------------------- NOTIFICATION  --------------------------------------
+		
 		// EXAMPLE --> REFERRAL		
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_pending' );		//NOTIFICATIOIN: 'new_referral_pending'
 		
@@ -111,7 +112,7 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	// FUNCTION call 3
-		//$author_inverted = 
+	$author_inverted = true;
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
@@ -125,7 +126,13 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	{				
 		// --------------------------- NOTIFICATION  --------------------------------------		
 		
-		// EXAMPLE --> REFERRAL
+		// EXAMPLE --> REFERRAL		
+		
+		//scambio UTENTI!		
+			//$from_user_id_new = $to_user_id;
+			//$to_user_id_new   = $from_user_id;				
+			//bp_core_add_notification( $from_user_id_new, $to_user_id_new, $bp->example->slug, 'new_referral_accepted' ); //NOTIFICATIOIN: 'new_referral_accepted'
+			
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_accepted' ); //NOTIFICATIOIN: 'new_referral_accepted'
 		
 		// --------------------------- ACTIVITY -------------------------------------------
@@ -171,8 +178,14 @@ function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
 		// --------------------------- NOTIFICATION  --------------------------------------
 		
 		// EXAMPLE --> REFERRAL		
+		
+		//scambio UTENTI!		
+			//$from_user_id_new = $to_user_id;
+			//$to_user_id_new   = $from_user_id;				
+			//bp_core_add_notification( $from_user_id_new, $to_user_id_new, $bp->example->slug, 'new_referral_denied' );		//NOTIFICATIOIN: 'new_referral_denied'
+			
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->example->slug, 'new_referral_denied' );		//NOTIFICATIOIN: 'new_referral_denied'
-				
+			
 		// --------------------------- ACTIVITY -------------------------------------------
 						
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						

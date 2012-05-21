@@ -37,7 +37,7 @@ function invia_richiesta_referral()
 		
 		if($result)
 		{				
-			bp_core_add_message( __( 'Richiesta REFERRAL inviata correttamente  --- è stata inviata una notifica all\'utente', 'referrals' ) );
+			bp_core_add_message( __( 'Richiesta REFERRAL inviata correttamente', 'referrals' ) );
 		}
 		else 
 		{			
@@ -113,10 +113,13 @@ function accetta_referral()
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//sono UGUALI?!?!
-		
-		$from_user_id = bp_displayed_user_id();															
-		$to_user_id   = bp_loggedin_user_id();	
+		//ricava il DESTINATARIO
+		$obj_post 		 = get_post($id_post);			
+		$post_author_id  = $obj_post->post_author;
+				
+		//		
+		$from_user_id = bp_displayed_user_id(); // oppure --> bp_loggedin_user_id()	
+		$to_user_id   = $post_author_id;				
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		
@@ -134,11 +137,11 @@ function accetta_referral()
 		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post. '   è stata inviata una notifica all\'utente', 'referrals' ) );
+			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'errore accettazione referral (notifica e activity non inviate)	', 'referrals' ) );			
+			bp_core_add_message( __( 'errore accettazione referral (notifica e activity non inviate)', 'referrals' ) );			
 		}	
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,8 +208,15 @@ function rifiuta_referral()
 		$id_post = $_POST['id-post'];		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		$from_user_id = bp_displayed_user_id();							//COINCIDONO!						//sono UGUALI?!?!
-		$to_user_id   = bp_loggedin_user_id();	
+		
+		//ricava il DESTINATARIO
+		$obj_post 		 = get_post($id_post);			
+		$post_author_id  = $obj_post->post_author;
+				
+		//		
+		$from_user_id = bp_displayed_user_id(); // oppure --> bp_loggedin_user_id()	
+		$to_user_id   = $post_author_id;		
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// FUNCTION call 
@@ -215,7 +225,7 @@ function rifiuta_referral()
 		if($result)
 		{				
 			// ---> BUG: non compare! msg troppo lungo?!
-			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post . '   è stata inviata una notifica all\'utente', 'referrals' ) );
+			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post, 'referrals' ) );
 		}
 		else 
 		{			
