@@ -1,5 +1,8 @@
 <?php
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// sposta nel file FUNCTIONS?
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 function bp_ref_check_voto($voto) 
 {
 	return (empty($voto) || $voto==0);
@@ -20,38 +23,32 @@ function invia_richiesta_referral()
 	global $bp;
 	
 	if ( isset( $_POST['referral-submit'] ) 
-		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 											//EXAMPLE --> REFERRAL
+		)//&& bp_is_active( 'example' ) ) 	//&& bp_is_active( 'referral' ) ) 				//EXAMPLE --> REFERRAL
 	{		
 		// [WPNONCE]
 		check_admin_referer( 'bp_ref_new_referral' );			
-
-		//$title = $_POST['referral-title'];			
-		
+					
 		// FUNCTION call
 		$result = bp_ref_send_referral
 		(	
 				bp_displayed_user_id()
-			, 	bp_loggedin_user_id()
-		  //,   $title						
+			, 	bp_loggedin_user_id()		
 		);																																						
 		
 		if($result)
 		{				
-			bp_core_add_message( __( 'Richiesta REFERRAL inviata correttamente', 'referrals' ) );
+			bp_core_add_message( __( 'Richiesta REFERRAL inviata correttamente  --- è stata inviata una notifica all\'utente', 'referrals' ) );
 		}
 		else 
-		{
-			//[W] - ATTENZIONE: non ci va mai qui!
-			bp_core_add_message( __( 'Richiesta REFERRAL non inviato --> ERRORE!', 'referrals' ) );			
+		{			
+			bp_core_add_message( __( 'Richiesta REFERRAL non inviata --> ERRORE!', 'referrals' ) );			
 		}	
 			
-		// fa il REDIRECT			
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-five' );			//EXAMPLE --> REFERRAL		- SCREEN 5
-		
 		// opt 1 - però deve essere abilitata la restrizione che impedisce di chiedere più di un REFERRAL! - deve comparire un messaggio invece del FORM
 			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-two' );			//EXAMPLE --> REFERRAL		- SCREEN 2
 				
-		// opt 2 - lo SCREEN 5 non compare proprio!
+		// opt 2 - lo SCREEN 5 
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-five' ); 		//SCREEN 5       EXAMPLE --> REFERRAL	
 	
 	}	
 }
@@ -81,6 +78,10 @@ function accetta_referral()
 		$utente_consigliato	= $_POST['consigliato'];	 		
 		$voto_complessivo 	= $_POST['voto-complessivo'];			
 			
+		//	
+		// NB: tutti gli IF fanno REDIRECT su (SCREEN 4)
+		//
+		
 		if ( empty($tipologia_rapporto)) 	//empty
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'referrals' ),'error' );					
@@ -101,23 +102,23 @@ function accetta_referral()
 			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4  
 			//return;
 		}		
-/*					
+		/*					
 		if (bp_ref_check_voto( $voto_complessivo ) ) 	//bp_ref_check_voto
 		{
 			bp_core_add_message( __( 'Assegna un voto complessivo per l utente', 'referrals' ),'error' );					
 			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL   - SCREEN 4  
 			//return;
 		}		
-*/			
+		*/			
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//sono UGUALI?!?!
 		
 		$from_user_id = bp_displayed_user_id();															
 		$to_user_id   = bp_loggedin_user_id();	
 		
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		
 		// FUNCTION call 
 		$result = bp_ref_accept_referral_request 
@@ -133,23 +134,28 @@ function accetta_referral()
 		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
+			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post. '   è stata inviata una notifica all\'utente', 'referrals' ) );
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'errore accettazione referral 	', 'referrals' ) );			
+			bp_core_add_message( __( 'errore accettazione referral (notifica e activity non inviate)	', 'referrals' ) );			
 		}	
-					
-		// fa il REDIRECT		
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//opt 1 - va (SCREEN 1) - Le REFERRAL CONFERMATE/ACCETTATE  da  ME
+			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE --> REFERRAL	- SCREEN
+
+		//opt 2 - va sullo (SCREEN 4) -  Le REFERRAL da MODERARE - ha senso!
 		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4
-		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-			
-		//------Vd funzione successiva
-			
-			//REDIRECT su Screen 6
-			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );			//EXAMPLE --> REFERRAL		-Screen 6
+				
+		//------Vd funzione successiva			
+			//REDIRECT su Screen da COSTRUTIRE
+				//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen- ' );			//EXAMPLE --> REFERRAL		-Screen 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 	}	
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -174,7 +180,7 @@ function accetta_referral()
 
 add_action( 'bp_actions', 'accetta_referral' );
 */
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,6 +201,7 @@ function rifiuta_referral()
 		// [WPNONCE]
 		check_admin_referer( 'rifiuta-referral');			
 
+		// [POST_vars]
 		$id_post = $_POST['id-post'];		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,17 +214,23 @@ function rifiuta_referral()
 						
 		if($result)
 		{				
-			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post, 'referrals' ) );
+			// ---> BUG: non compare! msg troppo lungo?!
+			bp_core_add_message( __( 'referral rifiutato e cestinato'. 'ID POST: ' . $id_post . '   è stata inviata una notifica all\'utente', 'referrals' ) );
 		}
 		else 
-		{
-			//[W] - ATTENZIONE: non ci va mai qui!
-			bp_core_add_message( __( 'errore rifiuto referral ', 'referrals' ) );			
+		{			
+			bp_core_add_message( __( 'errore rifiuto referral (notifica e activity non inviate)', 'referrals' ) );			
 		}	
 			
-		// fa il REDIRECT
-		//bp_core_redirect( bp_displayed_user_domain() . bp_get_referral_slug() . '/screen-one' );			
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//EXAMPLE --> REFERRAL		- SCREEN 1
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//opt 1 - reindirizza sulla Nuova TAB 'screen-six' (SCREEN 6) - Le REFERRAL RIFIUTATE da ME
+			//bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-six' );	// SCREEN 6     EXAMPLE --> REFERRAL 
+		
+		//opt 2 - per ora ritorna sullo (SCREEN 4) 
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-one' );			//SCREEN 1     EXAMPLE --> REFERRAL		
+		
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}	
 }
 ?>

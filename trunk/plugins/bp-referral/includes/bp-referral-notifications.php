@@ -21,7 +21,7 @@ function bp_referral_remove_screen_notifications_pending()																					/
 		//bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->example->id, 'new_referral_pending' );	  //ID			
 	
 	//FUNZIONE OK
-	bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->id,'new_referral_pending');	
+		//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->id,'new_referral_pending');	
 
 					
 }
@@ -33,14 +33,6 @@ function bp_referral_remove_screen_notifications_pending()																					/
 	
 //------------io la toglierei!  - ma manco funziona forse?!																							
 add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_pending' );	
-
-
-
-
-
-
-
-
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,15 +69,7 @@ function bp_referral_remove_screen_notifications_accepted()																					
 	add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifications_accepted' );	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // REMOVE SCREEN Notifications - 3 - new_referral_denied  (DENIED)
 
@@ -127,6 +111,8 @@ add_action( 'xprofile_screen_display_profile', 'bp_referral_remove_screen_notifi
 	
 	
 	
+	
+	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // FORMAT Notifications
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -147,7 +133,14 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 		// 
 		// 1 - Referral PENDING - Mi hanno chiesto un REFERRAL
 		// 
-		case 'new_referral_pending':																		
+		case 'new_referral_pending':							
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//EXAMPLE --> REFERRAL			
+			
+			$link = $bp->loggedin_user->domain . $bp->example->slug .'/screen-four';			//Screen 4 
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
 			if ( (int)$total_items > 1 ) 
 			{
@@ -164,15 +157,30 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 
 		//--------------------------------------------------
 		
-		//ATTIVA l'action!
+			ATTIVA l'action    
+		   
+							oppure
+		   
+			aggiungi la chiamata nella corrispotiva  funzione SCREEN in 'bp-referral-screens'
 
 		//--------------------------------------------------
 
-
+*/
 		// 
 		// 2 - La mia richiesta Referral ACCETTATA
 		// 
-		case 'new_referral_accepted':																			
+		case 'new_referral_accepted':		
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//EXAMPLE --> REFERRAL							
+			
+			//opt 1 - SCREEN 3 - Le Referral richieste da me
+			$link = $bp->loggedin_user->domain . $bp->example->slug .'/screen-three';			
+			
+			//opt 2 - SCREN   - Le ref accettate a me
+				//$link = $bp->loggedin_user->domain . $bp->example->slug .'/screen-	',			//Screen  
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 					
 			if ( (int)$total_items > 1 ) 
 			{
@@ -185,20 +193,38 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			
 		break;
-*/		
+/**/		
 
 /*		
 
 		//--------------------------------------------------
 		
-		//ATTIVA l'action!
+		
+			ATTIVA l'action    
+		   
+							oppure
+		   
+			aggiungi la chiamata nella corrispotiva  funzione SCREEN in 'bp-referral-screens'
 
+*/
 		//--------------------------------------------------
 		
 		// 
 		// 3 - La mia richiesta Referral RIFIUTATA
 		// 
-		case 'new_referral_denied':													
+		case 'new_referral_denied':				
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			//EXAMPLE --> REFERRAL	
+			
+			//opt 1 - SCREEN 3 - Le Referral richieste da me
+			$link = $bp->loggedin_user->domain . $bp->example->slug .'/screen-three';		
+			
+			//opt 2 - le REFERRAL rifiutate a me (SCREEN 7) 
+				//$link = $bp->loggedin_user->domain . $bp->example->slug .'/screen-seven',			
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+			
 					
 			if ( (int)$total_items > 1 ) 
 			{
@@ -211,17 +237,24 @@ function bp_referral_format_notifications( $action, $item_id, $secondary_item_id
 			}
 			
 		break;
-		*/
+/*	*/
 		
 	}// fine SWITCH
 
 	//
 	$return =  array
 	(
-		'text' 	=> $text_title,
-		'link' 	=> $bp->loggedin_user->domain . $bp->example->slug .'/screen-four',								//Screen 4 - REDIRECT!
-											//EXAMPLE --> REFERRAL
-		'title'	=> __( 'Referrals', 'referrals' )
+		//
+			'text' 	=> $text_title
+			
+		//REDIRECT!	
+		,   'link'	=> $link								
+	//	,	'link' 	=> $bp->loggedin_user->domain . $bp->example->slug .'/screen-four',		//Screen 4    //EXAMPLE --> REFERRAL	
+		
+		//
+		,	'title'	=> __( 'Referrals', 'referrals' )						//?!
+	//  ,	'title'	=> $title												// se voglio personalizzarlo per ogni 
+	
 	);
 
 	//DO_ACTION
