@@ -86,17 +86,18 @@ get_header() ?>
 			</div>	
 -->			
 			<div id="radio-toolbar">			<!-- -->
-				<!-- <label for = "review-giudizio"> Giudizio Complessivo Review </label>					-->
-				<!-- <fieldset name = "review-giudizio" id = "review-giudizio">-->
+				<label for = "review-giudizio"> Giudizio Complessivo Review </label>	
+				<br /> <br />		
+				<fieldset name = "review-giudizio" id = "review-giudizio">
 <!--				
-				  <input type="radio" name="giudizio_review" id="positivo" value="positivo" checked = "<?php checked( $giudizio_review,'positivo') ?>"/> <label for = "positivo" > Positiva </label>				  
-				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  checked = "<?php checked( $giudizio_review,'neutro') ?>"/>     <label for = "neutro" > Neutra   </label>				  
-				  <input type="radio" name="giudizio_review" id="negativo" value="negativo" checked = "<?php checked( $giudizio_review,'negativo') ?>"/>  <label for = "negativo"> Negativa </label>								 
+					<input type="radio" name="giudizio_review" id="positivo" value="positivo" checked = "<?php checked( $giudizio_review,'positivo') ?>"/> <label for = "positivo" > Positiva </label>				  
+					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  checked = "<?php checked( $giudizio_review,'neutro') ?>"/>     <label for = "neutro" > Neutra   </label>				  
+					<input type="radio" name="giudizio_review" id="negativo" value="negativo" checked = "<?php checked( $giudizio_review,'negativo') ?>"/>  <label for = "negativo"> Negativa </label>								 
 -->				  
-  				  <input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
-				  <input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
-				  <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
-				<!-- </fieldset>			-->
+					<input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
+					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
+					<input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
+				</fieldset>			
 			</div>	
 			
 			<!-- <option value = "tutti" 	<?php selected( $author_type,'tutti') ?>> tutti </option> 	-->
