@@ -18,10 +18,84 @@ function referral_current_user_can_write()
 	}
 		
 	//////////////////////////////////////////////////////////////////////
-	
-	
+	// 1 - trash
+	//////////////////////////////////////////////////////////////////////
+	$query_args = array
+	(
+			'post_status'		=> 'trash'					// Status: TRASH
+		,	'post_type'			=> 'referral'				// Tipo:   'referral'
+		,   'author'			=> bp_loggedin_user_id()														
+		,	'meta_query'		=> array()				
+	);
+
+	$query_args['meta_query'][] = array					
+	(
+			'key'	  => 'bp_referral_recipient_id',
+			'value'	  => (array)bp_displayed_user_id(),
+			'compare' => 'IN' 							
+	);		
+
+	$loop = new WP_Query($query_args);	
+		
+	if ( $loop->have_posts() ) 
+	{
+		$can_write = false;
+	}	
+	//////////////////////////////////////////////////////////////////////
+			
+	//////////////////////////////////////////////////////////////////////
+	// 2 - publish
+	//////////////////////////////////////////////////////////////////////
+	$query_args = array
+	(
+			'post_status'		=> 'publish'					// Status: PUBLISH
+		,	'post_type'			=> 'referral'					// Tipo:   'referral'
+		,   'author'			=> bp_loggedin_user_id()														
+		,	'meta_query'		=> array()				
+	);
+
+	$query_args['meta_query'][] = array					
+	(
+		'key'	  => 'bp_referral_recipient_id',
+		'value'	  => (array)bp_displayed_user_id(),
+		'compare' => 'IN' 							
+	);		
+
+	$loop = new WP_Query($query_args);	
+		
+	if ( $loop->have_posts() ) 
+	{
+		$can_write = false;
+	}
 	//////////////////////////////////////////////////////////////////////
 	
+	//////////////////////////////////////////////////////////////////////
+	// 3 - pending
+	//////////////////////////////////////////////////////////////////////
+	$query_args = array
+	(
+			'post_status'		=> 'pending'					// Status: PENDING
+		,	'post_type'			=> 'referral'					// Tipo:   'referral'
+		,   'author'			=> bp_loggedin_user_id()														
+		,	'meta_query'		=> array()				
+	);
+
+	$query_args['meta_query'][] = array					
+	(
+		'key'	  => 'bp_referral_recipient_id',
+		'value'	  => (array)bp_displayed_user_id(),
+		'compare' => 'IN' 							
+	);		
+
+	$loop = new WP_Query($query_args);	
+		
+	if ( $loop->have_posts() ) 
+	{
+		$can_write = false;
+	}
+	//////////////////////////////////////////////////////////////////////	
+
+	//--------------------------------------------------------------------
 	return apply_filters('bp_referral_can_user_write',$can_write);
 }
 
