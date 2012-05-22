@@ -1,38 +1,4 @@
 <?php
-/*
------------------------------------------
-Contenuto FILE:
------------------------------------------
-
- Activity & Notification Functions
- 
- These functions handle the recording, deleting and formatting of activity and
- notifications for the user and for this specific component.
-	
-----------------------------------------------------
-FILE, CLASSI, OGGETTI, METODI collegati o richiamati
-----------------------------------------------------
-		
------------------------------------------
-FUNZIONI e HOOKS (WordPress - Wp)
------------------------------------------			
-
-	  
------------------------------------------
-FUNZIONI e HOOKS (BuddyPress - Bp)
------------------------------------------
-	
------------------------------------------
-global $bp
------------------------------------------
-
------------------------------------------
-[T]
------------------------------------------
-
-
-*/
-
 
 /**
  * bp_review_remove_screen_notifications()
@@ -102,6 +68,13 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//	
+//		non USATA!
+//
+//							staccata con questa riga! ---> return FALSE;
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
  * Notification functions are used to send email notifications to users on specific events
  * They will check to see the users notification settings first, if the user has the notifications
@@ -115,8 +88,12 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 {
 	global $bp;
 
-	//TODO gbp staccato invio mail
-	return false;
+	
+	
+				//TODO gbp staccato invio mail
+				return false;
+	
+	
 	
 	// Let's grab both user's names to use in the email. 
 	$sender_name = bp_core_get_user_displayname( $from_user_id, false );
@@ -159,6 +136,8 @@ add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 //
+//		non USATA!
+//				
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
