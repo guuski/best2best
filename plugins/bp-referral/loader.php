@@ -68,22 +68,6 @@ function add_css_referral()																						//---usa il metodo add_JS
 	wp_enqueue_style ('referral',  plugin_dir_url (__FILE__).'/includes/referral.css');		
 }  
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------		
-//	---> SPOSTA nel file 'bp-referral-functions.php'	(non ha ACTION!)
-//--------------------------------------------------------------------------------------------------------------------------------------------------		
-
-//can user ask for a referral
-function referral_current_user_can_write()
-{
-	$can_write=false;
-	 
-	if(is_user_logged_in()&&!bp_is_my_profile()
-		//	&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
-		)
-		$can_write=true;
-
-	return apply_filters('bp_referral_can_user_write',$can_write);
-}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 // 	IMPORTANTE 
