@@ -81,3 +81,49 @@ div.add-referrals:active{
 	background-repeat: no-repeat;
 	background-position: 95% 50%;
 }
+
+
+
+
+/* --------------------  RADIO LABEL CHECKBOXES------------------------------ */
+	
+	
+fieldset
+{
+	cursor: pointer;
+}
+
+#new-referral-tipologia label 
+{
+	cursor: pointer;	
+	display: inline !important;	
+}
+
+#new-referral-anzianita label 
+{
+	cursor: pointer;	
+	display: inline !important;	
+}
+
+#new-referral-consigliato label 
+{
+	cursor: pointer;	
+	display: inline !important;	
+}
+
+/* BOTTONI */
+#referral-moderation-submit label 
+{	
+	display: inline !important;	
+}
+
+#accetta-referral label 
+{
+	display: inline !important;	
+}
+
+#rifiuta-referral label 
+{	
+	display: inline !important;	
+}
+

@@ -118,7 +118,7 @@ function accetta_referral()
 		$post_author_id  = $obj_post->post_author;
 				
 		//		
-		$from_user_id = bp_displayed_user_id(); // oppure --> bp_loggedin_user_id()	
+		$from_user_id = bp_displayed_user_id(); // oppure --> bp_loggedin_user_id()			(forse concettualmente è meglio la seconda!)
 		$to_user_id   = $post_author_id;				
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -127,8 +127,8 @@ function accetta_referral()
 		$result = bp_ref_accept_referral_request 
 		(
 				$id_post
-			, 	$from_user_id
-			,	$to_user_id
+				, 	$from_user_id
+				,	$to_user_id
 			, 	$tipologia_rapporto
 			, 	$anzianita_rapporto 
 			, 	$utente_consigliato

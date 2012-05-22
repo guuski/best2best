@@ -195,16 +195,14 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	$status_changed = change_referral_post_status($id_post, 'publish');
 		
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	//---> BUG: risultano uguali (REFERRAL di Andrea su Andrea) 
+	//---> 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
-		//invertiti
-		$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $to_user_id ), bp_core_get_user_displayname( $from_user_id ) );
-		
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+	//sono stati giò invertiti prima (in bp-referral-actions)
+	$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $from_user_id ),bp_core_get_user_displayname( $to_user_id ));		
 	
 	// FUNCTION call 2
-	$title_changed = change_referral_title($id_post, $new_referral_title);		
+	$title_changed = change_referral_title($id_post , $new_referral_title);		
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// ---> IMPLEM: devo invertire AUTORE e Recipient forse!!! 

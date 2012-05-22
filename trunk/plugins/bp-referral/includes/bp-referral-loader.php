@@ -178,7 +178,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 				
 		if(bp_is_my_profile())
 		{
-			$nav_text_2		 = sprintf(__('Referral richieste da me','referrals'));						
+			$nav_text_2		 = sprintf(__('Referral chiesti da me','referrals'));						
 			$referral_link_2 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
@@ -212,13 +212,13 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 	
 		if(bp_is_my_profile())
 		{
-			$nav_text_3		 = sprintf(__('Richieste Referral da acc o rifiut','referrals'));						
+			$nav_text_3		 = sprintf(__('Referral da Moderare','referrals'));						
 			$referral_link_3 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else
 		{
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			$nav_text_3		 = sprintf (__('Richieste Referral da acc o rifiut di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+			$nav_text_3		 = sprintf (__('Richieste Referral da Moderare di %s', 'referrals'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
 			$referral_link_3 = trailingslashit( $bp->displayed_user->domain . $this->slug);	
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}		  
