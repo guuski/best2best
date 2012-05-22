@@ -1,11 +1,10 @@
 <?php
 
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-
-//can user ask for a referral
-function referral_current_user_can_write()
+function user_can_access_write_referral_screen()
 {
 	$can_write=false;
 	 
@@ -96,6 +95,26 @@ function referral_current_user_can_write()
 	//////////////////////////////////////////////////////////////////////	
 
 	//--------------------------------------------------------------------
+	return apply_filters('user_can_access_write_referral_screen',$can_write);
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+
+function referral_current_user_can_write()
+{
+	$can_write=false;
+	 
+	if(		is_user_logged_in()
+		&&	!bp_is_my_profile()
+	//	&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
+	)
+	{
+		$can_write = true;
+	}
+	
 	return apply_filters('bp_referral_can_user_write',$can_write);
 }
 
