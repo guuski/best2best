@@ -86,3 +86,11 @@ add_action( 'widgets_init', create_function( '', 'register_widget("MessaggiAdmin
 include_once('comment_review.php');
 add_action( 'widgets_init', create_function( '', 'register_widget("commentReview_Widget");' ) );
 
+
+//=========================================================================================================================
+//===============VIEW REVISION=============================================================================================
+//=========================================================================================================================
+
+include_once('viewRevision.php');
+add_action( 'widgets_init', create_function( '', 'register_widget("viewRevision_Widget");' ) );
+
