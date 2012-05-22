@@ -107,7 +107,7 @@
 		<br/>
 		
 		<!-- TIPOLOGIA Rapporto Commerciale -->
-		<div>
+		<div id="new-referral-tipologia">	
 			<label for = "referral-tipologia-rapporto"> <?php _e( 'Tipologia Rapporto Commerciale ', 'referrals' ); ?></label>	
 			<fieldset name = "referral-tipologia-rapporto" id = "referral-tipologia-rapporto">	  	  
 				<label for = "una tantum"	> <input type="radio" name="tipologia" id="una tantum" value="una tantum"/> <?php _e( 'Una Tantum ', 'referrals' ); ?> </label> 
@@ -118,7 +118,7 @@
 		<br/>
 	
 		<!-- ANZIANITA Rapporto Commerciale -->
-		<div>
+		<div id="new-referral-anzianita">	
 			<label for = "referral-anzianita-rapporto"> <?php _e( 'Anzianita Rapporto Commerciale ', 'referrals' ); ?></label>	
 			<fieldset name = "referral-anzianita-rapporto" id = "referral-anzianita-rapporto">	  	  
 				<label for = "nuovo"> 		 <input type="radio" name="anzianita" id="nuovo" 	value="nuovo"	/> <?php _e( 'Nuovo', 'referrals' ); ?> </label> 
@@ -130,7 +130,7 @@
 		<br/>
 		
 		<!-- Lo raccomanderesti? - Utente Consigliato-->
-		<div>	
+		<div id="new-referral-consigliato">	
 			<label for = "utente_consigliato"> <?php _e( 'Lo raccomanderesti?', 'referrals' ); ?></label>	
 			<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
 				<label for = "si"> <input type="radio" name="consigliato" id="si" value="si"/><?php _e( 'Si', 'referrals' ); ?>   </label> 	 	
@@ -159,36 +159,31 @@
 			</div>		
 		</div>			
 		
-		<br/> <br/>
-		
-		<div>			
-			<!-- bottone ACCETTA -->	
-			<div id="referral-moderation-submit">								
-				<input type="submit" name="accetta-referral" id="accetta-referral" value="<?php _e( 'Accetta', 'referrals' ); ?>" />
-				<!-- <input type="hidden" name="id-post" id="id-post" value="<?php $post->ID ?>" />-->
-				<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
-			</div>
-			<br />
-		</div>		
+		<br/> 
+			
+		<!-- bottone ACCETTA -->	
+		<div id="referral-moderation-submit">								
+			<input type="submit" name="accetta-referral" id="accetta-referral" value="<?php _e( 'Accetta', 'referrals' ); ?>" />
+			<!-- <input type="hidden" name="id-post" id="id-post" value="<?php $post->ID ?>" />-->
+			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
+		</div>					
 										
 		<!-- [WPNONCE] -->
 		<?php wp_nonce_field( 'accetta-referral' ); ?>				
 	</form>		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
+	<br/> 	
+	
 	<!--- referral-FORM RIFIUTA-->
 	<form action = "<?php bp_ref_post_form_action() ?> " method="post" id="referral-form" class="standard-form"> 
 
-		<div>			
-			<!-- bottone RIFIUTA -->	
-			<div id="referral-moderation-submit">								
-				<input type="submit" name="rifiuta-referral" id="rifiuta-referral" value="<?php _e( 'Rifiuta', 'referrals' ); ?>" />
-				<!-- <input type="hidden" name="id-post" id="id-post" value="<?php $post->ID ?>" />-->
-				<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
-				
-			</div>
-			<br />
-		</div>		
+		<!-- bottone RIFIUTA -->	
+		<div id="referral-moderation-submit">								
+			<input type="submit" name="rifiuta-referral" id="rifiuta-referral" value="<?php _e( 'Rifiuta', 'referrals' ); ?>" />
+			<!-- <input type="hidden" name="id-post" id="id-post" value="<?php $post->ID ?>" />-->
+			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />				
+		</div>					
 										
 		<!-- [WPNONCE] -->
 		<?php wp_nonce_field( 'rifiuta-referral' ); ?>				
