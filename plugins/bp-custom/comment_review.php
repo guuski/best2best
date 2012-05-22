@@ -167,7 +167,7 @@ class commentReview_Widget extends WP_Widget
 //======================================================================						
 ?>
 
-<div style="border-bottom: 1px solid #FFF;"><?php
+<div style="border-bottom: 1px solid #000;"><?php
 										echo ( 
 											"<a href='".bp_core_get_user_domain( $comment->user_id )."'>"									.
 												$comment->comment_author							.
@@ -187,19 +187,19 @@ class commentReview_Widget extends WP_Widget
 								<label id='cR_labelprev<?php echo $numero;?>' class='cR_labelprev'><?php
 										//======================================
 										
-										echo ("\"".substr($comment->comment_content,0,$lunghezza)."...\""); 
+										echo ("".substr($comment->comment_content,0,$lunghezza)."..."); 
 										//======================================
 										
 							?></label>
 							<label id='cR_labelhidden<?php echo $numero;?>' class='cR_labelhidden'  style='display:none;'><?php
 										//======================================
-										echo ("\"".$comment->comment_content."\""); 
+										echo ("".$comment->comment_content.""); 
 										//======================================
 										
 								?></label>
 							<?php else: ?><label class='cR_labelprev' ><?php
 										//======================================
-										echo ("\"".$comment->comment_content."\""); 
+										echo ("".$comment->comment_content.""); 
 										//======================================
 										
 								?></label>
