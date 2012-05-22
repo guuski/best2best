@@ -365,8 +365,9 @@ else
 	<?php echo get_avatar( $destinatario_review_id  , '70' ); ?>
 	
 	<p>		
-		<?php printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
-		<br /><?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
+		<?php //printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
+		<!-- <br />-->
+		<?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
 		<?php endif;?>
 	</p>
 	
@@ -418,7 +419,8 @@ else
 
 				<!-- ENTRY -->
 				<div class="entry">
-					<?php the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
+					<?php //the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
+					<?php the_excerpt()  ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 				</div>
 			
@@ -450,10 +452,11 @@ else
 				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
 				<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
 			</p>
+<!--			
 			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
 			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
 		</div>		
-		<!-------------------------------------------------------------------------------------->		
+		
 		
 		<br/> 		
 			
@@ -478,10 +481,10 @@ else
 			<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
 				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
 			</ul>
-			</div>		
-			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
-					  
-		</div>	<!-- fine sezione RATING -->		
+			</div>										  
+		</div>		
+-->		
+		<!-- fine sezione RATING -->		
 		
 					
 				</div>								
