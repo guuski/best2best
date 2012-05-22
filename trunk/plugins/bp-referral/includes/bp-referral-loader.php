@@ -152,7 +152,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 		//
 		
 		// aggiunge...
-		if(referral_current_user_can_write()) 																			//nome ambiguo!
+		if(user_can_access_write_referral_screen()) 																			//nome ambiguo!
 		{
 			$sub_nav[] = array
 			(
