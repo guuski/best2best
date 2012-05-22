@@ -107,17 +107,11 @@
 			<br/> 
 			
 			<p><strong> <?php _e( 'Tipologia Rapporto', 'referrals' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
-			
-			<br/> 
-			
-			<p><strong> <?php _e( 'Anzianit&agrave; Rapporto', 'referrals' ); ?>:  </strong> <?php echo $anzianita_rapporto ?></p>
-			
-			<br/> 
+									
+			<p><strong> <?php _e( 'Anzianit&agrave; Rapporto', 'referrals' ); ?>:  </strong> <?php echo $anzianita_rapporto ?></p>						
 			
 			<p><strong> <?php _e( 'Utente Consigliato', 'referrals' ); ?>:  </strong> <?php echo $utente_consigliato ?></p>
-			
-			<br/> 
-			
+									
 			<div class="rating-container"><span class="rating-title"><?php _e( 'Giudizio: ', 'referrals' ); ?></span> 
 				<ul id="prezzo" class='star-rating'>	
 					<li class='current-rating' style="width: <?php echo 25*$voto_complessivo;?>px"></li>			
