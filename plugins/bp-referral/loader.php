@@ -99,21 +99,24 @@ function add_referral_button()
 	}
 	else 
 	{
-		//disabled
-		// vai a uno SCREEN nuovo che ti avverte con un MSG
-		//
-		
-		echo '
-		<div class = "add-referrals" >
-		<a disabled 
-		class = "add-referrals button"
-		title = "Chiedi un Referral all\'utente."
-		href="'.bp_get_displayed_user_link().'example/screen-six#user-activity"											 
-		>
-		'.__('Add Referral','referrals').'
-		</a>
-		</div>';
 	
+		if(referral_current_user_can_write())
+		{
+			//disabled
+			// vai a uno SCREEN nuovo che ti avverte con un MSG
+			//
+			
+			echo '
+			<div class = "add-referrals" >
+			<a disabled 
+			class = "add-referrals button"
+			title = "Chiedi un Referral all\'utente."
+			href="'.bp_get_displayed_user_link().'example/screen-six#user-activity"											 
+			>
+			'.__('Add Referral','referrals').'
+			</a>
+			</div>';
+		}
 	}
 }
 ?>
