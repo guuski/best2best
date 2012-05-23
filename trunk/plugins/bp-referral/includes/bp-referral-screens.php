@@ -107,17 +107,17 @@ function bp_example_screen_five() 													//EXAMPLE --> REFERRAL
 
 
 
-				/**
-				 * bp_example_screen_six
-				 * 
-				 */
-				function bp_example_screen_six() 
-				{
+/**
+ * bp_example_screen_six
+ * 
+ */
+function bp_example_screen_six() 
+{
 
-					global $bp;
-					
-					do_action( 'bp_example_screen_six' );
+	global $bp;
+	
+	do_action( 'bp_example_screen_six' );
 
-					bp_core_load_template( apply_filters( 'bp_example_template_screen_six', 'example/screen-six' ) );
-				}
+	bp_core_load_template( apply_filters( 'bp_example_template_screen_six', 'example/screen-six' ) );
+}
 ?>

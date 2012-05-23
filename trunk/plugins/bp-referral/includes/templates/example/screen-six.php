@@ -41,10 +41,11 @@
 			</ul>
 		</div>
 	
-		<!--------------------------------------------------- LISTA 6- ------------------------------------------------------------------------------->		
 	
 		<!-- MESSAGGIO  -->
-		<h4><?php _e( 'METADATI Referral', 'referrals' ) ?></h4>
+		<h4><?php _e( 'Puoi richiedere un REFERRAL ad un utente una volta sola', 'referrals' ) ?></h4>
+		
+		<h4><?php _e( '2 possibilit&agrave: TRASH o PENDING', 'referrals' ) ?></h4>
 		
 </div><!-- #item-body -->
 </div><!-- .padder -->
