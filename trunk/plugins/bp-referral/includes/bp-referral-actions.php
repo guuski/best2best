@@ -137,7 +137,8 @@ function accetta_referral()
 		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
+			//bp_core_add_message( __( 'referral accettato e pubblicato' . 'ID POST: ' . $id_post, 'referrals' ) );
+			bp_core_add_message( __( 'Referral pubblicato','referrals' ) );
 		}
 		else 
 		{			
