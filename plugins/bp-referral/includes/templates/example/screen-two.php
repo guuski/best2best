@@ -77,8 +77,9 @@ NOTA BENE: ci sono 2 redirect:
 		
 		<!-- TextArea -->
 		<div id="new-referral-textarea">			
-			<label for="referral-content">  <?php //_e( 'Testo', 'referrals' ); ?>  </label>			
-			<textarea name="referral-content" id="referral-content" cols="50" rows="10"><?php 
+			<label for="referral-content">  <?php //_e( 'Testo', 'referrals' ); ?>  </label>		
+			<!-- READ ONLY -->	
+			<textarea name="referral-content" id="referral-content" cols="50" rows="10"  readonly><?php 	
 			echo $contenuto
 			?></textarea>
 		</div>
