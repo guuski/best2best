@@ -366,6 +366,7 @@ else
 	
 	<p>		
 		<?php //printf( _x( 'Recensione su %s', 'Recensione su...', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) ) ?>
+		<?php printf( _x('%s', 'reviews' ), bp_core_get_userlink(  $destinatario_review_id ) )  ?>
 		<!-- <br />-->
 		<?php if($points != '' ) : ?>(<?php echo __('Media','reviews').": "; printf("%.2d", $points) ?>)
 		<?php endif;?>
