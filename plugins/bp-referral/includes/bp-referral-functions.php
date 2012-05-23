@@ -218,7 +218,7 @@ function bp_ref_accept_referral_request( $id_post, $from_user_id, $to_user_id, $
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	//sono stati giò invertiti prima (in bp-referral-actions)
-	$new_referral_title = sprintf( __( 'REFERRAL di %1$s su %2$s', 'referrals' ),  bp_core_get_user_displayname( $from_user_id ),bp_core_get_user_displayname( $to_user_id ));		
+	$new_referral_title = sprintf( __( 'REFERRAL %1$s - %2$s', 'referrals' ),  bp_core_get_user_displayname( $from_user_id ),bp_core_get_user_displayname( $to_user_id ));		
 	
 	// FUNCTION call 2
 	$title_changed = change_referral_title($id_post , $new_referral_title);		
@@ -331,7 +331,7 @@ function bp_ref_deny_referral_request( $id_post, $from_user_id, $to_user_id )
  */
 function create_referral_post($to_user_id , $from_user_id) 
 {	
-	$referral_title = sprintf( __( 'Richiesta referral da parte di %1$s a %2$s', 'referrals' ), bp_core_get_user_displayname( $from_user_id ), bp_core_get_user_displayname( $to_user_id ) );
+	$referral_title = sprintf( __( 'Richiesta REFERRAL %2$s - %1$s', 'referrals' ), bp_core_get_user_displayname( $from_user_id ), bp_core_get_user_displayname( $to_user_id ) );
 
 	$wp_insert_post_args = array
 	(

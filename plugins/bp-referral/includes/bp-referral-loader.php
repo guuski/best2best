@@ -171,6 +171,26 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 										)				
 			);
 		}
+		else 
+		{
+			$sub_nav[] = array
+			(
+					'name'            => __('Chiedi un Referral', 'referrals' )				
+				,	'slug'            => 'screen-six'					
+				,	'parent_url'      => $referral_link
+				,	'parent_slug'     => $this->slug																			
+				, 	'screen_function' => 'bp_example_screen_six'													//EXAMPLE --> REFERRAL
+				,	'position'        => 20
+				
+				// ACCESS RESTRICTION - only allow on OTHER'S profile
+				,	'user_has_access' => 
+										(		 is_user_logged_in()										
+											&&	!bp_is_my_profile()
+											&&	 bp_is_user()
+										)				
+			);
+		
+		}
 		
 		// 
 		// ------- screen 3 ------- RICHIESTE Referral fatta dall utente agli altri utenti ----------------------------------------------------
@@ -245,7 +265,7 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 		
 		if(bp_is_my_profile())
 		{
-			$nav_text_4		 = sprintf(__('Le mie Referral','referrals'));						
+			$nav_text_4		 = sprintf(__('I miei Referral','referrals'));						
 			$referral_link_4 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 		}
 		else

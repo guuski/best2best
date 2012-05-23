@@ -83,7 +83,8 @@ add_action( 'bp_member_header_actions'	, 'add_referral_button',1);
  */
 function add_referral_button()																	
 {
-	if(referral_current_user_can_write())
+	//if(referral_current_user_can_write())
+	if(user_can_access_write_referral_screen())					
 	{
 		echo '
 		<div class = "add-referrals" >
@@ -95,6 +96,24 @@ function add_referral_button()
 		'.__('Add Referral','referrals').'
 		</a>
 		</div>';
+	}
+	else 
+	{
+		//disabled
+		// vai a uno SCREEN nuovo che ti avverte con un MSG
+		//
+		
+		echo '
+		<div class = "add-referrals" >
+		<a disabled 
+		class = "add-referrals button"
+		title = "Chiedi un Referral all\'utente."
+		href="'.bp_get_displayed_user_link().'example/screen-six#user-activity"											 
+		>
+		'.__('Add Referral','referrals').'
+		</a>
+		</div>';
+	
 	}
 }
 ?>
