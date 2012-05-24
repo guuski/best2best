@@ -91,6 +91,6 @@ add_action( 'widgets_init', create_function( '', 'register_widget("commentReview
 //===============VIEW REVISION=============================================================================================
 //=========================================================================================================================
 
-include_once('viewRevision.php');
-add_action( 'widgets_init', create_function( '', 'register_widget("viewRevision_Widget");' ) );
+include_once('viewReferral.php');
+add_action( 'widgets_init', create_function( '', 'register_widget("viewReferral_Widget");' ) );
 
