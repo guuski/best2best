@@ -60,10 +60,18 @@ class viewReferral_Widget extends WP_Widget
 	}
 	
 	function widget($args, $instance)
-	{
-		global $user_ID;
-		//utente loggato
+	{	
+		/*il widget con la lista referral invece andrebbe completato aggiungendo 
+		 * la visualizzazione dei referral solo dell'utente di cui sto visitando il profilo.*/
+		 
+		global $bp;
+		
+		$user=0;
 			
+		if ($bp->displayed_user->id!=0)
+		
+			$user = $bp->displayed_user->id;
+		
 		extract($args);
 			
 		$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Visualizza Referral','custom') : $instance['titolo'], $instance, $this->id_base);
@@ -82,14 +90,14 @@ class viewReferral_Widget extends WP_Widget
 		
 		
 		//FRONT-END
-		if ($user_ID>0) //sono loggato
+		if ($user>0) //sono loggato
 		{
 			
-			$attivo = get_userdata($user_ID);
+			$attivo = get_userdata($user);
 			
 			$vR_link = bp_core_get_user_domain($attivo->user_login).$attivo->user_login;
 			
-			$this->vR_getReferral( $lunghezza ,$numerolog, $vR_link);
+			$this->vR_getReferral( $lunghezza ,$numerolog, $vR_link , $user);
 			
 		}
 		else
@@ -97,14 +105,16 @@ class viewReferral_Widget extends WP_Widget
 			
 			$vR_link = get_bloginfo('url').DS."registrati";
 			
-			$this->vR_getReferral ($lunghezza ,$numerounlog, $vR_link);
+			$this->vR_getReferral ($lunghezza ,$numerounlog, $vR_link, $user);
 		
 		}
 	}
 	
 	//FUNZIONI SPECIFICHE DEL WIDGET
-	function vR_getReferral($lunghezza, $numero, $vR_link)
+	function vR_getReferral($lunghezza, $numero, $vR_link ,$autore)
 	{
+		global $bp;
+		
 		$query_args = array(
 			
 			'post_type'			=> 'referral',
@@ -112,8 +122,6 @@ class viewReferral_Widget extends WP_Widget
 			'order by'			=> 'post_date_gmt',
 			'order'				=> 'DESC'
 		);
-		
-
 		
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);		
@@ -125,27 +133,27 @@ class viewReferral_Widget extends WP_Widget
 			
 				$loop->the_post();
 				
-				if ($numero>0) :
+				$vR_postID = $loop->post->ID;
+				$vR_autorID = $loop->post->post_author;
+				$user_info = get_userdata($vR_autorID);
+					
+				$vR_autor = $user_info->user_login;
+				$vR_title = $loop->post->post_title;
+				$vR_content = $loop->post->post_content;
+				
+				if ($vR_content=='') $vR_content="non c'è contenuto";
+					
+					
+				if ($numero>0 && (($autore!=0 && $autore==$loop->post->post_author) || $autore==0)) :
 					
 					$numero--;
-					
-					$vR_postID = $loop->post->ID;
-					$vR_autorID = $loop->post->post_author;
-					$user_info = get_userdata($vR_autorID);
-					
-					$vR_autor = $user_info->user_login;
-					$vR_title = $loop->post->post_title;
-					$vR_content = $loop->post->post_content;
-					
-					if ($vR_content=='') $vR_content="non c'è contenuto";
-					
 						
-				
 ?>
 <div>
 									<?php
 										//echo "<!-- gbp "; print_r($comment); echo " -->";
 										echo ( 
+											$vR_autorID.
 											"<a href='".bp_core_get_user_domain( $vR_autorID )."'>"									.
 												$vR_autor							.
 											"</a>"													.
@@ -202,6 +210,7 @@ class viewReferral_Widget extends WP_Widget
 					</div>
 <?php
 
+				else: echo ("Non sono presenti referral per questo utente");
 				endif;
 				
 			endwhile;
