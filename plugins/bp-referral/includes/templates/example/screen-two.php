@@ -69,7 +69,7 @@ NOTA BENE: ci sono 2 redirect:
 	
 	<?php
 	//SPOSTA nelle OPZIONDI del Plugin nel Back End															//PLUGIN Options!
-		$contenuto = 'Gentile Cliente, avendo ....';			//
+		$contenuto = 'Gentile Cliente, \nAvendo in passato lavorato per voi, chiedo di poter avere la sua referenza.\n\nCordiali saluti.';			//
 	?>				
 					
 	<!--  -->
