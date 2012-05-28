@@ -125,7 +125,8 @@ class viewReferral_Widget extends WP_Widget
 		
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);		
-						
+
+		$has_referral=false;
 		
 		if ( $loop->have_posts() ) :
 		
@@ -145,20 +146,16 @@ class viewReferral_Widget extends WP_Widget
 					
 					
 				if ($numero>0 && (($autore!=0 && $autore==$loop->post->post_author) || $autore==0)) :
-					
+					$has_referral=true;
 					$numero--;
 						
 ?>
-<div>
-									<?php
-										//echo "<!-- gbp "; print_r($comment); echo " -->";
-										echo ( 
-											$vR_autorID.
-											"<a href='".bp_core_get_user_domain( $vR_autorID )."'>"									.
+<div><?php
+										echo ("<a href='".bp_core_get_user_domain( $vR_autorID )."'>"									.
 												$vR_autor							.
 											"</a>"													.
 											" su "											.
-											"<a href='".get_bloginfo('url').DS."index.php?p=".$vR_postID."'>"	.
+											"<a href='".bp_core_get_user_domain( $vR_autorID )."/example'>"	.
 												$vR_title		.										
 																						
 											"</a>"													
@@ -210,12 +207,16 @@ class viewReferral_Widget extends WP_Widget
 					</div>
 <?php
 
-				else: echo ("Non sono presenti referral per questo utente");
+				
 				endif;
 				
 			endwhile;
 			
+			
 		endif;
+		if(!$has_referral) {
+			echo __("Non sono presenti referral per questo utente",'custom');
+		}
 		
 	}
 	
