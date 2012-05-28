@@ -71,6 +71,7 @@ NOTA BENE: ci sono 2 redirect:
 	//SPOSTA nelle OPZIONDI del Plugin nel Back End															//PLUGIN Options!
 		$contenuto = 'Egr. '.bp_get_displayed_user_fullname().',
 vi chiediamo di confermare la nostra relazione commerciale.
+
 Cordiali saluti,';			//
 	?>				
 					
