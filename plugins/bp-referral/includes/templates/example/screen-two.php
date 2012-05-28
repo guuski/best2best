@@ -69,10 +69,9 @@ NOTA BENE: ci sono 2 redirect:
 	
 	<?php
 	//SPOSTA nelle OPZIONDI del Plugin nel Back End															//PLUGIN Options!
-		$contenuto = 'Gentile Cliente, 
-Avendo in passato lavorato per voi, chiedo di poter avere la sua referenza.
-		
-Cordiali saluti.';			//
+		$contenuto = 'Egr. '.bp_get_displayed_user_fullname().',
+vi chiediamo di confermare la nostra relazione commerciale.
+Cordiali saluti,';			//
 	?>				
 					
 	<!--  -->
