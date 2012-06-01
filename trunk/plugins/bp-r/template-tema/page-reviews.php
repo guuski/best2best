@@ -453,11 +453,12 @@ else
 				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
 				<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
 			</p>
-<!--			
+<!--
 			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
 			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
+-->			
 		</div>		
-		
+<!--					
 		
 		<br/> 		
 			
