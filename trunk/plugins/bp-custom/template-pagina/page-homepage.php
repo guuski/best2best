@@ -64,7 +64,7 @@ get_header();
 				<div class="mh_struttura">
 					<div class="mh_contenitore">
 						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
-						<a href="<?php echo bp_core_get_user_domain($attivo->user_login).$attivo->user_login.DS ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
+						<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
 				 	</div>				
 					<div class="mh_separatore"></div>
 					<div class="mh_contenitore">
