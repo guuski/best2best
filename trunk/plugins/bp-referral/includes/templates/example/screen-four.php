@@ -155,7 +155,7 @@
 					<li><a href="#" onclick="return vote(3, this);" title='3 / 5' class='three-stars'>3</a></li>
 					<li><a href="#" onclick="return vote(4, this);" title='4 / 5' class='four-stars'>4</a></li>
 					<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>				
-				</ul><input type="hidden" name="prezzo" value="<?php echo $voto_complessivo?>" />
+				</ul><input type="hidden" name="voto-complessivo" value="<?php echo $voto_complessivo?>" />
 			</div>		
 		</div>			
 		
