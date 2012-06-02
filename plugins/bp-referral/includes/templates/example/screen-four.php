@@ -44,7 +44,7 @@
 	<!--------------------------------------------------- LISTA 4 -Referrals da MODERARE ------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php _e( 'Le Referrals da MODERARE ', 'referrals' ) ?></h4>
+	<h4><?php //_e( 'Le Referrals da MODERARE ', 'referrals' ) ?></h4>
 		
 	<?php		
 	
@@ -73,28 +73,31 @@
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-		
-			<div class="title">				
-				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_referral_recipient_id', true ));?>						
-				<br />			
-				<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
+							
+			<!-------------------------------------- get AUTHOR --Autore Richiesta REFERRAL -------------------------------------->
+			
+			<?php $referral_requester_id	 = $post->post_author; ?>			
+			<?php $referral_requester_name 	 = xprofile_get_field_data( "Nome" , $referral_requester_id); ?>					
 								
+			
+			<div class="title">				
+								
+				<!-- MESSAGGIO  -->
+				<h5><?php _e( 'REFERRAL per: ', 'referrals' ) ?>
+				
+					<span>
+						<a href = "<?php echo bp_core_get_user_domain($referral_requester_id) ?>">	
+							<?php echo $referral_requester_name; ?>
+						</a>								
+					</span>					
+				</h5>
 			</div>	
-<!--
-			<small style = "float: right;">
-				<strong>
-					<?php  _e('inviato a: ');?> 
-					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
-					<?php the_author_meta('user_nicename', 	get_post_meta( $post->ID, 'bp_referral_recipient_id', true )) ?> </a>
-				</strong>
-			</small>
--->			
-						
-
+								
+			<br/>									
+	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<?php 
 			$voto_complessivo = $_POST['voto-complessivo'] 	or 0;			
 	?>
-
 		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  2 FORM -
@@ -103,8 +106,7 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	<!--- referral-FORM ACCETTA-->
 	<form action = "<?php bp_ref_post_form_action() ?> " method="post" id="referral-form" class="standard-form"> 
-		
-		<br/>
+				
 		
 		<!-- TIPOLOGIA Rapporto Commerciale -->
 		<div id="new-referral-tipologia">	
@@ -119,7 +121,7 @@
 	
 		<!-- ANZIANITA Rapporto Commerciale -->
 		<div id="new-referral-anzianita">	
-			<label for = "referral-anzianita-rapporto"> <?php _e( 'Anzianita Rapporto Commerciale ', 'referrals' ); ?></label>	
+			<label for = "referral-anzianita-rapporto"> <?php _e( 'Anzianit&agrave Rapporto Commerciale ', 'referrals' ); ?></label>	
 			<fieldset name = "referral-anzianita-rapporto" id = "referral-anzianita-rapporto">	  	  
 				<label for = "nuovo"> 		 <input type="radio" name="anzianita" id="nuovo" 	value="nuovo"	/> <?php _e( 'Nuovo', 'referrals' ); ?> </label> 
 				<label for = "> 1 anno" > 	 <input type="radio" name="anzianita" id="> 1 anno" value="> 1 anno"/> <?php _e( '> 1 anno', 'referrals' ); ?>  </label>
@@ -138,9 +140,7 @@
 				<label for = "nonso"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> <?php _e( 'Non so', 'referrals' ); ?> </label> 
 			</fieldset>			
 		</div>
-	
-	
-		
+			
 		<br/>		
 		
 		<!----------------sezione RATING ------------------------------------->
