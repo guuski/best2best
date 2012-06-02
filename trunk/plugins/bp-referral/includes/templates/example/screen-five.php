@@ -99,8 +99,7 @@
 						
 						<a href="
 							<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">							
-							<?php echo $recipient_referral_name; ?>
-							
+							<?php echo $recipient_referral_name; ?>							
 						</a>
 						
 					</strong>
@@ -134,6 +133,8 @@
 				</ul>
 			</div>	
 	
+	
+			<hr />
 		<?php endwhile; ?>
 	
 <?php else: ?>		
