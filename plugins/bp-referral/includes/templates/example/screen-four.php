@@ -199,7 +199,7 @@
 <?php else: ?>		
 		
 		<!-- MESSAGGIO -->
-		<h5><?php _e( ' no referral ', 'referrals' ) ?></h5>												
+		<h6><?php _e( ' nessun Referral da moderare', 'referrals' ) ?></h6>												
 		
 	<?php endif; ?>
 	

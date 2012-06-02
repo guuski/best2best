@@ -44,7 +44,7 @@
 	<!--------------------------------------------------- LISTA 3  Le  Referrals richieste da me (pending)------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php _e( ' Le  Referrals richieste da me (stato PENDING: il destinatario deve ancora decidere se ACCETTARLE O RIFIUTARLE)', 'referrals' ) ?></h4>
+	<h4><?php //_e( ' Le  Referrals richieste da me (stato PENDING: il destinatario deve ancora decidere se ACCETTARLE O RIFIUTARLE)', 'referrals' ) ?></h4>
 		
 	<?php		
 	
@@ -65,20 +65,29 @@
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-			
-			<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_referral_recipient_id', true ));?>
-			
-			<div class="title">						
-				<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>						
-			</div>	
-			
+					
+	
+			<?php $recipient_referral_id	 = get_post_meta( $post->ID, 'bp_referral_recipient_id', true ); ?>							
+			<?php $recipient_referral_name 	 = xprofile_get_field_data( "Nome" , $recipient_referral_id); ?>													
+			<?php $authorlogin 				 = get_the_author_meta('user_login', $recipient_referral_id);?>										
+								
 			<small style = "float: right;">
 				<strong>
-					<?php  _e('inviato a: ');?> 
-					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
-					<?php the_author_meta('user_nicename', 	get_post_meta( $post->ID, 'bp_referral_recipient_id', true )) ?> </a>
+					<?php  _e('Richiesta REFERRAL inviata a: ');?> 						
+					
+					<a href="
+						<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">							
+						<?php echo $recipient_referral_name; ?>							
+					</a>
+					
 				</strong>
 			</small>
+			
+			<br />
+			
+			<div class="title">						
+				<?php the_title();?>						
+			</div>				
 				
 			<br />
 									
@@ -89,7 +98,7 @@
 	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
-		<h5><?php _e( ' no referral ', 'referrals' ) ?></h5>												
+		<h6><?php //_e( ' no referral ', 'referrals' ) ?></h6>												
 		
 	<?php endif; ?>
 	

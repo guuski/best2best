@@ -44,7 +44,7 @@
 	
 		
 	<!-- MESSAGGIO  -->
-	<h5><?php _e( 'Richieste REFERRAL ricevute e ACCETTATE (pubblicate) ', 'referrals' ) ?></h5>	
+	<h5><?php //_e( 'Richieste REFERRAL ricevute e ACCETTATE (pubblicate) ', 'referrals' ) ?></h5>	
 		
 	<?php		
 	
@@ -77,13 +77,27 @@
 			<br/> 
 			
 			<div class="title">					
-				<?php $authorlogin= get_the_author_meta('user_login')?>										
-				<h4><?php  
-					the_title('<a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a>');
-				?></h4>				
+						
+				<!-- TITOLO -->						
+				<h5> 
+					<?php the_title();
+				?></h5> 					
+				
 			</div>	
 			
-			<small style = "float: right;"><strong><?php _e('Autore richiesta REF (ovvero Dest. REF): ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
+			<?php $author_referral_id	= $post->post_author; ?>			
+			<?php $author_referral_name	= xprofile_get_field_data( "Nome" , $author_referral_id); ?>													
+			<?php $authorlogin 			= get_the_author_meta('user_login', $author_referral_id);?>										
+			
+			<small style = "float: right;">
+				<strong>
+					<?php _e('Referral concesso a: ');?> 
+					<a 
+						href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">					    
+						<?php echo $author_referral_name?>
+					</a>
+				</strong>
+			</small>
 			
 			<br/> 
 					
@@ -93,7 +107,7 @@
 		
 	<?php else: ?>		
 		
-		<h5><?php _e( 'no referrals!', 'referrals' ) ?></h5>																	
+		<h5><?php //_e( 'nessun REFERRAL', 'referrals' ) ?></h5>																	
 	
 	<?php endif; ?>
 	
