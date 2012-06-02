@@ -76,26 +76,42 @@
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
 		
+			
+			
 			<div class="title">				
-				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_referral_recipient_id', true ));?>						
-				<br />			
-				<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
+											
+				<br/>
 				
+				<!-------------------------------------- get AUTHOR --Autore REFERRAL -------------------------------------->
+													
+				<!-------------------------------------- confusione AUTORE RECIPIENT!! -------------------------------------->
+				<!-- $author_referral_name , $author_referral_id
+				<!----------------------------------------------------------------------------------------------------------->
+				
+				<?php $recipient_referral_id	 = get_post_meta( $post->ID, 'bp_referral_recipient_id', true ); ?>			
+				
+				<?php $recipient_referral_name 	 = xprofile_get_field_data( "Nome" , $recipient_referral_id); ?>													
+				<?php $authorlogin 				 = get_the_author_meta('user_login', $recipient_referral_id);?>										
+
 				<small style = "float: right;">
 					<strong>
-					
-						<?php  //_e('ricevuto da: ');?> 
-					
+						<?php  _e('ricevuto da: ');?> 						
+						
 						<a href="
-							<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
-							<?php //the_author_meta('user_nicename', the_author();, true )) ?>
-							<?php echo 'autore REFERRAL'; ?>
+							<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">							
+							<?php echo $recipient_referral_name; ?>
+							
 						</a>
 						
 					</strong>
 				</small>
+			
+				<!-- TITOLO -->						
+				<h5> <?php the_title();?> </h5> 		
+				
 			</div>	
-												
+								
+			
 			<?php 	
 					
 				$tipologia_rapporto 	= get_post_meta( $post->ID, 'tipologia_rapporto', true );		

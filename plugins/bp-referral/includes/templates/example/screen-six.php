@@ -45,11 +45,11 @@
 		<h5><?php _e( 'Puoi richiedere un REFERRAL ad un utente una volta sola', 'referrals' ) ?></h5>
 		<br/><br/>
 		
-		<h5><?php _e( '2 possibilit&agrave: TRASH o PENDING', 'referrals' ) ?></h5>		
+		<h6><?php _e( '2 possibilit&agrave: TRASH o PENDING', 'referrals' ) ?></h6>		
 		<br/><br/>
-		<h5><?php _e( '- PENDING: la tua richiesta Referral si trova in moderazione e attende di essere confermata', 'referrals' ) ?></h5>		
+		<h6><?php _e( '- PENDING: la tua richiesta Referral si trova in moderazione e attende di essere confermata', 'referrals' ) ?></h6>		
 		<br/>
-		<h5><?php _e( '- TRASH: la tua richiesta Referral &egrave stata rifiutata/cestinata dall utente a cui l\'hai chiesta', 'referrals' ) ?></h5>
+		<h6><?php _e( '- TRASH: la tua richiesta Referral &egrave stata rifiutata/cestinata dall utente a cui l\'hai chiesta', 'referrals' ) ?></h6>
 		
 </div><!-- #item-body -->
 </div><!-- .padder -->
