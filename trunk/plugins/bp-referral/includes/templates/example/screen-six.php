@@ -1,5 +1,5 @@
 <?php
-//--------------------------------------------------- LISTA 6 - ------------------------------------------------------------------------------->		
+//--------------------------------------------------- LISTA 6 - CHIEDI REFERRAL 1/2 - DISabilitato ------------------------------------------------------------------------------->		
 ?>
 
 <!-- HEADER -->
@@ -41,11 +41,15 @@
 			</ul>
 		</div>
 	
-	
-		<!-- MESSAGGIO  -->
-		<h4><?php _e( 'Puoi richiedere un REFERRAL ad un utente una volta sola', 'referrals' ) ?></h4>
+		<!-- MESSAGGIO  -->		
+		<h5><?php _e( 'Puoi richiedere un REFERRAL ad un utente una volta sola', 'referrals' ) ?></h5>
+		<br/><br/>
 		
-		<h4><?php _e( '2 possibilit&agrave: TRASH o PENDING', 'referrals' ) ?></h4>
+		<h5><?php _e( '2 possibilit&agrave: TRASH o PENDING', 'referrals' ) ?></h5>		
+		<br/><br/>
+		<h5><?php _e( '- PENDING: la tua richiesta Referral si trova in moderazione e attende di essere confermata', 'referrals' ) ?></h5>		
+		<br/>
+		<h5><?php _e( '- TRASH: la tua richiesta Referral &egrave stata rifiutata/cestinata dall utente a cui l\'hai chiesta', 'referrals' ) ?></h5>
 		
 </div><!-- #item-body -->
 </div><!-- .padder -->
