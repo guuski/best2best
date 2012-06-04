@@ -141,6 +141,7 @@ class viewReferral_Widget extends WP_Widget
 				$vR_autor = $user_info->user_login;
 				$vR_title = $loop->post->post_title;
 				$vR_content = $loop->post->post_content;
+				$vR_mittenteID = get_post_meta( $loop->post->ID, 'bp_referral_recipient_id', true );
 				
 				if ($vR_content=='') $vR_content="non c'è contenuto";
 					
@@ -154,11 +155,10 @@ class viewReferral_Widget extends WP_Widget
 										echo ("<a href='".bp_core_get_user_domain( $vR_autorID )."'>"									.
 												$vR_autor							.
 											"</a>"													.
-											" su "											.
-											"<a href='".bp_core_get_user_domain( $vR_autorID )."/example'>"	.
-												$vR_title		.										
-																						
-											"</a>"													
+											" da"
+											." <a href='".bp_core_get_user_domain( $vR_mittenteID )."example'>"
+												.xprofile_get_field_data( "Nome" ,$vR_mittenteID)
+												."</a>"													
 											);
 											
 ?>
