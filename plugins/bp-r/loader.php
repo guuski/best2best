@@ -333,10 +333,13 @@ function show_points_members_directory()
 	//bp_get_member_user_id()
 	//$user_id = $current_user->ID; 
 	
+	echo $points;
+	
 	if($points != '') {
 		?>
-		<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
-			<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
+		<div id="new-review-rating" style="border: 1px solid #CCC !important; display: inline-block; !important">		
+			<div class="rating-container">
+				<span class="rating-title" style="width:auto !important;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
 				<ul id="prezzo" class='star-rating'>	
 					<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li>
 				</ul>
