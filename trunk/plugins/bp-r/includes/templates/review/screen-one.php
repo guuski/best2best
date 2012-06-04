@@ -42,7 +42,7 @@
 <!----------------------------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->	
 
 	
-<!-- IF -->							<!-- va bene sta CONDIZIONE?! per ora s� ...fa cagare!-->		
+<!-- IF 1/2-->																				<!-- va bene sta CONDIZIONE?!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
@@ -70,12 +70,13 @@
 		$loop = new WP_Query($query_args);	
 	?>
 				
-	<!-- IF -->					
+	<!-- IF 2/2 annidato -->					
 	<?php if ( $loop->have_posts() ) : ?>	
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-				<?php 	
+		
+			<?php 	
 				$prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
 				$servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );
 				$qualita 			= get_post_meta( $post->ID, 'voto_qualita', true );
@@ -84,7 +85,10 @@
 				$giudizio_review	= get_post_meta( $post->ID, 'giudizio_review', true );
 				$data_rapporto 		= get_post_meta( $post->ID, 'data_rapporto', true );
 				$tipologia_rapporto = get_post_meta( $post->ID, 'tipologia_rapporto', true );														
+				
+				//MEDIA
 				$media= ($prezzo + $servizio + $qualita + $puntualita + $affidabilita) / 5;
+				
 				if($giudizio_review == 'positivo')  			
 				{
 					$color = 'green';
@@ -98,108 +102,110 @@
 				{
 					$color = 'red';
 				}
-				
-				
-				?>		
+							
+			?>	
+			
 			<div class="title">		
-			<?php $authorlogin= get_the_author_meta('user_login')?>
-				<small style = "float: right;"><strong><?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
+
+				<?php $authorlogin= get_the_author_meta('user_login')?>
+				
+				<small style = "float: right;"><strong>
+					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename');?></a></strong></small>
 
 				<br /> 				
+				
 				<h4><?php  
-					the_title('<a href="' . 	get_permalink() . '" title="'    .	the_title_attribute('echo=0')    .	'"rel="bookmark">','</a>');
+					the_title('<a href="' . get_permalink() . '" title="' .	the_title_attribute('echo=0') .	'"rel="bookmark">','</a>');
 				?><ul id="prezzo" class='star-rating'>	
 						<li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>
-					</ul></h4>
-				
+				</ul>
+				</h4>				
 			</div>	
 			
 			<div class="entry">
-				<?php //the_content();  ?>	
-				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
-				<?php the_excerpt();  ?>	
+				<?php the_excerpt(); ?>	
 			</div>			
-			
-			
+						
 			<br/> 
-			
-			
-		<!--CUSTOM FIELDS-->
-		<div>								
+						
+			<!--CUSTOM FIELDS-->
+			<div>								
+							
+				<div>
+					<p>
+						<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
+						<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
+					</p>
+					<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
+					<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
+				</div>		
 					
-		<div>
-			<p>
-				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
-				<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
-			</p>
-			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
-			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
-		</div>		
-			
-		<br/> 		
-			
-		<div id="new-review-rating">	
-		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
-				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
-			</ul>
-			</div>		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
-			</ul>
-			</div>	
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
-				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
-			</ul>
-			</div>		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
-			</ul>
-			</div>	
-			<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
-			</ul>
-			</div>		
-			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
-					  
-		</div>	<!-- fine sezione RATING -->
-  																								
-																								
+				<br/> 		
+					
+				<div id="new-review-rating">	
 				
-</div>				
-			
+					<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
+						<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+					</ul>
+					</div>		
+					<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
+						<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+					</ul>
+					</div>	
+					<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
+						<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+					</ul>
+					</div>		
+					<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
+						<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+					</ul>
+					</div>	
+					<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
+						<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+					</ul>
+					</div>		
+					<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
+							  
+				</div>	<!-- fine sezione RATING -->
+																																																						
+			</div>	<!-- fine CUSTOM FIELDS-->			
+					
 			<br/> 
-			
+					
 			<!-- commenti -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
 			
 			<hr />
-			
+					
 		<?php endwhile; ?>
 		
 	<?php else: ?>		
 		
 		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>																	
-	
+
 	<?php endif; ?>
-	
+
 	<!-- RESET -->
 	<?php wp_reset_postdata() ?>		
-			
+		
+
 <?php else: ?>	
 	
 		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>	
 
 <?php endif; ?>
 
-</div><!-- #item-body -->
-</div><!-- .padder -->
-<?php locate_template( array( 'sidebar.php' ), true ) ?>						
-</div><!-- #content -->
-</div>
+<!-- -------------------------------chiusura DIV sottostanti CHECKED  --------------------------------------------------------------------------------------------------------------->
+
+</div><!-- #item-body -->					<!-- OK -->
+</div><!-- .padder -->						<!-- chiude MAIN COLUMN! -->
+
 <!-- SIDEBAR --->
+<?php locate_template( array( 'sidebar.php' ), true ) ?>						
 
+</div><!-- #content -->						<!-- chiude SIDEBAR SQUEEZE -->	
+</div>										<!-- chiude PADDER -->			
+</div>										<!-- chiude CONTENT-->			
 
-</div>
 <!-- FOOTER -->	
 <?php get_footer() ?>

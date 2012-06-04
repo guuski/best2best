@@ -88,44 +88,81 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 {
 	global $bp;
 
-	
-	
-				//TODO gbp staccato invio mail
-				return false;
-	
-	
-	
+	////////////////////////////////////////////////////////////////////////
+	//invia solo se account destinatario è ghost 
+	//if(esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )) == 'false')		
+	if(!esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )))		
+		return false;
+	////////////////////////////////////////////////////////////////////////	
+			
 	// Let's grab both user's names to use in the email. 
-	$sender_name = bp_core_get_user_displayname( $from_user_id, false );
-	$reciever_name = bp_core_get_user_displayname( $to_user_id, false );
+	$sender_name	= bp_core_get_user_displayname( $from_user_id, false );
+	$reciever_name 	= bp_core_get_user_displayname( $to_user_id, false );
 	
+	////////////////////////////////////////////////////////////////////////	
+	// invia solo se la notifica non è stata già vista dall'utente --giusto?!
 	if ( 'no' == get_user_meta( (int)$to_user_id, 'notification_review_new_review', true ) )
 		return false;
+	////////////////////////////////////////////////////////////////////////		
 
 	// Get the userdata for the reciever and sender, this will include usernames and emails that we need. 
 	$reciever_ud = get_userdata( $to_user_id );
-	$sender_ud = get_userdata( $from_user_id );
+	$sender_ud 	 = get_userdata( $from_user_id );
 
 	// Now we need to construct the URL's that we are going to use in the email 
-	$sender_profile_link = site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->profile->slug );
-	$sender_review_link = site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->review->slug . '/screen-one' );
-	$reciever_settings_link = site_url( BP_MEMBERS_SLUG . '/' . $reciever_ud->user_login . '/settings/notifications' );
+	
+	
+	//$sender_profile_link	= site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->profile->slug );
+	$sender_profile_link	= site_url( adesioni . '/' . $sender_ud->user_login . '/' . $bp->profile->slug );
+	
+	
+	//$sender_review_link		= site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->review->slug . '/screen-one' );
+	
+	//$reciever_review_link 	= site_url( BP_MEMBERS_SLUG . '/' . $reciever_ud->user_login . '/' . $bp->review->slug . '/my-reviews' );
+	$reciever_review_link 	= site_url( adesioni . '/' . $reciever_ud->user_login . '/' . $bp->review->slug . '/my-reviews' );
+	
+	//$reciever_settings_link = site_url( BP_MEMBERS_SLUG . '/' . $reciever_ud->user_login . '/settings/notifications' );
+	//$reciever_settings_link = site_url( adesioni . '/' . $reciever_ud->user_login . '/settings/notifications' );
+	
 
 	// Set up and send the message 
-	$to = $reciever_ud->user_email;
-	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ha scritto una review su di te!', 'reviews' ), stripslashes($sender_name) );
-
+	$to		 = $reciever_ud->user_email;
+	
+	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ti ha mandato una review', 'reviews' ), stripslashes($sender_name) );
+	//ti ha mandato una review
+	//ha scritto una review su di te!
+/*	
 	$message = sprintf( __(
-'%s sent you a review! Why not send one back?
+	
+'Gentil %s,
 
-To see %s\'s profile: %s
+%s ha inviato una recensione sulla tua attività tramite il network Best2Best 
 
-To send %s a review: %s
+<a href="%s"> clicca qui</a> per scoprire cosa ha scritto sulla tua azienda
 
 ---------------------
-', 'reviews' ), $sender_name, $sender_name, $sender_profile_link, $sender_name, $sender_review_link );
 
-	$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'reviews' ), $reciever_settings_link );
+<a href="http://www.best2best.it/registrati/"> Registrati adesso </a> ed entra nel network utile per i tuoi contatti commerciali.
+
+', 'reviews' ), $reciever_name, $sender_name, $reciever_review_link);
+*/
+
+
+	$message = sprintf( __(
+	
+'Gentil %s,
+
+%s ha inviato una recensione sulla tua attività tramite il network Best2Best 
+
+clicca qui %s per scoprire cosa ha scritto sulla tua azienda
+
+---------------------
+
+http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile per i tuoi contatti commerciali.
+
+', 'reviews' ), $reciever_name, $sender_name, $reciever_review_link);
+
+	//$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'reviews' ), $reciever_settings_link );
 
 	// Send it!
 	wp_mail( $to, $subject, $message );

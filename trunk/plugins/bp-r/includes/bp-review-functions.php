@@ -63,9 +63,12 @@ function bp_reviews_post_form_action()
  *
  * --------------- parte 2 ------------------
  *
- * Registra una notifica per l'utente con il "notifications menu" e manda una MAIL all utente.
+ * Registra una notifica per l'utente con il "notifications menu" 
  *
  * Registra un "activity stream item" col seguente testo: "Utente 1 ha inviato una review a Utente 2".
+ *
+ * --------------- parte 3 ------------------*	
+ * e manda una MAIL all utente.
  *
  *
  * @see http://codex.wordpress.org/Function_Reference/check_admin_referer
@@ -135,8 +138,21 @@ function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $g
 			'item_id' => $to_user_id,
 		) );
 	
+	
+	//-------------------- 3 parte ---------------------------------------------------------------------------
+	
 	//DO ACTION
-	do_action( 'bp_review_send_review', $to_user_id, $from_user_id , $content);						//aggiunto $content---------mancano gli altri PARAMETRI!!!!!! 
+	
+	//---------mancano gli altri PARAMETRI!!!!!! 
+	
+	/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
+	do_action( 'bp_review_send_review', $to_user_id, $from_user_id);					
+	//do_action( 'bp_example_send_high_five', $to_user_id, $from_user_id );
+	 
+	 //$to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					
+	 
+	
+		
 
 	//-------------------- incredibile! ---------------------------------------------------------------------------
 	//
