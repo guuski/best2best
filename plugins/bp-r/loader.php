@@ -232,6 +232,7 @@ function show_comments()
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 // ---> SPOSTA in bp-review-loader
 //-----------------------------------------------------------------------------------------------------------------------------------------------
+/*
 add_action( 'show_user_profile', 'my_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'my_show_extra_profile_fields' );
 
@@ -269,11 +270,12 @@ function my_show_extra_profile_fields( $user ) {
 
 	</table>
 <?php }
+*/
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 // ---> SPOSTA in bp-review-loader
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-
+/*
 add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
 
@@ -289,11 +291,12 @@ function my_save_extra_profile_fields( $user_id ) {
 	if ( isset( $_POST['num_review_ricevute'] ) ) 		
 		update_usermeta( $user_id, 'num_review_ricevute', strip_tags($_POST['num_review_ricevute']));		//striptags
 }
-
+*/
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'bp_before_member_header_meta'	, 'show_points',1);
+
 
 function show_points() 
 {
@@ -314,4 +317,32 @@ function show_points()
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
 //add_action( 'bp_review_data_after_save', $this );
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+function show_points_members_directory() 
+{
+	echo 'ciao';
+	
+	//$points = get_the_author_meta('media_voto_review',bp_displayed_user_id()); //
+	
+	if($points != '') {
+		?>
+		<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
+		<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
+			<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li></ul>
+		</div>	</div>
+		<?php 
+	}
+}
+add_action( 'bp_member_options_nav'	, 'show_points_members_directory',1);
+
+
+
+
 ?>
+
+
