@@ -151,15 +151,16 @@ class viewReferral_Widget extends WP_Widget
 					$numero--;
 						
 ?>
-<div><?php
-										echo ("<a href='".bp_core_get_user_domain( $vR_autorID )."'>"									.
-												$vR_autor							.
-											"</a>"													.
-											" da"
-											." <a href='".bp_core_get_user_domain( $vR_mittenteID )."example'>"
-												.xprofile_get_field_data( "Nome" ,$vR_mittenteID)
-												."</a>"													
-											);
+<div style="border-bottom: 1px solid #000; margin-bottom: 5px; "><?php
+					echo (get_avatar($vR_mittenteID,42));
+					?><div style="display: table-cell;padding-left: 5px; line-height: 16px;padding-bottom: 5px;"><?php echo("<a href='".bp_core_get_user_domain( $vR_autorID )."example'>"									.
+							xprofile_get_field_data( "Nome" ,$vR_autorID)							.
+						"</a>"													.
+						" da"
+						." <a href='".bp_core_get_user_domain( $vR_mittenteID )."example'>"
+							.xprofile_get_field_data( "Nome" ,$vR_mittenteID)
+							."</a>"													
+						);
 											
 ?>
 
@@ -187,11 +188,11 @@ class viewReferral_Widget extends WP_Widget
 										$voto_complessivo    = get_post_meta( $loop->post->ID, 'voto_complessivo', true );
 										
 										echo (
-											"<br />".
-											"TIPOLOGIA RAPPORTO: ".$tipologia_rapporto."<br />".
-											"ANZIANITÀ RAPPOSTO: ".$anzianita_rapporto."<br />".
-											"UTENTE CONSIGLIATO: ".$utente_consigliato."<br />".
-											"VOTO COMPLESSIVO:	 ".$voto_complessivo."<br />"
+											//"<br />".
+											"TIPOLOGIA: ".$tipologia_rapporto."<br />".
+											"ANZIANIT&Agrave; : ".$anzianita_rapporto."<br />".
+											"CONSIGLIATO: ".$utente_consigliato."<br />".
+											"VOTO:	 ".$voto_complessivo." <img src=\"/wp-content/plugins/bp-referral//includes/img/Star_full16.png\" /><br />"
 											); 
 										/*
 										echo (
@@ -204,7 +205,7 @@ class viewReferral_Widget extends WP_Widget
 							
 						</span>
 					
-					</div>
+					</div></div>
 <?php
 
 				
