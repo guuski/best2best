@@ -56,9 +56,10 @@ function cM_adesioni_Type(){
 function cM_adesioni_SubType(){
 	if ( is_user_logged_in() ) :
 	?>
-		<h4>Subtype</h4>
+		
 		
 	<?php
+	
 		cM_Main();
 			
 		
@@ -68,7 +69,7 @@ function cM_adesioni_SubType(){
 function cM_adesioni_Cont(){
 	if ( is_user_logged_in() ) :
 	?>
-		<h1>Content</h1>
+		
 	<?php
 	endif;
 	}
@@ -81,226 +82,86 @@ function cM_adesioni_Cont(){
 
 
 /*====================================================================*/
-/*====================================================================*/
-
-/*Questo metodo mi ritorna l'id del nuovo field creato dall'utente oppure ritorna
- * -1 in caso di assenza del field*/
-function cM_newfieldisset(){
-	global $bp;
-	global $wpdb;
-	global $cM_nome;
-	$query = "SELECT * FROM wp_bp_xprofile_fields f";
-	$cM_output= $wpdb->get_results( $wpdb->prepare($query));
-	foreach( (array)$cM_output as $field ){
-		if ($field->type==$cM_nome) 
-			return $field->id;
-		}//end-foreach
-	return -1;
-}
-
-function cM_caricaCategorie(){
-	global $bp;
-	global $wpdb;
-	$cM_parent=cM_newfieldisset();
-	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
-	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
-	$query = "SELECT f.id, f.parent_id, f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag' ORDER BY f.name ASC";
-	$cM_array=array();
-	$cM_output= $wpdb->get_results( $wpdb->prepare($query));
-	 
-	return  cM_caricaCT_ric($cM_output,$cM_parent);
-}
-
-function cM_caricaCT_ric($cM_db,$cM_par){
-	
-		if (is_array($cM_db)){
-			$cM_mat='';
-			foreach ($cM_db as $k => $v){
-				if ($v->parent_id==$cM_par){
-						$cM_mat["$v->name"]= cM_caricaCT_ric($cM_db,$v->id);
-				}//end-if
-			}//end-foreach
-			return $cM_mat;
-		}//end-if
-	return '';
-	}
-	
+/*====================================================================*/	
 function cM_Main(){
-		$cnt=0;
-		$HTML="";
-		$cM_array = cM_caricaCategorie();
-		foreach ($cM_array as $k => $v){
-			if (is_array($v)){
-					$cnt++;
-					$HTML.="$k<br />";
-					$HTML.=cM_getHTML_ric($v);
-				}
-			else{
-				$cnt++;
-				$HTML.="$k<br />";
-			}
-		}
-		echo $HTML;
+		//cM_visualizzaFIELDutente();
+		cM_visualizzaALLfield();
 	}
 	
-function cM_getHTML_ric($cM_ins){
-	$HTML="";
-	global $cnt;
-	foreach($cM_ins as $k => $v) {
-			if (is_array($v)){
-					$cnt++;
-					$HTML.=__("$k",'cM');
-					$HTML.=cM_getHTML_ric($v);
-				}
-			else{
-				$cnt++;
-				$HTML.=__("$k",'cM'); 
-			}
-			
-		}//end-foreach	
-	return $HTML;
-}
 /*====================================================================*/
 /*====================================================================*/
 
 /*====================================================================*/
 /*====================================================================*/
-/*
-function bp_adesioni_CatMerc(){
 
-
-?>
-		
-
-				<li id="categorie-merceologiche"><a href="<?php echo bp_loggedin_user_domain() . '/non so dove reindirizzare/' ?>"><?php printf( __( 'Categorie Merceologiche', 'buddypress' ) ); ?></a></li>
-
-		
-	<?php 
-		//do_action( 'bp_before_directory_members_page' ); 
-	?>
-
-	<div id="content">
-		<div class="padder">
-
-		<?php 
-			//do_action( 'bp_before_directory_members' ); 
-		?>
-
-		<form action="" method="post" id="members-directory-form" class="dir-form">
-
-			<h3><?php _e( 'Members Directory', 'buddypress' ); ?></h3>
-
-			<?php 
-				//do_action( 'bp_before_directory_members_content' ); 
-			?>
-
-			<div id="members-dir-search" class="dir-search" role="search">
-
-				<?php bp_directory_members_search_form(); ?>
-
-			</div><!-- #members-dir-search -->
-
-			<div class="item-list-tabs" role="navigation">
-				<ul>
-					<li class="selected" id="members-all"><a href="<?php echo trailingslashit( bp_get_root_domain() . '/' . bp_get_members_root_slug() ); ?>"><?php printf( __( 'All Members <span>%s</span>', 'buddypress' ), bp_get_total_member_count() ); ?></a></li>
-
-					<?php if ( is_user_logged_in() && bp_is_active( 'friends' ) && bp_get_total_friend_count( bp_loggedin_user_id() ) ) : ?>
-
-						<li id="members-personal"><a href="<?php echo bp_loggedin_user_domain() . bp_get_friends_slug() . '/my-friends/' ?>"><?php printf( __( 'My Friends <span>%s</span>', 'buddypress' ), bp_get_total_friend_count( bp_loggedin_user_id() ) ); ?></a></li>
-
-					<?php endif; ?>
-					
-					<?php if ( is_user_logged_in() && bp_is_active( 'friends' ) && bp_get_total_friend_count( bp_loggedin_user_id() ) ) : ?>
-
-						<li id="categorie-merceologiche">
-						* <a href="<?php echo bp_loggedin_user_domain() . '/non so dove reindirizzare/' ?>">
-						* 	<?php printf( __( 'Categorie Merceologiche', 'buddypress' ) ); ?></a></li>
-
-					<?php endif; ?>
-
-					<?php 
-						//do_action( 'bp_members_directory_member_types' ); 
-					?>
-
-				</ul>
-			</div><!-- .item-list-tabs -->
-
-			<div class="item-list-tabs" id="subnav" role="navigation">
-				<ul>
-
-					<?php 
-						//do_action( 'bp_members_directory_member_sub_types' ); 
-					?>
-
-					<li id="members-order-select" class="last filter">
-
-						<label for="members-order-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
-						<select id="members-order-by">
-							<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-							<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
-
-							<?php if ( bp_is_active( 'xprofile' ) ) : ?>
-
-								<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
-
-							<?php endif; ?>
-
-							<?php do_action( 'bp_members_directory_order_options' ); ?>
-
-						</select>
-					</li>
-				</ul>
-			</div>
-
-			<div id="members-dir-list" class="members dir-list">
-
-				<?php locate_template( array( 'members/members-loop.php' ), true ); ?>
-
-			</div><!-- #members-dir-list -->
-
-			<?php 
-				//do_action( 'bp_directory_members_content' ); 
-			?>
-
-			<?php wp_nonce_field( 'directory_members', '_wpnonce-member-filter' ); ?>
-
-			<?php 
-				//do_action( 'bp_after_directory_members_content' ); 
-			?>
-
-		</form><!-- #members-directory-form -->
-
-		<?php 
-			//do_action( 'bp_after_directory_members' ); 
-		?>
-
-		</div><!-- .padder -->
-	</div><!-- #content -->
-
-	<?php 
-		//do_action( 'bp_after_directory_members_page' ); 
-	?>
-	
-	<?php get_sidebar( 'buddypress' ); ?>
-	<?php get_footer( 'buddypress' ); 
-
-	}
-	*/
-	
-	function cM_caricaID()
-	{
+	function cM_getIDfield(){
+		global $bp;
 		global $wpdb;
-	
-		$query = "SELECT ID FROM wp_users";
-		$cM_array=array();
-		$cM_output= $wpdb->get_results( $wpdb->prepare($query));
-	 
-		//foreach ($cM_output as $k =>$v) echo $v->ID;
 		
-		return  $cM_output;
+		/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
+		user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
+		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
+	
+		$cM_output= $wpdb->get_results( $wpdb->prepare($query) );
+		/*
+		if (isset($ms_output[0])) {
+			$field_selected=explode(", ",$ms_output[0]->value);
+			return $field_selected;
+		}
+		*/
+		return $cM_output;
+	
+	}
+	function cM_getALLfield(){
+		global $bp;
+		global $wpdb;
+		
+		$query = "SELECT f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag' ORDER BY name ASC";
+			
+		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+	 
+		return  $ms_output;
 	}
 	
-	cM_caricaID();
+	function cM_visualizzaFIELDutente(){
+		$cM_array = cM_getIDfield();
+		foreach ($cM_array as $key_c_utente => $c_utente){
+		
+			$attivo = get_userdata($c_utente->user_id);
+			echo  "<div style='width:50px; height:50px;'> 
+						<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
+							".get_avatar($c_utente->user_id,42)."
+						</a>
+					</div>";
+			
+			$field_selected=explode(", ",$c_utente->value);
+			foreach ($field_selected as $k => $v)
+				echo $v . "<br />";
+			echo "<hr />";
+		}
+	}
+	
+	function cM_visualizzaALLfield(){
+		$cM_array = cM_getALLfield();
+		foreach ($cM_array as $k => $v){
+			echo "<h6>$v->name</h6><br /><div style='position:reletive;height:50px;'>";
+			
+			$cM_array2 = cM_getIDfield();
+			foreach ($cM_array2 as $key_c_utente => $c_utente){
+				$field_selected=explode(", ",$c_utente->value);
+				if (in_array($v->name, $field_selected))
+				{
+					$attivo = get_userdata($c_utente->user_id);
+					echo  "
+					<a style='position:relative; ' href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
+						".get_avatar($c_utente->user_id,42)."
+					</a>";
+				}
+			}
+			echo "</div>";
+		}
+	}
+	
 	
 
 ?>
