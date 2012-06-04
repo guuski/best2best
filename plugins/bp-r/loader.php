@@ -337,11 +337,11 @@ function show_points_members_directory()
 	
 	if($points != '') {
 		?>
-		<div id="new-review-rating" style="border: 1px solid #CCC !important; display: inline-block; !important">		
+		<div id="new-review-rating" style="border: 1px solid #CCC !important; display: inline-block !important">		
 			<div class="rating-container">
 				<span class="rating-title" style="width:auto !important;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
 				<ul id="prezzo" class='star-rating'>	
-					<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li>
+					<li class='current-rating' style="height: 0px; width: <?php echo 25*$points;?>px"></li>
 				</ul>
 			</div>	
 		</div>
