@@ -1,12 +1,19 @@
 <?php
+
+//INCLUDE
 include 'bps-searchform.php';
 
+
+/**
+ *
+ */
 function bps_fields ($name, $values)
 {
 	global $field;
 	global $dateboxes;
 
 	if (bp_is_active ('xprofile')) : 
+	
 	if (function_exists ('bp_has_profile')) : 
 		if (bp_has_profile ('hide_empty_fields=0')) :
 			$dateboxes = array ();
@@ -29,58 +36,48 @@ function bps_fields ($name, $values)
 						$disabled = '';
 						break;
 					}
-?>
-<label><input type="checkbox" name="<?php echo $name; ?>[]" value="<?php echo $field->id; ?>" <?php echo $disabled; ?>
-<?php if (in_array ($field->id, (array)$values))  echo ' checked="checked"'; ?> />
-<?php bp_the_profile_field_name(); ?>
-<?php if (bp_get_the_profile_field_is_required ()) 
-	_e (' (required) ', 'buddypress');
-else
-	_e (' (optional) ', 'buddypress'); ?>
-<?php bp_the_profile_field_description (); ?></label><br />
+		?>
+		<label><input type="checkbox" name="<?php echo $name; ?>[]" value="<?php echo $field->id; ?>" <?php echo $disabled; ?>
+		<?php if (in_array ($field->id, (array)$values))  echo ' checked="checked"'; ?> />
+		<?php bp_the_profile_field_name(); ?>
+		<?php if (bp_get_the_profile_field_is_required ()) 
+			_e (' (required) ', 'buddypress');
+		else
+			_e (' (optional) ', 'buddypress'); ?>
+		<?php bp_the_profile_field_description (); ?></label><br />
 
-<?php 			endwhile;
-			endwhile; 
-		endif;
-	endif; 
-	endif;
+		<?php 			endwhile;
+					endwhile; 
+				endif;
+			endif; 
+			endif;
 
-	return true;
+			return true;
 }
 
-function bps_agerange ($name, $value)
-{
-	global $dateboxes;
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	if (count ($dateboxes) > 1)
-	{
-		echo "<select name=\"$name\">\n";
-		foreach ($dateboxes as $fid => $fname)
-		{
-			echo "<option value=\"$fid\"";
-			if ($fid == $value)  echo " selected=\"selected\"";
-			echo ">$fname &nbsp;</option>\n";
-		}
-		echo "</select>\n";
-	}
-	else
-		echo 'There is no date field in your profile';
+add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
 
-	return true;
-}
-
-add_filter ('bp_core_get_users', 'bps_search', 99, 2);
-function bps_search ($results, $params)
+/**
+ *
+ */
+function bps_search ($results, $params)	
 {
 	global $bp;
 	global $wpdb;
 	global $bps_list;
 	global $bps_options;
 
-	if ($_POST['bp_profile_search'] != true)  return $results;
+	if ($_POST['bp_profile_search'] != true)  				//POST!
+		return $results;
 
 	$bps_list += 1;
-	if ($bps_list != $bps_options['filtered'])  return $results;
+	
+	if ($bps_list != $bps_options['filtered'])  
+		return $results;
 
 	$noresults['users'] = array ();
 	$noresults['total'] = 0;
@@ -143,9 +140,9 @@ function bps_search ($results, $params)
 
 				$found = $wpdb->get_results ($sql);
 				if (!is_array ($userids)) 
-					$userids = bps_conv ($found, 'user_id');
+					$userids = bps_conv ($found, 'user_id');													//bps_conv(	)
 				else
-					$userids = array_intersect ($userids, bps_conv ($found, 'user_id'));
+					$userids = array_intersect ($userids, bps_conv ($found, 'user_id'));						//bps_conv(	)
 
 				if (count ($userids) == 0)  return $noresults;
 				$emptyform = false;
@@ -154,17 +151,22 @@ function bps_search ($results, $params)
 		endwhile;
 	endif;
 
-	if ($emptyform == true)  return $noresults;
+	if ($emptyform == true)
+		return $noresults;
 
-	remove_filter ('bp_core_get_users', 'bps_search', 99, 2);
+	remove_filter ('bp_core_get_users', 'bps_search', 99, 2);									//REMOVE Filter
 
 	$params['per_page'] = count ($userids);
-	$params['include'] = $wpdb->escape (implode (',', $userids));
+	$params['include']  = $wpdb->escape (implode (',', $userids));
+	
 	$results = bp_core_get_users ($params);
 
 	return $results;
 }
 
+/**
+ *
+ */
 function bps_conv ($objects, $field)
 {
 	$array = array ();
@@ -175,6 +177,242 @@ function bps_conv ($objects, $field)
 	return $array;	
 }
 
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	------------- FUNZIONI categorie (GIOVANNI)
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ */
+function cM_getIDfield()
+{
+	global $bp;
+	global $wpdb;
+	
+	/*seleziono dentro la tabella wp_bp_xprofile_data solo le righe aventi
+	user_id uguale a quello dell'utente e value=ms Categorie Acquisti*/
+	$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d , wp_bp_xprofile_fields f WHERE f.type='box selezione multipla raggruppata' AND d.field_id=f.id ";
+	$cM_output= $wpdb->get_results( $wpdb->prepare($query) );
+	
+	/*
+	if (isset($ms_output[0])) {
+		$field_selected=explode(", ",$ms_output[0]->value);
+		return $field_selected;
+	}
+	*/
+	
+	return $cM_output;
+}
+
+/**
+ *
+ */
+function cM_getALLfield()
+{
+	global $bp;
+	global $wpdb;
+	
+	$query = "SELECT f.name, f.id FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag' ORDER BY name ASC";		
+	$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+ 
+	return  $ms_output;
+}
+
+/**
+ *
+ */	
+function cM_visualizzaFIELDutente()
+{
+	$cM_array = cM_getIDfield();
+	
+	foreach ($cM_array as $key_c_utente => $c_utente)
+	{
+	
+		$attivo = get_userdata($c_utente->user_id);
+		echo  "<div style='width:50px; height:50px;'> 
+					<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
+						".get_avatar($c_utente->user_id,42)."
+					</a>
+				</div>";
+		
+		$field_selected=explode(", ",$c_utente->value);
+	
+		foreach ($field_selected as $k => $v)
+			echo $v . "<br />";
+			
+		echo "<hr />";
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+function cM_visualizzaALLfield()
+{
+	////////////
+	global $bp;
+	global $wpdb;
+	///////////////
+
+	cM_getScript();
+	$cM_array = cM_getALLfield();
+	
+	foreach ($cM_array as $k => $v){
+		
+		//CONTO LE OCCORRENZE=======================================
+		$cM_cont=0;
+		$cM_array2 = cM_getIDfield();
+		foreach ($cM_array2 as $key_c_utente => $c_utente){
+			$field_selected=explode(", ",$c_utente->value);
+			if (in_array($v->name, $field_selected))
+			{
+				$cM_cont++;
+			}
+		}
+	
+		//==========================================================
+?>
+
+<span class='cM_box'
+	onmouseover='cM_labelon(this)' 
+	onmouseout='cM_labeloff(this)'
+	onclick='cM_open("cM_labelhidden<?php echo $v->id;?>","cM_labelprev<?php echo $v->id;?>")'>
+						
+		<label id='cM_labelprev<?php echo $v->id;?>' class='cM_labelprev'>
+<?php
+		//======================================
+									
+		echo ($v->name ."<span>($cM_cont)</span><br />"); 
+		
+		//======================================
+									
+?>
+		</label>
+						
+		<label id='cM_labelhidden<?php echo $v->id;?>' class='cM_labelhidden'  style='display:none;'>
+			<?php echo $v->name ?><br/>
+
+<?php
+		
+		//======================================
+		
+	echo "<div style='position:relative; height:60px; width:90%;'>";
+		$cM_array2 = cM_getIDfield();
+		foreach ($cM_array2 as $key_c_utente => $c_utente){
+			$field_selected=explode(", ",$c_utente->value);
+			if (in_array($v->name, $field_selected))
+			{
+				$attivo = get_userdata($c_utente->user_id);
+				echo  "
+				
+					<a style='float:left;' href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
+						".get_avatar($c_utente->user_id,42)."
+					</a>
+					";
+					
+				
+				
+			}
+		}
+		echo "</div>";
+		
+		?>
+		</label>
+	</span>
+						
+	<?php
+			
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+function cM_getScript()
+{ 		
+
+	?>
+	
+		<script language='JavaScript' type='text/javascript'>
+		<!--
+
+			function cM_open(labelhidden, labelprev)
+			{
+				jQuery('label#'+labelhidden).fadeToggle("fast");
+				jQuery('label#'+labelprev).toggle();
+				
+			}
+			
+			function cM_labelon(t)
+			{	
+				t.style.color = '#87badd';
+				t.style.background ='transparent' ;
+				t.style.cursor = 'pointer';
+			}
+
+			function cM_labeloff(t)
+			{
+				t.style.color = '#000';
+				t.style.background ='transparent' ;
+				t.style.cursor = 'default';
+			}	
+		//-->
+		</script>
+
+		<style type='text/css'>
+			.cM_box{
+				
+				background-color:transparent;
+				
+				font-weight:bold;
+				color:#000;
+				
+				
+			}
+		
+			.cM_labelhidden{
+				color:#787878;
+			}
+			
+			.cM_labelprev{
+				color:#787878;
+				
+			}
+			
+			.cM_label{
+				
+			}
+		</style>
+	<?php	
+}
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------------//------------------------------------------------------------------------------------------------------------------
+// inutilità! :)
+//------------------------------------------------------------------------------------------------------------------//------------------------------------------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------------------------------------------
+// SHORTCODE
+//------------------------------------------------------------------------------------------------------------------
 add_shortcode ('bp_profile_search_form', 'bps_shortcode');
 function bps_shortcode ($attr, $content)
 {
@@ -183,6 +421,13 @@ function bps_shortcode ($attr, $content)
 	return ob_get_clean ();
 }
 
+
+
+//------------------------------------------------------------------------------------------------------------------
+// WIDGET
+//------------------------------------------------------------------------------------------------------------------
+
+//CLASS
 class bps_widget extends WP_Widget
 {
 	function bps_widget ()
@@ -222,9 +467,12 @@ class bps_widget extends WP_Widget
 	}
 }
 
+
+// Register WIDGET
 add_action ('widgets_init', 'bps_widget_init');
 function bps_widget_init ()
 {
 	register_widget ('bps_widget');
 }
+	
 ?>
