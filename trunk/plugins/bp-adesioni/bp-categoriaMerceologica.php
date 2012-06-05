@@ -116,7 +116,7 @@ function cM_Main(){
 		global $bp;
 		global $wpdb;
 		
-		$query = "SELECT f.name FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag' ORDER BY name ASC";
+		$query = "SELECT f.name, f.id FROM wp_bp_xprofile_fields f WHERE f.type='multiselectboxrag' ORDER BY name ASC";
 			
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
 	 
@@ -142,10 +142,48 @@ function cM_Main(){
 	}
 	
 	function cM_visualizzaALLfield(){
+		cM_getScript();
 		$cM_array = cM_getALLfield();
 		foreach ($cM_array as $k => $v){
-			echo "<h6>$v->name</h6><br /><div style='position:reletive;height:50px;'>";
 			
+			//CONTO LE OCCORRENZE=======================================
+			$cM_cont=0;
+			$cM_array2 = cM_getIDfield();
+			foreach ($cM_array2 as $key_c_utente => $c_utente){
+				$field_selected=explode(", ",$c_utente->value);
+				if (in_array($v->name, $field_selected))
+				{
+					$cM_cont++;
+				}
+			}
+		
+			//==========================================================
+?>
+
+	<span class='cM_box'
+		onmouseover='cM_labelon(this)' 
+		onmouseout='cM_labeloff(this)'
+		onclick='cM_open("cM_labelhidden<?php echo $v->id;?>","cM_labelprev<?php echo $v->id;?>")'>
+							
+			<label id='cM_labelprev<?php echo $v->id;?>' class='cM_labelprev'>
+<?php
+			//======================================
+										
+			echo ($v->name ."<span>($cM_cont)</span><br />"); 
+			
+			//======================================
+										
+?>
+			</label>
+							
+			<label id='cM_labelhidden<?php echo $v->id;?>' class='cM_labelhidden'  style='display:none;'>
+				<?php echo $v->name ?><br/>
+
+<?php
+			
+			//======================================
+			
+		echo "<div style='position:relative; height:60px; width:90%;'>";
 			$cM_array2 = cM_getIDfield();
 			foreach ($cM_array2 as $key_c_utente => $c_utente){
 				$field_selected=explode(", ",$c_utente->value);
@@ -153,15 +191,89 @@ function cM_Main(){
 				{
 					$attivo = get_userdata($c_utente->user_id);
 					echo  "
-					<a style='position:relative; ' href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
-						".get_avatar($c_utente->user_id,42)."
-					</a>";
+					
+						<a style='float:left;' href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >
+							".get_avatar($c_utente->user_id,42)."
+						</a>
+						";
+						
+					
+					
 				}
 			}
-			echo "</div>";
+		echo "</div>";
+			
+			//======================================
+			
+			?>
+			</label>
+	</span>
+						
+<?php
+			
 		}
 	}
+
+	function cM_getScript()
+	{ 
+		
+//======================================================================
+?>
 	
+			<script language='JavaScript' type='text/javascript'>
+			<!--
+
+				function cM_open(labelhidden, labelprev)
+				{
+					jQuery('label#'+labelhidden).fadeToggle("fast");
+					jQuery('label#'+labelprev).toggle();
+					
+				}
+				
+				function cM_labelon(t)
+				{	
+					t.style.color = '#87badd';
+					t.style.background ='transparent' ;
+					t.style.cursor = 'pointer';
+				}
+
+				function cM_labeloff(t)
+				{
+					t.style.color = '#000';
+					t.style.background ='transparent' ;
+					t.style.cursor = 'default';
+				}	
+			//-->
+			</script>
+
+			<style type='text/css'>
+				.cM_box{
+					
+					background-color:transparent;
+					
+					font-weight:bold;
+					color:#000;
+					
+					
+				}
+			
+				.cM_labelhidden{
+					color:#787878;
+				}
+				
+				.cM_labelprev{
+					color:#787878;
+					
+				}
+				
+				.cM_label{
+					
+				}
+			</style>
+<?php
+//======================================================================
+	
+	}
 	
 
 ?>
