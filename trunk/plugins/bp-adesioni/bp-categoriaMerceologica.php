@@ -18,15 +18,33 @@
 
 load_plugin_textdomain( 'cM', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-add_action( 'bp_members_directory_member_types', 'cM_adesioni_Type');
-
-add_action( 'bp_members_directory_member_sub_types', 'cM_adesioni_SubType');
-
-add_action( 'bp_directory_members_content', 'cM_adesioni_Cont');
-
-add_action( 'bp_members_directory_order_options', 'cM_adesioni_Cont');
 
 
+
+
+//add_action( 'bp_members_directory_member_types', 'cM_adesioni_Type');
+
+//add_action( 'bp_members_directory_member_sub_types', 'cM_adesioni_SubType');
+add_filter ('bp_core_get_users', 'cM_adesioni_SubType', 99, 2);
+
+//add_action( 'bp_directory_members_content', 'cM_adesioni_Cont');
+
+//add_action( 'bp_members_directory_order_options', 'cM_adesioni_Cont');
+
+
+//add_filter ('bp_core_get_users', 'bps_search', 99, 2);
+/*
+function bps_search ($results, $params)
+{
+	global $bp;
+	global $wpdb;
+	global $bps_list;
+	global $bps_options;
+	
+	//[...]
+	
+}
+*/
 /*
  * do_action( 'bp_before_directory_members_page' );
  * do_action( 'bp_before_directory_members' ); 
