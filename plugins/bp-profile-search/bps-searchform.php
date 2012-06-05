@@ -1,7 +1,7 @@
 <?php
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
-//	FORM 1 - orignal
+//	FORM 1/2 - orignal
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 add_action ('bp_profile_search_form', 'bps_form');										//ACTION
@@ -30,7 +30,7 @@ function bps_form ($form_id)
 			
 				<!-- 2 -->	
 				<?php if (in_array ('Enabled', (array)$bps_options['show'])) { ?>
-					<li class="last" style ="float: left;">    <!-- display: none;">-->
+					<li class="last" style ="float: left;">    <!-- display: none;">-->							<!-- NO HIDE sballa!--> 
 						<input id="bps_show" type="submit" value="<?php echo $bps_options['message']; ?>" />
 					</li>
 				<?php } ?>
@@ -43,7 +43,7 @@ function bps_form ($form_id)
 				
 				jQuery(document).ready(function($) 
 				{
-					$('#bps_action').hide();
+					//$('#bps_action').hide();																		//NO HIDE
 					$('#bps_show').click(function(){
 						$('#bps_action').toggle();
 					});
@@ -157,7 +157,7 @@ function bps_form ($form_id)
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
-//	FORM 2 - categorie
+//	FORM 2/2 - categorie
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 add_action ('bp_profile_search_form_categorie', 'bps_form_categorie');										//ACTION
@@ -187,7 +187,7 @@ function bps_form_categorie ($form_id)
 				<!-- 2 -->	
 				<?php if (in_array ('Enabled', (array)$bps_options['show'])) { ?>
 					<li class="last" style ="float: left;">    <!-- display: none;">-->
-						<input id="bps_show_categorie" type="submit" value="<?php echo $bps_options['message']; ?>" />
+						<input id="bps_show_categorie" type="submit" value="<?php echo 'Categorie' ?>" />							<!-- Categorie-->
 					</li>
 				<?php } ?>
 			</ul>
@@ -211,7 +211,7 @@ function bps_form_categorie ($form_id)
 	}
 
 	echo "<form action='$action' method='post' id='$form_id' class='standard-form'>";
-
+/*
 	if (bp_has_profile ('hide_empty_fields=0'))  while (bp_profile_groups ())
 	{
 		bp_the_profile_group ();
@@ -299,6 +299,10 @@ echo '</div>';
 echo '</div>';
 		}
 	}
+	
+	
+	
+	*/
 
 echo "<div class='submit'>";
 echo "<input type='submit' value='". __('Categorie', 'buddypress'). "' />";
