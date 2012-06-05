@@ -4,11 +4,127 @@
 include 'bps-searchform.php';
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//	FILTER F -  3 - giovanni
+//	FILTER F - orignal
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
+
+/**
+ *
+ */
+function bps_search ($results, $params)	
+{
+	global $bp;
+	global $wpdb;
+	global $bps_list;
+	global $bps_options;
+
+				
+					if ($_POST['bp_profile_search'] != true)  				//POST!  --bp_profile_search
+						return $results;
+
+			
+			
+	$bps_list += 1;
+	
+	if ($bps_list != $bps_options['filtered'])  
+		return $results;
+
+	$noresults['users'] = array ();
+	$noresults['total'] = 0;
+
+	$emptyform = true;
+
+	if (bp_has_profile ('hide_empty_fields=0')):
+	
+		while (bp_profile_groups ()):
+		
+			bp_the_profile_group ();
+			
+			while (bp_profile_fields ()): 
+				bp_the_profile_field ();
+
+				$id = bp_get_the_profile_field_id ();
+				$value = $_POST["field_$id"];
+				$to = $_POST["field_{$id}_to"];
+
+				if ($value == '' && $to == '')  continue;
+
+				switch (bp_get_the_profile_field_type ())
+				{
+					case 'textbox':
+					
+					
+					case 'textarea':
+						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
+						if ($bps_options['searchmode'] == 'Partial Match')
+							$sql .= " WHERE field_id = $id AND value LIKE '%%$value%%'";
+						else					
+							$sql .= " WHERE field_id = $id AND value LIKE '$value'";
+						break;
+
+					case 'selectbox':
+					
+					
+					
+					case 'radio':
+						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
+						$sql .= " WHERE field_id = $id AND value = '$value'";
+						break;
+
+					case 'multiselectbox':
+					
+					
+					
+					case 'checkbox':
+						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
+						$sql .= " WHERE field_id = $id";
+						$like = array ();
+						foreach ($value as $curvalue)
+							$like[] = "value LIKE '%\"$curvalue\"%'";
+						$sql .= ' AND ('. implode (' OR ', $like). ')';	
+						break;
+
+				}
+
+				$found = $wpdb->get_results ($sql);
+				
+				if (!is_array ($userids)) 
+					$userids = bps_conv ($found, 'user_id');													//bps_conv(	)
+				else
+					$userids = array_intersect ($userids, bps_conv ($found, 'user_id'));						//bps_conv(	)
+
+				if (count ($userids) == 0)  
+					return $noresults;
+					
+				$emptyform = false;
+				
+			endwhile;
+		endwhile;
+	endif;
+
+	if ($emptyform == true)
+		return $noresults;
+
+	remove_filter ('bp_core_get_users', 'bps_search', 99, 2);									//REMOVE Filter
+
+	$params['per_page'] = count ($userids);
+	$params['include']  = $wpdb->escape (implode (',', $userids));
+	
+	$results = bp_core_get_users ($params);
+
+	return $results;
+}
+
+
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	FILTER F -  2 A - giovanni
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-					add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
+					//add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
 
 
 /**
@@ -35,7 +151,7 @@ function cM_visualizzaALLfield($results, $params)
 																						//POST!  --bp_profile_search_categorie_reset   - RESET
 	if ($_POST['bp_profile_search_categorie_reset'] == true)  				{
 		
-		remove_filter ('bp_core_get_users', 'bps_search', 99, 2);									//REMOVE Filter
+		remove_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);									//REMOVE Filter
 		
 		
 		return $results;
@@ -118,11 +234,11 @@ function cM_visualizzaALLfield($results, $params)
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//	FILTER F -  2 - categorie
+//	FILTER F -  2 B - categorie
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		
-		//add_filter ('bp_core_get_users', 'bps_search_categorie', 99, 2);													//FILTER
+					//add_filter ('bp_core_get_users', 'bps_search_categorie', 99, 2);													//FILTER
 
 /**
  *
@@ -135,9 +251,11 @@ function bps_search_categorie ($results, $params)
 	global $wpdb;
 	global $bps_list;
 	global $bps_options;
+	
+	
 
-	if ($_POST['bp_profile_search_categorie'] != true)  				//POST!  --bp_profile_search_categorie 			(2)
-		return $results;
+				if ($_POST['bp_profile_search_categorie'] != true)  				//POST!  --bp_profile_search_categorie 			(2)
+					return $results;
 
 		
 		
@@ -233,118 +351,8 @@ function bps_search_categorie ($results, $params)
 
 	return $results;
 }
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//	FILTER F - orignal
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
 
-/**
- *
- */
-function bps_search ($results, $params)	
-{
-	global $bp;
-	global $wpdb;
-	global $bps_list;
-	global $bps_options;
-
-	
-		if ($_POST['bp_profile_search'] != true)  				//POST!  --bp_profile_search
-			return $results;
-
-			
-			
-	$bps_list += 1;
-	
-	if ($bps_list != $bps_options['filtered'])  
-		return $results;
-
-	$noresults['users'] = array ();
-	$noresults['total'] = 0;
-
-	$emptyform = true;
-
-	if (bp_has_profile ('hide_empty_fields=0')):
-	
-		while (bp_profile_groups ()):
-		
-			bp_the_profile_group ();
-			
-			while (bp_profile_fields ()): 
-				bp_the_profile_field ();
-
-				$id = bp_get_the_profile_field_id ();
-				$value = $_POST["field_$id"];
-				$to = $_POST["field_{$id}_to"];
-
-				if ($value == '' && $to == '')  continue;
-
-				switch (bp_get_the_profile_field_type ())
-				{
-					case 'textbox':
-					
-					
-					case 'textarea':
-						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
-						if ($bps_options['searchmode'] == 'Partial Match')
-							$sql .= " WHERE field_id = $id AND value LIKE '%%$value%%'";
-						else					
-							$sql .= " WHERE field_id = $id AND value LIKE '$value'";
-						break;
-
-					case 'selectbox':
-					
-					
-					
-					case 'radio':
-						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
-						$sql .= " WHERE field_id = $id AND value = '$value'";
-						break;
-
-					case 'multiselectbox':
-					
-					
-					
-					case 'checkbox':
-						$sql = "SELECT user_id from {$bp->profile->table_name_data}";
-						$sql .= " WHERE field_id = $id";
-						$like = array ();
-						foreach ($value as $curvalue)
-							$like[] = "value LIKE '%\"$curvalue\"%'";
-						$sql .= ' AND ('. implode (' OR ', $like). ')';	
-						break;
-
-				}
-
-				$found = $wpdb->get_results ($sql);
-				
-				if (!is_array ($userids)) 
-					$userids = bps_conv ($found, 'user_id');													//bps_conv(	)
-				else
-					$userids = array_intersect ($userids, bps_conv ($found, 'user_id'));						//bps_conv(	)
-
-				if (count ($userids) == 0)  
-					return $noresults;
-					
-				$emptyform = false;
-				
-			endwhile;
-		endwhile;
-	endif;
-
-	if ($emptyform == true)
-		return $noresults;
-
-	remove_filter ('bp_core_get_users', 'bps_search', 99, 2);									//REMOVE Filter
-
-	$params['per_page'] = count ($userids);
-	$params['include']  = $wpdb->escape (implode (',', $userids));
-	
-	$results = bp_core_get_users ($params);
-
-	return $results;
-}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
