@@ -1,0 +1,4 @@
+- sovrascrivere il file 'index.php' nella cartella MEMBERS del tema 'Frisco'
+- attivare il plugin
+- configurare il plugin
+- visitare la pagina adesioni

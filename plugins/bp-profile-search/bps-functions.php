@@ -7,7 +7,7 @@ include 'bps-searchform.php';
 //	FILTER F - orignal
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
+					//add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
 
 /**
  *
@@ -124,7 +124,7 @@ function bps_search ($results, $params)
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-					//add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
+add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
 
 
 /**
@@ -132,13 +132,27 @@ function bps_search ($results, $params)
  */
 function cM_visualizzaALLfield($results, $params)	
 {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	global $bp;
 	global $wpdb;
 	global $bps_list;
 	global $bps_options;
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if( isset( $_POST['reset_categorie_submit'] ) )
+	{
+		//remove_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);									//REMOVE Filter
+		return $results;
+	}
+	
+	if( isset( $_POST['categorie_submit'] ) )
+	{
+		
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 																							//POST!  --bp_profile_search_categorie 			(3)
+/*
 	if (
 			$_POST['bp_profile_search_categorie'] != true
 		&&  $_POST['bp_profile_search_categorie_reset'] == true  
@@ -156,7 +170,7 @@ function cM_visualizzaALLfield($results, $params)
 		
 		return $results;
 	}
-
+*/
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 

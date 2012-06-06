@@ -141,19 +141,58 @@ function bps_form ($form_id)
 					}
 					echo '</div>';
 				break;
+				
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+											
+				case '			':  // box aggruppata! 
+								
+					echo "<div class='				'>";
+					echo "<span class='label'>$field->name</span>";
+
+				
+					echo '</div>';
+				break;
+				
+												
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				// box aggruppata! 
+				default:
+				
+					
+				break;
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
 			}
 
 			echo '</div>';
 		}
 	}
 
+	
 	echo "<div class='submit'>";
-	echo "<input type='submit' value='". __('Search', 'buddypress'). "' />";
+		echo "<input type='submit' value='". __('Search', 'buddypress'). "' />";
 	echo '</div>';
-	echo "<input type='hidden' name='bp_profile_search' value='true' />";					
-	echo "<input type='hidden' name='num' value='9999' />";
+	
+	echo "<input type='hidden' name='bp_profile_search' value='true' />";									//bp_profile_search --> TRUE
+	echo "<input type='hidden' name='num' value='9999' />";					//?! boh!
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
 	echo '</form>';
+		
 }
+
+
+
+
+
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -305,16 +344,17 @@ echo '</div>';
 	*/
 
 echo "<div class='submit'>";
-echo "<input type='submit' value='". __('Categorie', 'buddypress'). "' />";
+	echo "<input type='submit' name= 'categorie_submit' id ='categorie_submit'  value='". __('Categorie', 'buddypress'). "' />";
 echo '</div>';
-echo "<input type='hidden' name='bp_profile_search_categorie' value='true' />";								//bp_profile_search_categorie ----
-echo "<input type='hidden' name='num' value='9999' />";
+//echo "<input type='hidden' name='bp_profile_search_categorie' value='true' />";								//bp_profile_search_categorie ----> TRUE
+//echo "<input type='hidden' name='num' value='9999' />";
 
 
 echo "<div class='submit'>";
-echo "<input type='submit' value='". __('Reset', 'buddypress'). "' />";
+	echo "<input type='submit' name= 'reset_categorie_submit' id ='reset_categorie_submit' value='". __('Reset', 'buddypress'). "' />";
 echo '</div>';
-echo "<input type='hidden' name='bp_profile_search_categorie_reset' value='true' />";								//bp_profile_search_categorie_reset ----	RESET 
+
+//echo "<input type='hidden' name='bp_profile_search_categorie_reset' value='true' />";						// (RESET) bp_profile_search_categorie_reset ---> TRUE
 
 
 
