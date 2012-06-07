@@ -171,7 +171,7 @@ class commentReview_Widget extends WP_Widget
 										echo ( 
 											"<a href='".bp_core_get_user_domain( $comment->user_id )."'>"									.
 												$comment->comment_author							.
-											"</a> su <a href='".get_bloginfo('url').DS."index.php?p=".$comment->comment_post_ID."'>"	.
+											"</a> su <a href='".get_permalink( $comment->comment_post_ID)."'>"	.
 												$cR_titleReview[$comment->comment_post_ID] 		.										
 																						
 											": </a>"													
