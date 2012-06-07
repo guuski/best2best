@@ -349,11 +349,10 @@ function show_points_members_directory()
 	}
 
 }
-add_action( 'bp_directory_members_actions'	, 'show_points_members_directory',1);
+
+//add_action( 'bp_directory_members_actions'	, 'show_points_members_directory',1);
 
 
 
 
 ?>
-
-
