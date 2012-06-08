@@ -102,14 +102,14 @@ function accetta_referral()
 			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL	- SCREEN 4  
 			//return;
 		}		
-		/*					
+		
 		if (bp_ref_check_voto( $voto_complessivo ) ) 	//bp_ref_check_voto
 		{
 			bp_core_add_message( __( 'Assegna un voto complessivo per l utente', 'referrals' ),'error' );					
 			bp_core_redirect( bp_displayed_user_domain() . bp_get_example_slug() . '/screen-four' );			//EXAMPLE --> REFERRAL   - SCREEN 4  
 			//return;
 		}		
-		*/			
+		
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
