@@ -333,25 +333,28 @@ function show_points_members_directory()
 	//bp_get_member_user_id()
 	//$user_id = $current_user->ID; 
 	
-	echo $points;
+	
 	
 	if($points != '') {
-		?>
-		<div id="new-review-rating" style="border: 1px solid #CCC !important; display: inline-block !important">		
-			<div class="rating-container">
-				<span class="rating-title" style="width:auto !important;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> 
-				<ul id="prezzo" class='star-rating'>	
-					<li class='current-rating' style="height: 0px; width: <?php echo 25*$points;?>px"></li>
-				</ul>
-			</div>	
-		</div>
+		//echo $points;
+		?><ul class='star-rating'><li class='current-rating' style='height: 0px; padding-top: 10px; border: 0; width: <?php echo 25*$points;?>px'></li>	</ul>
 		<?php 
 	}
 
 }
 
-//add_action( 'bp_directory_members_actions'	, 'show_points_members_directory',1);
+function move_member_points() {
+	?><script>
+	jQuery(document).ready(function(){
+		jQuery(".item-title").children("a").after(function(){
+			return jQuery(this).parent().nextAll(".star-rating");});
+		});
+	</script>
+	<?php 
+}
 
+add_action( 'bp_directory_members_item'	, 'show_points_members_directory',1);
+add_action("bp_after_members_loop","move_member_points");
 
 
 

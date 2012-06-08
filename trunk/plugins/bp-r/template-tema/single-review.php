@@ -61,7 +61,7 @@
 		
 		$media= ($prezzo + $servizio + $qualita + $puntualita + $affidabilita) / 5;
 	
-		$giudizio_review = '';
+	//	$giudizio_review = '';
 		$color = '';
 		
 		if($giudizio_review == 'positivo')  			

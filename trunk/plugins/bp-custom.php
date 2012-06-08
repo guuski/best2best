@@ -202,11 +202,10 @@ function display_menu() {
 	global $bp;
 	$attivo = get_userdata($user_ID);
 	if(!is_front_page() && is_user_logged_in()) : ?>
-	
 <div class="mh_struttura">
 	<div class="mh_contenitore">
 		<a href="/attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
-		<a href="<?php echo bp_core_get_user_domain($attivo->user_login).$attivo->user_login.DS ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
+		<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
 		<a href="/reviews" class="mh_link button"><span class="mh_review_big mh_big">Recensioni</span></a>
 		<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
 	</div>	
@@ -217,4 +216,29 @@ function display_menu() {
 
 add_action ("bp_search_login_bar","display_menu");
 
+function addUserNotFoundRequest() {
+	global $bp;
+	if(is_user_logged_in()) :?><hr />
+	<strong><?php _e( "Non hai trovato il profilo che cercavi e vorresti crearlo? Invia un messaggio all'amministratore e ci penseremo noi per te.", 'buddypress' );?></strong>
+	<form action="<?php echo bp_core_get_user_domain( $bp->loggedin_user->id )?>messages/compose/?r=admin" method="post">
+		<input type="hidden" name="subject" value="<?php _e("Creazione nuovo profilo","buddypress")?>" >
+		<input type="hidden" name="content" value="<?php echo sprintf( __('Vorrei creare il nuovo profilo per %s','buddypress'),$_GET['s']); ?>" >
+		<input type="hidden" name="pagefrom" value="usernotfound" />
+		<input type="submit" value="<?php _e("Invia richiesta","buddypress")?>" />
+	</form>
+	<?php 
+	endif;
+	
+}
+add_action ("bp_after_members_loop","addUserNotFoundRequest");
+add_action ("bp_after_messages_compose_content","addCorrectFocus");
+function addCorrectFocus() {
+	if(isset($_POST['pagefrom'])) {
+		?>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){document.getElementById("message_content").focus();});
+	</script>
+		<?php 
+	}
+}
 ?>
