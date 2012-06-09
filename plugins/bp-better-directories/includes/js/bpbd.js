@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 	$('#bpbd-filters input[type="checkbox"]').live('click', function(value){
-		$('body div#content').mask('Loading...');
+		$('body div#content').mask('Caricamento...');											/*LOCALIZZAZIONE */
 		$('div.loadmask-msg').css('top', '300px');
 		bpbd_do_query();
 	});
@@ -35,7 +35,7 @@ jQuery(document).ready(function($) {
 		
 			$(hidden).val(curval);
 						
-			$('body div#content').mask('Loading...');
+			$('body div#content').mask('Caricamento...');												/*LOCALIZZAZIONE*/
 			$('div.loadmask-msg').css('top', '300px');
 			bpbd_do_query();
 		}
@@ -123,7 +123,7 @@ function bpbd_do_query() {
 function bpbd_remove_item( item ){
 	var j = jQuery;
 	
-	j('body div#content').mask('Loading...');
+	j('body div#content').mask('Caricamento...');															/*LOCALIZZAZIONE */
 	j('div.loadmask-msg').css('top', '300px');
 	
 	var searchterm = j(item).parent().parent().attr('id').split('bpbd-value-').pop();
@@ -168,7 +168,7 @@ function bpbd_remove_this_crit( item, dorefresh ) {
 	var j = jQuery;
 	
 	if ( dorefresh ) {
-		j('body div#content').mask('Loading...');
+		j('body div#content').mask('Caricamento...');														/* LOCALIZZAZIONE */
 		j('div.loadmask-msg').css('top', '300px');
 	}
 	
