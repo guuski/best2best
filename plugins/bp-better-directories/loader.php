@@ -15,7 +15,7 @@ Network: true
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
 define( 'BPBD_VERSION'	  , '1.0' );
-define( 'BPBD_TEXTDOMAIN' , 'bp-better-directories');
+define( 'BPBD_TEXTDOMAIN' , 'bpbd');
 
 define( 'PLUGINDIR', 'wp-content/plugins' ); // Relative to ABSPATH.  For back compat.
 

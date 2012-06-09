@@ -184,7 +184,7 @@ class BPBD {
 			<?php endforeach ?>
 			</ul>
 		
-			<input type="submit" class="button" value="<?php _e( 'Submit', 'bpdb' ) ?>" />
+			<input type="submit" class="button" value="<?php _e( 'Submit', 'bpbd' ) ?>" />
 		</div>
 		
 		</form>
