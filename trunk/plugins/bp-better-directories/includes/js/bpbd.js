@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
 	
 	/* 'Clear All' link for resetting all criteria */
 	$('#bpbd-clear-all a').bind('click', function() {
-		$('body div#content').mask('Loading...');
+		$('body div#content').mask('Caricamento...');																						/*LOCALIZZAZIONE */
 		$('div.loadmask-msg').css('top', '300px');
 		
 		$.each($('.bpbd-filter-crit'), function(k,v){
