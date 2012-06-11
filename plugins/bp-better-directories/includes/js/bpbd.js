@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
 	jQuery("li.bpbd-filter-crit-type-checkbox").children("label").click(function(){
 		if( !jQuery(this).next("ul").is(':visible') ) {
 			jQuery("li.bpbd-filter-crit-type-checkbox").children("ul").hide()
-			jQuery(this).next("ul").slideDown("fast");		
+			jQuery(this).next("ul").fadeIn("fast");		
 		} else {jQuery(this).next("ul").slideUp("fast");}
 	});
 	jQuery("#bpbd-filters").children("h4").click(function(){
