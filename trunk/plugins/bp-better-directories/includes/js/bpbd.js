@@ -1,31 +1,45 @@
 jQuery(document).ready(function($) {
-	$('#bpbd-filters input[type="checkbox"]').live('click', function(value){
-		$('body div#content').mask('Caricamento...');											/*LOCALIZZAZIONE */
-		$('div.loadmask-msg').css('top', '300px');
+	
+	jQuery("li.bpbd-filter-crit-type-checkbox").children("label").click(function(){
+		if( !jQuery(this).next("ul").is(':visible') ) {
+			jQuery("li.bpbd-filter-crit-type-checkbox").children("ul").hide()
+			jQuery(this).next("ul").slideDown("fast");		
+		} else {jQuery(this).next("ul").slideUp("fast");}
+	});
+	jQuery("#bpbd-filters").children("h4").click(function(){
+		jQuery(this).next("ul").fadeToggle("fast");		
+		
+	});
+	jQuery(".bpbd-filter-crit").children("ul").children("li").children("input").button();
+	
+	jQuery('#bpbd-filters input[type="checkbox"]').live('click', function(value){
+		jQuery('body div#content').mask('...');											/*LOCALIZZAZIONE */
+		jQuery('div.loadmask-msg').css({'top':'300px', "width":"80px","height":"70px"});
+		jQuery('div.loadmask-msg').children().css({"width":"40px","height":"60px"});
 		bpbd_do_query();
 	});
 	
-	$('#bpbd-filters input[type="text"]').live('keypress', function(e){
+	jQuery('#bpbd-filters input[type="text"]').live('keypress', function(e){
 		var ebox = this;
 		if ( e.keyCode == 13 ) {
 			e.preventDefault();
 		
 			// Move the content of the textbox to a separate div, and to the hidden input
-			var uval = $(ebox).val();
+			var uval = jQuery(ebox).val();
 			var uvalclean = uval.replace(' ','_');
 			
 			// Create the new LI
-			$(ebox).siblings('ul').append('<li id="bpbd-value-' + uvalclean + '"><span class="bpbd-remove"><a href="#">x</a></span> ' + uval + '</li>');
+			jQuery(ebox).siblings('ul').append('<li id="bpbd-value-' + uvalclean + '"><span class="bpbd-remove"><a href="#">x</a></span> ' + uval + '</li>');
 			
 			// Bind the remove action to the 'x'
-			$('#bpbd-value-' + uvalclean + ' span.bpbd-remove a').bind( 'click', function() { bpbd_remove_item(this); return false; } );
+			jQuery('#bpbd-value-' + uvalclean + ' span.bpbd-remove a').bind( 'click', function() { bpbd_remove_item(this); return false; } );
 			
 			// Delete the value from the box
-			$(ebox).val('');
+			jQuery(ebox).val('');
 			
 			// Stash in the hidden div
-			var hidden = $(ebox).siblings('.bpbd-hidden-value');
-			var curval = $(hidden).val();	
+			var hidden = jQuery(ebox).siblings('.bpbd-hidden-value');
+			var curval = jQuery(hidden).val();	
 		
 			if ( '' == curval ) {
 				curval = [uval];
@@ -33,37 +47,41 @@ jQuery(document).ready(function($) {
 				curval += ',' + uval;		
 			}
 		
-			$(hidden).val(curval);
+			jQuery(hidden).val(curval);
 						
-			$('body div#content').mask('Caricamento...');												/*LOCALIZZAZIONE*/
-			$('div.loadmask-msg').css('top', '300px');
+			jQuery('body div#content').mask('...');											/*LOCALIZZAZIONE */
+			jQuery('div.loadmask-msg').css({'top':'300px', "width":"80px","height":"70px"});
+			jQuery('div.loadmask-msg').children().css({"width":"40px","height":"60px"});
 			bpbd_do_query();
 		}
 		
 	});
 	
 	/* Don't show the Submit button when JS is enabled */
-	$('#bpbd-filters input[type="submit"]').remove();
+	jQuery('#bpbd-filters input[type="submit"]').remove();
 	
 	/* Removal 'x' on search terms */
-	$('.bpbd-remove a').bind( 'click', function() { bpbd_remove_item(this); return false; } );
+	jQuery('.bpbd-remove a').bind( 'click', function() { bpbd_remove_item(this); return false; } );
 	
 	/* 'Clear' links on individual criteria */
-	$('.bpbd-clear-this a').bind('click', function() { bpbd_remove_this_crit(this,true); return false; } );
+	jQuery('.bpbd-clear-this a').bind('click', function() { 
+		bpbd_remove_this_crit(this,true); 
+		return false; 
+		} );
 	
 	/* 'Clear All' link for resetting all criteria */
-	$('#bpbd-clear-all a').bind('click', function() {
-		$('body div#content').mask('Caricamento...');																						/*LOCALIZZAZIONE */
-		$('div.loadmask-msg').css('top', '300px');
+	jQuery('#bpbd-clear-all a').bind('click', function() {
+		jQuery('body div#content').mask('Caricamento...');																						/*LOCALIZZAZIONE */
+		jQuery('div.loadmask-msg').css('top', '300px');
 		
-		$.each($('.bpbd-filter-crit'), function(k,v){
-			var clearthis = $(v).find('.bpbd-clear-this a');
+		jQuery.each(jQuery('.bpbd-filter-crit'), function(k,v){
+			var clearthis = jQuery(v).find('.bpbd-clear-this a');
 			bpbd_remove_this_crit(clearthis, false); 
 		});
 		
 		/* Refresh */
 		var object = 'members';
-		bpbd_bp_filter_request( object, $.cookie('bp-' + object + '-filter'), $.cookie('bp-' + object + '-scope'), 'div.' + object, '', 1, $.cookie('bp-' + object + '-extras') );
+		bpbd_bp_filter_request( object, jQuery.cookie('bp-' + object + '-filter'), jQuery.cookie('bp-' + object + '-scope'), 'div.' + object, '', 1, jQuery.cookie('bp-' + object + '-extras') );
 					
 		return false; 
 	});
@@ -181,11 +199,13 @@ function bpbd_remove_this_crit( item, dorefresh ) {
 	
 	if(j(paritem).hasClass('bpbd-filter-crit-type-checkbox')){		
 		/* Uncheck the items */
+		
 		j.each(j(paritem).find('li input[type="checkbox"]'), function(index,value){
 			if(j(value).is(':checked')){
 				j(value).attr('checked',false);
 			}
 		});
+		jQuery(paritem).children("ul").children("li").children("input").button("refresh");
 	} else {
 		/* Textboxes */
 		/* Clear the hidden value */

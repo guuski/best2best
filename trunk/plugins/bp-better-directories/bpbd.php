@@ -36,7 +36,16 @@ class BPBD {
 		
 		add_action( 'wp_print_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action('wp_enqueue_scripts', array( $this, 'my_add_frontend_scripts'));
 	}
+	
+	function my_add_frontend_scripts() {
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-widget');
+		wp_enqueue_script('jquery-ui-button');
+	}
+	
 	
 	function setup() {
 		global $bp;
@@ -174,9 +183,9 @@ class BPBD {
 		<form id="bpbd-filter-form" method="get" action="<?php bp_root_domain() ?>/<?php bp_members_root_slug() ?>">
 		
 		<div id="bpbd-filters">
-			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#">Clear All</a></span></h4>
+			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#"><?php _e( 'Clear All', 'bpbd' ); ?></a></span></h4>
 		
-			<ul>
+			<ul style="display:none">
 			<?php foreach ( $this->filterable_fields as $slug => $field ) : ?>
 				<li id="bpbd-filter-crit-<?php echo esc_attr( $field['slug'] ) ?>" class="bpbd-filter-crit bpbd-filter-crit-type-<?php echo esc_attr( $field['type'] ) ?>">
 					<?php $this->render_field( $field ) ?>
@@ -193,8 +202,8 @@ class BPBD {
 	
 	function render_field( $field ) {			
 		?>
-		
-		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this"><a href="#">Clear</a></span></label>
+		<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }</style>
+		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this"><a href="#"><?php _e( 'Clear', 'bpbd' ); ?></a></span></label>
 		
 		<?php
 		
@@ -251,7 +260,7 @@ class BPBD {
 				<ul>
 				<?php foreach ( (array)$options as $option ) : ?>
 					<li>
-						<input type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/> <?php echo esc_html( $option->name ) ?>
+						<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>"><?php echo esc_html( $option->name ) ?></label>
 					</li>
 				<?php endforeach ?>
 				</ul>
@@ -285,7 +294,8 @@ class BPBD {
 	function enqueue_styles() {
 		if ( bp_is_directory() && bp_is_members_component() ) {
 			wp_enqueue_style( 'jquery-loadmask-css', BPBD_INSTALL_URL . '/includes/lib/jquery.loadmask/jquery.loadmask.css' ); 
-			wp_enqueue_style( 'bpbd-css', BPBD_INSTALL_URL . '/includes/css/style.css' ); 
+			wp_enqueue_style( 'bpbd-css', BPBD_INSTALL_URL . '/includes/css/style.css' );
+			wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 		}
 	}
 	
@@ -293,6 +303,7 @@ class BPBD {
 		if ( bp_is_directory() && bp_is_members_component() ) {
 			wp_enqueue_script( 'jquery-loadmask', BPBD_INSTALL_URL . '/includes/lib/jquery.loadmask/jquery.loadmask.min.js', array( 'jquery' ) );	
 			wp_enqueue_script( 'bpbd-js', BPBD_INSTALL_URL . '/includes/js/bpbd.js', array( 'jquery', 'dtheme-ajax-js', 'jquery-loadmask' ) );
+			
 		}
 	}
 	

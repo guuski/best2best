@@ -1,19 +1,29 @@
 #bpbd-filters {
-	margin-top: 70px;
+	margin-top: 10px;
 	vertical-align: top;
 	width: 300px;
 	float: left;
 	overflow: hidden;
 	padding-right: 20px;
 }
-
+#bpbd-filters h4 {
+	margin: 5px 0px;
+	cursor: pointer;
+}
 #bpbd-filters label {
 	/* display: block;*/
 	/* font-style: italic;*/
+	cursor: pointer;
+	font-weight: bold;
+	clear:both;
 }
 
 li.bpbd-filter-crit {
-	margin: 2em 0;
+	margin: 2px 0;
+	clear:both;
+}
+li.bpbd-filter-crit-type-checkbox ul{
+	display: none;
 }
 
 ul.bpbd-search-terms li {
@@ -107,4 +117,11 @@ div#members-dir-list ul.item-list li div.clear {
 }
 .masked-hidden {
     visibility: hidden !important;
+}
+#bpbd-filters label.ui-button {
+	cursor: pointer;
+	font-weight: bold;
+	float: left;
+	margin: 2px;
+	clear:none;
 }
