@@ -22,6 +22,7 @@ li.bpbd-filter-crit {
 	margin: 2px 0;
 	clear:both;
 	border-top: 1px solid #ccc;
+	width: 600px;
 }
 li.bpbd-filter-crit-type-checkbox ul{
 	display: none;
@@ -40,13 +41,23 @@ ul.bpbd-search-terms li {
 	float: right;
 	font-size: .9em;
 	font-style: normal;
+	margin: 0px;
+	padding: 2px;
+	line-height: 18px;
 }
 
 #bpbd-clear-all {
 	font-size: .75em;
 }
 
-
+.bpbd-clear-this a, #bpbd-clear-all a {
+	float: none;
+	width: auto;
+	height: 18px;
+	padding: 2px;
+	margin: 0;
+	line-height: 18px;
+}
 
 
 /* BP-DEFAULT OVERRIDES */

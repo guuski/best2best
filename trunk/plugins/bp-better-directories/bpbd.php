@@ -65,8 +65,8 @@ class BPBD {
 /////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	/////
 			// Add the filter UI
 		
-			add_action( 'bp_before_directory_members', array( $this, 'filter_ui' ) );					
-			add_action ('bpbd_search_form', array( $this, 'filter_ui'));		
+// 			add_action( 'bp_before_directory_members', array( $this, 'filter_ui' ) );					
+			add_action ('bp_members_directory_member_sub_types', array( $this, 'filter_ui'));		
 /////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	//////////	/////			
 		}
 	}
@@ -184,10 +184,9 @@ class BPBD {
 		
 		<div id="bpbd-filters">
 			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#"><?php _e( 'Clear All', 'bpbd' ); ?></a></span></h4>
-		
-			<ul style="display:none">
+			<ul style="display:none; width:100%;">
 			<?php foreach ( $this->filterable_fields as $slug => $field ) : ?>
-				<li id="bpbd-filter-crit-<?php echo esc_attr( $field['slug'] ) ?>" class="bpbd-filter-crit bpbd-filter-crit-type-<?php echo esc_attr( $field['type'] ) ?>">
+				<li  style="margin-left:0px; border-bottom: 1px solid #0A9BDE; padding-bottom: 5px;" id="bpbd-filter-crit-<?php echo esc_attr( $field['slug'] ) ?>" class="bpbd-filter-crit bpbd-filter-crit-type-<?php echo esc_attr( $field['type'] ) ?>">
 					<?php $this->render_field( $field ) ?>
 				</li>
 			<?php endforeach ?>
@@ -203,7 +202,8 @@ class BPBD {
 	function render_field( $field ) {			
 		?>
 		<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }</style>
-		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this"><a href="#"><?php _e( 'Clear', 'bpbd' ); ?></a></span></label>
+		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this" style="padding: 2px;">
+		<a href="#" style="padding: 2px 5px;"><?php _e( 'Clear', 'bpbd' ); ?></a></span></label>
 		
 		<?php
 		
@@ -221,7 +221,7 @@ class BPBD {
 				
 				<ul>
 				<?php foreach ( $options as $option ) : ?>
-					<li>
+					<li style="margin-left:0px;">
 						<input type="radio" name="<?php echo esc_attr( $field['slug'] ) ?>" value="<?php echo urlencode( $option->name ) ?>" <?php checked( $value, $option->name, true ) ?>/> <?php echo esc_html( $option->name ) ?>
 					</li>
 				<?php endforeach ?>
@@ -257,9 +257,9 @@ class BPBD {
 			case 'checkbox' :
 				?>
 				
-				<ul>
+				<ul style="width:100%;">
 				<?php foreach ( (array)$options as $option ) : ?>
-					<li>
+					<li >
 						<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>"><?php echo esc_html( $option->name ) ?></label>
 					</li>
 				<?php endforeach ?>
