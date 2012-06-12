@@ -94,3 +94,6 @@ add_action( 'widgets_init', create_function( '', 'register_widget("commentReview
 include_once('viewReferral.php');
 add_action( 'widgets_init', create_function( '', 'register_widget("viewReferral_Widget");' ) );
 
+include_once('sidebarButtons.php');
+add_action( 'widgets_init', create_function( '', 'register_widget("sidebarButtons_Widget");' ) );
+
