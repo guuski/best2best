@@ -179,9 +179,9 @@ class BPBD {
 		}
 		
 		?>
-	
+	<li>
+	<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }</style>
 		<form id="bpbd-filter-form" method="get" action="<?php bp_root_domain() ?>/<?php bp_members_root_slug() ?>">
-		
 		<div id="bpbd-filters">
 			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#"><?php _e( 'Clear All', 'bpbd' ); ?></a></span></h4>
 			<ul style="display:none; width:100%;">
@@ -196,12 +196,13 @@ class BPBD {
 		</div>
 		
 		</form>
+		</li>
 		<?php
 	}
 	
 	function render_field( $field ) {			
 		?>
-		<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }</style>
+		
 		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this" style="padding: 2px;">
 		<a href="#" style="padding: 2px 5px;"><?php _e( 'Clear', 'bpbd' ); ?></a></span></label>
 		

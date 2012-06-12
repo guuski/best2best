@@ -1,7 +1,7 @@
 #bpbd-filters {
-	margin-top: 10px;
+	margin-top: 00px;
 	vertical-align: top;
-	width: 600px;
+	width: 450px;
 	float: left;
 	overflow: hidden;
 	padding-right: 20px;
@@ -22,7 +22,7 @@ li.bpbd-filter-crit {
 	margin: 2px 0;
 	clear:both;
 	border-top: 1px solid #ccc;
-	width: 600px;
+	width: 450px;
 }
 li.bpbd-filter-crit-type-checkbox ul{
 	display: none;
