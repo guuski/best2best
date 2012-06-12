@@ -42,7 +42,7 @@ get_header();
 		
 			if ( is_user_logged_in() ) : 
 				locate_template( array( 'activity/post-form.php'), true );
-			?><script>jQuery(document).ready(function(){jQuery("#aw-whats-new-submit").click(function(){location.href="attivita"; return true;});});</script>
+			?><script>jQuery(document).ready(function(){jQuery("#aw-whats-new-submit").click(function(){setTimeout('location.href="attivita"; return true;',2000);});});</script>
 			<?php 
 			endif; 
 ?>
