@@ -1,13 +1,15 @@
 <?php
 
-//INCLUDE
-include 'bps-searchform.php';
+		//INCLUDE
+		include 'bps-searchform.php';
+
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //	FILTER F - orignal
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-					//add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
+add_filter ('bp_core_get_users', 'bps_search', 99, 2);													//FILTER
 
 /**
  *
@@ -124,7 +126,7 @@ function bps_search ($results, $params)
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
+		//add_filter ('bp_core_get_users', 'cM_visualizzaALLfield', 99, 2);													//FILTER
 
 
 /**

@@ -13,9 +13,7 @@
 	<div id="content">
 		<div class="padder">
 
-		
-		
-		
+						
 		<form action="" method="post" id="members-directory-form" class="dir-form">
 
 			<h3><?php _e( 'Members Directory', 'buddypress' ); ?></h3>
@@ -27,12 +25,15 @@
 			</div><!-- #members-dir-search -->
 					
 
+			<!-- BP PROFILE SEARCH -->
 			<!-- i 2 FORM -->		
-			<?php //do_action ('bp_profile_search_form'); ?>											<!-- ORIGINAL -->
-			<?php do_action ('bp_profile_search_form_categorie'); ?>									<!-- CATEGORIE-->		
+			<?php do_action ('bp_profile_search_form'); ?>											<!-- ORIGINAL -->
+			<?php //do_action ('bp_profile_search_form_categorie'); ?>									<!-- CATEGORIE-->		
 			
+			<!-- BP BETTER DIRECTORIES -->
+			<?php do_action ('bpbd_search_form'); ?>									
 			
-			
+						
 		</form><!-- this is the one line -->
 		
 		
@@ -65,15 +66,14 @@
 
 						<label for="members-order-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
 						<select id="members-order-by">
-							<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-							<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
-
 							<?php if ( bp_is_active( 'xprofile' ) ) : ?>
 
 								<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
 								<!-- <option value="categorie"><?php _e( 'Categorie', 'buddypress' ); ?></option>-->
 							<?php endif; ?>
-
+							<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
+							<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
+							
 							<?php do_action( 'bp_members_directory_order_options' ); ?>
 
 						</select>
