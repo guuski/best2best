@@ -400,7 +400,18 @@ add_action( 'bp_loaded', 'bp_review_load_core_component' );
 // 2 hoos + 3 funzioni di cui una di callback
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-add_action( 'add_meta_boxes', 'add_review_meta_box');	
+												
+												
+												
+												//add_action( 'add_meta_boxes', 'add_review_meta_box');	
+												
+												
+												
+												
+												
+												
+												
+
 	//add_action( 'admin_init', 'add_review_meta_box');					//[ALT]
 
 /**
@@ -479,7 +490,7 @@ function show_review_meta_box( $post )
 
 
 //HOOK
-add_action( 'save_post', 'save_review_meta_box' );
+												//add_action( 'save_post', 'save_review_meta_box' );
 
 /**
  *
