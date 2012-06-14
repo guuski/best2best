@@ -147,13 +147,9 @@ function bps_form ($form_id)
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 											
-				case '			':  // box aggruppata! 
+				case 'box selezione multipla raggruppata':  // box aggruppata! 
 								
-					echo "<div class='				'>";
-					echo "<span class='label'>$field->name</span>";
-
-				
-					echo '</div>';
+					bps_getHTMLfrontend();
 				break;
 				
 												
@@ -167,9 +163,7 @@ function bps_form ($form_id)
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 			}
-//======================================================================
-//inserire multiselect
-			bps_getHTMLfrontend();
+					
 			echo '</div>';
 		}
 	}
