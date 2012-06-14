@@ -73,7 +73,7 @@ class sidebarButtons_Widget extends WP_Widget
 <div style="border-bottom: 1px solid #000; margin-bottom: 5px; height: 85px;">
 	<hr style="border: 0; border-top: 1px solid; margin: 5px 0;" />
 	<a class="button smallbutton" style="float: left" href="/gruppi">Gruppi</a> <a
-		class="button smallbutton" style="float: right" href="/adesioni/"
+		class="button smallbutton" style="float: right" href="<?php bp_members_directory_permalink()?>"
 	>Adesioni</a>
 	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>friends"><?php _e('Mio Network','custom')?></a>
 	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
