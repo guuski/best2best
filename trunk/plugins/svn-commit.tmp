@@ -1,0 +1,8 @@
+Ho risolto il problema dei field associati agli alberghi e non hai fornitori.
+Possibili problemi:
+	se l'utente era un fornitore ed ha completato un field dei fornitori e poi passa ad albergo (cosa che dovrebbe essere impedita) la percentuale di completamento supera il 100%
+	ogni volta che aggiungiamo un nuovo field, compreso quello della multiselect(associato solo ai fornitori) è necessario riadattare il codice. Appena possibile provo a pensare ad una soluzione migliore
+
+--Questa linea, e quelle sotto di essa, saranno ignorate--
+
+M    bp-custom/bp-custom.php
