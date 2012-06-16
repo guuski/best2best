@@ -151,7 +151,7 @@ class viewReferral_Widget extends WP_Widget
 					$numero--;
 						
 ?>
-<div style="border-bottom: 1px solid #000; margin-bottom: 5px; "><?php
+<div style="border-bottom: 1px solid #000; margin-bottom: 5px; min-height: 50px; "><?php
 					echo (get_avatar($vR_mittenteID,42));
 					?><div style="display: table-cell;padding-left: 5px; line-height: 16px;padding-bottom: 5px;"><?php echo("<a href='".bp_core_get_user_domain( $vR_autorID )."example'>"									.
 							xprofile_get_field_data( "Nome" ,$vR_autorID)							.
