@@ -37,8 +37,8 @@ class MessaggiAdmin_Widget extends WP_Widget{
 					<p><label>Titolo	<input id="<?php echo $this->get_field_id( 'titolo' ); 	?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 50%; float:right;" /></label></p>
 					<p><label>Numero	<input id="<?php echo $this->get_field_id( 'numero' );	?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 50%; float:right;" /></label></p>
 					<!--
-					<p><label>Messaggi	<textarea id='ma_messaggi' name='ma_messaggi' type="text" style="width: 50%; float:right;" onkeyup="jQuery('input#'+'<?php echo $this->get_field_name( 'messaggio');?>').val(jQuery('input#'+'ma_messaggi').val())"><?php echo esc_attr( $messaggio);?></textarea></label></p>
-					<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" value="<?php echo esc_attr( $messaggio);?>"style="width: 50%; height:100px; float:right;" /></label></p>
+						<p><label>Messaggi	<textarea id='ma_messaggi' name='ma_messaggi' type="text" style="width: 50%; float:right;" onkeyup="jQuery('input#'+'<?php echo $this->get_field_name( 'messaggio');?>').val(jQuery('input#'+'ma_messaggi').val())"><?php echo esc_attr( $messaggio);?></textarea></label></p>
+						<p><label>Messaggi	<input id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" value="<?php echo esc_attr( $messaggio);?>"style="width: 50%; height:100px; float:right;" /></label></p>
 					-->
 					<p><label>Messaggi	<br /><textarea id="<?php echo $this->get_field_id( 'messaggio');?>" name="<?php echo $this->get_field_name('messaggio');?>" type="text" style="width: 200px; height:200px; float:left;"><?php echo esc_attr( $messaggio);?></textarea></label></p>
 				</div>
