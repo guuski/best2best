@@ -180,7 +180,11 @@ class BPBD {
 		
 		?>
 	<li>
-	<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }</style>
+	<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }
+	div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {
+	display: inline;
+}
+</style>
 		<form id="bpbd-filter-form" method="get" action="<?php bp_root_domain() ?>/<?php bp_members_root_slug() ?>">
 		<div id="bpbd-filters">
 			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#"><?php _e( 'Clear All', 'bpbd' ); ?></a></span></h4>
@@ -278,7 +282,7 @@ class BPBD {
 				<?php if ( is_array( $value ) && !empty( $value ) ) : ?>		
 					<?php foreach ( (array)$value as $sterm ) : ?>
 						<?php if ( !trim( $sterm ) ) continue; ?>
-						<li id="bpbd-value-<?php echo sanitize_title( $sterm ) ?>"><span class="bpbd-remove"><a href="#">x</a></span> <?php echo esc_html( $sterm ) ?></li>
+						<li id="bpbd-value-<?php echo sanitize_title( $sterm ) ?>"><span class="bpbd-remove" style="display:inline; padding: 2px 3px;"><a href="#">x</a><?php echo esc_html( $sterm ) ?></span></li>
 					<?php endforeach ?>	
 				<?php endif ?>				
 				</ul>
