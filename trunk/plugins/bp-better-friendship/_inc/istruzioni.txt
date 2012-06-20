@@ -1,0 +1,3 @@
+- sovrascrivere cartella _inc nella cartella principale del tema 'Frisco' (file global.js)
+- sovrascrivere functions.php nella cartella principale del tema 'Frisco' per disattivare fonts googls
+- attivare il plugin
