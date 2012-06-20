@@ -1,4 +1,6 @@
-#bpbd-filters {
+.bpbd-remove { display: inline !important; padding: 2px !important;}
+.bpbd-remove a{ padding: 2px !important;}
+#bpbd-filters  {
 	margin-top: 00px;
 	vertical-align: top;
 	width: 450px;

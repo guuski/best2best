@@ -29,7 +29,7 @@ jQuery(document).ready(function($) {
 			var uvalclean = uval.replace(' ','_');
 			
 			// Create the new LI
-			jQuery(ebox).siblings('ul').append('<li id="bpbd-value-' + uvalclean + '"><span class="bpbd-remove"><a href="#">x</a></span> ' + uval + '</li>');
+			jQuery(ebox).siblings('ul').append('<li id="bpbd-value-' + uvalclean + '"><span class="bpbd-remove"><a href="#">x</a>' + uval + '</span></li>');
 			
 			// Bind the remove action to the 'x'
 			jQuery('#bpbd-value-' + uvalclean + ' span.bpbd-remove a').bind( 'click', function() { bpbd_remove_item(this); return false; } );
