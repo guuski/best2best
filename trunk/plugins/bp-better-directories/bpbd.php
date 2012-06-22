@@ -180,10 +180,9 @@ class BPBD {
 		
 		?>
 	<li>
-	<style>.ui-button-text-only .ui-button-text {padding: 2px 6px; }
-	div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {
-	display: inline;
-}
+<style>.ui-button-text-only .ui-button-text {padding: 0px 6px; }
+	div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {display: inline;}
+	div.item-list-tabs ul li:first-child {margin-left: 5px;}
 </style>
 		<form id="bpbd-filter-form" method="get" action="<?php bp_root_domain() ?>/<?php bp_members_root_slug() ?>">
 		<div id="bpbd-filters">
@@ -204,18 +203,34 @@ class BPBD {
 		<?php
 	}
 	
-	function render_field( $field ) {			
+	function render_field( $field ) {		
 		?>
-		
 		<label for="<?php echo esc_attr( $field['slug'] ) ?>"><?php echo esc_html( $field['name'] ) ?> <span class="bpbd-clear-this" style="padding: 2px;">
 		<a href="#" style="padding: 2px 5px;"><?php _e( 'Clear', 'bpbd' ); ?></a></span></label>
 		
 		<?php
 		
 		$field_data = new BP_XProfile_Field( $field['id'] );
-
+		?>
+				<?php 
+// 				print_r($field_data);
+				
 		$options = $field_data->get_children();
-
+// 		print_r($options);
+// 		if($field_data->type=='box selezione multipla raggruppata') {	
+// 			foreach ( $options as $option ) {
+// 				$c_data = new BP_XProfile_Field( $option->id );
+// 				$c_data->group_id=3;
+// 				$cc=$c_data->get_children();
+// 				print_r($c_data);
+// 				echo "-------------gbp--------\n";
+// 				print_r($cc);
+				
+// 			}
+// 		}
+// 		print_r($field);
+// 		print_r($field_data);
+		?>			 <?php 
 		// Get the current value for this item, if any, out of the $_GET params
 		$value = isset( $this->get_params[$field['id']] ) ? $this->get_params[$field['id']]['value'] : false;
 
@@ -260,6 +275,46 @@ class BPBD {
 				
 				break;
 			case 'checkbox' :
+				switch ($field_data->type) {
+					case 'box selezione multipla raggruppata': ?>
+					<ul style="width:100%;">
+				<?php 
+				$this->renderChildrens($options);
+				
+				/* foreach ( (array)$options as $option ) :
+				
+				
+				$c_data = new BP_XProfile_Field( $option->id );
+				$c_data->group_id=3;
+				$cc=$c_data->get_children();
+				if(count((array)$cc)>0) { ?>
+					<li style="width: 100%; display: block; height: 20px; color: #444;"><?=$option->name ?></li> 
+				<?php 
+					foreach ( (array)$cc as $children ) :
+					?>
+					<li>
+						<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $children->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $children->name ) ?>" <?php if ( is_array( $value ) && in_array( $children->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $children->name ) ?>"><?php echo esc_html( $children->name ) ?></label>
+					</li>
+							<?php
+					endforeach;
+				}
+				else {
+				?>
+					<li >
+						<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>"><?php echo esc_html( $option->name ) ?></label>
+					</li>
+				<?php
+				}
+				endforeach;
+				 */
+				?>
+				</ul>
+					
+					
+					<?php 
+					break;
+					
+					default:
 				?>
 				
 				<ul style="width:100%;">
@@ -271,6 +326,7 @@ class BPBD {
 				</ul>
 				
 				<?php
+				}
 				break;
 			case 'textbox' :
 			default :
@@ -312,6 +368,26 @@ class BPBD {
 		}
 	}
 	
+	function renderChildrens($options, $inner = 0) {
+		 
+		foreach ( (array)$options as $option ) {
+			$c_data = new BP_XProfile_Field( $option->id );
+			$c_data->group_id=3;
+			$cc=$c_data->get_children();
+			if(count((array)$cc)>0 && isset($cc[0])) { ?>
+				<li style="line-height: 18px !important; width: 100%; display: block; height: 20px; margin-top:5px; color: #444; padding-left: <?php echo $inner*15?>px; <?php echo ($inner == 0?"border-top:1px dashed #ccc;":"")?>"><?=$option->name ?></li> <?php    
+		 		$this->renderChildrens((array)$cc,$inner+1);
+		 		?><li style="width: 100%; display: block; height: 1px; "></li> <?php
+			}
+			else {
+			?>
+				<li>
+					<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>"><?php echo esc_html( $option->name ) ?></label>
+				</li>
+			<?php
+			}
+		}
+	}
 
 }
 
