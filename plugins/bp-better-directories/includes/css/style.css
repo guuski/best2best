@@ -139,3 +139,13 @@ div#members-dir-list ul.item-list li div.clear {
 	margin: 2px;
 	clear:none;
 }
+
+.bd_container {
+width: auto;
+float: left;
+border: 1px solid #CCC;
+display: block;
+padding: 3px;
+margin: 2px;
+clear: right;
+}

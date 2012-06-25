@@ -10,8 +10,12 @@ jQuery(document).ready(function($) {
 		jQuery(this).next("ul").fadeToggle("fast");		
 		
 	});
-	jQuery(".bpbd-filter-crit").children("ul").children("li").children("input").button();
-	
+	/*jQuery(".bpbd-filter-crit").children("ul").children("li").children("input").button();
+	*/
+	jQuery(".bd_input").children("input").button()
+	jQuery(".bd_title").live('click', function(value){
+		jQuery(this).next().children(".bd_input").fadeToggle("fast");
+	});
 	jQuery('#bpbd-filters input[type="checkbox"]').live('click', function(value){
 		jQuery('body div#content').mask('...');											/*LOCALIZZAZIONE */
 		jQuery('div.loadmask-msg').css({'top':'300px', "width":"80px","height":"70px"});

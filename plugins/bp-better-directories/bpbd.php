@@ -277,9 +277,10 @@ class BPBD {
 			case 'checkbox' :
 				switch ($field_data->type) {
 					case 'box selezione multipla raggruppata': ?>
-					<ul style="width:100%;">
+					<ul style="width:100%;"><li>
+					
 				<?php 
-				$this->renderChildrens($options);
+				$this->renderChildrens($options, $field);
 				
 				/* foreach ( (array)$options as $option ) :
 				
@@ -308,7 +309,7 @@ class BPBD {
 				endforeach;
 				 */
 				?>
-				</ul>
+				</li></ul>
 					
 					
 					<?php 
@@ -368,22 +369,26 @@ class BPBD {
 		}
 	}
 	
-	function renderChildrens($options, $inner = 0) {
+	function renderChildrens($options, $field, $inner = 0) {
 		 
 		foreach ( (array)$options as $option ) {
 			$c_data = new BP_XProfile_Field( $option->id );
 			$c_data->group_id=3;
 			$cc=$c_data->get_children();
 			if(count((array)$cc)>0 && isset($cc[0])) { ?>
-				<li style="line-height: 18px !important; width: 100%; display: block; height: 20px; margin-top:5px; color: #444; padding-left: <?php echo $inner*15?>px; <?php echo ($inner == 0?"border-top:1px dashed #ccc;":"")?>"><?=$option->name ?></li> <?php    
-		 		$this->renderChildrens((array)$cc,$inner+1);
-		 		?><li style="width: 100%; display: block; height: 1px; "></li> <?php
+				<div class="bd_container">
+				<span class="bd_title" style="line-height: 14px !important; width: auto; display: block; height: 14px; margin-top: 0px; color: #444; padding: 0px; cursor:pointer;"><?=$option->name ?></span>
+				<span class="bd_content" style="padding:0; display:inline-block;"><?php    
+		 		$this->renderChildrens((array)$cc,$field,$inner+1);
+		 		?></span> 
+		 		</div><?php
 			}
 			else {
+				$value = isset( $this->get_params[$field['id']] ) ? $this->get_params[$field['id']]['value'] : false;
 			?>
-				<li>
+				<span class="bd_input" style="padding:0; display:none;">
 					<input id="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>" type="checkbox" name="<?php echo esc_attr( $field['slug'] ) ?>[]" value="<?php echo urlencode( $option->name ) ?>" <?php if ( is_array( $value ) && in_array( $option->name, $value ) ) : ?>checked="checked"<?php endif ?>/><label for="<?php echo esc_attr( $field['slug'] ).urlencode( $option->name ) ?>"><?php echo esc_html( $option->name ) ?></label>
-				</li>
+				</span>
 			<?php
 			}
 		}
