@@ -21,13 +21,15 @@ class BP_better_friendship {
 	 * @since 1.0
 	 */	
 	function __construct() {
-		define( 'BPBD_INSTALL_DIR', trailingslashit( dirname(__FILE__) ) );
-		define( 'BPBD_INSTALL_URL', plugins_url() . '/bp-better-frienship/' );
+		define( 'BPBF_INSTALL_DIR', trailingslashit( dirname(__FILE__) ) );
+		define( 'BPBF_INSTALL_URL', plugins_url() . '/bp-better-frienship/' );
 		
 		
 		add_action( 'init', array( $this, 'setup' ) );
 		add_action( 'wp_footer', array( $this, 'friendship_panel' ) );
 		add_action( 'bp_directory_members_item', array( $this, 'show_member_type' ) );
+		
+		add_action( 'wp_ajax_addremove_friend',array( $this, 'bpbf_friends_friendship_requested') );
 		
 // 		add_action( 'wp_ajax_members_filter', array( $this, 'filter_ajax_requests' ), 1 );
 
@@ -73,7 +75,32 @@ class BP_better_friendship {
 	}
 	
 	function show_member_type() {
-		echo '<span class="membertype">'.bp_get_member_profile_data( 'field=Tipo profilo' ).'</span>';
+		//echo '<span class="membertype">'.bp_get_member_profile_data( 'field=Tipo profilo' ).'</span>';
+	}
+
+	function bpbf_friends_friendship_requested() {
+		global $bp;
+				// Bail if not a POST action
+		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+			return;
+	
+		if ( 'not_friends' == BP_Friends_Friendship::check_is_friend( $bp->loggedin_user->id, $_POST['fid'] ) ) {
+			$now="";
+			$author=$bp->loggedin_user->id;
+			$now= unserialize(get_user_meta($author, "friendship_level",true));
+			$ftype=$_POST['ftype'];
+				
+			$dest=$_POST['fid'];
+			$now=$now.$dest."=".$ftype;
+			error_log("gbp.".$now);
+				
+			check_ajax_referer('friends_add_friend');
+			if(!update_user_meta($author, "friendship_level", serialize($now))) {
+				error_log("errore durante aggiornamento usermeta");
+			}
+		}
+
+		return true;
 	}
 	
 }
