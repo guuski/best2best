@@ -594,7 +594,8 @@ jq(document).ready( function() {
 				var page_number = Number( jq('div.pagination span.current').html() ) - 1;
 			else
 				var page_number = Number( jq(target).html() );
-
+			jq("#sidebar-squeeze").append(jq("#bfriendship"));
+			jq("#bfriendship").hide();
 			bp_filter_request( object, jq.cookie('bp-' + object + '-filter'), jq.cookie('bp-' + object + '-scope'), 'div.' + object, search_terms, page_number, jq.cookie('bp-' + object + '-extras') );
 
 			return false;
@@ -789,7 +790,8 @@ jq(document).ready( function() {
 		var thelink = jq(this).parent().prev().children("a");
 		jq(this).addClass("loading");
 		//jq(thelink).addClass('loading');
-		var fid = jq(thelink).attr('id'); alert(fid);
+		var fid = jq(thelink).attr('id'); 
+//		alert(fid);
 		fid = fid.split('-');
 		fid = fid[1];
 		var nonce = jq(thelink).attr('href');
@@ -797,7 +799,7 @@ jq(document).ready( function() {
 		nonce = nonce[1].split('&');
 		nonce = nonce[0];
 		var ftype=jq('#bfriendship input:radio[name=ftype]:checked').val();
-		alert(ftype);
+//		alert(ftype);
 //			var action = thelink.attr('rel');
 		jq.post( ajaxurl, {
 			action: 'addremove_friend',

@@ -10,8 +10,10 @@ jQuery(document).ready(function($) {
 		jQuery(this).next("ul").fadeToggle("fast");		
 		
 	});
-	/*jQuery(".bpbd-filter-crit").children("ul").children("li").children("input").button();
-	*/
+	jQuery(".bpbd-filter-crit").children("ul").children("li").children("input").button();
+	
+	jQuery(".bd_close_all").live('click', function(value){ jQuery('span.bd_input').hide(); });
+	
 	jQuery(".bd_input").children("input").button()
 	jQuery(".bd_title").live('click', function(value){
 		jQuery(this).next().children(".bd_input").fadeToggle("fast");
@@ -95,6 +97,10 @@ jQuery(document).ready(function($) {
 var jq = jQuery;
 
 function bpbd_do_query() {
+	//fix per better friendship
+	jq("#sidebar-squeeze").append(jq("#bfriendship"));
+	jq("#bfriendship").hide();
+	
 	// Get all the criteria
 	var c = jQuery('#bpbd-filters li.bpbd-filter-crit');
 	

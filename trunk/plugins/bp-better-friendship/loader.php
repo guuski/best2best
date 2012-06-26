@@ -17,7 +17,7 @@ Network: true
 define( 'BPBF_VERSION'	  , '1.0' );
 define( 'BPBF_TEXTDOMAIN' , 'bpbf');
 
-define( 'PLUGINDIR', 'wp-content/plugins' ); // Relative to ABSPATH.  For back compat.
+define( 'BPBF_PLUGINDIR', 'wp-content/plugins' ); // Relative to ABSPATH.  For back compat.
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //
@@ -53,7 +53,7 @@ add_action( 'bp_include', 'bpbf_init' );
 function bpbf_load_my_textdomain()
 {
 	//load_plugin_textdomain( 'bpbd', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	load_plugin_textdomain(BPBD_TEXTDOMAIN, PLUGINDIR.'/bp-better-friendship/languages','bp-better-friendship/languages');
+	load_plugin_textdomain(BPBF_TEXTDOMAIN, BPBF_PLUGINDIR.'/bp-better-friendship/languages','bp-better-friendship/languages');
 	
 	//load_plugin_textdomain(CSP_PO_TEXTDOMAIN, PLUGINDIR.'/codestyling-localization/languages','codestyling-localization/languages');
 }
