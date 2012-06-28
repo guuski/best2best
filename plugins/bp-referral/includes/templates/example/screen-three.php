@@ -73,7 +73,8 @@
 								
 			<small style = "float: right;">
 				<strong>
-					<?php  _e('Richiesta REFERRAL inviata a: ');?> 						
+					<?php  //_e('Richiesta REFERRAL inviata a: ');?> 						
+					<?php  _e('inviata a: ');?> 						
 					
 					<a href="
 						<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">							
@@ -86,7 +87,8 @@
 			<br />
 			
 			<div class="title">						
-				<?php the_title();?>						
+				<?php  _e('Richiesta REFERRAL');?> 						
+				<?php //the_title();?>						
 			</div>				
 				
 			<br />
