@@ -98,7 +98,51 @@
 	<?php 
 			$voto_complessivo = $_POST['voto-complessivo'] 	or 0;			
 	?>
+	
+	<?php	
+/*
+		msg = 
+						_e(
+						'Egr. '.bp_get_displayed_user_fullname().',		
+						mi piacerebbe avere la tua referenza per il rapporto commerciale intercorso tra le nostre aziende										
+						Cordiali saluti,						
+						' . bp_loggedin_user_fullname()
+						//;
+						);
+*/		
+	
+/*
+		$referral_msg = 
+						_e(
+						'Egr. '.bp_get_displayed_user_fullname().',		
+						mi piacerebbe avere la tua referenza per il rapporto commerciale intercorso tra le nostre aziende										
+						Cordiali saluti,						
+						' . bp_loggedin_user_fullname()
+						//;
+						);
+*/		
+
+//', 'referrals' ), bp_get_displayed_user_fullname(), bp_loggedin_user_fullname()
+//', 'referrals' ), $receiver, $sender
+
+
+$sender	  = bp_get_displayed_user_fullname();
+$receiver = bp_loggedin_user_fullname();
+
+$message = sprintf( __(
 		
+'Egr. %s,
+
+mi piacerebbe avere la tua referenza per il rapporto commerciale intercorso tra le nostre aziende
+
+Cordiali saluti,
+%s
+
+', 'referrals' ), $receiver, $sender
+);
+
+	
+	?>						
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  2 FORM -
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
@@ -106,7 +150,21 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	<!--- referral-FORM ACCETTA-->
 	<form action = "<?php bp_ref_post_form_action() ?> " method="post" id="referral-form" class="standard-form"> 
+
+		<br/>
+		
+		<!-- Referral MSG-->
+		<div id="new-referral-message">						
+			<p><?php 	
 				
+				//echo $msg;
+				//echo $referral_msg;
+				echo $message;
+
+			?></p>
+		</div>	
+		
+		<br/>
 		
 		<!-- TIPOLOGIA Rapporto Commerciale -->
 		<div id="new-referral-tipologia">	
