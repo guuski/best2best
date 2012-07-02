@@ -71,10 +71,16 @@
 			<div class="title">
 				
 				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
+			<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
+	<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
+			
 			
 				<small style = "float: right;"><strong>
 					<?php  _e('Recensione su: ');?> 
-					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>"><?php the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) ?> </a></strong></small>
+					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
+					<?php  // the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) 
+					echo $nome;?> 
+					</a></strong></small>
 					<br />
 					<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
 			</div>	
