@@ -7,31 +7,23 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 	 * Registers the widget details with the parent class
 	 */
 	var $fr_type=null;
+	
 	function FornitoriAlberghi_Widget(){
-		//parent::WP_Widget( $id = 'bpcustom_Widget', $name = 'Amici', $options = array( 'titolo' => 'Amici', 'numero' =>3 ));
+		
 		parent::WP_Widget( $id = 'FornitoriAlberghi_Widget', $name = __('Fornitori Alberghi','custom'));
+		
 	}
 	
 
 	function form($instance){
 
-		echo __("Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori","custom");
-			
-
-		// outputs the options form on admin
-/*
-		?>
-		<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>" style="width: 30%" /></label></p>
-		<p><label>Numero Amici 	<input id="<?php echo $this->get_field_id( 'numero' ); ?>" name="<?php echo $this->get_field_name( 'numero' ); ?>" type="text" value="<?php echo esc_attr( $numero ); ?>" style="width: 30%" /></label></p>
-		
-		<?php 
-*/
+		_e("Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori","custom");
 	}
 
 	function update($new_instance, $old_instance){
+		
 		$instance = $old_instance;
-		//$instance['titolo'] = strip_tags( $new_instance['titolo'] );
-		//$instance['numero'] = strip_tags( $new_instance['numero'] );
+		
 		return $instance;
 	}
 
@@ -64,7 +56,9 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 			
 			echo $before_title . $title . $after_title.'<div class="avatar-block">';
 			//visualizzo 8 utenti (amici dell'amministatore)
+			
 			$listfriend = friends_get_friend_user_ids(1);
+			
 			$cont=0;
 			
 			foreach ($listfriend as $k => $v){
@@ -106,18 +100,24 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 			if ( $title )
 				echo $before_title . $title . $after_title.'<div class="avatar-block">';
 
-		
 				$listfriend = friends_get_friend_user_ids($user_attivo);
 			
 				foreach ($listfriend as $k => $v){
+					
 					$attivo = get_userdata($v);		
+					
 						if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
+							
 							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";	
 						}
+						
 						else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
+							
 							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
 						}
+						
 						else if ($user_type=="Utente"){
+							
 							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
 						}					
 				}
@@ -137,23 +137,29 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 	
 	//effettua la query per caricare tutti i tipi dei vari utenti
 	function globalType(){
+		
 		global $bp;
+		
 		global $wpdb;
 	
 		$query = "SELECT d.user_id, d.value FROM wp_bp_xprofile_data d WHERE d.value='Albergo/Ristorante' OR d.value='Fornitore' OR d.value='Utente'";
+		
 		$ms_output= $wpdb->get_results( $wpdb->prepare($query));
+		
 		$this->fr_type=$ms_output;
 		
 	}
 	//ritorna il tipo (Albergo/Ristorante o Fornitore) dell'utente avente id =$ID
 	function get_type($ID){
+		
 		if ($this->fr_type==null)
+		
 			 $this->globalType();
 			 
-		
-		
 		foreach ( (array)$this->fr_type as $k){
+			
 			if ($k->user_id==$ID)
+			
 				return $k->value;
 		}
 		return __('Non riconosciuto','custom');
