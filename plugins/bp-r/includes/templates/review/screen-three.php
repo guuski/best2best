@@ -77,7 +77,7 @@
 			
 				<small style = "float: right;"><strong>
 					<?php  _e('Recensione su: ');?> 
-					<a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
+					<a href="<?php echo bp_core_get_user_domain(get_post_meta( $post->ID, 'bp_review_recipient_id', true ))?>">
 					<?php  // the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) 
 					echo $nome;?> 
 					</a></strong></small>
