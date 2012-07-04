@@ -7,9 +7,13 @@ class sidebarButtons_Widget extends WP_Widget
 	function sidebarButtons_Widget()
 	{
 		$id_base = 'sidebarButtons_Widget';
+		
 		$name = __('Sidebar Buttons','custom');
+		
 		$widget_options = array( );
+		
 		$control_ops = array( 'width' => 300, 'height' => 350 );
+		
 		parent::WP_Widget($id_base, $name, $widget_options, $control_ops);
 	}
 	
@@ -17,16 +21,32 @@ class sidebarButtons_Widget extends WP_Widget
 	function form($instance)
 	{
 		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Sidebar Buttons','custom') ));
+		
 		$titolo 		= __(strip_tags( $instance['titolo'] ),		'custom');
+		
 		?>
-		<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); 		?>" name="<?php echo $this->get_field_name( 'titolo' ); 	?>" type="text" value="<?php echo esc_attr( $titolo ); 		?>" style="width: 60%; float:right;" /></label></p>
+		
+		<p>
+			
+			<label>
+				
+				<?php _e("Titolo","custom") ?>		
+				
+				<input id="<?php echo $this->get_field_id( 'titolo' ); 		?>" name="<?php echo $this->get_field_name( 'titolo' ); 	?>" type="text" value="<?php echo esc_attr( $titolo ); 		?>" style="width: 60%; float:right;" />
+			
+			</label>
+			
+		</p>
+		
 		<?php
 	}
 
 	function update($new_instance, $old_instance)
 	{
 		$instance = $old_instance;
+		
 		$instance['titolo'] 		= __(strip_tags( $new_instance['titolo'] ) 		,'custom');
+		
 		return $instance;
 	}
 	
@@ -69,15 +89,25 @@ class sidebarButtons_Widget extends WP_Widget
 		global $bp;
 		
 ?>
+
 <style>a.smallbutton{padding: 0 10px; line-height: 18px;}</style>
+
 <div style="border-bottom: 1px solid #000; margin-bottom: 5px; height: 85px;">
+	
 	<hr style="border: 0; border-top: 1px solid; margin: 5px 0;" />
+	
 	<a class="button smallbutton" style="float: left" href="/gruppi">Gruppi</a> <a
+	
 		class="button smallbutton" style="float: right" href="<?php bp_members_directory_permalink()?>"
+		
 	>Adesioni</a>
+	
 	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>friends"><?php _e('Mio Network','custom')?></a>
+	
 	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
+	
 </div>
+
 <?php	
 	}
 }

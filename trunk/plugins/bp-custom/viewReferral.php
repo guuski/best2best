@@ -20,6 +20,7 @@ class viewReferral_Widget extends WP_Widget
 
 	function form($instance)
 	{
+		
 		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Visualizza Referral','custom') ,  'numerolog'=> 6, 'numerounlog'=> 3, 'lunghezza' => 20) );
 		
 		$titolo 		= __(strip_tags( $instance['titolo'] ),		'custom');
@@ -32,20 +33,21 @@ class viewReferral_Widget extends WP_Widget
 		
 		?>
 		
-			<p><label>Titolo		<input id="<?php echo $this->get_field_id( 'titolo' ); 		?>" name="<?php echo $this->get_field_name( 'titolo' ); 	?>" type="text" value="<?php echo esc_attr( $titolo ); 		?>" style="width: 60%; float:right;" /></label></p>
+			<p><label><?php _e("Titolo","custom") ?>		<input id="<?php echo $this->get_field_id( 'titolo' ); 		?>" name="<?php echo $this->get_field_name( 'titolo' ); 	?>" type="text" value="<?php echo esc_attr( $titolo ); 		?>" style="width: 60%; float:right;" /></label></p>
 					
-			<p><label>Numero log	<input id="<?php echo $this->get_field_id( 'numerolog' );	?>" name="<?php echo $this->get_field_name( 'numerolog' ); 	?>" type="text" value="<?php echo esc_attr( $numerolog ); 	?>" style="width: 60%; float:right;" /></label></p>
+			<p><label><?php _e("Numero log","custom") ?>	<input id="<?php echo $this->get_field_id( 'numerolog' );	?>" name="<?php echo $this->get_field_name( 'numerolog' ); 	?>" type="text" value="<?php echo esc_attr( $numerolog ); 	?>" style="width: 60%; float:right;" /></label></p>
 			
-			<p><label>Numero unlog	<input id="<?php echo $this->get_field_id( 'numerounlog' );	?>" name="<?php echo $this->get_field_name( 'numerounlog' );?>" type="text" value="<?php echo esc_attr( $numerounlog ); ?>" style="width: 60%; float:right;" /></label></p>
+			<p><label><?php _e("Numero unlog","custom") ?>	<input id="<?php echo $this->get_field_id( 'numerounlog' );	?>" name="<?php echo $this->get_field_name( 'numerounlog' );?>" type="text" value="<?php echo esc_attr( $numerounlog ); ?>" style="width: 60%; float:right;" /></label></p>
 			
-			<p><label>Lunghezza		<input id="<?php echo $this->get_field_id( 'lughezza' );	?>" name="<?php echo $this->get_field_name( 'lunghezza' );?>" type="text" value="<?php echo esc_attr( $lunghezza ); 	?>" style="width: 60%; float:right;" /></label></p>
+			<p><label><?php _e("Lunghezza","custom") ?>		<input id="<?php echo $this->get_field_id( 'lughezza' );	?>" name="<?php echo $this->get_field_name( 'lunghezza' );?>" type="text" value="<?php echo esc_attr( $lunghezza ); 	?>" style="width: 60%; float:right;" /></label></p>
 					
-		
 		<?php
+		
 	}
 
 	function update($new_instance, $old_instance)
 	{
+		
 		$instance = $old_instance;
 		
 		$instance['titolo'] 		= __(strip_tags( $new_instance['titolo'] ) 		,'custom');
@@ -57,6 +59,7 @@ class viewReferral_Widget extends WP_Widget
 		$instance['lunghezza'] 		= __(strip_tags( $new_instance['lunghezza'] )	,'custom');
 		
 		return $instance;
+		
 	}
 	
 	function widget($args, $instance)
@@ -135,77 +138,105 @@ class viewReferral_Widget extends WP_Widget
 				$loop->the_post();
 				
 				$vR_postID = $loop->post->ID;
+				
 				$vR_autorID = $loop->post->post_author;
+				
 				$user_info = get_userdata($vR_autorID);
 					
 				$vR_autor = $user_info->user_login;
+				
 				$vR_title = $loop->post->post_title;
+				
 				$vR_content = $loop->post->post_content;
+				
 				$vR_mittenteID = get_post_meta( $loop->post->ID, 'bp_referral_recipient_id', true );
 				
-				if ($vR_content=='') $vR_content="non c'è contenuto";
+				if ($vR_content=='') $vR_content=__("non c'è contenuto","custom");
 					
 					
 				if ($numero>0 && (($autore!=0 && $autore==$loop->post->post_author) || $autore==0)) :
+				
 					$has_referral=true;
+					
 					$numero--;
 						
 ?>
-<div style="border-bottom: 1px solid #000; margin-bottom: 5px; min-height: 50px; "><?php
+			<div style="border-bottom: 1px solid #000; margin-bottom: 5px; min-height: 50px; "><?php
 					echo (get_avatar($vR_mittenteID,42));
+					
 					?><div style="display: table-cell;padding-left: 5px; line-height: 16px;padding-bottom: 5px;"><?php echo("<a href='".bp_core_get_user_domain( $vR_autorID )."example'>"									.
+					
 							xprofile_get_field_data( "Nome" ,$vR_autorID)							.
+							
 						"</a>"													.
+						
 						" da"
+						
 						." <a href='".bp_core_get_user_domain( $vR_mittenteID )."example'>"
+						
 							.xprofile_get_field_data( "Nome" ,$vR_mittenteID)
+							
 							."</a>"													
 						);
 											
 ?>
 
 						<span class='vR_box'
+						
 								onmouseover='vR_labelon(this)' 
+								
 								onmouseout='vR_labeloff(this)'
+								
 								onclick='vR_open("vR_labelhidden<?php echo $numero;?>","vR_labelprev<?php echo $numero;?>")'>
 								
 								<label id='vR_labelprev<?php echo $numero;?>' class='vR_labelprev'>
+								
 									<?php
 										//======================================
-										echo (
-										"Vedi..."
-											
-											); 
+										
+										_e("Vedi...","custom");
+										
 										//======================================
 										?>
 								</label>
+								
 								<label id='vR_labelhidden<?php echo $numero;?>' class='vR_labelhidden'  style='display:none;'>
+								
 									<?php
+									
 										//======================================
-										$tipologia_rapporto  = get_post_meta( $loop->post->ID, 'tipologia_rapporto', true );  
+										
+										$tipologia_rapporto  = get_post_meta( $loop->post->ID, 'tipologia_rapporto', true );
+										  
 										$anzianita_rapporto  = get_post_meta( $loop->post->ID, 'anzianita_rapporto', true );
+										
 										$utente_consigliato  = get_post_meta( $loop->post->ID, 'utente_consigliato', true );
+										
 										$voto_complessivo    = get_post_meta( $loop->post->ID, 'voto_complessivo', true );
 										
 										echo (
-											//"<br />".
-											"TIPOLOGIA: ".$tipologia_rapporto."<br />".
-											"ANZIANIT&Agrave; : ".$anzianita_rapporto."<br />".
-											"CONSIGLIATO: ".$utente_consigliato."<br />".
-											"VOTO:	 ".$voto_complessivo." <img src=\"/wp-content/plugins/bp-referral//includes/img/Star_full16.png\" /><br />"
+											
+											
+											__("TIPOLOGIA: ","custom")	.			$tipologia_rapporto."<br />".
+											
+											__("ANZIANIT&Agrave; : ","custom")	.	$anzianita_rapporto."<br />".
+											
+											__("CONSIGLIATO: ","custom")	.		$utente_consigliato."<br />".
+											
+											__("VOTO:	 ","custom")	.			$voto_complessivo." <img src=\"/wp-content/plugins/bp-referral//includes/img/Star_full16.png\" /><br />"
+											
 											); 
-										/*
-										echo (
-											$vR_content
-											); 
-										*/
+							
 										//======================================
 										?>
+										
 								</label>
 							
 						</span>
 					
-					</div></div>
+					</div>
+					
+				</div>
 <?php
 
 				
@@ -216,7 +247,9 @@ class viewReferral_Widget extends WP_Widget
 			
 		endif;
 		if(!$has_referral) {
-			echo __("Non sono presenti referral per questo utente",'custom');
+			
+			_e("Non sono presenti referral per questo utente",'custom');
+			
 		}
 		
 	}

@@ -14,7 +14,7 @@ include_once('bp-multiselect-query.php');
 include_once(ABSPATH .'wp-load.php');
 include_once(ABSPATH .'wp-includes/wp-db.php');
 
-
+load_plugin_textdomain( 'multiselect', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 //Variabili
 global $ms_nome;
@@ -44,7 +44,7 @@ function bpd_admin_render_new_xprofile_field_type($field, $echo = true){
 	                break;   
 	            default :
 	                ?>
-	                    <p>Field type unrecognized</p>
+	                    <p> <?php _e('Field type unrecognized','multiselect') ?> </p>
 	                <?php
 	        }
 	 
