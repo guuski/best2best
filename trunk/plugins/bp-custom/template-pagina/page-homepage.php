@@ -24,6 +24,16 @@ Template Name: Home Page B2B
 
 */
 
+include_once('it_IT.php');
+include_once('en_EG.php');
+
+$lang = array();
+	if (true) 
+		$lang=$lang_IT;
+	else
+		$lang=$lang_EG;
+
+
 get_header();
 
 ?>
@@ -34,7 +44,8 @@ get_header();
 </style>
 
 	
-	<div id="content">
+
+<div id="content">
 
 		<div class="padder">
 			
@@ -45,6 +56,10 @@ get_header();
 			?><script>jQuery(document).ready(function(){jQuery("#aw-whats-new-submit").click(function(){setTimeout('location.href="attivita"; return true;',2000);});});</script>
 			<?php 
 			endif; 
+			
+
+	
+	
 ?>
 <div class="page" id="blog-page" role="main">
 <?php 
@@ -63,16 +78,16 @@ get_header();
 				
 				<div class="mh_struttura">
 					<div class="mh_contenitore">
-						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
-						<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
+						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big"><?php echo $lang[0]; ?></span></a>
+						<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big"><?php echo $lang[1]; ?></span></a>
 				 	</div>				
 					<div class="mh_separatore"></div>
 					<div class="mh_contenitore">
-						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big">Recensioni</span></a>
-						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
+						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big"><?php echo $lang[2]; ?></span></a>
+						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big"><?php echo $lang[3]; ?></span></a>
 					</div>	
 				</div>
-		<script>function alert_offerte(){window.alert("Manca poco, stiamo implementando una nuova funzionalita' che vi permettera' di realizzare una vetrina dei vostri prodotti e servizi. \n\nContinuate a sostenerci. \n - Lo staff.")};</script>
+		<script>function alert_offerte(){window.alert("<?php echo $lang[4]; ?>")};</script>
 <?php 
 
 
@@ -126,27 +141,16 @@ get_header();
  				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
 					<div>
 						<div>
-							<h2 style="border-bottom: 2px solid #057022;">Che cosa siamo?</h2>
+							<h2 style="border-bottom: 2px solid #057022;"><?php echo $lang[5]; ?></h2>
 						</div>
-						<p>
-							<img class="alignleft size-full wp-image-56" title="Best 2 Best Network" src="wp-content/uploads/2012/01/network.jpg" alt="Best 2 Best Network" width="225" height="224">Best2best &egrave; la novit&agrave; nel mondo del B2B per il settore turismo.
-						</p>
-						<p>
-							Grazie a Best2best infatti, le aziende dell&apos;Alto Adige avranno a disposizione uno strumento valido per incrementare le efficienze delle proprie relazioni d&apos;affari ed approfittare delle occasioni che le aziende vorranno mettere loro a disposizione online.
-						</p>
-						<p>
-							Con Best2Best.it, l&apos;azienda potr&agrave; individuare il partner commerciale che meglio si addice alle caratteristiche ricercate e condividere la propria esperienza con la propria community.
-						</p>
-						<p>&nbsp;</p>
-						<p>
-							Recensioni ed opinioni possono essere indicate con diverso livello di profondit&agrave;, garantendo cos&igrave; a chi ricerca un fornitore la migliore esperienza possibile. 
-							<a href="about">...continua </a> oppure <a href="registrati">...registrati! </a>
-						</p>
+						<?php echo $lang[6]; ?>
 					</div>
 				</div>
 <?php 
 			endif; 
 ?>				
+
+
 
 		</div><!-- .page -->
 
