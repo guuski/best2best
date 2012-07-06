@@ -28,10 +28,13 @@ include_once('it_IT.php');
 include_once('en_EG.php');
 
 $lang = array();
-	if (true) 
-		$lang=$lang_IT;
-	else
+
+
+	if (ICL_LANGUAGE_CODE=="EN") 
 		$lang=$lang_EG;
+	else
+		$lang=$lang_IT;
+		
 
 
 get_header();
