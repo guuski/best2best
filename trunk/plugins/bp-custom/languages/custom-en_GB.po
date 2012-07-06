@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: comment_review.php:24
+#: comment_review.php:26
+#: comment_review.php:36
+#: comment_review.php:82
+#: multilanguage.php:61
+#@ custom
+msgid "Commenti alle review"
+msgstr "comments for reviews"
+
+#: comment_review.php:48
+#: listaamici.php:30
+#: messaggiadmin.php:47
+#: multilanguage.php:32
+#: sidebarButtons.php:33
+#: viewReferral.php:36
+#@ custom
+msgid "Titolo"
+msgstr "Title"
+
+#: comment_review.php:50
+#: viewReferral.php:38
+#@ custom
+msgid "Numero log"
+msgstr ""
+
+#: comment_review.php:52
+#: viewReferral.php:40
+#@ custom
+msgid "Numero unlog"
+msgstr ""
+
+#: comment_review.php:54
+#: viewReferral.php:42
+#@ custom
+msgid "Lunghezza"
+msgstr ""
+
+#: completaprofilo.php:15
+#@ custom
+msgid "Completa Profilo"
+msgstr "Complete Profile"
+
+#: completaprofilo.php:17
+#: completaprofilo.php:30
+#: completaprofilo.php:170
+#: completaprofilo.php:245
+#@ custom
+msgid "Completamento Profilo"
+msgstr ""
+
+#: completaprofilo.php:215
+#@ custom
+msgid "Profilo Completo"
+msgstr ""
+
+#: completaprofilo.php:229
+#@ custom
+msgid "Migliora la tua visibilità:"
+msgstr ""
+
+#: completaprofilo.php:231
+#@ custom
+msgid "Completa il tuo profilo!"
+msgstr ""
+
+#: fornitorialberghi.php:13
+#@ custom
+msgid "Fornitori Alberghi"
+msgstr ""
+
+#: fornitorialberghi.php:20
+#@ custom
+msgid "Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori"
+msgstr ""
+
+#: fornitorialberghi.php:36
+#@ custom
+msgid "Diventa un utente registrato!"
+msgstr ""
+
+#: fornitorialberghi.php:86
+#@ custom
+msgid "I clienti di"
+msgstr ""
+
+#: fornitorialberghi.php:90
+#@ custom
+msgid "I fornitori di"
+msgstr ""
+
+#: fornitorialberghi.php:94
+#@ custom
+msgid "Gli amici di"
+msgstr ""
+
+#: fornitorialberghi.php:165
+#@ custom
+msgid "Non riconosciuto"
+msgstr ""
+
+#: listaamici.php:13
+#: listaamici.php:21
+#: listaamici.php:76
+#: messaggiadmin.php:120
+#@ custom
+msgid "Amici"
+msgstr ""
+
+#: listaamici.php:38
+#@ custom
+msgid "Numero Amici"
+msgstr ""
+
+#: messaggiadmin.php:18
+#@ custom
+msgid "Messaggi Admin"
+msgstr ""
+
+#: messaggiadmin.php:20
+#: messaggiadmin.php:32
+#: messaggiadmin.php:57
+#@ custom
+msgid "Messaggi"
+msgstr ""
+
+#: messaggiadmin.php:52
+#@ custom
+msgid "Numero"
+msgstr ""
+
+#: messaggiadmin.php:99
+#@ custom
+msgid "messaggio"
+msgstr ""
+
+#: messaggiadmin.php:130
+#@ custom
+msgid "Comunicazioni"
+msgstr ""
+
+#: multilanguage.php:11
+#: multilanguage.php:13
+#: multilanguage.php:24
+#@ custom
+msgid "Multilanguage"
+msgstr ""
+
+#: sidebarButtons.php:11
+#: sidebarButtons.php:23
+#: sidebarButtons.php:68
+#@ custom
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: sidebarButtons.php:105
+#@ custom
+msgid "Mio Network"
+msgstr ""
+
+#: sidebarButtons.php:107
+#@ custom
+msgid "Miei Gruppi"
+msgstr ""
+
+#: template-pagina/page-homepage.php:107
+#@ buddypress
+msgid "<p class=\"serif\">Read the rest of this page &rarr;</p>"
+msgstr ""
+
+#: template-pagina/page-homepage.php:109
+#@ buddypress
+msgid "Pages: "
+msgstr ""
+
+#: viewReferral.php:11
+#: viewReferral.php:24
+#: viewReferral.php:80
+#@ custom
+msgid "Visualizza Referral"
+msgstr "Go to Referral"
+
+#: viewReferral.php:13
+#@ custom
+msgid "Referral"
+msgstr ""
+
+#: viewReferral.php:154
+#@ custom
+msgid "non c'è contenuto"
+msgstr ""
+
+#: viewReferral.php:197
+#@ custom
+msgid "Vedi..."
+msgstr ""
+
+#: viewReferral.php:220
+#@ custom
+msgid "TIPOLOGIA: "
+msgstr ""
+
+#: viewReferral.php:222
+#@ custom
+msgid "ANZIANIT&Agrave; : "
+msgstr ""
+
+#: viewReferral.php:224
+#@ custom
+msgid "CONSIGLIATO: "
+msgstr ""
+
+#: viewReferral.php:226
+#@ custom
+msgid "VOTO:\t "
+msgstr ""
+
+#: viewReferral.php:251
+#@ custom
+msgid "Non sono presenti referral per questo utente"
+msgstr ""
+
