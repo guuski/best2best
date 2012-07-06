@@ -30,7 +30,10 @@ include_once('en_EG.php');
 $lang = array();
 
 
-	if (ICL_LANGUAGE_CODE=="EN") 
+	//if($translations[ICL_LANGUAGE_CODE]=="en")
+	//if ($_GET[lang]=="en") 	
+	//if($lang['code']=="en")
+	if (ICL_LANGUAGE_CODE==en) 
 		$lang=$lang_EG;
 	else
 		$lang=$lang_IT;
