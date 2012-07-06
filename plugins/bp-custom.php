@@ -172,8 +172,15 @@ function prova() {
 }
 add_action('bp_after_activity_post_form', 'echo_commercial');
 add_action ( 'bp_after_header', 'echo_commercial_2', 0 );
-function echo_commercial() {
-	echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
+function echo_commercial() 
+{
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (ICL_LANGUAGE_CODE==en) 
+		echo "<div class='commercial'>The network for your commercial connections</div>";
+	else
+		echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+		
 }
 function echo_commercial_2() {
 	if(!is_user_logged_in() && is_front_page() ) {
