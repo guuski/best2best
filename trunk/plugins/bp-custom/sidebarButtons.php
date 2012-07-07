@@ -78,33 +78,34 @@ class sidebarButtons_Widget extends WP_Widget
 			
 			$vR_link = bp_core_get_user_domain($user);
 			
-			$this->vr_getButtons( $lunghezza ,$numerolog, $vR_link , $user);
+			$this->vr_getButtons( $vR_link );
 			
 		}
 	}
 	
 	//FUNZIONI SPECIFICHE DEL WIDGET
-	function vr_getButtons($lunghezza, $numero, $vR_link ,$user)
+	function vr_getButtons($vR_link )
 	{
 		global $bp;
 		
 ?>
 
-<style>a.smallbutton{padding: 0 10px; line-height: 18px;}</style>
-
-<div style="border-bottom: 1px solid #000; margin-bottom: 5px; height: 85px;">
+<style>a.smallbutton {
+padding: 0 0px;
+line-height: 20px;
+width: 48%;
+}</style>
+<div style="border-bottom: 1px solid #000; margin-bottom: 5px; height: 65px; width: 210px; margin-left: -10px;">
 	
 	<hr style="border: 0; border-top: 1px solid; margin: 5px 0;" />
-	
-	<a class="button smallbutton" style="float: left" href="/gruppi">Gruppi</a> <a
-	
-		class="button smallbutton" style="float: right" href="<?php bp_members_directory_permalink()?>"
-		
-	>Adesioni</a>
+
+	<a class="button smallbutton" style="float: left" href="/gruppi"><?php _e('Gruppi','custom')?></a> 
+	<a class="button smallbutton" style="float: right" href="<?php bp_members_directory_permalink()?>"><?php _e('Adesioni','custom')?></a>
 	
 	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>friends"><?php _e('Mio Network','custom')?></a>
-	
-	<a class="button smallbutton" style="float: left" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
+
+	<a class="button smallbutton" style="float: right;" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
+
 	
 </div>
 
