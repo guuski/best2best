@@ -26,9 +26,10 @@ msgstr ""
 #: multilanguage.php:61
 #@ custom
 msgid "Commenti alle review"
-msgstr "Reviews' comments "
+msgstr "Bewertungen Kommentare"
 
 #: comment_review.php:48
+#: completaprofilo.php:35
 #: listaamici.php:30
 #: messaggiadmin.php:47
 #: multilanguage.php:32
@@ -36,128 +37,134 @@ msgstr "Reviews' comments "
 #: viewReferral.php:36
 #@ custom
 msgid "Titolo"
-msgstr "Title"
+msgstr "Titel"
 
 #: comment_review.php:50
 #: viewReferral.php:38
 #@ custom
 msgid "Numero log"
-msgstr "Log's Number"
+msgstr "Anzahl der Log"
 
 #: comment_review.php:52
 #: viewReferral.php:40
 #@ custom
 msgid "Numero unlog"
-msgstr "Unlog's Number"
+msgstr "Anzahl unlog"
 
 #: comment_review.php:54
 #: viewReferral.php:42
 #@ custom
 msgid "Lunghezza"
-msgstr "Length"
+msgstr "Länge"
 
 #: completaprofilo.php:15
 #@ custom
 msgid "Completa Profilo"
-msgstr "Complete Profile"
+msgstr "Das gesamte Profil"
 
 #: completaprofilo.php:17
 #: completaprofilo.php:30
-#: completaprofilo.php:170
-#: completaprofilo.php:245
+#: completaprofilo.php:176
+#: completaprofilo.php:251
 #@ custom
 msgid "Completamento Profilo"
-msgstr "Profile's Completeness"
+msgstr "Fertigstellung Profil"
 
-#: completaprofilo.php:215
+#: completaprofilo.php:221
 #@ custom
 msgid "Profilo Completo"
-msgstr "Profile completed"
+msgstr "Das gesamte Profil"
 
-#: completaprofilo.php:229
+#: completaprofilo.php:235
 #@ custom
 msgid "Migliora la tua visibilità:"
-msgstr "Improve your visibility"
+msgstr "Verbessern Sie Ihre Sichtbarkeit:"
 
-#: completaprofilo.php:231
+#: completaprofilo.php:237
 #@ custom
 msgid "Completa il tuo profilo!"
-msgstr "Complete your profile!"
+msgstr "Runden Ihr Profil ab!"
 
 #: fornitorialberghi.php:13
 #@ custom
 msgid "Fornitori Alberghi"
-msgstr "Suppliers Hotels"
+msgstr "Lieferanten Hotels"
 
 #: fornitorialberghi.php:20
 #@ custom
 msgid "Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori"
-msgstr "This widget takes care of showing list of hotels friends for the logged in suplier user and the list of suppliers friends in case the logged in user is an hotel."
+msgstr "Dieses Widget, wenn Sie ein Verkäufer sind, finden Sie in der Hotelliste jeweils ihre Freunde, aber wenn es ein Hotel ist, um die Liste der Lieferanten"
 
 #: fornitorialberghi.php:36
 #@ custom
 msgid "Diventa un utente registrato!"
-msgstr "Become a registered user!"
+msgstr "Werden Sie Mitglied!"
 
-#: fornitorialberghi.php:86
+#: fornitorialberghi.php:82
 #@ custom
-msgid "I clienti di"
-msgstr "The Clients of"
+msgid "Il Network di "
+msgstr "Das Netzwerk"
 
-#: fornitorialberghi.php:90
+#: fornitorialberghi.php:153
 #@ custom
-msgid "I fornitori di"
-msgstr "The suppliers of"
+msgid "Fornitori"
+msgstr "Lieferanten"
 
-#: fornitorialberghi.php:94
+#: fornitorialberghi.php:160
 #@ custom
-msgid "Gli amici di"
-msgstr "The friends of"
+msgid "Clienti"
+msgstr "Kunden,"
 
-#: fornitorialberghi.php:165
+#: fornitorialberghi.php:167
 #@ custom
-msgid "Non riconosciuto"
-msgstr "Non recognized"
+msgid "Colleghi"
+msgstr "Kolleginnen und Kollegen"
 
+#: fornitorialberghi.php:174
 #: listaamici.php:13
 #: listaamici.php:21
 #: listaamici.php:76
 #: messaggiadmin.php:120
 #@ custom
 msgid "Amici"
-msgstr "Friends"
+msgstr "Freunde"
+
+#: fornitorialberghi.php:223
+#@ custom
+msgid "Non riconosciuto"
+msgstr "uneingestanden"
 
 #: listaamici.php:38
 #@ custom
 msgid "Numero Amici"
-msgstr "Friends' Number"
+msgstr "Anzahl der Freunde"
 
 #: messaggiadmin.php:18
 #@ custom
 msgid "Messaggi Admin"
-msgstr "Admin messages"
+msgstr "Beiträge Admin"
 
 #: messaggiadmin.php:20
 #: messaggiadmin.php:32
 #: messaggiadmin.php:57
 #@ custom
 msgid "Messaggi"
-msgstr "Messages"
+msgstr "Beiträge"
 
 #: messaggiadmin.php:52
 #@ custom
 msgid "Numero"
-msgstr "Number"
+msgstr "Anzahl"
 
 #: messaggiadmin.php:99
 #@ custom
 msgid "messaggio"
-msgstr "message"
+msgstr "Nachricht"
 
 #: messaggiadmin.php:130
 #@ custom
 msgid "Comunicazioni"
-msgstr "Communications"
+msgstr "Kommunikation"
 
 #: multilanguage.php:11
 #: multilanguage.php:13
@@ -171,7 +178,17 @@ msgstr "Multilanguage"
 #: sidebarButtons.php:68
 #@ custom
 msgid "Sidebar Buttons"
-msgstr "Sidebar Buttons"
+msgstr "Sidebar Tasten"
+
+#: sidebarButtons.php:102
+#@ custom
+msgid "Gruppi"
+msgstr "Gruppen"
+
+#: sidebarButtons.php:103
+#@ custom
+msgid "Adesioni"
+msgstr "Verwachsungen"
 
 #: sidebarButtons.php:105
 #@ custom
@@ -181,14 +198,14 @@ msgstr "My Network"
 #: sidebarButtons.php:107
 #@ custom
 msgid "Miei Gruppi"
-msgstr "My Groups"
+msgstr "Meine Gruppen"
 
-#: template-pagina/page-homepage.php:107
+#: template-pagina/page-homepage.php:110
 #@ buddypress
 msgid "<p class=\"serif\">Read the rest of this page &rarr;</p>"
 msgstr ""
 
-#: template-pagina/page-homepage.php:109
+#: template-pagina/page-homepage.php:112
 #@ buddypress
 msgid "Pages: "
 msgstr ""
@@ -198,45 +215,106 @@ msgstr ""
 #: viewReferral.php:80
 #@ custom
 msgid "Visualizza Referral"
-msgstr "View Referral"
+msgstr "Referral anzeigen"
 
 #: viewReferral.php:13
+#: viewReferral_ENG.php:13
 #@ custom
+#@ custom_eng
 msgid "Referral"
 msgstr "Referral"
 
 #: viewReferral.php:154
 #@ custom
 msgid "non c'è contenuto"
-msgstr "no content "
+msgstr "noch keine Inhalte"
 
 #: viewReferral.php:197
 #@ custom
 msgid "Vedi..."
-msgstr "See..."
+msgstr "Siehe ..."
 
 #: viewReferral.php:220
 #@ custom
 msgid "TIPOLOGIA: "
-msgstr "TIPOLOGY"
+msgstr "TYP:"
 
 #: viewReferral.php:222
 #@ custom
 msgid "ANZIANIT&Agrave; : "
-msgstr "SENIORITY:"
+msgstr "DIENSTALTER"
 
 #: viewReferral.php:224
 #@ custom
 msgid "CONSIGLIATO: "
-msgstr "RECCOMENDED:"
+msgstr "EMPFOHLEN:"
 
 #: viewReferral.php:226
 #@ custom
 msgid "VOTO:\t "
-msgstr "VOTE:\\\t"
+msgstr "VOTE"
 
 #: viewReferral.php:251
+#: viewReferral_ENG.php:251
 #@ custom
+#@ custom_eng
 msgid "Non sono presenti referral per questo utente"
-msgstr "No referrals for this user"
+msgstr "Es gibt keine Empfehlungen für diesen Benutzer"
+
+#: viewReferral_ENG.php:11
+#: viewReferral_ENG.php:24
+#: viewReferral_ENG.php:80
+#@ custom_eng
+msgid "View Referral"
+msgstr ""
+
+#: viewReferral_ENG.php:36
+#@ custom_eng
+msgid "Title"
+msgstr ""
+
+#: viewReferral_ENG.php:38
+#@ custom_eng
+msgid "Log's Number"
+msgstr ""
+
+#: viewReferral_ENG.php:40
+#@ custom_eng
+msgid "Unlog's Number"
+msgstr ""
+
+#: viewReferral_ENG.php:42
+#@ custom_eng
+msgid "Length"
+msgstr ""
+
+#: viewReferral_ENG.php:154
+#@ custom_eng
+msgid "no content"
+msgstr ""
+
+#: viewReferral_ENG.php:197
+#@ custom_eng
+msgid "See..."
+msgstr ""
+
+#: viewReferral_ENG.php:220
+#@ custom_eng
+msgid "TIPOLOGY: "
+msgstr ""
+
+#: viewReferral_ENG.php:222
+#@ custom_eng
+msgid "AGE; : "
+msgstr ""
+
+#: viewReferral_ENG.php:224
+#@ custom_eng
+msgid "RECCOMENDED: "
+msgstr ""
+
+#: viewReferral_ENG.php:226
+#@ custom_eng
+msgid "VOTE:\t "
+msgstr ""
 
