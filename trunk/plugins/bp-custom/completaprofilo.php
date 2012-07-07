@@ -12,9 +12,9 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		$id_base = 'completaProfilo_Widget';
 		
-		$name = __('Completa Profilo',"custom");
+		$name = __('Completa Profilo','custom');
 		
-		$widget_options = array( 'titolo' => __('Completamento Profilo',"custom"));
+		$widget_options = array( 'titolo' => __('Completamento Profilo','custom'));
 		
 		$control_ops = '';
 		
@@ -29,9 +29,12 @@ class completaProfilo_Widget extends WP_Widget {
 		
 		$instance = wp_parse_args( (array) $instance, array(  'titolo' => __('Completamento Profilo',"custom")));
 		
-		$titolo = __(strip_tags( $instance['titolo'] ),"custom");
+		$titolo = __(strip_tags( $instance['titolo'] ),'custom');
 		?>
-			<label><?php_e('Titolo',"custom") ?><input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>"  style="width: 70%; float:right;"  /></label>
+			<label>
+				<?php _e('Titolo','custom');?> 
+				<input id="<?php echo $this->get_field_id( 'titolo' ); ?>" name="<?php echo $this->get_field_name( 'titolo' ); ?>" type="text" value="<?php echo esc_attr( $titolo ); ?>"  style="width: 70%; float:right;"  />
+			</label>
 		<?php 
 	}
 
@@ -134,6 +137,7 @@ class completaProfilo_Widget extends WP_Widget {
 		}
 		return $output;
 	}
+	
 	function adatta($tot,$parz){
 		
 		foreach ($parz as $k => $v){
@@ -151,7 +155,9 @@ class completaProfilo_Widget extends WP_Widget {
 				}
 			}
 		return $parz;
+		
 	}
+	
 	function widget($args, $instance)
 	{
 		global $bp;
@@ -267,7 +273,9 @@ class completaProfilo_Widget extends WP_Widget {
 		
 	}
 	
-	function ms_getScript(){ ?>
+	function ms_getScript(){ 
+	
+	?>
 	
 	<script language='JavaScript' type='text/javascript'>
 	<!--
@@ -350,7 +358,7 @@ class completaProfilo_Widget extends WP_Widget {
 	<?php
 	
 	}
-
+	
 }
 
 ?>
