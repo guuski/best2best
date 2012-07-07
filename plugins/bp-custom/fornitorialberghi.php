@@ -78,7 +78,10 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 		
 			$user_type=$this->get_type($user_info->ID);
 		
-			if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
+			
+			$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Il Network di ','custom')." ".$fullname: $instance['titolo'], $instance, $this->id_base);
+			
+/*			if ($user_type=="Fornitore" || $user_type=="Albergo/Ristorante" || $user_type=="Utente")
 			{
 			
 				if ($user_type=="Fornitore")
@@ -94,33 +97,88 @@ class FornitoriAlberghi_Widget extends WP_Widget {
 							$title = apply_filters('widget_title', empty($instance['titolo']) ? __('Gli amici di','custom')." ".$fullname: $instance['titolo'], $instance, $this->id_base);
 							
 						}
-			}
+			} */
 		
 		//echo $before_widget;
 			if ( $title )
 				echo $before_title . $title . $after_title.'<div class="avatar-block">';
 
 				$listfriend = friends_get_friend_user_ids($user_attivo);
-			
+				$bfriendship = unserialize(get_user_meta($user_attivo, "friendship_level",true));
+				
+				error_log(print_r($bfriendship,true));
+				
+				$fornitore=array();
+				$amico=array();
+				$cliente=array();
+				$collega=array();
+				$normale=array();
+				
 				foreach ($listfriend as $k => $v){
-					
-					$attivo = get_userdata($v);		
-					
-						if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
-							
-							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";	
-						}
-						
-						else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
-							
-							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
-						}
-						
-						else if ($user_type=="Utente"){
-							
-							echo  "<a href='".bp_core_get_user_domain($attivo->user_login).$attivo->user_login."' >".get_avatar($v,42)."</a>";
-						}					
+					if(isset($bfriendship[$v])){
+						// TODO FIX aggiungere un check con le variabili, se cambia una vocale non fuziona più
+						array_push($$bfriendship[$v], $v);
+					}
+					else {
+						array_push($normale, $v);
+					}
+
 				}
+				
+				
+				foreach ($normale as $v){
+						
+						
+					$attivo = get_userdata($v);
+						
+					if ($user_type=="Fornitore" && $this->get_type($v)=="Albergo/Ristorante"){
+						array_push($cliente, $v);
+					}
+					else if ($user_type=="Albergo/Ristorante" && $this->get_type($v)=="Fornitore"){
+						array_push($fornitore, $v);
+					}
+					else if ($user_type==$this->get_type($v)){
+						array_push($collega, $v);
+					}
+					else {
+						array_push($amico, $v);
+					}
+				}
+				error_log("fornitore ".print_r($fornitore,true));
+				error_log("amico ".print_r($amico,true));
+				error_log("cliente ".print_r($cliente,true));
+				error_log("collega ".print_r($collega,true));
+				error_log("altri ".print_r($normale,true));
+				if(count($fornitore) > 0 ) {
+					echo "<div class='friendtitle' style='font-weight:bold; clear:both;'>".__("Fornitori","custom")."</div>";
+					foreach($fornitore as $v) {
+						echo  "<a href='".bp_core_get_user_domain($v)."' >".get_avatar($v,42)."</a>";
+					}						
+				}
+				
+				if(count($cliente) > 0 ) {
+					echo "<div class='friendtitle' style='font-weight:bold; clear:both;'>".__("Clienti","custom")."</div>";
+					foreach($cliente as $v) {
+						echo  "<a href='".bp_core_get_user_domain($v)."' >".get_avatar($v,42)."</a>";
+					}
+				}
+				
+				if(count($collega) > 0 ) {
+					echo "<div class='friendtitle' style='font-weight:bold; clear:both;'>".__("Colleghi","custom")."</div>";
+					foreach($collega as $v) {
+						echo  "<a href='".bp_core_get_user_domain($v)."' >".get_avatar($v,42)."</a>";
+					}
+				}
+				
+				if(count($amico) > 0 ) {
+					echo "<div class='friendtitle' style='font-weight:bold; clear:both;'>".__("Amici","custom")."</div>";
+					foreach($amico as $v) {
+						echo  "<a href='".bp_core_get_user_domain($v)."' >".get_avatar($v,42)."</a>";
+					}
+				}
+				
+				
+				
 				echo "</div>";
 
 			
