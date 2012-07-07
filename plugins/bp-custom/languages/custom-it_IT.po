@@ -22,7 +22,7 @@ msgstr ""
 #: completaprofilo.php:15
 #@ custom
 msgid "Completa Profilo"
-msgstr ""
+msgstr "Completa Profilo"
 
 #: completaprofilo.php:17
 #: completaprofilo.php:30
@@ -31,57 +31,57 @@ msgstr ""
 #@ default
 #@ custom
 msgid "Completamento Profilo"
-msgstr ""
+msgstr "Completamento Profilo"
 
 #: completaprofilo.php:214
 #@ custom
 msgid "Profilo Completo"
-msgstr ""
+msgstr "Profilo Completo"
 
 #: completaprofilo.php:228
 #@ custom
 msgid "Migliora la tua visibilità:"
-msgstr ""
+msgstr "Migliora la tua visibilità:"
 
 #: completaprofilo.php:230
 #@ custom
 msgid "Completa il tuo profilo!"
-msgstr ""
+msgstr "Completa il tuo profilo!"
 
 #: fornitorialberghi.php:12
 #@ custom
 msgid "Fornitori Alberghi"
-msgstr ""
+msgstr "Fornitori Alberghi"
 
 #: fornitorialberghi.php:18
 #@ custom
 msgid "Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori"
-msgstr ""
+msgstr "Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori"
 
 #: fornitorialberghi.php:44
 #@ custom
 msgid "Diventa un utente registrato!"
-msgstr "Entra nella network"
+msgstr "Diventa un utente registrato!"
 
 #: fornitorialberghi.php:90
 #@ custom
 msgid "I clienti di"
-msgstr ""
+msgstr "I clienti di"
 
 #: fornitorialberghi.php:94
 #@ custom
 msgid "I fornitori di"
-msgstr ""
+msgstr "I fornitori di"
 
 #: fornitorialberghi.php:98
 #@ custom
 msgid "Gli amici di"
-msgstr ""
+msgstr "Gli amici di"
 
 #: fornitorialberghi.php:157
 #@ custom
 msgid "Non riconosciuto"
-msgstr ""
+msgstr "Non riconosciuto"
 
 #: listaamici.php:15
 #: listaamici.php:23
@@ -89,26 +89,26 @@ msgstr ""
 #: messaggiadmin.php:92
 #@ custom
 msgid "Amici"
-msgstr ""
+msgstr "Amici"
 
 #: messaggiadmin.php:15
 #@ custom
 msgid "Messaggi Admin"
-msgstr ""
+msgstr "Messaggi Admin"
 
 #: messaggiadmin.php:16
 #: messaggiadmin.php:26
 #@ custom
 msgid "Messaggi"
-msgstr ""
+msgstr "Messaggi"
 
 #: messaggiadmin.php:72
 #@ custom
 msgid "messaggio"
-msgstr ""
+msgstr "messaggio"
 
 #: messaggiadmin.php:101
 #@ custom
 msgid "Comunicazioni"
-msgstr ""
+msgstr "Comunicazioni"
 
