@@ -76,34 +76,6 @@ get_header() ?>
 		
 		<!-- Review -->
 		<div id="new-review-content">
-<!--		
-			<div id="radio-toolbar">
-				<fieldset name = "review-giudizio" id = "review-giudizio">
-				  <label> <input type="radio" name="giudizio_review" id="positivo" value="positivo" /> Positiva </label>				  
-				  <label> <input type="radio" name="giudizio_review" id="neutro"   value="neutro"/>    Neutra   </label>				  
-				  <label> <input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  Negativa </label>
-				</fieldset>			
-			</div>	
--->			
-			<div id="radio-toolbar">			<!-- -->
-				<label for = "review-giudizio"> Giudizio Complessivo Review </label>	
-				<br /> <br />		
-				<fieldset name = "review-giudizio" id = "review-giudizio">
-<!--				
-					<input type="radio" name="giudizio_review" id="positivo" value="positivo" checked = "<?php checked( $giudizio_review,'positivo') ?>"/> <label for = "positivo" > Positiva </label>				  
-					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  checked = "<?php checked( $giudizio_review,'neutro') ?>"/>     <label for = "neutro" > Neutra   </label>				  
-					<input type="radio" name="giudizio_review" id="negativo" value="negativo" checked = "<?php checked( $giudizio_review,'negativo') ?>"/>  <label for = "negativo"> Negativa </label>								 
--->				  
-					<input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
-					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
-					<input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
-				</fieldset>			
-			</div>	
-			
-			<!-- <option value = "tutti" 	<?php selected( $author_type,'tutti') ?>> tutti </option> 	-->
-			
-			<br/>			
-			
 			<div id="new-review-textarea">	
 				<label for="review-title"> <?php _e( 'Titolo Review', 'reviews' ); ?>  </label>			
 				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
@@ -204,7 +176,16 @@ get_header() ?>
 		</div>	<!-- fine sezione RATING -->			
 
 <br />
-		
+<div id="radio-toolbar">
+				<label for = "review-giudizio"><?php _e('Giudizio Complessivo Review', "reviews" )?> </label>	
+				<br /> 
+				<fieldset name = "review-giudizio" id = "review-giudizio">
+					<input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
+					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
+					<input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
+				</fieldset>			
+			</div>
+		<br />
 <div id="new-review-disclaimer">		
 	<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
 	<fieldset name = "disclaimer" id = "disclaimer">	  
