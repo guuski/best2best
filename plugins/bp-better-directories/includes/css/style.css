@@ -149,3 +149,7 @@ padding: 3px;
 margin: 2px;
 clear: right;
 }
+
+.ui-button-text-only .ui-button-text {padding: 0px 6px !important; }
+div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {display: inline !important; }
+div.item-list-tabs ul li:first-child {margin-left: 5px !important;}

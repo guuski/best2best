@@ -180,10 +180,7 @@ class BPBD {
 		
 		?>
 	<li>
-<style>.ui-button-text-only .ui-button-text {padding: 0px 6px; }
-	div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {display: inline;}
-	div.item-list-tabs ul li:first-child {margin-left: 5px;}
-</style>
+
 		<form id="bpbd-filter-form" method="get" action="<?php bp_root_domain() ?>/<?php bp_members_root_slug() ?>">
 		<div id="bpbd-filters">
 			<h4><?php _e( 'Narrow Results', 'bpbd' ) ?> <span id="bpbd-clear-all"><a href="#"><?php _e( 'Clear All', 'bpbd' ); ?></a></span></h4>
@@ -375,6 +372,7 @@ class BPBD {
 			$c_data = new BP_XProfile_Field( $option->id );
 			$c_data->group_id=3;
 			$cc=$c_data->get_children();
+			$value =0;
 			if(count((array)$cc)>0 && isset($cc[0])) { ?>
 				<div class="bd_container">
 				<span class="bd_title" style="line-height: 14px !important; width: auto; display: block; height: 14px; margin-top: 0px; color: #444; padding: 0px; cursor:pointer;"><?=$option->name ?></span>
