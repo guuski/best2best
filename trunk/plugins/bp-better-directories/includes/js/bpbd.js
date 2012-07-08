@@ -77,7 +77,7 @@ jQuery(document).ready(function($) {
 	
 	/* 'Clear All' link for resetting all criteria */
 	jQuery('#bpbd-clear-all a').bind('click', function() {
-		jQuery('body div#content').mask('Caricamento...');																						/*LOCALIZZAZIONE */
+		jQuery('body div#content').mask('...');																						/*LOCALIZZAZIONE */
 		jQuery('div.loadmask-msg').css('top', '300px');
 		
 		jQuery.each(jQuery('.bpbd-filter-crit'), function(k,v){
