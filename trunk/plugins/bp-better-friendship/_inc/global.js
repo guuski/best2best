@@ -6,7 +6,9 @@ var bp_ajax_request = null;
 
 jq(document).ready( function() {
 	/**** Page Load Actions *******************************************************/
-	jq('#bfriendship .buttonset').buttonset();
+	if(jq('#bfriendship').html()) {
+		jq('#bfriendship .buttonset').buttonset();
+	}
 	/* Hide Forums Post Form */
 	if ( '-1' == window.location.search.indexOf('new') && jq('div.forums').length )
 		jq('div#new-topic-post').hide();
@@ -702,11 +704,10 @@ jq(document).ready( function() {
 	/** Friendship Requests **************************************/
 
 	/* Accept and Reject friendship request buttons */
-	jq("ul#friend-list a.accept, ul#friend-list a.reject").click( function() {
+	jq("ul#friend-list a.reject").click( function() {
 		var button = jq(this);
 		var li = jq(this).parents('ul#friend-list li');
 		var action_div = jq(this).parents('li div.action');
-//alert('ok');
 		var id = li.attr('id').substr( 11, li.attr('id').length );
 		var link_href = button.attr('href');
 
@@ -756,6 +757,25 @@ jq(document).ready( function() {
 		return false;
 	});
 
+	/*Accept - new version*/
+	jq("ul#friend-list a.accept").click( function() {
+		if ( jq(this).hasClass('accepted') || jq(this).hasClass('rejected') )
+			return false;
+		
+		var fid = jq(this).next().attr('id');
+		if(fid!='bfriendship') {
+			//se era attaccato da un'altra parte
+			if(jq('#bfriendship').is(":visible")) {jq('#bfriendship').hide();}
+			
+			jq(this).after(jq('#bfriendship'));			
+			jq('#bfriendship').slideDown();	
+		}else {
+			if(!jq('#bfriendship').is(":visible")) {jq('#bfriendship').slideDown();}
+		}
+		return false;
+	});
+	
+	
 	/* abort Add / Remove friendship buttons */
 	jq("#bfriendship .bfriendabort").live('click', function() {
 		jq("#bfriendship").slideUp("fast");
@@ -773,7 +793,7 @@ jq(document).ready( function() {
 				//se era attaccato da un'altra parte
 				if(jq('#bfriendship').is(":visible")) {jq('#bfriendship').hide();}
 				
-				jq(this).parent().after(jq('#bfriendship'));			
+				jq(this).after(jq('#bfriendship'));			
 				jq('#bfriendship').slideDown();	
 			}else {
 				if(!jq('#bfriendship').is(":visible")) {jq('#bfriendship').slideDown();}
@@ -787,11 +807,51 @@ jq(document).ready( function() {
 	});
 	
 	jq("#bfriendship input[type=button]").live('click', function() {
-		var thelink = jq(this).parent().prev().children("a");
+		
+		/* ------------ accetta connessione ----------*/
+		if ( jq(this).parent().prev().hasClass('accept') ) {
+			var action = 'accept_friendship';
+			var li = jq(this).parent().prev().parents('ul#friend-list li');
+			var action_div = jq(this).parents('li div.action');
+			var id = li.attr('id').substr( 11, li.attr('id').length );
+			jq(this).addClass("loading");
+			var link_href = jq(this).parent().prev().attr('href');
+			var nonce = link_href.split('_wpnonce=');
+				nonce = nonce[1];
+			var button = jq(this).parent().prev();
+			var ftype=jq('#bfriendship input:radio[name=ftype]:checked').val();
+			jq.post( ajaxurl, {
+				action: action,
+				'cookie': encodeURIComponent(document.cookie),
+				'id': id,
+				'ftype': ftype,
+				'_wpnonce': nonce
+			},
+			function(response) {
+				
+				jq(button).removeClass('loading');
+	
+				if ( response[0] + response[1] == '-1' ) {
+					li.prepend( response.substr( 2, response.length ) );
+					li.children('div#message').hide().fadeIn(200);
+				} else {
+					jq(button).fadeOut( 100, function() {
+						action_div.children('a.reject').hide();
+						jq(button).html( BP_DTheme.accepted ).fadeIn(50);
+						jq(button).addClass('accepted');
+						jq('#bfriendship').hide();
+						jq('#amico').attr("checked", "checked");
+						jq('#bfriendship .buttonset').buttonset("refresh");
+						jq('#bfriendship input[type=button]').removeClass("loading");
+						jq('#footer').append(jq('#bfriendship'));
+					});
+				}
+			});
+		} else {
+		/* ------------ aggiungi connessione -------- */
+		var thelink = jq(this).parent().prev();
 		jq(this).addClass("loading");
-		//jq(thelink).addClass('loading');
 		var fid = jq(thelink).attr('id'); 
-//		alert(fid);
 		fid = fid.split('-');
 		fid = fid[1];
 		var nonce = jq(thelink).attr('href');
@@ -799,8 +859,6 @@ jq(document).ready( function() {
 		nonce = nonce[1].split('&');
 		nonce = nonce[0];
 		var ftype=jq('#bfriendship input:radio[name=ftype]:checked').val();
-//		alert(ftype);
-//			var action = thelink.attr('rel');
 		jq.post( ajaxurl, {
 			action: 'addremove_friend',
 			'cookie': encodeURIComponent(document.cookie),
@@ -815,35 +873,41 @@ jq(document).ready( function() {
 			if ( action == 'add' ) {
 				jq(parentdiv).fadeOut(200,
 					function() {
-						parentdiv.removeClass('add_friend');
-//						parentdiv.removeClass('loading');
-						jq('#bfriendship input[type=button]').removeClass("loading");
-						parentdiv.addClass('pending');
-						parentdiv.fadeIn(200).html(response);
-						jq('#bfriendship').slideUp();			
+						jq('#bfriendship').hide();
 						jq('#amico').attr("checked", "checked");
 						jq('#bfriendship .buttonset').buttonset("refresh");
+						jq('#bfriendship input[type=button]').removeClass("loading");
+						jq('#footer').append(jq('#bfriendship'));
+						parentdiv.removeClass('add_friend');
+						parentdiv.addClass('pending');
+						parentdiv.fadeIn(200).html(response);
+									
+						
 					}
 				);
 
 			} else if ( action == 'remove' ) {
 				jq(parentdiv).fadeOut(200,
 					function() {
-						parentdiv.removeClass('remove_friend');
-//						parentdiv.removeClass('loading');
-						jq('#bfriendship input[type=button]').removeClass("loading");
-						parentdiv.addClass('add');
-						parentdiv.fadeIn(200).html(response);
 						jq('#bfriendship').slideUp();
 						jq('#amico').attr("checked", "checked");
 						jq('#bfriendship .buttonset').buttonset("refresh");
+						jq('#bfriendship input[type=button]').removeClass("loading");
+						jq('#footer').append(jq('#bfriendship'));
+						parentdiv.removeClass('remove_friend');
+						parentdiv.removeClass('loading');
+						
+						parentdiv.addClass('add');
+						parentdiv.fadeIn(200).html(response);
+						
 					}
 				);
 			}
 		}); 
-		
 		return false;
-	} );
+	} 
+		}
+	);
 
 	/** Group Join / Leave Buttons **************************************/
 
