@@ -26,6 +26,7 @@ Template Name: Home Page B2B
 
 include_once('it_IT.php');
 include_once('en_EG.php');
+include_once('de_DE.php');
 
 $lang = array();
 
@@ -33,9 +34,11 @@ $lang = array();
 	//if($translations[ICL_LANGUAGE_CODE]=="en")
 	//if ($_GET[lang]=="en") 	
 	//if($lang['code']=="en")
-	if (ICL_LANGUAGE_CODE==en) 
+	if (ICL_LANGUAGE_CODE=="en") 
 		$lang=$lang_EG;
-	else
+	else if (ICL_LANGUAGE_CODE=="de")
+		$lang=$lang_DE;
+	else 
 		$lang=$lang_IT;
 		
 
@@ -84,16 +87,16 @@ get_header();
 				
 				<div class="mh_struttura">
 					<div class="mh_contenitore">
-						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big"><?php echo $lang[0]; ?></span></a>
-						<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big"><?php echo $lang[1]; ?></span></a>
+						<a href="attivita" class="mh_link button"><span class="mh_attivita_big mh_big"><?php echo $lang['Attivita'] ?></span></a>
+						<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big"><?php echo $lang['Messaggi']; ?></span></a>
 				 	</div>				
 					<div class="mh_separatore"></div>
 					<div class="mh_contenitore">
-						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big"><?php echo $lang[2]; ?></span></a>
-						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big"><?php echo $lang[3]; ?></span></a>
+						<a href="reviews" class="mh_link button"><span class="mh_review_big mh_big"><?php echo $lang['Recensioni']; ?></span></a>
+						<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big"><?php echo $lang['Offerte']; ?></span></a>
 					</div>	
 				</div>
-		<script>function alert_offerte(){window.alert("<?php echo $lang[4]; ?>")};</script>
+		<script>function alert_offerte(){window.alert("<?php echo $lang['Manca poco']; ?>")};</script>
 <?php 
 
 
@@ -147,9 +150,9 @@ get_header();
  				<div style="width:100%; margin:10px auto; clear: both;display: inline-block;">
 					<div>
 						<div>
-							<h2 style="border-bottom: 2px solid #057022;"><?php echo $lang[5]; ?></h2>
+							<h2 style="border-bottom: 2px solid #057022;"><?php echo $lang['Che cosa siamo?']; ?></h2>
 						</div>
-						<?php echo $lang[6]; ?>
+						<?php echo $lang['Chi Siamo']; ?>
 					</div>
 				</div>
 <?php 

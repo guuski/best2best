@@ -31,6 +31,9 @@ class BP_better_friendship {
 		
 		add_action( 'wp_ajax_addremove_friend',array( $this, 'bpbf_friends_friendship_requested') );
 		
+		add_action( 'wp_ajax_accept_friendship', array( $this,'bpbf_dtheme_ajax_accept_friendship' ));
+		
+		
 // 		add_action( 'wp_ajax_members_filter', array( $this, 'filter_ajax_requests' ), 1 );
 
 	}
@@ -45,7 +48,10 @@ class BP_better_friendship {
 	
 	function setup() {
 		global $bp;
-		
+		$version = '20120110';
+		wp_dequeue_script( 'dtheme-ajax-js');
+		// Enqueue the global JS - Ajax will not work without it
+		wp_enqueue_script( 'dtheme-ajax-js', get_stylesheet_directory_uri() . '/_inc/global.js', array( 'jquery' ), $version );
 		// Temporary backpat for 1.2
 		if ( function_exists( 'bp_is_current_component' ) ) {
 			$is_members = bp_is_current_component( 'members' );
@@ -59,8 +65,14 @@ class BP_better_friendship {
 	
 	function friendship_panel() {
 		?>
-		<span id="bfriendship" style="text-align:left; display:none; position: absolute;right: 2px;top: 22px;width: 280px;border: 1px solid #ccc; z-index:100; background: #FFFFFF; padding: 5px">
-			<h5 class="bfriendtitle" style="text-align: left; border-bottom: 1px dashed grey; width: 95%; margin-bottom:5px; padding-bottom:5px"><?php _e("Specifica la tipologia di rapporto")?></h5>
+		<style>.ui-button-text-only .ui-button-text {padding: 0px 6px !important; }
+	div.item-list-tabs ul.bpbd-search-terms li a,ul.bpbd-search-terms  div.item-list-tabs ul.bpbd-search-terms li span {display: inline !important; }
+	div.item-list-tabs ul li:first-child {margin-left: 5px !important;}
+</style>
+		<span id="bfriendship" 
+		style="text-align:left; display:none; font-size:12px; position: absolute;width: 280px;border: 1px solid #ccc; z-index:100; background: #FFFFFF; padding: 5px">
+			<h5 class="bfriendtitle" style="text-align: left; border-bottom: 1px dashed grey; width: 95%; margin-bottom:5px; padding-bottom:5px">
+				<?php _e("Aggiungi al tuo Network come:")?></h5>
 			<span class="buttonset">
 				<input class="bfriendradio" value="collega" name="ftype" id="collega" type="radio" style="margin: 4px 0;vertical-align: middle;"><label for="collega"><?php _e('Collega', 'bpbf'); ?></label> 
 				<input class="bfriendradio" value="fornitore" name="ftype" id="fornitore" type="radio" style="margin: 4px 0;vertical-align: middle;"><label for="fornitore"><?php _e('Fornitore', 'bpbf'); ?></label>
@@ -85,14 +97,16 @@ class BP_better_friendship {
 			return;
 	
 		if ( 'not_friends' == BP_Friends_Friendship::check_is_friend( $bp->loggedin_user->id, $_POST['fid'] ) ) {
-			$now="";
+			$now=array();
 			$author=$bp->loggedin_user->id;
+			
 			$now= unserialize(get_user_meta($author, "friendship_level",true));
 			$ftype=$_POST['ftype'];
 				
 			$dest=$_POST['fid'];
-			$now=$now.$dest."=".$ftype;
-			error_log("gbp.".$now);
+			$now[$dest]=$ftype;
+			
+// 			error_log("gbp.".print_r($now,true));
 				
 			check_ajax_referer('friends_add_friend');
 			if(!update_user_meta($author, "friendship_level", serialize($now))) {
@@ -102,6 +116,30 @@ class BP_better_friendship {
 
 		return true;
 	}
+	
+	/* AJAX accept a user as a friend when clicking the "accept" button */
+	function bpbf_dtheme_ajax_accept_friendship() {
+		global $bp;
+		// Bail if not a POST action
+		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+			return;
+	
+		$now=array();
+		$author=$bp->loggedin_user->id;
+		
+		$now= unserialize(get_user_meta($author, "friendship_level",true));
+		$ftype=$_POST['ftype'];
+			
+		$dest=$_POST['id'];
+		$now[$dest]=$ftype;
+		
+ 		error_log("gbp.".print_r($now,true));
+		if(!update_user_meta($author, "friendship_level", serialize($now))) {
+			error_log("errore durante aggiornamento usermeta");
+		}
+		return true;
+	}
+	
 	
 }
 
