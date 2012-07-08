@@ -87,7 +87,7 @@ function load_my_textdomain()
 	{
 		$can_write=false;
 		 
-		if(is_user_logged_in()&&!bp_is_my_profile()
+		if(is_user_logged_in() &&!bp_is_my_profile()
 			//	&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
 			)
 			$can_write=true;
@@ -104,7 +104,8 @@ function load_my_textdomain()
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-add_action( 'bp_member_header_actions'	, 'add_review_button',1);				
+add_action( 'bp_member_header_actions'	, 'add_review_button',1);	
+		
 
 /**	 
  * 	
@@ -118,7 +119,7 @@ function add_review_button()
 		<div class = "add-reviews" >
 		<a
 		class = "add-reviews button"
-		title = "Scrivi una Review per l\'utente."
+		title = "'.__('Add Review','reviews').'"
 		href="'.bp_get_displayed_user_link().'review/screen-two#user-activity"								 
 		>
 		'.__('Add Review','reviews').'
@@ -126,7 +127,22 @@ function add_review_button()
 		</div>';
 	}
 }
-
+function add_list_review_button()
+{ 
+	global $members_template;
+	if(is_user_logged_in()  && $members_template->member->id != bp_loggedin_user_id())
+	{		
+		$write_rev_href= bp_core_get_user_domain($members_template->member->id);
+		echo '
+		<div class = "add-reviews" style="float:right; background: url(/wp-content/plugins/bp-review/includes/img/alt_star.gif) right center no-repeat;">
+		<a
+		class = "add-reviews button"
+		title = "'.__('Add Review','reviews').'"
+		href="'.$write_rev_href.'review/screen-two#user-activity"
+		></a>
+		</div>';
+	}
+}
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -228,73 +244,6 @@ function show_comments()
 */	
 }
 
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-// ---> SPOSTA in bp-review-loader
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-/*
-add_action( 'show_user_profile', 'my_show_extra_profile_fields' );
-add_action( 'edit_user_profile', 'my_show_extra_profile_fields' );
-
-function my_show_extra_profile_fields( $user ) { 
-
-	//$num_review_ricevute = get_post_meta( $user->ID, 'num_review_ricevute', true );
-	//$media_voto_review 	 = get_post_meta( $user->ID, 'media_voto_review', true );	
-?>
-
-	<h3>Extra profile information</h3>
-	
-	
-
-	<table class="form-table">
-
-		<tr>
-			<th><label for="num_review_ricevute"> NUM Review Ricevute</label></th>
-
-			<td>
-				<input type="text" name="num_review_ricevute" id="num_review_ricevute" value="<?php echo esc_attr( get_the_author_meta( 'num_review_ricevute', $user->ID ) ); ?>" class="regular-text" /><br />
-				<span class="description">inserisci num_review_ricevute</span>
-			</td>
-		</tr>
-		
-		<tr>
-			<th><label for="media_voto_review">Media Voto Review</label></th>
-
-			<td>
-				<input type="text" name="media_voto_review" id="media_voto_review" value="<?php echo esc_attr( get_the_author_meta( 'media_voto_review', $user->ID ) ); ?>" class="regular-text" /><br />
-				<span class="description">inserisci Media Voto Review</span>
-			</td>
-		</tr>
-		
-
-
-	</table>
-<?php }
-*/
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-// ---> SPOSTA in bp-review-loader
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-/*
-add_action( 'personal_options_update', 'my_save_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
-
-function my_save_extra_profile_fields( $user_id ) {
-
-	if ( !current_user_can( 'edit_user', $user_id ) )
-		return false;
-
-		
-	if ( isset( $_POST['media_voto_review'] ) ) 		
-		update_usermeta( $user_id, 'media_voto_review', strip_tags($_POST['media_voto_review']));		//striptags
-		
-	if ( isset( $_POST['num_review_ricevute'] ) ) 		
-		update_usermeta( $user_id, 'num_review_ricevute', strip_tags($_POST['num_review_ricevute']));		//striptags
-}
-*/
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'bp_before_member_header_meta'	, 'show_points',1);
 
 
@@ -312,13 +261,6 @@ function show_points()
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-
-//add_action( 'bp_review_data_after_save', $this );
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -355,7 +297,7 @@ function move_member_points() {
 
 add_action( 'bp_directory_members_item'	, 'show_points_members_directory',1);
 add_action("bp_after_members_loop","move_member_points");
-
+add_action( 'bp_directory_members_actions'	, 'add_list_review_button',100);
 
 
 ?>

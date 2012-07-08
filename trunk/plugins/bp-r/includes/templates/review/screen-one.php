@@ -39,10 +39,6 @@
 	</div>
 
 	
-<!----------------------------------------------------------- LISTA 2 - Reviews scritte per l'utente del profilo -------------------------------------------------------->	
-
-	
-<!-- IF 1/2-->																				<!-- va bene sta CONDIZIONE?!-->		
 
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
@@ -112,7 +108,7 @@
 	<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
 	
 		<small style = "float: right;"><strong>
-					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($authorlogin).$authorlogin?>">
+					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($autore_review_id)?>">
 					<?php //the_author_meta('user_nicename');?>
 					<?php echo $nome; ?>	</a></strong></small>
 
