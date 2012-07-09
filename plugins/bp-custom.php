@@ -64,7 +64,7 @@ add_action('bp_after_register_page', 'manageOptionalFieldsRegistrationJS' );
 //rimuove il logo dalla buddybar
 function removeWlogo() {
 		//echo "<script>jQuery(document).ready(function() {jQuery('#wp-admin-bar-root-default li:first-child').hide();});</script>";
-		echo "<style>#wp-admin-bar-wp-logo{display:none;}</style>";
+		echo "<style>#wp-admin-bar-wp-logo{display:none;} a.logout{display:none;} div#sidebar div#sidebar-me {margin-bottom: 0px;}</style>";
 		if ( !is_user_logged_in() ){
 			echo "<style>#search-form{display: none;} </style>";
 		
@@ -120,7 +120,7 @@ function nuovo_user_meta($user) {
     <h3>Campi aggiuntivi</h3>
         <table class="form-table">
 		   <tbody><tr>
-				<th scope="row">Ghost Account?<?php print_r($profilo)?></th>
+				<th scope="row">Ghost Account?</th>
 				<td><label for="user_is_ghost"><input name="user_is_ghost" type="checkbox" id="user_is_ghost" value="true" <?php echo esc_attr( get_the_author_meta( 'user_is_ghost', $user->ID ) )=='true'?"checked=checked":"" ; ?> /> <?php _e('Ghost Account')?></label></td>
 			</tr>
 			</tbody>
@@ -152,7 +152,8 @@ add_action( 'bp_before_member_header_meta'	, 'show_ghost_info',1);
 
 function show_ghost_info() {
 	if(get_the_author_meta('user_is_ghost',bp_displayed_user_id())=='true') {?>
-	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p><?php _e('Attenzione, questo account non è stato verificato. Contattaci se sei tu il proprietario','buddypress'); 
+	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p>
+	<?php _e('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;">&#67;&#111;&#110;&#116;&#97;&#116;&#116;&#97;&#99;&#105;</a> se sei tu il proprietario','buddypress'); 
 	?></p></div>
 	<?php 
 	}	
@@ -172,19 +173,12 @@ function prova() {
 }
 add_action('bp_after_activity_post_form', 'echo_commercial');
 add_action ( 'bp_after_header', 'echo_commercial_2', 0 );
-function echo_commercial() 
-{
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (ICL_LANGUAGE_CODE==en) 
-		echo "<div class='commercial'>The network for your commercial connections</div>";
-	else
-		echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-		
+function echo_commercial() {
+	echo "<div class='commercial'>".__('Il network utile per i tuoi contatti commerciali','custom')."</div>";
 }
 function echo_commercial_2() {
 	if(!is_user_logged_in() && is_front_page() ) {
-		echo "<div class='commercial'>Il network utile per i tuoi contatti commerciali</div>";
+		echo "<div class='commercial'>".__('Il network utile per i tuoi contatti commerciali','custom')."</div>";
 	}
 }
 add_action('wp_before_admin_bar_render', 'menu_fix'); 
@@ -229,7 +223,7 @@ function addUserNotFoundRequest() {
 	<strong><?php _e( "Non hai trovato il profilo che cercavi e vorresti crearlo? Invia un messaggio all'amministratore e ci penseremo noi per te.", 'buddypress' );?></strong>
 	<form action="<?php echo bp_core_get_user_domain( $bp->loggedin_user->id )?>messages/compose/?r=admin" method="post">
 		<input type="hidden" name="subject" value="<?php _e("Creazione nuovo profilo","buddypress")?>" >
-		<input type="hidden" name="content" value="<?php echo sprintf( __('Vorrei creare il nuovo profilo per %s','buddypress'),$_GET['s']); ?>" >
+		<input type="hidden" name="content" value="<?php echo sprintf( __('Vorrei creare il nuovo profilo per %s','buddypress'),isset($_GET['s'])?$_GET['s']:""); ?>" >
 		<input type="hidden" name="pagefrom" value="usernotfound" />
 		<input type="submit" value="<?php _e("Invia richiesta","buddypress")?>" />
 	</form>
@@ -248,4 +242,18 @@ function addCorrectFocus() {
 		<?php 
 	}
 }
+
+//add_action ("bp_members_directory_member_sub_types","addMemberSubTypes");
+
+function addMemberSubTypes() { ?> 
+<li id="members-personal" class="current"><a onclick ="jQuery('#members_search').val('fornitore');" id="fornitori-all" href="http://localhost/adesioni/fornitori">Fornitori</a></li>
+<?php
+}
+
+add_filter('bp_get_user_firstname', 'fullnameDisplay',10,2);
+function fullnameDisplay($val, $fullname)
+{
+	return implode(" ",$fullname);
+}
+
 ?>
