@@ -120,8 +120,8 @@ function nuovo_user_meta($user) {
     <h3>Campi aggiuntivi</h3>
         <table class="form-table">
 		   <tbody><tr>
-				<th scope="row">Ghost Account?</th>
-				<td><label for="user_is_ghost"><input name="user_is_ghost" type="checkbox" id="user_is_ghost" value="true" <?php echo esc_attr( get_the_author_meta( 'user_is_ghost', $user->ID ) )=='true'?"checked=checked":"" ; ?> /> <?php _e('Ghost Account')?></label></td>
+				<th scope="row"><?php _e('Ghost Account','custom');?>?</th>
+				<td><label for="user_is_ghost"><input name="user_is_ghost" type="checkbox" id="user_is_ghost" value="true" <?php echo esc_attr( get_the_author_meta( 'user_is_ghost', $user->ID ) )=='true'?"checked=checked":"" ; ?> /> <?php _e('Ghost Account','custom')?></label></td>
 			</tr>
 			</tbody>
 		</table>
@@ -153,7 +153,7 @@ add_action( 'bp_before_member_header_meta'	, 'show_ghost_info',1);
 function show_ghost_info() {
 	if(get_the_author_meta('user_is_ghost',bp_displayed_user_id())=='true') {?>
 	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p>
-	<?php _e('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;">&#67;&#111;&#110;&#116;&#97;&#116;&#116;&#97;&#99;&#105;</a> se sei tu il proprietario','buddypress'); 
+	<?php _e('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali d’accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom'); 
 	?></p></div>
 	<?php 
 	}	
@@ -192,12 +192,18 @@ function menu_fix() {
 add_action("wp_footer", "hide_menu_non_logged");
 function hide_menu_non_logged(){
 	if(is_user_logged_in()) {
-		echo "<style>div.nav-wrap{display: none;}</style>";
+		echo "<style>div.nav-wrap{display: none;} li.new_member, #activity-stream li.new_member:nth-child(odd){background-color:#EFE;}</style>";
 	}	
 }
 
 //nuovo menu
-
+function wpml_get_home_url(){
+	if(function_exists('icl_get_home_url')){
+		return icl_get_home_url();
+	}else{
+		return rtrim(get_bloginfo('url') , '/') . '/';
+	}
+}
 function display_menu() {
 	global $user_ID;
 	global $bp;
@@ -205,13 +211,15 @@ function display_menu() {
 	if(!is_front_page() && is_user_logged_in()) : ?>
 <div class="mh_struttura">
 	<div class="mh_contenitore">
-		<a href="/attivita" class="mh_link button"><span class="mh_attivita_big mh_big">Attivit&agrave;</span></a>
-		<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big">Messaggi</span></a>
-		<a href="/reviews" class="mh_link button"><span class="mh_review_big mh_big">Recensioni</span></a>
-		<a href="#" onclick="alert_offerte(); this.blur(); return false;" class="mh_link button"><span class="mh_offerte_big mh_big">Offerte</span></a>
+		<a href="<?php echo wpml_get_home_url()?>attivita" class="mh_link button"><span class="mh_attivita_big mh_big"><?php _e('Attivit&agrave;','custom')?></span></a>
+		<a href="<?php echo bp_loggedin_user_domain() ?>messages" class="mh_link button"><span class="mh_messaggi_big mh_big"><?php _e('Messaggi','custom')?></span></a>
+		<a href="/reviews" class="mh_link button"><span class="mh_review_big mh_big"><?php _e('Reviews','reviews')?></span></a>
+		<a href="#" onclick="alert_offerte(); this.blur();" class="mh_link button"><span class="mh_offerte_big mh_big"><?php _e('Offerte','custom')?></span></a>
 	</div>	
 </div>
-<script>function alert_offerte(){window.alert("Manca poco, stiamo implementando una nuova funzionalita' che vi permettera' di realizzare una vetrina dei vostri prodotti e servizi. \n\nContinuate a sostenerci. \n - Lo staff.")};</script>
+<script>function alert_offerte(){
+		window.alert("<?php _e("Manca poco, stiamo implementando una nuova funzionalita' che vi permettera' di realizzare una vetrina dei vostri prodotti e servizi. \\n\\nContinuate a sostenerci. \\n - Lo staff.",'custom'); ?>");
+		};</script>
 	<?php endif;
 }
 
@@ -220,12 +228,12 @@ add_action ("bp_search_login_bar","display_menu");
 function addUserNotFoundRequest() {
 	global $bp;
 	if(is_user_logged_in()) :?><hr />
-	<strong><?php _e( "Non hai trovato il profilo che cercavi e vorresti crearlo? Invia un messaggio all'amministratore e ci penseremo noi per te.", 'buddypress' );?></strong>
+	<strong><?php _e( "Non hai trovato il profilo che cercavi e vorresti crearlo? Invia un messaggio all'amministratore e ci penseremo noi per te.", 'custom' );?></strong>
 	<form action="<?php echo bp_core_get_user_domain( $bp->loggedin_user->id )?>messages/compose/?r=admin" method="post">
 		<input type="hidden" name="subject" value="<?php _e("Creazione nuovo profilo","buddypress")?>" >
-		<input type="hidden" name="content" value="<?php echo sprintf( __('Vorrei creare il nuovo profilo per %s','buddypress'),isset($_GET['s'])?$_GET['s']:""); ?>" >
+		<input type="hidden" name="content" value="<?php echo sprintf( __('Vorrei creare il nuovo profilo per %s','custom'),isset($_GET['s'])?$_GET['s']:""); ?>" >
 		<input type="hidden" name="pagefrom" value="usernotfound" />
-		<input type="submit" value="<?php _e("Invia richiesta","buddypress")?>" />
+		<input type="submit" value="<?php _e("Invia richiesta","custom")?>" />
 	</form>
 	<?php 
 	endif;
@@ -256,4 +264,11 @@ function fullnameDisplay($val, $fullname)
 	return implode(" ",$fullname);
 }
 
+// wp_enqueue_script( 'bp-jquery-autocomplete', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.autocomplete.js', array( 'jquery' ), '20110723' );
+// wp_enqueue_script( 'bp-jquery-autocomplete-fb','/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.autocompletefb.js', array(), '20110723' );
+// wp_enqueue_style( 'bp-messages-autocomplete', '/wp-content/plugins/buddypress/bp-messages/css/autocomplete/jquery.autocompletefb.css', array(), '20110723' );
+// wp_enqueue_script( 'bp-jquery-bgiframe', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.bgiframe.js', array(), '20110723' );
+// wp_enqueue_script( 'bp-jquery-dimensions', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.dimensions.js', array(), '20110723' );
+
+	
 ?>
