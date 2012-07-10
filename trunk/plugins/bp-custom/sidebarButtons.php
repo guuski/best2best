@@ -90,25 +90,57 @@ class sidebarButtons_Widget extends WP_Widget
 		
 ?>
 
-<style>a.smallbutton {
-padding: 0 0px;
-line-height: 20px;
-width: 48%;
-}</style>
-<div style="border-bottom: 1px solid #000; margin-bottom: 5px; height: 65px; width: 210px; margin-left: -10px; font-size: 12px">
+<style>
+<!--
+a.smallbutton {	padding: 0 0px;	line-height: 20px; width: 48%; }
+.review-autoc .friend-tab {display:none;}
+input.loading,input.loading:hover  {background-position: 85% 50%;}
+-->
+</style>
+
+<div style=" height: 92px; width: 210px; margin-left: -10px; font-size: 12px">
 	
 	<hr style="border: 0; border-top: 1px solid; margin: 5px 0;" />
 
-	<a class="button smallbutton" style="float: left; font-size: 12px;" href="/gruppi"><?php _e('Gruppi','custom')?></a> 
+	<a class="button smallbutton" style="float: left; font-size: 12px;" href="<?php echo wpml_get_home_url()?>gruppi"><?php _e('Gruppi','custom')?></a> 
 	<a class="button smallbutton" style="float: right; font-size: 12px;" href="<?php bp_members_directory_permalink()?>"><?php _e('Adesioni','custom')?></a>
 	
 	<a class="button smallbutton" style="float: left; font-size: 12px;" href="<?=$vR_link?>friends"><?php _e('Mio Network','custom')?></a>
 
 	<a class="button smallbutton" style="float: right; font-size: 12px;" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
 
-	
+	<div class = "add-reviews" style="margin-top:0; width:210px;">
+		<a style="height: 16px;line-height: 16px;display:inline-block;width:172px; font-size: 12px;" class="add-reviews button" title="Scrivi una recensione" onclick="jQuery('.review-autoc').fadeToggle()"><?php _e('Add Review','reviews')?></a>
+	</div>
+</div>
+<div style="margin-bottom: 5px; border-bottom: 1px solid #000; width: 210px; margin-left: -10px; font-size: 12px">
+
+<ul class="first acfb-holder review-autoc" style="display:none">
+<li><h6 style="margin-top:0"><?php _e('Cerca una attivit&agrave; che vuoi recensire:','custom');?></h6></li>
+		<li >
+			<input type="text" name="send-to-input" class="send-to-input" id="send-to-input" style="width:205px" />
+		</li>
+	</ul>
 </div>
 
+<script>jQuery(document).ready(function(){
+			var myac= jQuery("ul.review-autoc").autoCompletefb({urlLookup:'<?php echo site_url( 'wp-load.php' ) ?>'});
+			
+			jQuery(".send-to-input",myac.params.ul).result(function(e,d,f){
+				e.stopPropagation();
+				var f = ".friend-tab".replace(/\./,'');
+				var d = String(d).split(' (');
+				var un = d[1].substr(0, d[1].length-1);
+				var ln = '#link-' + un;
+				var l = jQuery(ln).attr('href');
+				console.info(l);
+				console.info(d);
+				location.href=l+'review/screen-two#user-activity';
+				jQuery(".send-to-input",myac.params.ul).addClass('loading');
+				 
+				});
+		});
+		</script>
 <?php
 	//scan only	
 	__('Attivit&agrave;','custom');
