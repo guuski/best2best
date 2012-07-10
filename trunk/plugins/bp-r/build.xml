@@ -6,7 +6,7 @@
   <property name="src" location="."/>
   <property name="build" location="build"/>
   <property name="dist"  location="/var/www/wp-content/plugins"/>
-  <property name="plugin_dir" location="/bp-r"/>
+  <property name="plugin_dir" location="/bp-review"/>
   
   <target name="init">
     <!-- Create the time stamp -->
@@ -18,7 +18,7 @@
     <!-- Create the distribution directory -->
     <mkdir dir="${dist}/${plugin_dir}"/>
     <copy todir="${dist}/${plugin_dir}">
-      <fileset dir="${src}" excludes="**/*.svn"/>
+      <fileset dir="${src}" excludes="**/*.svn build.xml"/>
     </copy>
     <chmod file="${dist}/${plugin_dir}/**" perm="g+w" type="both"/>
   </target>
