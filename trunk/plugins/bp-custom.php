@@ -130,7 +130,7 @@ function nuovo_user_meta($user) {
 // Aggiungiamo la nostra funzione all'amministrazione di Wordpress
 // in questo "semplice" caso, la funzione "mostra" (show_user_profile)
 // e quella di "modifica" (edit_user_profile) coincidono, ma in casi
-// piÃ¹ articolati potrebbero essere differenti
+// più articolati potrebbero essere differenti
 add_action( 'show_user_profile', 'nuovo_user_meta' );
 add_action( 'edit_user_profile', 'nuovo_user_meta' );
 // Memorizza, per l'utente $user_id, un nuovo campo identificato come
@@ -153,7 +153,7 @@ add_action( 'bp_before_member_header_meta'	, 'show_ghost_info',1);
 function show_ghost_info() {
 	if(get_the_author_meta('user_is_ghost',bp_displayed_user_id())=='true') {?>
 	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p>
-	<?php _e('Attenzione, questo account non Ã¨ stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali dâ€™accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom'); 
+	<?php _e('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali d’accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom'); 
 	?></p></div>
 	<?php 
 	}	
@@ -161,12 +161,17 @@ function show_ghost_info() {
 
 
 add_filter( 'avatar_defaults', 'newgravatar' );
-
+add_filter( 'bp_core_default_avatar_user', 'newgravatar2', 10,2 );
 function newgravatar ($avatar_defaults) {
 	$myavatar = get_stylesheet_directory_uri() . '/images/Best2Best2H_gravatar.png';
 	$avatar_defaults[$myavatar] = "Best2Best avatar";
 	return $avatar_defaults;
 }
+function newgravatar2 ($avatar_defaults, $params) {
+	$myavatar = get_stylesheet_directory_uri() . '/images/Best2Best2H_gravatar.png';
+	return $myavatar;
+}
+
 // add_action('bp_activity_syndication_options', 'show_group_list');
 function prova() {
 	//echo "lista miei gruppi";
@@ -270,5 +275,17 @@ function fullnameDisplay($val, $fullname)
 // wp_enqueue_script( 'bp-jquery-bgiframe', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.bgiframe.js', array(), '20110723' );
 // wp_enqueue_script( 'bp-jquery-dimensions', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.dimensions.js', array(), '20110723' );
 
-	
+	add_filter('bp_get_displayed_user_avatar', 'fixAvatar',10,1);
+function fixAvatar($avimg) {
+	$fix = str_replace('width=""', "", $avimg);
+	$fix = str_replace('height=""', "", $fix);
+	return $fix;
+}
+
+add_filter('bp_core_fetch_avatar_no_grav', 'fixGRAvatar',10,1);
+function fixGRAvatar($no_grav) {
+	return true;
+}
+
+
 ?>
