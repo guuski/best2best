@@ -410,8 +410,7 @@ else
 			?>
 															
 				<h2 class="posttitle"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php _e( 'Permanent Link to', 'buddypress' ) ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-				<ul id="prezzo" class='star-rating'>	
-				<li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>			
+				<ul class='star-rating'><li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>			
 			</ul></h2>
 
 
@@ -421,7 +420,24 @@ else
 				<!-- ENTRY -->
 				<div class="entry">
 					<?php //the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
-					<?php the_excerpt()  ?>
+					<?php $length= 200; { // Outputs an excerpt of variable length (in characters)
+// 		global $post;
+		$text = $post->post_exerpt;
+		if ( '' == $text ) {
+			$text = get_the_content('');
+			$text = apply_filters('the_content', $text);
+			$text = str_replace(']]>', ']]>', $text);
+		}
+			$text = strip_shortcodes( $text ); // optional, recommended
+			$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
+
+			$output = strlen($text);
+			
+			$text = substr($text,0,$length).' <span class="read_more"><a href="'. get_permalink($post->ID) . '" class="read_more_link" >[...]</a></span>';
+			
+
+		echo apply_filters('the_excerpt',$text);
+	}  ?>
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 				</div>
 			
@@ -453,39 +469,9 @@ else
 				<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
 				<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
 			</p>
-<!--
-			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
-			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
--->			
+	
 		</div>		
-<!--					
-		
-		<br/> 		
-			
-		<div id="new-review-rating">	
-		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
-				<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
-			</ul>
-			</div>		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
-			</ul>
-			</div>	
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
-				<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
-			</ul>
-			</div>		
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
-			</ul>
-			</div>	
-			<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
-				<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
-			</ul>
-			</div>										  
-		</div>		
--->		
+	
 		<!-- fine sezione RATING -->		
 		
 					
