@@ -137,14 +137,14 @@ do_action( 'bp_review_data_before_save', $this );
 
 		if ( $this->id ) 			
 		{					
-			$review_title = "titolo vuoto";
-			$review_title = sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) );
+// 			$review_title = "titolo vuoto";
+// 			$review_title = sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) );
 			
 			$wp_update_post_args = array
 			(
 					'ID'			=> $this->id
 				,	'post_author'	=> $this->reviewer_id
-				,	'post_title'	=> $review_title 				
+				,	'post_title'	=> wp_strip_all_tags($review_title) 				
 				//'post_title'	=> sprintf( __( 'Review di %1$s per %2$s', 'reviews' ), bp_core_get_user_displayname( $this->reviewer_id ), bp_core_get_user_displayname( $this->recipient_id ) )
 				,	'post_content'  => $review_content				
 			);
@@ -174,7 +174,7 @@ do_action( 'bp_review_data_before_save', $this );
 					'post_status'	=> 'publish'
 				,	'post_type'		=> 'review'										//post_type
 				,   'post_author'	=> $this->reviewer_id
-				,	'post_title'	=> $review_title
+				,	'post_title'	=> wp_strip_all_tags($review_title)
 				,	'post_content'  => $review_content				
 			);
 		
@@ -225,7 +225,7 @@ do_action( 'bp_review_data_before_save', $this );
 					
 	//-------------------aggiorna MEDIA
 	
-	//è la prima volta?
+	//ï¿½ la prima volta?
 	if(	$num_review_ricevute == 0) 
 	{	
 		$media_voto_review = $media_voti_rating;
