@@ -1,19 +1,18 @@
 <?php
-//--------------------------------------------------------- SCREEN 3 - Le mie Review (quelle Scritte da me) -----------------------------------------------------------------------------------------
-?>
-
-<!-- HEADER -->
-<?php get_header() ?>
+//--------------------------------------------------------------- SCREEN 2 --> Scrivi Review-----------------------------------------------------------------------------------------
+get_header() ?>
 
 	<!-- CONTENT -->
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder" style="background: #EAEAEA;  padding: 19px 19px 0;">
+		<div class="padder" style="padding:19px 0 0 0;" >
 
-			<div id="item-header">
+			<div id="item-header" style="padding:19px 0 0 0;">
+			
 				<!-- buddypress MEMBER HEADER -->
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->
+				
 			</div>
 
 			<div id="item-nav">
@@ -30,7 +29,7 @@
 	<div id="main-column">
 <!------------------------------------------>				
 	
-<div id="item-body">									
+<div id="item-body">											
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 	
