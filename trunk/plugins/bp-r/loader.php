@@ -254,7 +254,7 @@ function show_points()
 	if($points != '') {
 		?>
 		<div id="new-review-rating" style="border: 1px solid #CCC;display: inline-block;">		
-		<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
+		<div class="rating-container"><span class="rating-title" style="width:auto;"><?php _e( 'Punteggio medio utente', 'reviews' ); ?></span> <ul class='star-rating'>	
 			<li class='current-rating' style="width: <?php echo 25*$points;?>px"></li></ul>
 		</div>	</div>
 		<?php 

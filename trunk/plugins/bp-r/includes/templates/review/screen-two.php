@@ -6,9 +6,9 @@ get_header() ?>
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder" style="background: #EAEAEA;  padding: 19px 19px 0;">
+		<div class="padder" style="padding:19px 0 0 0;" >
 
-			<div id="item-header">
+			<div id="item-header" style="padding:19px 0 0 0;">
 			
 				<!-- buddypress MEMBER HEADER -->
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->
@@ -93,10 +93,6 @@ get_header() ?>
 				?></textarea>
 			</div>
 
-<br/>	
-<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Comm. ', 'reviews' ); ?>
-	<input type="text" name ="datepicker" id="datepicker" maxlength="12" size="12" style="width:auto;"> 
-</label>		
 <br />
 <div id="new-review-tipologia">		
 	<label for = "review-tipologia-rapporto"> <?php _e( 'Tipologia Rapporto Commerciale ', 'reviews' ); ?></label>	
@@ -106,10 +102,6 @@ get_header() ?>
 	</fieldset>			
 </div>
 
-<br/>	
-
-
-<br/>	
 <br/>	
 
 <div id="new-review-consigliato">		
@@ -124,8 +116,7 @@ get_header() ?>
 <!--------------------------------------------- sezione RATING ------------------------------------->
 		<div id="new-review-rating">			
 					
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> 
-				<ul id="prezzo" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span><ul id="prezzo" class='star-rating'>	
 					<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
 					<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
 					<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
@@ -135,7 +126,7 @@ get_header() ?>
 				</ul><input type="hidden" name="prezzo" value="<?php echo $prezzo?>" />
 			</div>		
 			
-			<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>	
+			<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span><ul id="servizio" class='star-rating'>	
 				<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>			
 				<li><a href="#" onclick="return vote(1, this);" title='1 / 5' class='one-star'>1</a></li>
 				<li><a href="#" onclick="return vote(2, this);" title='2 / 5' class='two-stars'>2</a></li>
@@ -174,15 +165,19 @@ get_header() ?>
 			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
 					  
 		</div>	<!-- fine sezione RATING -->			
-
+<br/>	
+<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
+	<input type="text" name ="datepicker" id="datepicker" maxlength="12" size="12" style="width:auto;"> 
+</label>		
+		
 <br />
 <div id="radio-toolbar">
 				<label for = "review-giudizio"><?php _e('Giudizio Complessivo Review', "reviews" )?> </label>	
 				<br /> 
 				<fieldset name = "review-giudizio" id = "review-giudizio">
-					<input type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
-					<input type="radio" name="giudizio_review" id="neutro"   value="neutro"  />     <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
-					<input type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
+					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
+					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="neutro"   value="neutro"  /> <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
+					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
 				</fieldset>			
 			</div>
 		<br />

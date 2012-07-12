@@ -14,6 +14,13 @@ class sidebarButtons_Widget extends WP_Widget
 		
 		$control_ops = array( 'width' => 300, 'height' => 350 );
 		
+		wp_enqueue_script( 'bp-jquery-autocomplete', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.autocomplete.js', array( 'jquery' ), '20110723' );
+		wp_enqueue_script( 'bp-jquery-autocomplete-fb','/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.autocompletefb.js', array(), '20110723' );
+		wp_enqueue_style( 'bp-messages-autocomplete', '/wp-content/plugins/buddypress/bp-messages/css/autocomplete/jquery.autocompletefb.css', array(), '20110723' );
+		wp_enqueue_script( 'bp-jquery-bgiframe', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.bgiframe.js', array(), '20110723' );
+		wp_enqueue_script( 'bp-jquery-dimensions', '/wp-content/plugins/buddypress/bp-messages/js/autocomplete/jquery.dimensions.js', array(), '20110723' );
+		
+		
 		parent::WP_Widget($id_base, $name, $widget_options, $control_ops);
 	}
 	
@@ -98,10 +105,7 @@ input.loading,input.loading:hover  {background-position: 85% 50%;}
 -->
 </style>
 
-<div style=" height: 92px; width: 210px; margin-left: -10px; font-size: 12px">
-	
-	<hr style="border: 0; border-top: 1px solid; margin: 5px 0;" />
-
+<div style=" height: 90px; width: 210px; margin: 5px 0 0 -10px; font-size: 12px; border: 0; border-top: 1px solid black; padding-top: 5px;">
 	<a class="button smallbutton" style="float: left; font-size: 12px;" href="<?php echo wpml_get_home_url()?>gruppi"><?php _e('Gruppi','custom')?></a> 
 	<a class="button smallbutton" style="float: right; font-size: 12px;" href="<?php bp_members_directory_permalink()?>"><?php _e('Adesioni','custom')?></a>
 	
@@ -109,11 +113,11 @@ input.loading,input.loading:hover  {background-position: 85% 50%;}
 
 	<a class="button smallbutton" style="float: right; font-size: 12px;" href="<?=$vR_link?>groups"><?php _e('Miei Gruppi','custom')?></a>
 
-	<div class = "add-reviews" style="margin-top:0; width:210px;">
-		<a style="height: 16px;line-height: 16px;display:inline-block;width:172px; font-size: 12px;" class="add-reviews button" title="Scrivi una recensione" onclick="jQuery('.review-autoc').fadeToggle()"><?php _e('Add Review','reviews')?></a>
+	<div class = "add-reviews" style="margin-top:0; width:210px;height: 22px; position:relative; ">
+		<a style="height: 14px;line-height: 14px;display:block;width:172px; font-size: 12px; background-color:none;" class="add-reviews button" title="Scrivi una recensione" onclick="jQuery('.review-autoc').fadeToggle()"><?php _e('Add Review','reviews')?></a>
 	</div>
 </div>
-<div style="margin-bottom: 5px; border-bottom: 1px solid #000; width: 210px; margin-left: -10px; font-size: 12px">
+<div style="margin-bottom: 5px; border-bottom: 1px solid #000; width: 210px; margin-left: -10px; font-size: 12px; position:relative; display: block;">
 
 <ul class="first acfb-holder review-autoc" style="display:none">
 <li><h6 style="margin-top:0"><?php _e('Cerca una attivit&agrave; che vuoi recensire:','custom');?></h6></li>
@@ -133,8 +137,6 @@ input.loading,input.loading:hover  {background-position: 85% 50%;}
 				var un = d[1].substr(0, d[1].length-1);
 				var ln = '#link-' + un;
 				var l = jQuery(ln).attr('href');
-				console.info(l);
-				console.info(d);
 				location.href=l+'review/screen-two#user-activity';
 				jQuery(".send-to-input",myac.params.ul).addClass('loading');
 				 

@@ -6,9 +6,9 @@
 	<div id="content">
 	
 		<!-- PADDER -->
-		<div class="padder" style="background: #EAEAEA;  padding: 19px 19px 0;">
+		<div class="padder" style="padding:19px 0 0 0;" >
 
-			<div id="item-header">
+			<div id="item-header" style="padding:19px 0 0 0;">
 				<!-- buddypress MEMBER HEADER -->
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->
 			</div>
