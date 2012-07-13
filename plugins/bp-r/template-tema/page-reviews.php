@@ -164,9 +164,9 @@ if(
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'
-		
+																						//NAVIGATION 1/3
 		,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
-		,	'paged' => get_query_var('paged')
+		,	'paged' 			=> get_query_var('paged')
 		
 		
 		, 	'order'				=> $asc_desc			//MET 2		
@@ -194,9 +194,21 @@ if(
 	$loop = new WP_Query($query_args);						
 } 
 else 
-{		
+{	
+
+	
+	$query_args_alt = array
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'
+																						//NAVIGATION 3/3
+		,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
+		,	'paged' 			=> get_query_var('paged')
+		
+	);
+	
 	//lancia la QUERY!	
-	$loop = new WP_Query('post_type=review');		//e post_status?!
+	$loop = new WP_Query($query_args_alt);											
 
 }//end IF Request - FORM inviato			
 ?>
@@ -510,8 +522,7 @@ else
 		<?php if (($wp_query->current_post + 1) < ($wp_query->post_count)) 	
 				echo '<div class="post-item-divider"><hr/></div>';	?>
 
-
-		
+							
 		<!-- DO-ACTION -->
 		<?php do_action( 'bp_after_blog_post' ) ?>
 
@@ -519,13 +530,14 @@ else
 	<?php endwhile; ?>
 	
 
-<!-- PAGINATION --->
+<!-- PAGINATION --->																										<!-- NAVIGATION 3/3 -->
 	
-
-	
-	
-	
-<!-- fine PAGINATION --->
+	<div class="navigation">
+		<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
+		<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
+	</div>
+		
+<!-- fine PAGINATION --->		
 	
 	<!------------------------------------------>
 	<?php bp_dtheme_content_nav( 'nav-below' ); ?>
