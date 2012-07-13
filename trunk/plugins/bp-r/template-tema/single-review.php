@@ -186,10 +186,9 @@ if ( !empty( $bp->loggedin_user->id ) )
 <!-- fine FORM per COMMENTI -->			
 
 					
-					
-<!-- NAVIGATION -->					
 	<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
 	
+<!-- NAVIGATION -->			
 	<?php if(function_exists('wp_pagenavi')) 
 	{ 
 		wp_pagenavi(); 
@@ -209,6 +208,12 @@ if ( !empty( $bp->loggedin_user->id ) )
 	
 	
 <!-- fine NAVIGATION -->	
+
+
+
+
+
+
 
 </div>
 
