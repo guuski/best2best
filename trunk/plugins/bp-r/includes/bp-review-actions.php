@@ -191,4 +191,42 @@ function salva()
 //[OSS] - se stacco l'action funziona lo stesso secondo me!
 add_action( 'bp_actions', 'salva' );
 
+
+
+
+
+/**
+ *
+ *
+ *
+ */
+ /*
+function show_all_reviews() 
+{
+	global $bp;
+	
+	//
+	if ( isset( $_POST['review-show-all-reviews'] ) && bp_is_active( 'review' ) ) 	
+	{		
+		// [WPNONCE]
+		check_admin_referer( 'bp_review_show_all_reviews' );			
+		
+		//recupera i valori inviati dal FORM
+		$content  			= $_POST['  '];				
+		
+			
+		// fa il REDIRECT
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() .		 '/my-reviews' );			
+		
+		//[ALT] - ma non può reindirizzarti alla scheda 'my-reviews' mi sa!
+			//bp_core_redirect(wp_get_referer()); 																	
+	}	
+}
+
+//[OSS] - se stacco l'action funziona lo stesso secondo me!
+add_action( 'bp_actions', 'show_all_reviews' );
+
+
+*/
+
 ?>
