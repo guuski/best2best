@@ -1,0 +1,383 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-07-05 10:11:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: includes/bp-referral-actions.php:34
+#@ referrals
+msgid "Richiesta REFERRAL inviata correttamente"
+msgstr "Richiesta referenze inviata correttamente"
+
+#: includes/bp-referral-actions.php:39
+#@ referrals
+msgid "Richiesta REFERRAL non inviato --> ERRORE!"
+msgstr "Errore durante la richiesta referenze. Contattare lo staff."
+
+#: includes/bp-referral-actions.php:75
+#@ referrals
+msgid "Indica la tipologia del rapporto commerciale"
+msgstr ""
+
+#: includes/bp-referral-actions.php:82
+#@ referrals
+msgid "Indica anzianita del rapporto commerciale"
+msgstr ""
+
+#: includes/bp-referral-actions.php:89
+#@ referrals
+msgid "Raccomanderesti questo utente?"
+msgstr ""
+
+#: includes/bp-referral-actions.php:116
+#@ referrals
+msgid "referral accettato e pubblicatoID POST: "
+msgstr "referral accettato e pubblicato ID POST: "
+
+#: includes/bp-referral-actions.php:120
+#@ referrals
+msgid "errore accettazione referral \t"
+msgstr "errore accettazione referenza \\\t"
+
+#: includes/bp-referral-actions.php:195
+#@ referrals
+msgid "referral rifiutato e cestinatoID POST: "
+msgstr "Referenza rifiutata e cestinata ID POST: "
+
+#: includes/bp-referral-actions.php:200
+#@ referrals
+msgid "errore rifiuto referral "
+msgstr "errore rifiuto referenza, contattare lo staff "
+
+#: includes/bp-referral-functions.php:52
+#, php-format
+#@ referrals
+msgid "%s ha richiesto un Referral a %s!"
+msgstr "%s ha richiesto una referenza a %s!"
+
+#: includes/bp-referral-functions.php:103
+#, php-format
+#@ referrals
+msgid "%s ha accettato la richiesta di Referral di %s!"
+msgstr "%s ha accettato la richiesta di referenza di %s!"
+
+#: includes/bp-referral-functions.php:150
+#, php-format
+#@ referrals
+msgid "%s ha rifiutato la richiesta di Referral di %s!"
+msgstr "%s ha rifiutato la richiesta di referenza di %s!"
+
+#: includes/bp-referral-functions.php:172
+#, php-format
+#@ referrals
+msgid "Richiesta referral da parte di %1$s a %2$s"
+msgstr "Richiesta referenza da parte di %1$s a %2$s"
+
+#: includes/bp-referral-loader.php:21
+#: includes/bp-referral-loader.php:99
+#: includes/bp-referral-loader.php:256
+#@ referrals
+msgid "Referral"
+msgstr "Referenze"
+
+#: includes/bp-referral-loader.php:82
+#@ buddypress
+msgid "Search Examples..."
+msgstr ""
+
+#: includes/bp-referral-loader.php:116
+#@ referrals
+msgid "Referral confermati da me"
+msgstr "Referenze confermate da me"
+
+#: includes/bp-referral-loader.php:121
+#, php-format
+#@ referrals
+msgid "Referral confermati da %s"
+msgstr "Referenze confermate da %s"
+
+#: includes/bp-referral-loader.php:144
+#@ referrals
+msgid "Chiedi un Referral"
+msgstr "Chiedi una referenza"
+
+#: includes/bp-referral-loader.php:165
+#@ referrals
+msgid "Referral richieste da me"
+msgstr "Referenze richieste da me"
+
+#: includes/bp-referral-loader.php:170
+#, php-format
+#@ referrals
+msgid "I Referral richiesti da %s"
+msgstr "Le referenze richieste da %s"
+
+#: includes/bp-referral-loader.php:190
+#@ referrals
+msgid "Richieste Referral da acc o rifiut"
+msgstr "Richieste referenze da confermare"
+
+#: includes/bp-referral-loader.php:196
+#, php-format
+#@ referrals
+msgid "Richieste Referral da acc o rifiut di %s"
+msgstr "Richieste referenze da confermare di %s"
+
+#: includes/bp-referral-loader.php:223
+#@ referrals
+msgid "Le mie Referral"
+msgstr "Le mie Referenze"
+
+#: includes/bp-referral-loader.php:228
+#, php-format
+#@ referrals
+msgid "I Referral di %s"
+msgstr "Le referenze di %s"
+
+#: includes/bp-referral-loader.php:255
+#: includes/bp-referral-loader.php:261
+#: includes/bp-referral-notifications.php:98
+#@ referrals
+msgid "Referrals"
+msgstr "Referenze"
+
+#: includes/bp-referral-notifications.php:48
+#, php-format
+#@ referrals
+msgid "%d new rihieste referral "
+msgstr "%d nuove richieste di referenze "
+
+#: includes/bp-referral-notifications.php:53
+#, php-format
+#@ referrals
+msgid "%s ti ha mandato una richiesta Referral"
+msgstr "%s ti ha mandato una richiesta di referenza"
+
+#: includes/bp-referral-notifications.php:66
+#, php-format
+#@ referrals
+msgid "%d referral accettati"
+msgstr "%d referenze accettate"
+
+#: includes/bp-referral-notifications.php:71
+#, php-format
+#@ referrals
+msgid "%s ha accettato la tua richiesta di Referral"
+msgstr "%s ha accettato la tua richiesta di referenza"
+
+#: includes/bp-referral-notifications.php:83
+#, php-format
+#@ referrals
+msgid "%d referral non accettati"
+msgstr "%d referenze non accettate"
+
+#: includes/bp-referral-notifications.php:88
+#, php-format
+#@ referrals
+msgid "%s ha rifiutato la tua richiesta di Referral"
+msgstr "%s ha rifiutato la tua richiesta di referenza"
+
+#: includes/templates/example/-----Copia di screen-four.php:47
+#: includes/templates/example/screen-four.php:47
+#@ referrals
+msgid "Le Referrals da MODERARE "
+msgstr "Le referenze da moderare"
+
+#: includes/templates/example/-----Copia di screen-four.php:86
+#: includes/templates/example/screen-four.php:86
+#: includes/templates/example/screen-three.php:77
+#@ default
+msgid "inviato a: "
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:105
+#: includes/templates/example/screen-four.php:167
+#@ referrals
+msgid "Accetta"
+msgstr "Accetta"
+
+#: includes/templates/example/-----Copia di screen-four.php:123
+#: includes/templates/example/screen-four.php:185
+#@ referrals
+msgid "Rifiuta"
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:145
+#: includes/templates/example/screen-four.php:207
+#: includes/templates/example/screen-three.php:92
+#@ referrals
+msgid " no referral "
+msgstr "Ancora nessuna referenza"
+
+#: includes/templates/example/example-loop.php:77
+#@ buddypress
+msgid "There were no high-fives found."
+msgstr ""
+
+#: includes/templates/example/index.php:22
+#@ bp-example
+msgid "High Fives Directory"
+msgstr ""
+
+#: includes/templates/example/index.php:30
+#, php-format
+#@ buddypress
+msgid "All High Fives <span>%s</span>"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:47
+#@ referrals
+msgid "Le mie Referrals"
+msgstr "Le mie referenze"
+
+#: includes/templates/example/screen-five.php:109
+#@ referrals
+msgid "Tipologia Rapporto"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:113
+#@ referrals
+msgid "Anzianità Rapporto"
+msgstr "Anzianit&agrave; Rapporto"
+
+#: includes/templates/example/screen-five.php:117
+#@ referrals
+msgid "Utente Consigliato"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:121
+#@ referrals
+msgid "Giudizio Complessivo"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:132
+#@ referrals
+msgid "le tue richieste REFERRAL non sono state ancore accettate (controlla richieste pendenti nella TAB: REFERRAL RICHIESTE DA ME) o non hai ancora chiesto nessun REFERRAL"
+msgstr "le tue richieste di referenze non sono state ancore accettate o non hai ancora chiesto nessuna referenza"
+
+#: includes/templates/example/screen-four.php:111
+#@ referrals
+msgid "Tipologia Rapporto Commerciale "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:113
+#@ referrals
+msgid "Una Tantum "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:114
+#@ referrals
+msgid "Continuativo"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:122
+#@ referrals
+msgid "Anzianita Rapporto Commerciale "
+msgstr "Anzianit&agrave; Rapporto Commerciale"
+
+#: includes/templates/example/screen-four.php:124
+#@ referrals
+msgid "Nuovo"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:125
+#@ referrals
+msgid "> 1 anno"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:126
+#@ referrals
+msgid "> 5 anni"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:134
+#@ referrals
+msgid "Lo raccomanderesti?"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:136
+#@ referrals
+msgid "Si"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:137
+#@ referrals
+msgid "No"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:138
+#@ referrals
+msgid "Non so"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:150
+#@ referrals
+msgid "Giudizio "
+msgstr ""
+
+#: includes/templates/example/screen-one.php:47
+#@ referrals
+msgid "Richieste REFERRAL ricevute e ACCETTATE (pubblicate) "
+msgstr "Richieste di referenze ricevute e accettate "
+
+#: includes/templates/example/screen-one.php:86
+#@ default
+msgid "Autore richiesta REF (ovvero Dest. REF): "
+msgstr ""
+
+#: includes/templates/example/screen-one.php:96
+#@ referrals
+msgid "no referrals!"
+msgstr "Ancora nessuna referenza."
+
+#: includes/templates/example/screen-six.php:47
+#@ referrals
+msgid "METADATI Referral"
+msgstr "metadati referenze"
+
+#: includes/templates/example/screen-three.php:47
+#@ referrals
+msgid " Le  Referrals richieste da me (stato PENDING: il destinatario deve ancora decidere se ACCETTARLE O RIFIUTARLE)"
+msgstr "Le referenze richieste da me, il destinatario deve ancora confermarle."
+
+#: includes/templates/example/screen-two.php:90
+#@ referrals
+msgid "Invia"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:26
+#@ bp-example
+msgid "Welcome to Screen One"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:29
+#, php-format
+#@ bp-example
+msgid "Send %s a <a href=\"%s\" title=\"Send high-five!\">high-five!</a>"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:32
+#@ bp-example
+msgid "Received High Fives!"
+msgstr ""
+
+#: loader.php:113
+#@ referrals
+msgid "Add Referral"
+msgstr "Chiedi Referenza"
+
