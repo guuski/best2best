@@ -53,6 +53,10 @@
 				'post_status'		=> 'publish'
 			,	'post_type'			=> 'review'				//'review'
 			,	'meta_query'		=> array()				//META_QUERY!
+			
+																									//PAGINATION 1/2
+			,	'posts_per_page'	=> 5																				//,	'posts_per_page'	=> -1
+			,	'paged' 			=> get_query_var('paged')			
 		);
 
 		$query_args['meta_query'][] = array					//META_QUERY!
@@ -178,6 +182,42 @@
 			<hr />
 					
 		<?php endwhile; ?>
+		
+		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
+			<!--	
+				<div class="navigation">
+					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
+					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
+				</div>
+			-->
+
+			<?php		
+
+			$total_pages = $loop->max_num_pages;  	//loop
+						
+			  
+			if ($total_pages > 1)
+			{  
+			  
+				$current_page = max(1, get_query_var('paged'));  
+					
+				 echo '<div class="page_nav">';  
+					
+				 echo paginate_links(array
+					(  
+					  'base' 		=> get_pagenum_link(1) . '%_%',  
+					  'format' 		=> '/page/%#%',  
+					  'current' 	=> $current_page,  
+					  'total' 		=> $total_pages,  
+					  'prev_text' 	=> 'Prev',  
+					  'next_text' 	=> 'Next'  
+					)
+				);  
+				  
+				echo '</div>';      
+			}  	
+			?>	
+			<!-- fine PAGINATION --->		
 		
 	<?php else: ?>		
 		
