@@ -52,9 +52,9 @@
 		(
 				'post_status'		=> 'publish'
 			,	'post_type'			=> 'review'				//'review'
-//			,	'meta_query'		=> array()				//META_QUERY!
+			,	'meta_query'		=> array()				//META_QUERY!
 																		
-			,	'posts_per_page'	=> 5																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
+			,	'posts_per_page'	=> 3																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
 			,	'paged' 			=> get_query_var('paged')			
 		);
 
