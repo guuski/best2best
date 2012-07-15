@@ -58,10 +58,16 @@ get_header() ?>
 
 			
 																									//PAGINATION 1/2
-			,	'posts_per_page'	=> 5																				//,	'posts_per_page'	=> -1
-			,	'paged' 			=> get_query_var('paged')						
+			,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
+//			,	'paged' 			=> get_query_var('paged')						
 		);
 		
+		
+
+		//DEBUG
+		//print_r( $query_args);
+
+			
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);			
 	?>
@@ -180,14 +186,14 @@ get_header() ?>
 		
 		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
 			
-				<!-- <div class="navigation">-->
+				 <div class="navigation">
 					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
 					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
-				<!-- </div>-->
+				</div>
 			
 
 			<?php		
-
+/*
 			$total_pages = $loop->max_num_pages;  	//loop
 			  
 			if ($total_pages > 1)
@@ -210,7 +216,9 @@ get_header() ?>
 				  
 				echo '</div>';      
 			}  	
+*/			
 			?>	
+			
 			<!-- fine PAGINATION --->			
 			
 	<?php else: ?>		
