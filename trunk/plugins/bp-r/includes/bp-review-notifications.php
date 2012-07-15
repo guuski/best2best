@@ -209,6 +209,9 @@ function bp_review_screen_notification_settings()
 	  *		// send the email notification.
       */
 
+	  
+	  
+/*	  
 	?>
 	<table class="notification-settings" id="bp-review-notification-settings">
 
@@ -240,6 +243,7 @@ function bp_review_screen_notification_settings()
 		</tbody>
 	</table>
 <?php
+*/
 }
 add_action( 'bp_notification_settings', 'bp_review_screen_notification_settings' );
 

@@ -180,7 +180,7 @@ function bp_review_screen_one_title()
 {
 	//_e( 'Screen One', 'reviews' );
 	
-	_e( 'SLA LA LA LA LA e', 'reviews' );
+	//_e( 'SLA LA LA LA LA e', 'reviews' );
 }
 
 function bp_review_screen_one_content() 
