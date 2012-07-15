@@ -1,0 +1,424 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bp-referral v0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-07-15 17:31:09+0000\n"
+"Last-Translator: admin <giambap@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: includes/bp-referral-actions.php:40
+#@ referrals
+msgid "Richiesta REFERRAL inviata correttamente"
+msgstr ""
+
+#: includes/bp-referral-actions.php:44
+#@ referrals
+msgid "Richiesta REFERRAL non inviata --> ERRORE!"
+msgstr ""
+
+#: includes/bp-referral-actions.php:87
+#@ referrals
+msgid "Indica la tipologia del rapporto commerciale"
+msgstr ""
+
+#: includes/bp-referral-actions.php:94
+#@ referrals
+msgid "Indica anzianita del rapporto commerciale"
+msgstr ""
+
+#: includes/bp-referral-actions.php:101
+#@ referrals
+msgid "Raccomanderesti questo utente?"
+msgstr ""
+
+#: includes/bp-referral-actions.php:108
+#@ referrals
+msgid "Assegna un voto complessivo per l utente"
+msgstr ""
+
+#: includes/bp-referral-actions.php:141
+#@ referrals
+msgid "Referral pubblicato"
+msgstr ""
+
+#: includes/bp-referral-actions.php:145
+#@ referrals
+msgid "errore accettazione referral (notifica e activity non inviate)"
+msgstr ""
+
+#: includes/bp-referral-actions.php:229
+#@ referrals
+msgid "referral rifiutato e cestinatoID POST: "
+msgstr ""
+
+#: includes/bp-referral-actions.php:233
+#@ referrals
+msgid "errore rifiuto referral (notifica e activity non inviate)"
+msgstr ""
+
+#: includes/bp-referral-functions.php:189
+#, php-format
+#@ referrals
+msgid "%s ha richiesto un Referral a %s!"
+msgstr ""
+
+#: includes/bp-referral-functions.php:221
+#, php-format
+#@ referrals
+msgid "REFERRAL %1$s - %2$s"
+msgstr ""
+
+#: includes/bp-referral-functions.php:264
+#, php-format
+#@ referrals
+msgid "%s ha accettato la richiesta di Referral di %s!"
+msgstr ""
+
+#: includes/bp-referral-functions.php:315
+#, php-format
+#@ referrals
+msgid "%s ha rifiutato la richiesta di Referral di %s!"
+msgstr ""
+
+#: includes/bp-referral-functions.php:334
+#, php-format
+#@ referrals
+msgid "Richiesta REFERRAL %2$s - %1$s"
+msgstr ""
+
+#: includes/bp-referral-loader.php:21
+#: includes/bp-referral-loader.php:100
+#: includes/bp-referral-loader.php:301
+#@ referrals
+msgid "Referral"
+msgstr ""
+
+#: includes/bp-referral-loader.php:122
+#@ referrals
+msgid "Referral confermati da me"
+msgstr ""
+
+#: includes/bp-referral-loader.php:128
+#, php-format
+#@ referrals
+msgid "Referral confermati da %s"
+msgstr ""
+
+#: includes/bp-referral-loader.php:159
+#: includes/bp-referral-loader.php:178
+#@ referrals
+msgid "Chiedi un Referral"
+msgstr ""
+
+#: includes/bp-referral-loader.php:201
+#@ referrals
+msgid "Referral chiesti da me"
+msgstr ""
+
+#: includes/bp-referral-loader.php:207
+#, php-format
+#@ referrals
+msgid "I Referral richiesti da %s"
+msgstr ""
+
+#: includes/bp-referral-loader.php:235
+#@ referrals
+msgid "Referral da Moderare"
+msgstr ""
+
+#: includes/bp-referral-loader.php:241
+#, php-format
+#@ referrals
+msgid "Richieste Referral da Moderare di %s"
+msgstr ""
+
+#: includes/bp-referral-loader.php:268
+#@ referrals
+msgid "I miei Referral"
+msgstr ""
+
+#: includes/bp-referral-loader.php:273
+#, php-format
+#@ referrals
+msgid "I Referral di %s"
+msgstr ""
+
+#: includes/bp-referral-loader.php:300
+#: includes/bp-referral-loader.php:306
+#: includes/bp-referral-notifications.php:255
+#@ referrals
+msgid "Referrals"
+msgstr ""
+
+#: includes/bp-referral-notifications.php:147
+#, php-format
+#@ referrals
+msgid "%d new rihieste referral "
+msgstr ""
+
+#: includes/bp-referral-notifications.php:152
+#, php-format
+#@ referrals
+msgid "%s ti ha mandato una richiesta Referral"
+msgstr ""
+
+#: includes/bp-referral-notifications.php:187
+#, php-format
+#@ referrals
+msgid "%d richieste referral accettate"
+msgstr ""
+
+#: includes/bp-referral-notifications.php:192
+#, php-format
+#@ referrals
+msgid "%s ha accettato la tua richiesta di Referral"
+msgstr ""
+
+#: includes/bp-referral-notifications.php:231
+#, php-format
+#@ referrals
+msgid "%d richieste referral rifiutate"
+msgstr ""
+
+#: includes/bp-referral-notifications.php:236
+#, php-format
+#@ referrals
+msgid "%s ha rifiutato la tua richiesta di Referral"
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:47
+#@ referrals
+msgid "Le Referrals da MODERARE "
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:86
+#@ default
+msgid "inviato a: "
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:105
+#: includes/templates/example/screen-four.php:224
+#@ referrals
+msgid "Accetta"
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:123
+#: includes/templates/example/screen-four.php:241
+#@ referrals
+msgid "Rifiuta"
+msgstr ""
+
+#: includes/templates/example/-----Copia di screen-four.php:145
+#@ referrals
+msgid " no referral "
+msgstr ""
+
+#: includes/templates/example/example-loop.php:77
+#@ buddypress
+msgid "There were no high-fives found."
+msgstr ""
+
+#: includes/templates/example/index.php:22
+#@ bp-example
+msgid "High Fives Directory"
+msgstr ""
+
+#: includes/templates/example/index.php:30
+#, php-format
+#@ buddypress
+msgid "All High Fives <span>%s</span>"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:98
+#@ default
+msgid "ricevuto da: "
+msgstr ""
+
+#: includes/templates/example/screen-five.php:124
+#@ referrals
+msgid "Tipologia Rapporto"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:126
+#@ referrals
+msgid "Anzianit&agrave; Rapporto"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:128
+#@ referrals
+msgid "Utente Consigliato"
+msgstr ""
+
+#: includes/templates/example/screen-five.php:130
+#@ referrals
+msgid "Giudizio: "
+msgstr ""
+
+#: includes/templates/example/screen-five.php:143
+#@ referrals
+msgid "L'utente non ha ricevuto alcun REFERRAL ancora"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:86
+#@ referrals
+msgid "REFERRAL per: "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:134
+#, php-format
+#@ referrals
+msgid ""
+"Egr. %s,\n"
+"\n"
+"mi piacerebbe avere la tua referenza per il rapporto commerciale intercorso tra le nostre aziende\n"
+"\n"
+"Cordiali saluti,\n"
+"%s\n"
+"\n"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:171
+#@ referrals
+msgid "Tipologia Rapporto Commerciale "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:173
+#@ referrals
+msgid "Una Tantum "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:174
+#@ referrals
+msgid "Continuativo"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:182
+#@ referrals
+msgid "Anzianit&agrave Rapporto Commerciale "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:184
+#@ referrals
+msgid "Nuovo"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:185
+#@ referrals
+msgid "> 1 anno"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:186
+#@ referrals
+msgid "> 5 anni"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:194
+#@ referrals
+msgid "Lo raccomanderesti?"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:196
+#@ referrals
+msgid "Si"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:197
+#@ referrals
+msgid "No"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:198
+#@ referrals
+msgid "Non so"
+msgstr ""
+
+#: includes/templates/example/screen-four.php:208
+#@ referrals
+msgid "Giudizio "
+msgstr ""
+
+#: includes/templates/example/screen-four.php:260
+#@ referrals
+msgid " nessun Referral da moderare"
+msgstr ""
+
+#: includes/templates/example/screen-one.php:94
+#@ default
+msgid "Referral concesso a: "
+msgstr ""
+
+#: includes/templates/example/screen-six.php:45
+#@ referrals
+msgid "Puoi richiedere un REFERRAL ad un utente una volta sola"
+msgstr ""
+
+#: includes/templates/example/screen-six.php:48
+#@ referrals
+msgid "2 possibilit&agrave: TRASH o PENDING"
+msgstr ""
+
+#: includes/templates/example/screen-six.php:50
+#@ referrals
+msgid "- PENDING: la tua richiesta Referral si trova in moderazione e attende di essere confermata"
+msgstr ""
+
+#: includes/templates/example/screen-six.php:52
+#@ referrals
+msgid "- TRASH: la tua richiesta Referral &egrave stata rifiutata/cestinata dall utente a cui l'hai chiesta"
+msgstr ""
+
+#: includes/templates/example/screen-three.php:77
+#@ default
+msgid "inviata a: "
+msgstr ""
+
+#: includes/templates/example/screen-three.php:90
+#@ default
+msgid "Richiesta REFERRAL"
+msgstr ""
+
+#: includes/templates/example/screen-two.php:37
+#@ referrals
+msgid "Chiedi un Referral a"
+msgstr ""
+
+#: includes/templates/example/screen-two.php:94
+#@ referrals
+msgid "Invia"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:26
+#@ bp-example
+msgid "Welcome to Screen One"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:29
+#, php-format
+#@ bp-example
+msgid "Send %s a <a href=\"%s\" title=\"Send high-five!\">high-five!</a>"
+msgstr ""
+
+#: includes/templates/referral/screen-one.php:32
+#@ bp-example
+msgid "Received High Fives!"
+msgstr ""
+
+#: loader.php:96
+#: loader.php:116
+#@ referrals
+msgid "Add Referral"
+msgstr ""
+
