@@ -201,7 +201,7 @@ else
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'
-																						//NAVIGATION 3/3
+																						//PAGINATION 2/3
 		,	'posts_per_page'	=> 5																				//,	'posts_per_page'	=> -1
 		,	'paged' 			=> get_query_var('paged')
 		
@@ -515,7 +515,7 @@ else
 	<?php endwhile; ?>
 	
 
-<!-- PAGINATION --->																										<!-- NAVIGATION 3/3 -->
+<!-- PAGINATION --->																										<!-- PAGINATION 3/3 -->
 <!--	
 	<div class="navigation">
 		<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>

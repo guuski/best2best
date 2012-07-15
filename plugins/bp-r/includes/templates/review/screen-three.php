@@ -54,7 +54,12 @@ get_header() ?>
 		(
 				'post_status'		=> 'publish'
 			,	'post_type'			=> 'review'										//'review'
-			,   'author'			=> bp_displayed_user_id()											
+			,   'author'			=> bp_displayed_user_id()							
+
+			
+																									//PAGINATION 1/2
+			,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
+			,	'paged' 			=> get_query_var('paged')						
 		);
 		
 		//lancia la QUERY!
@@ -95,11 +100,11 @@ get_header() ?>
 			<!--CUSTOM FIELDS-->
 			<div>								
 				<?php 	
-					$prezzo = get_post_meta( $post->ID, 'voto_prezzo', true );		
-					$servizio = get_post_meta( $post->ID, 'voto_servizio', true );
-					$qualita = get_post_meta( $post->ID, 'voto_qualita', true );
-					$puntualita = get_post_meta( $post->ID, 'voto_puntualita', true );
-					$affidabilita = get_post_meta( $post->ID, 'voto_affidabilita', true );
+					$prezzo 		= get_post_meta( $post->ID, 'voto_prezzo', true );		
+					$servizio 		= get_post_meta( $post->ID, 'voto_servizio', true );
+					$qualita 		= get_post_meta( $post->ID, 'voto_qualita', true );
+					$puntualita 	= get_post_meta( $post->ID, 'voto_puntualita', true );
+					$affidabilita 	= get_post_meta( $post->ID, 'voto_affidabilita', true );
 		//---------------------------------------------------------------------------------------
 					
 					$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
@@ -172,6 +177,42 @@ get_header() ?>
 			<hr />
 			
 		<?php endwhile; ?>
+		
+		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
+			
+				<!-- <div class="navigation">-->
+					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
+					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
+				<!-- </div>-->
+			
+
+			<?php		
+
+			$total_pages = $loop->max_num_pages;  	//loop
+			  
+			if ($total_pages > 1)
+			{  
+			  
+				$current_page = max(1, get_query_var('paged'));  
+					
+				 echo '<div class="page_nav">';  
+					
+				 echo paginate_links(array
+					(  
+					  'base' 		=> get_pagenum_link(1) . '%_%',  
+					  'format' 		=> '/page/%#%',  
+					  'current' 	=> $current_page,  
+					  'total' 		=> $total_pages,  
+					  'prev_text' 	=> 'Prev',  
+					  'next_text' 	=> 'Next'  
+					)
+				);  
+				  
+				echo '</div>';      
+			}  	
+			?>	
+			<!-- fine PAGINATION --->			
+			
 	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
