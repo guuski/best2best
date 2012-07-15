@@ -48,29 +48,61 @@ get_header() ?>
 	<!-- MESSAGGIO  -->
 	<h4><?php //_e( 'Le Reviews scritta da me', 'reviews' ) ?></h4>
 		
-	<?php		
 	
-		$query_args = array
-		(
-				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'										//'review'
-			,   'author'			=> bp_displayed_user_id()							
 
-			
-																									//PAGINATION 1/2
-			,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
-//			,	'paged' 			=> get_query_var('paged')						
-		);
+
+<?php
+//---------------------------------------------
+if(		
+	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+  )
+
+{		
+
+	$query_args = array
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'										//'review'
+		,   'author'			=> bp_displayed_user_id()							
+
 		
+																								//PAGINATION 1/2
+		,	'posts_per_page'	=> -1																				//,	'posts_per_page'	=> -1
+//		,	'paged' 			=> get_query_var('paged')						
+	);
+	
+
+	//lancia la QUERY!
+	$loop = new WP_Query($query_args);						
+} 
+else 
+{	
+
+
+	$query_args = array
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'										//'review'
+		,   'author'			=> bp_displayed_user_id()							
+		
+																								//PAGINATION 1/2
+		,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
+//		,	'paged' 			=> get_query_var('paged')						
+	);
 		
 
-		//DEBUG
-		//print_r( $query_args);
+	//DEBUG
+	//print_r( $query_args);
 
-			
-		//lancia la QUERY!
-		$loop = new WP_Query($query_args);			
-	?>
+		
+	//lancia la QUERY!
+	$loop = new WP_Query($query_args);			
+	
+
+}//end IF Request - FORM inviato	
+?>			
+	
+	
 		
 	<!-- IF -->	
 	<?php if ( $loop->have_posts() ) : ?>	
@@ -185,13 +217,13 @@ get_header() ?>
 		<?php endwhile; ?>
 		
 		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
-			
+<!--			
 				 <div class="navigation">
 					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
 					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
 				</div>
 			
-
+-->
 			<?php		
 /*
 			$total_pages = $loop->max_num_pages;  	//loop
@@ -220,7 +252,37 @@ get_header() ?>
 			?>	
 			
 			<!-- fine PAGINATION --->			
+
 			
+<?php
+
+if(		
+	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+  )
+
+{					
+}
+else 
+{
+
+}
+?>
+
+
+<!--------------------------------------------------------------------FORM ----------------------------------------------------------->
+<form 
+	action = ""
+	method = "post" id="show-all-reviews-form" 
+	class  = "standard-form">							
+
+	<!-- bottone  -->	
+	<div >								
+		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
+	</div>	
+					
+</form>		
+<!------------------------------------------------------------------------------------------------------------------------------------------------->			
+
 	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
