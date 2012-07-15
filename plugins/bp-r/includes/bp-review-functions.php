@@ -230,6 +230,8 @@ add_action( 'delete_user', 'bp_review_remove_data', 1 );
 /**
  *
  */
+ 
+ /*
 function bp_review_accept_terms() 
 {
 	global $bp;
@@ -250,11 +252,13 @@ function bp_review_accept_terms()
 
 	return true;
 }
+*/
 
 /**
  *
  *
  */
+ /*
 function bp_review_reject_terms() 
 {
 	global $bp;
@@ -276,6 +280,7 @@ function bp_review_reject_terms()
 
 	return true;
 }
+*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	ma la usa?!?!		-------> pare di no!

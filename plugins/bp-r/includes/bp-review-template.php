@@ -128,7 +128,7 @@ function bp_review_pagination_count()
 	{
 		global $reviews_template;
 
-		$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'reviews' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
+		//$pagination_count = sprintf( __( 'Viewing page %1$s of %2$s', 'reviews' ), $reviews_template->query->query_vars['paged'], $reviews_template->query->max_num_pages );
 
 		return apply_filters( 'bp_review_get_pagination_count', $pagination_count );
 	}

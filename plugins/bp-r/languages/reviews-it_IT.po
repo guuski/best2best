@@ -1,0 +1,496 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bp-review v0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-07-15 17:07:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: includes/bp-review-actions.php:110
+#@ reviews
+msgid "Inserisci del testo"
+msgstr ""
+
+#: includes/bp-review-actions.php:118
+#@ reviews
+msgid "Assegna un giudizio alla review"
+msgstr ""
+
+#: includes/bp-review-actions.php:125
+#@ reviews
+msgid "Indica la data rapporto commerciale"
+msgstr ""
+
+#: includes/bp-review-actions.php:131
+#@ reviews
+msgid "Indica la tipologia del rapporto commerciale"
+msgstr ""
+
+#: includes/bp-review-actions.php:144
+#@ reviews
+msgid "Assegna tutti i voti"
+msgstr ""
+
+#: includes/bp-review-actions.php:175
+#@ reviews
+msgid "Review inviata correttamente"
+msgstr ""
+
+#: includes/bp-review-actions.php:180
+#@ reviews
+msgid "Review non inviata"
+msgstr ""
+
+#: includes/bp-review-functions.php:137
+#, php-format
+#@ reviews
+msgid "%s ha scritto una review per %s!"
+msgstr ""
+
+#: includes/bp-review-functions.php:243
+#, php-format
+#@ reviews
+msgid "%s accepted the really exciting terms and conditions!"
+msgstr ""
+
+#: includes/bp-review-functions.php:269
+#, php-format
+#@ reviews
+msgid "%s rejected the really exciting terms and conditions."
+msgstr ""
+
+#: includes/bp-review-loader.php:108
+#: includes/bp-review-loader.php:197
+#@ reviews
+msgid "Review"
+msgstr ""
+
+#: includes/bp-review-loader.php:179
+#@ buddypress
+msgid "Search Reviews..."
+msgstr ""
+
+#: includes/bp-review-loader.php:215
+#@ reviews
+msgid "Review ricevute"
+msgstr ""
+
+#: includes/bp-review-loader.php:221
+#, php-format
+#@ reviews
+msgid "Le Review per %s"
+msgstr ""
+
+#: includes/bp-review-loader.php:246
+#@ reviews
+msgid "Scrivi una Review"
+msgstr ""
+
+#: includes/bp-review-loader.php:266
+#@ reviews
+msgid "Review scritte da me"
+msgstr ""
+
+#: includes/bp-review-loader.php:272
+#, php-format
+#@ reviews
+msgid "Le Review scritte da %s"
+msgstr ""
+
+#: includes/bp-review-loader.php:295
+#@ reviews
+msgid "Review Settings"
+msgstr ""
+
+#: includes/bp-review-loader.php:314
+#: includes/bp-review-loader.php:321
+#@ reviews
+msgid "User Reviews"
+msgstr ""
+
+#: includes/bp-review-loader.php:315
+#@ reviews
+msgid "User Review"
+msgstr ""
+
+#: includes/bp-review-notifications.php:48
+#, php-format
+#@ reviews
+msgid "%d new reviews"
+msgstr ""
+
+#: includes/bp-review-notifications.php:53
+#: includes/bp-review-notifications.php:131
+#, php-format
+#@ reviews
+msgid "%s ti ha mandato una review"
+msgstr ""
+
+#: includes/bp-review-notifications.php:61
+#@ reviews
+msgid "Reviews"
+msgstr ""
+
+#: includes/bp-review-notifications.php:153
+#, php-format
+#@ reviews
+msgid ""
+"Gentil %s,\n"
+"\n"
+"%s ha inviato una recensione sulla tua attività tramite il network Best2Best \n"
+"\n"
+"clicca qui %s per scoprire cosa ha scritto sulla tua azienda\n"
+"\n"
+"---------------------\n"
+"\n"
+"http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile per i tuoi contatti commerciali.\n"
+"\n"
+msgstr ""
+
+#: includes/bp-review-notifications.php:218
+#@ reviews
+msgid "review"
+msgstr ""
+
+#: includes/bp-review-notifications.php:219
+#@ reviews
+msgid "Yes"
+msgstr ""
+
+#: includes/bp-review-notifications.php:220
+#: includes/templates/review/screen-two.php:111
+#@ reviews
+msgid "No"
+msgstr ""
+
+#: includes/bp-review-notifications.php:227
+#@ reviews
+msgid "Action One"
+msgstr ""
+
+#: includes/bp-review-notifications.php:233
+#@ reviews
+msgid "Action Two"
+msgstr ""
+
+#: includes/bp-review-screens.php:183
+#@ reviews
+msgid "SLA LA LA LA LA e"
+msgstr ""
+
+#: includes/bp-review-template.php:131
+#, php-format
+#@ reviews
+msgid "Viewing page %1$s of %2$s"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:122
+#: template-tema/page-reviews.php:405
+#: template-tema/single-review.php:46
+#@ default
+msgid "Autore: "
+msgstr ""
+
+#: includes/templates/review/screen-one.php:147
+#: includes/templates/review/screen-three.php:140
+#: template-tema/page-reviews.php:486
+#: template-tema/single-review.php:105
+#@ reviews
+msgid "Giudizio Review: "
+msgstr ""
+
+#: includes/templates/review/screen-one.php:150
+#: includes/templates/review/screen-three.php:143
+#: template-tema/single-review.php:108
+#@ reviews
+msgid "Data Inizio Rapporto: "
+msgstr ""
+
+#: includes/templates/review/screen-one.php:151
+#: includes/templates/review/screen-three.php:144
+#: template-tema/single-review.php:109
+#@ reviews
+msgid "Tipologia"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:158
+#: includes/templates/review/screen-three.php:152
+#: includes/templates/review/screen-two.php:119
+#: template-tema/single-review.php:115
+#@ reviews
+msgid "Prezzo"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:162
+#: includes/templates/review/screen-three.php:156
+#: includes/templates/review/screen-two.php:129
+#: template-tema/single-review.php:118
+#@ reviews
+msgid "Servizio"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:166
+#: includes/templates/review/screen-three.php:160
+#: includes/templates/review/screen-two.php:138
+#: template-tema/single-review.php:121
+#@ reviews
+msgid "Qualit&agrave;"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:170
+#: includes/templates/review/screen-three.php:164
+#: includes/templates/review/screen-two.php:147
+#: template-tema/single-review.php:124
+#@ reviews
+msgid "Puntualit&agrave;"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:174
+#: includes/templates/review/screen-three.php:168
+#: includes/templates/review/screen-two.php:156
+#: template-tema/single-review.php:127
+#@ reviews
+msgid "Affidabilit&agrave;"
+msgstr ""
+
+#: includes/templates/review/screen-one.php:250
+#: includes/templates/review/screen-one.php:260
+#@ reviews
+msgid "nessuna Review per quest'utente!"
+msgstr ""
+
+#: includes/templates/review/screen-three.php:89
+#@ default
+msgid "Recensione su: "
+msgstr ""
+
+#: includes/templates/review/screen-three.php:227
+#@ reviews
+msgid "L' utente non ha scritto nessuna Review "
+msgstr ""
+
+#: includes/templates/review/screen-two.php:80
+#@ reviews
+msgid "Titolo Review"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:84
+#@ reviews
+msgid "Inserisci un titolo..."
+msgstr ""
+
+#: includes/templates/review/screen-two.php:90
+#@ reviews
+msgid "Testo"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:98
+#@ reviews
+msgid "Tipologia Rapporto Commerciale "
+msgstr ""
+
+#: includes/templates/review/screen-two.php:100
+#@ reviews
+msgid "Una Tantum "
+msgstr ""
+
+#: includes/templates/review/screen-two.php:101
+#@ reviews
+msgid "Continuativo"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:108
+#@ reviews
+msgid "Lo raccomanderesti?"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:110
+#@ reviews
+msgid "Si"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:112
+#@ reviews
+msgid "Non so"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:169
+#@ reviews
+msgid "Data Inizio Rapporto Commerciale "
+msgstr ""
+
+#: includes/templates/review/screen-two.php:175
+#@ reviews
+msgid "Giudizio Complessivo Review"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:178
+#@ reviews
+msgid "Positiva"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:179
+#@ reviews
+msgid "Neutra"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:180
+#@ reviews
+msgid "Negativa"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:185
+#@ reviews
+msgid "Disclaimer, Termini e Condizioni"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:187
+#@ reviews
+msgid "Accetto"
+msgstr ""
+
+#: includes/templates/review/screen-two.php:196
+#: includes/templates/review/screen-two.php:197
+#: includes/templates/review/screen-two.php:198
+#@ reviews
+msgid "Invia"
+msgstr ""
+
+#: loader.php:122
+#: loader.php:125
+#: loader.php:140
+#@ reviews
+msgid "Add Review"
+msgstr ""
+
+#: loader.php:257
+#: template-tema/single-review.php:139
+#@ reviews
+msgid "Punteggio medio utente"
+msgstr ""
+
+#: template-tema/archive-review.php:24
+#, php-format
+#@ buddypress
+msgctxt "Post written by..."
+msgid "by %s"
+msgstr ""
+
+#: template-tema/archive-review.php:28
+#: template-tema/page-reviews.php:428
+#@ buddypress
+msgid "Permanent Link to"
+msgstr ""
+
+#: template-tema/archive-review.php:30
+#: template-tema/page-reviews.php:434
+#: template-tema/single-review.php:90
+#, php-format
+#@ buddypress
+msgid "%1$s <span>in %2$s</span>"
+msgstr ""
+
+#: template-tema/archive-review.php:33
+#: template-tema/single-review.php:95
+#@ buddypress
+msgid "Read the rest of this entry &rarr;"
+msgstr ""
+
+#: template-tema/archive-review.php:34
+#: template-tema/page-homepage.php:115
+#: template-tema/page-reviews.php:458
+#: template-tema/single-review.php:96
+#@ buddypress
+msgid "Pages: "
+msgstr ""
+
+#: template-tema/archive-review.php:37
+#: template-tema/page-reviews.php:499
+#: template-tema/single-review.php:189
+#@ buddypress
+msgid "Tags: "
+msgstr ""
+
+#: template-tema/archive-review.php:37
+#: template-tema/page-reviews.php:501
+#@ buddypress
+msgid "No Comments &#187;"
+msgstr ""
+
+#: template-tema/archive-review.php:37
+#: template-tema/page-reviews.php:501
+#@ buddypress
+msgid "1 Comment &#187;"
+msgstr ""
+
+#: template-tema/archive-review.php:37
+#: template-tema/page-reviews.php:501
+#@ buddypress
+msgid "% Comments &#187;"
+msgstr ""
+
+#: template-tema/archive-review.php:50
+#@ buddypress
+msgid "Not Found"
+msgstr ""
+
+#: template-tema/page-homepage.php:113
+#@ buddypress
+msgid "<p class=\"serif\">Read the rest of this page &rarr;</p>"
+msgstr ""
+
+#: template-tema/page-reviews.php:385
+#, php-format
+#@ default
+msgctxt "reviews"
+msgid "%s"
+msgstr ""
+
+#: template-tema/page-reviews.php:387
+#: template-tema/single-review.php:29
+#@ reviews
+msgid "Media"
+msgstr ""
+
+#: template-tema/single-review.php:28
+#, php-format
+#@ reviews
+msgctxt "Recensione su..."
+msgid "Recensione su %s"
+msgstr ""
+
+#: template-tema/single-review.php:91
+#@ buddypress
+msgid "Edit this entry"
+msgstr ""
+
+#: template-tema/single-review.php:224
+#@ buddypress
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+
+#: template-tema/single-review.php:201
+#@ buddypress
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr ""
+
+#: template-tema/single-review.php:202
+#@ buddypress
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr ""
+
