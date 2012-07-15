@@ -58,7 +58,7 @@ get_header() ?>
 
 			
 																									//PAGINATION 1/2
-			,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
+			,	'posts_per_page'	=> 5																				//,	'posts_per_page'	=> -1
 			,	'paged' 			=> get_query_var('paged')						
 		);
 		
