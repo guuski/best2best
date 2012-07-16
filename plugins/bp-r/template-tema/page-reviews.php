@@ -436,10 +436,9 @@ else
 				<!-- ENTRY -->
 				<div class="entry">
 					<?php //the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
-
 					<?php $length= 200; { // Outputs an excerpt of variable length (in characters)
 // 		global $post;
-		$text = $post->post_exerpt;
+		$text = $post->post_excerpt;
 		if ( '' == $text ) {
 			$text = get_the_content('');
 			$text = apply_filters('the_content', $text);
@@ -455,6 +454,7 @@ else
 
 		echo apply_filters('the_excerpt',$text);
 	}  ?>
+
 					<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
 				</div>
 			
@@ -495,7 +495,7 @@ else
 				<br/>
 
 				<!-- -->
-				<p class="postmetadata">
+				<p class="postmetadata" style="margin:0; padding: 0; clear: none; overflow: visible;">
 					<?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?> 
 					<span class="comments">
 						<?php comments_popup_link( __( 'No Comments &#187;', 'buddypress' ), __( '1 Comment &#187;', 'buddypress' ), __( '% Comments &#187;', 'buddypress' ) ); ?>
@@ -518,8 +518,8 @@ else
 <!-- PAGINATION --->																										<!-- PAGINATION 3/3 -->
 <!--	
 	<div class="navigation">
-		<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
-		<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
+		<div class="next-posts" style="float:left;"><?php next_posts_link(__('&laquo; Precedenti Recensioni'), $loop->max_num_pages) ?></div>
+		<div class="prev-posts" style="float:right;"><?php previous_posts_link(__('Nuove Recensioni&raquo;'), $loop->max_num_pages) ?></div>
 	</div>
 -->
 
