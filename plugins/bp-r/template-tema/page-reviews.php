@@ -540,8 +540,8 @@ if ($total_pages > 1)
       'format' => '/page/%#%',  
       'current' => $current_page,  
       'total' => $total_pages,  
-      'prev_text' => 'Prev',  
-      'next_text' => 'Next'  
+      'prev_text' => __('&larr; Previous Entries', 'buddypress'),  
+      'next_text' => __( 'Next Entries &rarr;', 'buddypress' )  
     )
 	);  
   
