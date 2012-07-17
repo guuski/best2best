@@ -47,14 +47,14 @@
 	<h5><?php //_e( 'Review ricevute', 'reviews' ) ?></h5>	
 		
 	<?php		
-	
+/*	
 		$query_args = array
 		(
 				'post_status'		=> 'publish'
 			,	'post_type'			=> 'review'				//'review'
 			,	'meta_query'		=> array()				//META_QUERY!
 																		
-			,	'posts_per_page'	=> 3																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
+			,	'posts_per_page'	=> -1																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
 			,	'paged' 			=> get_query_var('paged')			
 		);
 
@@ -73,9 +73,85 @@
 			//print_r( $query_args);
 
 
+*/
+?>
 
+<!--------------------------------------------------------------------FORM ----------------------------------------------------------->
+<form 
+	action = ""
+	method = "post" id="show-all-reviews-form" 
+	class  = "standard-form">							
 
-	?>
+	<!-- bottone  -->	
+	<div >								
+		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
+	</div>	
+					
+</form>		
+<!------------------------------------------------------------------------------------------------------------------------------------------------->			
+<?php
+//---------------------------------------------
+if(		
+	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+  )
+
+{		
+
+	$query_args = array
+		(
+				'post_status'		=> 'publish'
+			,	'post_type'			=> 'review'				//'review'
+			,	'meta_query'		=> array()				//META_QUERY!
+																		
+			,	'posts_per_page'	=> 3																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
+//			,	'paged' 			=> get_query_var('paged')			
+		);
+
+		$query_args['meta_query'][] = array					//META_QUERY!
+		(
+				'key'	  => 'bp_review_recipient_id',
+				'value'	  => (array)bp_displayed_user_id(),
+				'compare' => 'IN' 							// Allows $recipient_id to be an array 
+		);		
+		
+		//lancia la QUERY!
+		$loop = new WP_Query($query_args);	
+		
+
+		//DEBUG
+			//print_r( $query_args);					
+} 
+else 
+{	
+
+/*
+	$query_args = array
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'				//'review'
+		,	'meta_query'		=> array()				//META_QUERY!
+																	
+		,	'posts_per_page'	=> -1																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
+//		,	'paged' 			=> get_query_var('paged')			
+	);
+
+	$query_args['meta_query'][] = array					//META_QUERY!
+	(
+			'key'	  => 'bp_review_recipient_id',
+			'value'	  => (array)bp_displayed_user_id(),
+			'compare' => 'IN' 							// Allows $recipient_id to be an array 
+	);		
+	
+	//lancia la QUERY!
+	$loop = new WP_Query($query_args);	
+	
+
+	//DEBUG
+		//print_r( $query_args);
+*/		
+
+}//end IF Request - FORM inviato	
+?>			
 				
 	<!-- IF 2/2 annidato -->					
 	<?php if ( $loop->have_posts() ) : ?>	
@@ -196,55 +272,11 @@
 
 				
 				
-				
-				
-				
 <!--DEBUG -->				 
-<?php //print_r( $query_args); ?>
+<?php print_r( $query_args); ?>
 
 
 
-
-
-		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
-			
-			
-			<!--	
-				<div class="navigation">
-					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
-					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
-				</div>
-			-->
-
-			<?php		
-
-			$total_pages = $loop->max_num_pages;  	//loop
-//dEBUG			
-//echo 'pagine totali: '.$total_pages;
-			  
-			if ($total_pages > 1)
-			{  
-			  
-				$current_page = max(1, get_query_var('paged'));  
-					
-				 echo '<div class="page_nav">';  
-					
-				 echo paginate_links(array
-					(  
-					  'base' 		=> get_pagenum_link(1) . '%_%',  
-					  'format' 		=> '/page/%#%',  
-					  'current' 	=> $current_page,  
-					  'total' 		=> $total_pages,  
-					  'prev_text' 	=> 'Prev',  
-					  'next_text' 	=> 'Next'  
-					)
-				);  
-				  
-				echo '</div>';      
-			}  	
-			?>	
-			<!-- fine PAGINATION --->		
-		
 	<?php else: ?>		
 		
 		<h5><?php _e( 'nessuna Review per quest\'utente!', 'reviews' ) ?></h5>																	

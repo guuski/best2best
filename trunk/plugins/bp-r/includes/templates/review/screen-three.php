@@ -50,53 +50,57 @@ get_header() ?>
 		
 	
 
-
 <?php
+
 //---------------------------------------------
 if(		
-	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+	//$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+	!isset($_POST['show-all-reviews']) 	
   )
 
 {		
 
-	$query_args = array
+	$query_args_1 = array
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'										//'review'
 		,   'author'			=> bp_displayed_user_id()							
-
-		
-																								//PAGINATION 1/2
-		,	'posts_per_page'	=> -1																				//,	'posts_per_page'	=> -1
-//		,	'paged' 			=> get_query_var('paged')						
+														
+//		,	'posts_per_page'	=> -1				
 	);
 	
 
-	//lancia la QUERY!
-	$loop = new WP_Query($query_args);						
+	//QUERY 1
+	$loop = new WP_Query($query_args_1);	
+
+	//DEBUG
+	print_r( $query_args_1);
+															//wp_reset_postdata();
+	
 } 
 else 
 {	
 
-
-	$query_args = array
+																wp_reset_postdata();
+	
+	$query_args_2 = array
 	(
 			'post_status'		=> 'publish'
-		,	'post_type'			=> 'review'										//'review'
+		,	'post_type'			=> 'review'						
 		,   'author'			=> bp_displayed_user_id()							
-		
-																								//PAGINATION 1/2
-		,	'posts_per_page'	=> 3																				//,	'posts_per_page'	=> -1
-//		,	'paged' 			=> get_query_var('paged')						
+												
+		,	'posts_per_page'	=> 3	
 	);
 		
 
 	//DEBUG
-	//print_r( $query_args);
+	print_r( $query_args_2);
 
 		
-	//lancia la QUERY!
-	$loop = new WP_Query($query_args);			
+	//QUERY - 2!
+	$loop = new WP_Query($query_args_2);		
+
+														//wp_reset_postdata();
 	
 
 }//end IF Request - FORM inviato	
@@ -143,7 +147,8 @@ else
 					$qualita 		= get_post_meta( $post->ID, 'voto_qualita', true );
 					$puntualita 	= get_post_meta( $post->ID, 'voto_puntualita', true );
 					$affidabilita 	= get_post_meta( $post->ID, 'voto_affidabilita', true );
-		//---------------------------------------------------------------------------------------
+					
+					//---------------------------------------------------------------------------------------
 					
 					$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
 					$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
@@ -151,7 +156,7 @@ else
 															
 				?>
 				
-		<div>
+			<div>
 			<?php 			
 				if($giudizio_review == 'positivo')  			
 				{
@@ -216,44 +221,16 @@ else
 			
 		<?php endwhile; ?>
 		
-		<!-- PAGINATION --->																											<!-- PAGINATION 2/2 -->
-<!--			
-				 <div class="navigation">
-					<div class="next-posts"><?php next_posts_link('&laquo; Older Entries', $loop->max_num_pages) ?></div>
-					<div class="prev-posts"><?php previous_posts_link('Newer Entries &raquo;', $loop->max_num_pages) ?></div>
-				</div>
-			
--->
-			<?php		
-/*
-			$total_pages = $loop->max_num_pages;  	//loop
-			  
-			if ($total_pages > 1)
-			{  
-			  
-				$current_page = max(1, get_query_var('paged'));  
-					
-				 echo '<div class="page_nav">';  
-					
-				 echo paginate_links(array
-					(  
-					  'base' 		=> get_pagenum_link(1) . '%_%',  
-					  'format' 		=> '/page/%#%',  
-					  'current' 	=> $current_page,  
-					  'total' 		=> $total_pages,  
-					  'prev_text' 	=> 'Prev',  
-					  'next_text' 	=> 'Next'  
-					)
-				);  
-				  
-				echo '</div>';      
-			}  	
-*/			
-			?>	
-			
-			<!-- fine PAGINATION --->			
+		
+<!------------------------------------------------------------------------------------------------------------------------------------------>		
+		
+	<?php //print_r( $query_args_1); ?>
+	<?php //print_r( $query_args_2); ?>
+	
+	
+	
 
-			
+	
 <?php
 
 if(		
@@ -269,7 +246,7 @@ else
 ?>
 
 
-<!--------------------------------------------------------------------FORM ----------------------------------------------------------->
+<!---------------------FORM --------------------------->
 <form 
 	action = ""
 	method = "post" id="show-all-reviews-form" 
@@ -281,8 +258,14 @@ else
 	</div>	
 					
 </form>		
-<!------------------------------------------------------------------------------------------------------------------------------------------------->			
 
+	
+<!------------------------------------------------------->			
+
+
+
+	
+	
 	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
