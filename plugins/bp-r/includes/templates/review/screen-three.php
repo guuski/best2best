@@ -48,42 +48,33 @@ get_header() ?>
 	<!-- MESSAGGIO  -->
 	<h4><?php //_e( 'Le Reviews scritta da me', 'reviews' ) ?></h4>
 		
-	
+
+
+
 
 <?php
 
-//---------------------------------------------
+//---------------------------------------------------------
 if(		
-	//$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
-	!isset($_POST['show-all-reviews']) 	
+		$_SERVER['REQUEST_METHOD']=='POST' 	
+	||  isset($_POST['show-all-reviews']) 		
   )
 
-{		
-
-	$query_args_1 = array
+{														
+	$query_args = array
 	(
 			'post_status'		=> 'publish'
-		,	'post_type'			=> 'review'										//'review'
+		,	'post_type'			=> 'review'						
 		,   'author'			=> bp_displayed_user_id()							
-														
-//		,	'posts_per_page'	=> -1				
-	);
-	
-
-	//QUERY 1
-	$loop = new WP_Query($query_args_1);	
-
-	//DEBUG
-	print_r( $query_args_1);
-															//wp_reset_postdata();
+												
+		,	'posts_per_page'	=>  -1	
+	);															
 	
 } 
 else 
 {	
 
-																wp_reset_postdata();
-	
-	$query_args_2 = array
+	$query_args = array
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'						
@@ -91,20 +82,17 @@ else
 												
 		,	'posts_per_page'	=> 3	
 	);
-		
-
-	//DEBUG
-	print_r( $query_args_2);
-
-		
-	//QUERY - 2!
-	$loop = new WP_Query($query_args_2);		
-
-														//wp_reset_postdata();
-	
 
 }//end IF Request - FORM inviato	
+
+
+//langia la QUERY!
+$loop = new WP_Query($query_args);
+
 ?>			
+	
+
+	
 	
 	
 		
@@ -222,47 +210,29 @@ else
 		<?php endwhile; ?>
 		
 		
-<!------------------------------------------------------------------------------------------------------------------------------------------>		
+<!-----------------------------------------fine WHILE ------------------------------------------------------------------------------------------------------->		
+	
 		
-	<?php //print_r( $query_args_1); ?>
-	<?php //print_r( $query_args_2); ?>
-	
-	
+<!-------------------FORM ------------------------------------------------->		
 	
 
-	
-<?php
+<?php if ( !($_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) )) : ?>	
 
-if(		
-	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
-  )
-
-{					
-}
-else 
-{
-
-}
-?>
-
-
-<!---------------------FORM --------------------------->
 <form 
 	action = ""
 	method = "post" id="show-all-reviews-form" 
 	class  = "standard-form">							
-
-	<!-- bottone  -->	
+	
 	<div >								
 		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
 	</div>	
-					
+
 </form>		
 
+<br/><br/>
 	
-<!------------------------------------------------------->			
-
-
+<?php endif; ?>
+<!---------------fine FORM ------------------------------------------------->		
 
 	
 	
