@@ -46,113 +46,44 @@
 	<!-- MESSAGGIO  -->
 	<h5><?php //_e( 'Review ricevute', 'reviews' ) ?></h5>	
 		
-	<?php		
-/*	
-		$query_args = array
-		(
-				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'				//'review'
-			,	'meta_query'		=> array()				//META_QUERY!
-																		
-			,	'posts_per_page'	=> -1																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
-			,	'paged' 			=> get_query_var('paged')			
-		);
-
-		$query_args['meta_query'][] = array					//META_QUERY!
-		(
-				'key'	  => 'bp_review_recipient_id',
-				'value'	  => (array)bp_displayed_user_id(),
-				'compare' => 'IN' 							// Allows $recipient_id to be an array 
-		);		
-		
-		//lancia la QUERY!
-		$loop = new WP_Query($query_args);	
-		
-
-		//DEBUG
-			//print_r( $query_args);
-
-
-*/
-?>
-
-<!--------------------------------------------------------------------FORM ----------------------------------------------------------->
-<form 
-	action = ""
-	method = "post" id="show-all-reviews-form" 
-	class  = "standard-form">							
-
-	<!-- bottone  -->	
-	<div >								
-		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
-	</div>	
-					
-</form>		
-<!------------------------------------------------------------------------------------------------------------------------------------------------->			
 <?php
-//---------------------------------------------
+//---------------------------------------------------------
 if(		
-	$_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) 	
+		$_SERVER['REQUEST_METHOD']=='POST' 	
+	||  isset($_POST['show-all-reviews']) 		
   )
 
-{		
-
+{														
 	$query_args = array
-		(
-				'post_status'		=> 'publish'
-			,	'post_type'			=> 'review'				//'review'
-			,	'meta_query'		=> array()				//META_QUERY!
-																		
-			,	'posts_per_page'	=> 3																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
-//			,	'paged' 			=> get_query_var('paged')			
-		);
-
-		$query_args['meta_query'][] = array					//META_QUERY!
-		(
-				'key'	  => 'bp_review_recipient_id',
-				'value'	  => (array)bp_displayed_user_id(),
-				'compare' => 'IN' 							// Allows $recipient_id to be an array 
-		);		
-		
-		//lancia la QUERY!
-		$loop = new WP_Query($query_args);	
-		
-
-		//DEBUG
-			//print_r( $query_args);					
+	(
+			'post_status'		=> 'publish'
+		,	'post_type'			=> 'review'						
+		,   'author'			=> bp_displayed_user_id()							
+												
+		,	'posts_per_page'	=>  -1	
+	);															
+	
 } 
 else 
 {	
 
-/*
 	$query_args = array
 	(
 			'post_status'		=> 'publish'
-		,	'post_type'			=> 'review'				//'review'
-		,	'meta_query'		=> array()				//META_QUERY!
-																	
-		,	'posts_per_page'	=> -1																		//PAGINATION 1/2			//,	'posts_per_page'	=> -1
-//		,	'paged' 			=> get_query_var('paged')			
+		,	'post_type'			=> 'review'						
+		,   'author'			=> bp_displayed_user_id()							
+												
+		,	'posts_per_page'	=> 3	
 	);
 
-	$query_args['meta_query'][] = array					//META_QUERY!
-	(
-			'key'	  => 'bp_review_recipient_id',
-			'value'	  => (array)bp_displayed_user_id(),
-			'compare' => 'IN' 							// Allows $recipient_id to be an array 
-	);		
-	
-	//lancia la QUERY!
-	$loop = new WP_Query($query_args);	
-	
-
-	//DEBUG
-		//print_r( $query_args);
-*/		
-
 }//end IF Request - FORM inviato	
+
+
+//langia la QUERY!
+$loop = new WP_Query($query_args);
+
 ?>			
-				
+	
 	<!-- IF 2/2 annidato -->					
 	<?php if ( $loop->have_posts() ) : ?>	
 		
@@ -268,14 +199,30 @@ else
 					
 		<?php endwhile; ?>
 		
-				
+			
+<!-----------------------------------------fine WHILE ------------------------------------------------------------------------------------------------------->		
 
-				
-				
-<!--DEBUG -->				 
-<?php print_r( $query_args); ?>
+		
+<!-------------------FORM ------------------------------------------------->		
+	
 
+<?php if ( !($_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) )) : ?>	
 
+<form 
+	action = ""
+	method = "post" id="show-all-reviews-form" 
+	class  = "standard-form">							
+	
+	<div >								
+		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
+	</div>	
+
+</form>		
+
+<br/><br/>
+	
+<?php endif; ?>
+<!---------------fine FORM ------------------------------------------------->		
 
 	<?php else: ?>		
 		
