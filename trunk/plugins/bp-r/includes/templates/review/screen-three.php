@@ -222,12 +222,12 @@ $loop = new WP_Query($query_args);
 	action = ""
 	method = "post" id="show-all-reviews-form" 
 	class  = "standard-form">							
-	
 	<div >								
 		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
 	</div>	
 
 </form>		
+
 
 <br/><br/>
 	

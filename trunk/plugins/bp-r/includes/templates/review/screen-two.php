@@ -167,7 +167,7 @@ get_header() ?>
 		</div>	<!-- fine sezione RATING -->			
 <br/>	
 <label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
-	<input type="text" name ="datepicker" id="datepicker" maxlength="12" size="12" style="width:auto;"> 
+	<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
 </label>		
 		
 <br />

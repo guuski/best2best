@@ -58,8 +58,8 @@ if(
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'						
-		,   'author'			=> bp_displayed_user_id()							
-												
+// 		,   'author'			=> bp_displayed_user_id()							
+		,	'meta_query'		=> array()
 		,	'posts_per_page'	=>  -1	
 	);															
 	
@@ -71,13 +71,22 @@ else
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'						
-		,   'author'			=> bp_displayed_user_id()							
-												
+// 		,   'author'			=> bp_displayed_user_id()							
+		,	'meta_query'		=> array()												
 		,	'posts_per_page'	=> 3	
 	);
 
 }//end IF Request - FORM inviato	
 
+$query_args['meta_query'][] = array					//META_QUERY!
+(
+		'key'	  => 'bp_review_recipient_id',
+		'value'	  => (array)bp_displayed_user_id(),
+		'compare' => 'IN' 							// Allows $recipient_id to be an array
+);
+
+//DEBUG
+// error_log("\n\n\n##########################################".print_r( $query_args,true)."#\n\n\n\n\n#######################\n\n\n\n");
 
 //langia la QUERY!
 $loop = new WP_Query($query_args);
