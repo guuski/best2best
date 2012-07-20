@@ -288,4 +288,76 @@ function fixGRAvatar($no_grav) {
 }
 
 
+
+
+/**
+ *
+ */
+function sync_website_field( $user_id = 0 ) 
+{
+	global $bp, $wpdb;
+
+	//per ora la lascio che è meglio! :D
+	if ( !empty( $bp->site_options['bp-disable-profile-sync'] ) && (int)$bp->site_options['bp-disable-profile-sync'] )
+		return true;
+
+	if ( empty( $user_id ) )
+		$user_id = $bp->loggedin_user->id;
+
+	if ( empty( $user_id ) )
+		return false;
+
+	//$sito_web = get_user_meta( $user_id , 'sito_web', true );		
+	$user_info = get_userdata(1);          
+	$sito_web = $user_info->user_url;
+	
+	if($sito_web != "") 
+	{
+		//365 è il field_id di 'Sito Web'
+		xprofile_set_field_data(365, $user_id ,	$sito_web );
+		
+		//xprofile_set_field_data( $field_id, $user_id, $current_field );
+
+// @uses xprofile_set_field_data() Will update the field data for a user based on field name and user id.		
+		//xprofile_set_field_data( 1, $user_id, $fullname );
+		//xprofile_set_field_data( bp_xprofile_fullname_field_name(), $user_id , $user->display_name );
+		
+		
+	}
+/*
+      $user_info = get_userdata(1);      
+      $user_url = $user_info->user_url;
+      
+      //echo "$first_name $last_name logs into her WordPress site with the user name of $username.";
+	  
+	  user_url
+*/	  
+		
+/*		
+	$sito_web = xprofile_get_field_data( "Sito web" , $user_id );
+	update_user_meta( $user_id, 'Sito web',   $sito_web  );
+	$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->users} SET display_name = %s WHERE ID = %d", $fullname, $user_id ) );
+*/
+}
+add_action( 'xprofile_updated_profile'	, 'sync_website_field' );
+add_action( 'bp_core_signup_user'		, 'sync_website_field' );
+
+
+/**
+
+ */
+ /*
+function xprofile_sync_bp_profile( &$errors, $update, &$user ) {
+	global $bp;
+
+	if ( ( !empty( $bp->site_options['bp-disable-profile-sync'] ) && (int)$bp->site_options['bp-disable-profile-sync'] ) || !$update || $errors->get_error_codes() )
+		return;
+
+	xprofile_set_field_data( bp_xprofile_fullname_field_name(), $user->ID, $user->display_name );
+}
+add_action( 'user_profile_update_errors', 'xprofile_sync_bp_profile', 10, 3 );
+*/
+
+
+
 ?>
