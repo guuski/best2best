@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2012-07-24 16:35:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,13 +26,14 @@ msgstr ""
 #: multilanguage.php:61
 #@ custom
 msgid "Commenti alle review"
-msgstr "Reviews' comments "
+msgstr "comments for reviews"
 
 #: comment_review.php:48
+#: completaprofilo.php:35
 #: listaamici.php:30
 #: messaggiadmin.php:47
 #: multilanguage.php:32
-#: sidebarButtons.php:33
+#: sidebarButtons.php:40
 #: viewReferral.php:36
 #@ custom
 msgid "Titolo"
@@ -42,13 +43,13 @@ msgstr "Title"
 #: viewReferral.php:38
 #@ custom
 msgid "Numero log"
-msgstr "Log's Number"
+msgstr "Log Number"
 
 #: comment_review.php:52
 #: viewReferral.php:40
 #@ custom
 msgid "Numero unlog"
-msgstr "Unlog's Number"
+msgstr "Unlog Number"
 
 #: comment_review.php:54
 #: viewReferral.php:42
@@ -59,27 +60,27 @@ msgstr "Length"
 #: completaprofilo.php:15
 #@ custom
 msgid "Completa Profilo"
-msgstr "Complete Profile"
+msgstr "Complete your Profile"
 
 #: completaprofilo.php:17
 #: completaprofilo.php:30
-#: completaprofilo.php:170
-#: completaprofilo.php:245
+#: completaprofilo.php:176
+#: completaprofilo.php:251
 #@ custom
 msgid "Completamento Profilo"
-msgstr "Profile's Completeness"
+msgstr "Finishing your profile"
 
-#: completaprofilo.php:215
+#: completaprofilo.php:221
 #@ custom
 msgid "Profilo Completo"
-msgstr "Profile completed"
+msgstr ""
 
-#: completaprofilo.php:229
+#: completaprofilo.php:235
 #@ custom
 msgid "Migliora la tua visibilità:"
-msgstr "Improve your visibility"
+msgstr "Boost your visibility"
 
-#: completaprofilo.php:231
+#: completaprofilo.php:237
 #@ custom
 msgid "Completa il tuo profilo!"
 msgstr "Complete your profile!"
@@ -87,50 +88,36 @@ msgstr "Complete your profile!"
 #: fornitorialberghi.php:13
 #@ custom
 msgid "Fornitori Alberghi"
-msgstr "Suppliers Hotels"
+msgstr "Hotel Providers"
 
 #: fornitorialberghi.php:20
 #@ custom
 msgid "Questo widget se l'utente è un fornitore, visualizza la lista degli alberghi suoi amici, se invece è un albergo, visualizza la lista dei fornitori"
-msgstr "This widget takes care of showing list of hotels friends for the logged in suplier user and the list of suppliers friends in case the logged in user is an hotel."
+msgstr "If the user is a supplier, this widget show the list of connected hotels; if a hotel, it will show the suppliers."
 
 #: fornitorialberghi.php:36
 #@ custom
 msgid "Diventa un utente registrato!"
-msgstr "Become a registered user!"
+msgstr "Become a member!"
 
-#: fornitorialberghi.php:86
-#@ custom
-msgid "I clienti di"
-msgstr "The Clients of"
-
-#: fornitorialberghi.php:90
-#@ custom
-msgid "I fornitori di"
-msgstr "The suppliers of"
-
-#: fornitorialberghi.php:94
-#@ custom
-msgid "Gli amici di"
-msgstr "The friends of"
-
-#: fornitorialberghi.php:165
+#: fornitorialberghi.php:223
 #@ custom
 msgid "Non riconosciuto"
-msgstr "Non recognized"
+msgstr "Unknown"
 
+#: fornitorialberghi.php:174
 #: listaamici.php:13
 #: listaamici.php:21
 #: listaamici.php:76
 #: messaggiadmin.php:120
 #@ custom
 msgid "Amici"
-msgstr "Friends"
+msgstr "Connections"
 
 #: listaamici.php:38
 #@ custom
 msgid "Numero Amici"
-msgstr "Friends' Number"
+msgstr "Connections Number"
 
 #: messaggiadmin.php:18
 #@ custom
@@ -152,12 +139,12 @@ msgstr "Number"
 #: messaggiadmin.php:99
 #@ custom
 msgid "messaggio"
-msgstr "message"
+msgstr "Message"
 
 #: messaggiadmin.php:130
 #@ custom
 msgid "Comunicazioni"
-msgstr "Communications"
+msgstr "Messages"
 
 #: multilanguage.php:11
 #: multilanguage.php:13
@@ -167,28 +154,28 @@ msgid "Multilanguage"
 msgstr "Multilanguage"
 
 #: sidebarButtons.php:11
-#: sidebarButtons.php:23
-#: sidebarButtons.php:68
+#: sidebarButtons.php:30
+#: sidebarButtons.php:75
 #@ custom
 msgid "Sidebar Buttons"
 msgstr "Sidebar Buttons"
 
-#: sidebarButtons.php:105
+#: sidebarButtons.php:112
 #@ custom
 msgid "Mio Network"
-msgstr "My Network"
+msgstr "My biz network"
 
-#: sidebarButtons.php:107
+#: sidebarButtons.php:114
 #@ custom
 msgid "Miei Gruppi"
 msgstr "My Groups"
 
-#: template-pagina/page-homepage.php:107
+#: template-pagina/page-homepage.php:113
 #@ buddypress
 msgid "<p class=\"serif\">Read the rest of this page &rarr;</p>"
 msgstr ""
 
-#: template-pagina/page-homepage.php:109
+#: template-pagina/page-homepage.php:115
 #@ buddypress
 msgid "Pages: "
 msgstr ""
@@ -198,27 +185,29 @@ msgstr ""
 #: viewReferral.php:80
 #@ custom
 msgid "Visualizza Referral"
-msgstr "View Referral"
+msgstr "Show Referral"
 
 #: viewReferral.php:13
+#: viewReferral_ENG.php:13
 #@ custom
+#@ custom_eng
 msgid "Referral"
 msgstr "Referral"
 
 #: viewReferral.php:154
 #@ custom
 msgid "non c'è contenuto"
-msgstr "no content "
+msgstr "no content"
 
 #: viewReferral.php:197
 #@ custom
 msgid "Vedi..."
-msgstr "See..."
+msgstr "Show..."
 
 #: viewReferral.php:220
 #@ custom
 msgid "TIPOLOGIA: "
-msgstr "TIPOLOGY"
+msgstr "TYPE:"
 
 #: viewReferral.php:222
 #@ custom
@@ -228,7 +217,7 @@ msgstr "SENIORITY:"
 #: viewReferral.php:224
 #@ custom
 msgid "CONSIGLIATO: "
-msgstr "RECCOMENDED:"
+msgstr "ADVICED"
 
 #: viewReferral.php:226
 #@ custom
@@ -236,7 +225,304 @@ msgid "VOTO:\t "
 msgstr "VOTE:\\\t"
 
 #: viewReferral.php:251
+#: viewReferral_ENG.php:251
 #@ custom
+#@ custom_eng
 msgid "Non sono presenti referral per questo utente"
 msgstr "No referrals for this user"
+
+#: ajax.php:172
+#@ buddypress
+msgid "Please enter some content to post."
+msgstr ""
+
+#: ajax.php:189
+#@ buddypress
+msgid "There was a problem posting your update, please try again."
+msgstr ""
+
+#: ajax.php:217
+#@ buddypress
+msgid "Please do not leave the comment area blank."
+msgstr ""
+
+#: ajax.php:222
+#: ajax.php:233
+#@ buddypress
+msgid "There was an error posting that reply, please try again."
+msgstr ""
+
+#: ajax.php:293
+#: ajax.php:332
+#@ buddypress
+msgid "There was a problem when deleting. Please try again."
+msgstr ""
+
+#: ajax.php:350
+#@ buddypress
+msgid "Remove Favorite"
+msgstr ""
+
+#: ajax.php:362
+#@ buddypress
+msgid "Favorite"
+msgstr ""
+
+#: ajax.php:425
+#@ buddypress
+msgid "Remove Invite"
+msgstr ""
+
+#: ajax.php:455
+#@ buddypress
+msgid "Friendship could not be canceled."
+msgstr ""
+
+#: ajax.php:457
+#@ buddypress
+msgid "Add Friend"
+msgstr ""
+
+#: ajax.php:465
+#@ buddypress
+msgid "Friendship could not be requested."
+msgstr ""
+
+#: ajax.php:467
+#@ buddypress
+msgid "Friendship Requested"
+msgstr ""
+
+#: ajax.php:470
+#@ buddypress
+msgid "Request Pending"
+msgstr ""
+
+#: ajax.php:487
+#@ buddypress
+msgid "There was a problem accepting that request. Please try again."
+msgstr ""
+
+#: ajax.php:503
+#@ buddypress
+msgid "There was a problem rejecting that request. Please try again."
+msgstr ""
+
+#: ajax.php:530
+#@ buddypress
+msgid "Error joining group"
+msgstr ""
+
+#: ajax.php:532
+#@ buddypress
+msgid "Leave Group"
+msgstr ""
+
+#: ajax.php:540
+#@ buddypress
+msgid "Error requesting membership"
+msgstr ""
+
+#: ajax.php:542
+#@ buddypress
+msgid "Membership Requested"
+msgstr ""
+
+#: ajax.php:551
+#@ buddypress
+msgid "Error leaving group"
+msgstr ""
+
+#: ajax.php:554
+#@ buddypress
+msgid "Join Group"
+msgstr ""
+
+#: ajax.php:556
+#@ buddypress
+msgid "Request Membership"
+msgstr ""
+
+#: ajax.php:572
+#@ buddypress
+msgid "There was a problem closing the notice."
+msgstr ""
+
+#: ajax.php:601
+#, php-format
+#@ buddypress
+msgid "Sent %s"
+msgstr ""
+
+#: ajax.php:618
+#@ buddypress
+msgid "There was a problem sending that reply. Please try again."
+msgstr ""
+
+#: ajax.php:631
+#@ buddypress
+msgid "There was a problem marking messages as unread."
+msgstr ""
+
+#: ajax.php:650
+#@ buddypress
+msgid "There was a problem marking messages as read."
+msgstr ""
+
+#: ajax.php:669
+#@ buddypress
+msgid "There was a problem deleting messages."
+msgstr ""
+
+#: ajax.php:676
+#@ buddypress
+msgid "Messages deleted."
+msgstr ""
+
+#: fornitorialberghi.php:82
+#@ custom
+msgid "Il Network di "
+msgstr "The Network of"
+
+#: fornitorialberghi.php:153
+#@ custom
+msgid "Fornitori"
+msgstr "Providers"
+
+#: fornitorialberghi.php:160
+#@ custom
+msgid "Clienti"
+msgstr "Clients"
+
+#: fornitorialberghi.php:167
+#@ custom
+msgid "Colleghi"
+msgstr "Colleagues"
+
+#: sidebarButtons.php:109
+#@ custom
+msgid "Gruppi"
+msgstr "Groups"
+
+#: sidebarButtons.php:110
+#@ custom
+msgid "Adesioni"
+msgstr " "
+
+#: sidebarButtons.php:117
+#@ reviews
+msgid "Add Review"
+msgstr ""
+
+#: sidebarButtons.php:123
+#@ custom
+msgid "Cerca una attivit&agrave; che vuoi recensire:"
+msgstr ""
+
+#: sidebarButtons.php:148
+#@ custom
+msgid "Attivit&agrave;"
+msgstr ""
+
+#: sidebarButtons.php:149
+#@ custom
+msgid "Offerte"
+msgstr ""
+
+#: sidebarButtons.php:150
+#@ custom
+msgid ""
+"Manca poco, stiamo implementando una nuova funzionalita' che vi permettera' di realizzare una vetrina dei vostri prodotti e servizi. \\\n"
+"\\\n"
+"Continuate a sostenerci. \\\n"
+" - Lo staff."
+msgstr ""
+
+#: sidebarButtons.php:151
+#, php-format
+#@ custom
+msgid "Vorrei creare il nuovo profilo per %s"
+msgstr ""
+
+#: sidebarButtons.php:152
+#@ custom
+msgid "Invia richiesta"
+msgstr ""
+
+#: sidebarButtons.php:153
+#@ custom
+msgid "Non hai trovato il profilo che cercavi e vorresti crearlo? Invia un messaggio all'amministratore e ci penseremo noi per te."
+msgstr ""
+
+#: sidebarButtons.php:155
+#@ custom
+msgid "Ghost Account"
+msgstr ""
+
+#: sidebarButtons.php:156
+#@ custom
+msgid "Il network utile per i tuoi contatti commerciali"
+msgstr ""
+
+#: sidebarButtons.php:157
+#@ buddypress
+msgid "La tua presenza ad una Fiera, un nuovo prodotto, un nuovo contratto, offerte speciali, promozioni…"
+msgstr ""
+
+#: viewReferral_ENG.php:11
+#: viewReferral_ENG.php:24
+#: viewReferral_ENG.php:80
+#@ custom_eng
+msgid "View Referral"
+msgstr ""
+
+#: viewReferral_ENG.php:36
+#@ custom_eng
+msgid "Title"
+msgstr ""
+
+#: viewReferral_ENG.php:38
+#@ custom_eng
+msgid "Log's Number"
+msgstr ""
+
+#: viewReferral_ENG.php:40
+#@ custom_eng
+msgid "Unlog's Number"
+msgstr ""
+
+#: viewReferral_ENG.php:42
+#@ custom_eng
+msgid "Length"
+msgstr ""
+
+#: viewReferral_ENG.php:154
+#@ custom_eng
+msgid "no content"
+msgstr ""
+
+#: viewReferral_ENG.php:197
+#@ custom_eng
+msgid "See..."
+msgstr ""
+
+#: viewReferral_ENG.php:220
+#@ custom_eng
+msgid "TIPOLOGY: "
+msgstr ""
+
+#: viewReferral_ENG.php:222
+#@ custom_eng
+msgid "AGE; : "
+msgstr ""
+
+#: viewReferral_ENG.php:224
+#@ custom_eng
+msgid "RECCOMENDED: "
+msgstr ""
+
+#: viewReferral_ENG.php:226
+#@ custom_eng
+msgid "VOTE:\t "
+msgstr ""
 
