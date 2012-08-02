@@ -195,8 +195,10 @@ function bpml_bp_uri_filter($url) {
  * @global <type> $post
  * @return <type>
  */
-function bpml_icl_ls_languages_filter($langs) {
+function bpml_icl_ls_languages_filter($langs) 
+{
 	global $sitepress, $bp, $bp_unfiltered_uri, $post;
+
 	$default_language = $sitepress->get_default_language();
 	
 	foreach($bp->active_components as $key => $value){

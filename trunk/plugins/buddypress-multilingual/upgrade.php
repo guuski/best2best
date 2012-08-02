@@ -31,39 +31,56 @@ function bpml_upgrade() {
     update_option('bpml_version', BPML_VERSION);
 }
 
-function bpml_install() {
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	bpml_install
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function bpml_install() 
+{
     global $wpdb, $bpml;
 
     bpml_save_settings($bpml);
 
-    // Profiles
+	
+	// Profiles							
+	// 1/3
+	//-------------------------------------------------------------
+																							// 1/3
+																							//CREATE TABLE:  $wpdb->prefix . "bp_xprofile_data_bpml";
     $table_name = $wpdb->prefix . "bp_xprofile_data_bpml";
-    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+		
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) 
+	{
         $sql = "CREATE TABLE " . $table_name . " (
-	  id bigint(20) NOT NULL AUTO_INCREMENT,
-      field_id bigint(20) NOT NULL,
-      user_id bigint(20) NOT NULL,
-      value longtext,
-      lang varchar(10) NOT NULL,
-	  PRIMARY KEY (id),
-      KEY field_id (field_id),
-      KEY user_id (user_id),
-      KEY lang (lang)
-	);";
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  field_id bigint(20) NOT NULL,
+			  user_id bigint(20) NOT NULL,
+			  value longtext,
+			  lang varchar(10) NOT NULL,
+			  PRIMARY KEY (id),
+			  KEY field_id (field_id),
+			  KEY user_id (user_id),
+			  KEY lang (lang)
+			);";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
 
-    // For users had 1.0.1 and earlier
+    // For users had 1.0.1 and earlier																	//differenze?!
     bpml_upgrade_110();
 }
 
-function bpml_upgrade_110() {
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// bpml_upgrade_110
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function bpml_upgrade_110() 
+{
     global $bpml, $wpdb;
 
     // New activity
-    if (!isset($bpml['collected_activities']['new_blog'])) {
+    if (!isset($bpml['collected_activities']['new_blog'])) 
+	{
         $bpml['collected_activities']['new_blog'] = array(
             'translate_title' => 1,
             'translate_title_cache' => 1,
@@ -72,30 +89,70 @@ function bpml_upgrade_110() {
             'translate_links' => -1
         );
     }
-
-    // Profiles
+	
+	// 2/3
+	// Profiles								
+	//------------------------------------------------------------
+																							// 2/3
+																							//CREATE TABLE:  $wpdb->prefix . "bp_xprofile_data_bpml";
     $table_name = $wpdb->prefix . "bp_xprofile_data_bpml";
-    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-        $sql = "CREATE TABLE " . $table_name . " (
-	  id bigint(20) NOT NULL AUTO_INCREMENT,
-      field_id bigint(20) NOT NULL,
-      user_id bigint(20) NOT NULL,
-      value longtext,
-      lang varchar(10) NOT NULL,
-	  PRIMARY KEY (id),
-      KEY field_id (field_id),
-      KEY user_id (user_id),
-      KEY lang (lang)
-	);";
+	
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) 
+	{
+        $sql = "CREATE TABLE " . $table_name . " (																
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  field_id bigint(20) NOT NULL,
+			  user_id bigint(20) NOT NULL,
+			  value longtext,
+			  lang varchar(10) NOT NULL,
+			  PRIMARY KEY (id),
+			  KEY field_id (field_id),
+			  KEY user_id (user_id),
+			  KEY lang (lang)
+		);";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
     }
-    if (!isset($bpml['profiles'])) {
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 3/3 - MOI
+	// Profiles								
+	//------------------------------------------------------------
+																							// 3/3 - MOI
+																							//CREATE TABLE:  $wpdb->prefix . "bp_xprofile_data_bpml";
+    $table_name = $wpdb->prefix . "bp_xprofile_data_bpml";
+	
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) 
+	{
+        $sql = "CREATE TABLE " . $table_name . " (																
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  field_id bigint(20) NOT NULL,
+			  user_id bigint(20) NOT NULL,
+			  value longtext,
+			  lang varchar(10) NOT NULL,
+			  PRIMARY KEY (id),
+			  KEY field_id (field_id),
+			  KEY user_id (user_id),
+			  KEY lang (lang)
+		);";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+    }
+	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//opzione di default
+	if (!isset($bpml['profiles'])) 
+	{
         $bpml['profiles'] = array('translation' => 'no');
     }
 
+	//save
     bpml_save_settings($bpml);
 
-    return TRUE;
+    return TRUE;	
 }

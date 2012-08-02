@@ -90,19 +90,31 @@ function bpml_init_check() {
             
             // Main blog
             if (is_main_site ()) {
-                // Profiles
-                if (isset($bpml['profiles']) && $bpml['profiles']['translation'] != 'no') {
+//-----------------------------------------------------------------------------------------------------------------------------------                
+				// Profiles
+                if (isset($bpml['profiles']) && $bpml['profiles']['translation'] != 'no') 
+				{
                     require_once dirname(__FILE__) . '/profiles.php';
-                    if (!is_admin() && isset($bpml['profiles']['translate_fields_title'])) {
+					
+					//----------------------------TRANSLATE FIELD TITLES-------------------------------
+                    if (!is_admin() && isset($bpml['profiles']['translate_fields_title'])) 
+					{
+						//FILTER
                         add_filter('bp_get_the_profile_field_name', 'bpml_bp_get_the_profile_field_name_filter');
+						
+							//perchè da field TITLE si passa a --> field NAME -----?!?!?
                     }
-                    add_action('xprofile_data_before_save', 'bpml_xprofile_data_before_save_hook');
-                    add_action('init', 'bpml_profiles_init');
-                    add_action('bp_after_profile_edit_content', 'bpml_profiles_bp_after_profile_edit_content_hook');
-                    add_action('bpml_ajax', 'bpml_profiles_ajax');
+					//------------------------------------------------------------------------------------
+					
+                    add_action('xprofile_data_before_save'		, 'bpml_xprofile_data_before_save_hook');
+                    add_action('init'							, 'bpml_profiles_init');
+                    add_action('bp_after_profile_edit_content'	, 'bpml_profiles_bp_after_profile_edit_content_hook');
+                    add_action('bpml_ajax'						, 'bpml_profiles_ajax');
+					
+					//FILTER
                     add_filter('bp_get_the_profile_field_value', 'bpml_profiles_bp_get_the_profile_field_value_filter', 0, 3);
                 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------
                 if (!is_admin()) {
                     require_once dirname(__FILE__) . '/frontend.php';
                     add_action('wp_head', 'bpml_wp_head_hook');

@@ -132,7 +132,8 @@ function bpml_google_translate_activity_filter($result, $default_language,
  * @param <type> $current_language
  * @return <type>
  */
-function bpml_google_translate($content, $from_language, $to_language) {
+function bpml_google_translate($content, $from_language, $to_language) 
+{
     static $client = NULL;
     if (is_null($client)) {
         $client = new WP_Http();

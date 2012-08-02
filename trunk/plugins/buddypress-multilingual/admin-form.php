@@ -3,36 +3,109 @@
  * Admin form functions.
  */
 
+ 
+/**
+ * Admin form hook.
+ *
+ * @global  $bpml
+ * @return <type>
+ */
+function bpml_profiles_admin_form() 
+{
+    global $bpml;
+	
+    echo '<h2>Profile fields</h2>';
+    echo '<label><input type="radio" name="bpml[profiles][translation]" value="no"' . (($bpml['profiles']['translation'] == 'no' || !isset($bpml['profiles']['translation'])) ? ' checked="checked"' : '') . ' />&nbsp;No translation</label>&nbsp;&nbsp;<br />';
+    echo '<label><input type="radio" name="bpml[profiles][translation]" value="user"' . ($bpml['profiles']['translation'] == 'user' ? ' checked="checked"' : '') . ' />&nbsp;Allow user to translate</label>&nbsp;&nbsp;<br />';
+
+    echo '<br /><br />';
+
+    echo 'Select fields that can be translated:';
+    
+	// get fields
+    $groups = BP_XProfile_Group::get(array('fetch_fields' => true));
+			
+    if (empty($groups)) 
+	{
+        echo 'No profile fields.';
+        return FALSE;
+    }
+
+    foreach ($groups as $group) 
+	{
+        if (empty($group->fields)) {
+            echo 'No fields in this group';
+            continue;
+        }
+		
+        echo '<h4>' . $group->name . '</h4>';
+        
+		foreach ($group->fields as $field) 
+		{
+            $checked = isset($bpml['profiles']['fields'][$field->id]) ? ' checked="checked"' : '';
+            echo '<label><input type="checkbox" name="bpml[profiles][fields][' . $field->id . ']" value="1"' . $checked . ' />&nbsp;' . $field->name . '</label>&nbsp;&nbsp;';
+        }
+    }
+
+	//----------------------------TRANSLATE FIELD TITLES (o NAMES)-------------------------------
+    echo '<br /><br /><br />Translate field titles<br />';
+    $checked = isset($bpml['profiles']['translate_fields_title']) ? ' checked="checked"' : '';    
+	echo '<label><input type="checkbox" name="bpml[profiles][translate_fields_title]" value="1"' . $checked . ' />&nbsp;Yes</label>&nbsp;&nbsp;';
+	//-------------------------------------------------------------------------------------
+	
+    echo '<br /><br /><input type="submit" value="Save Settings" name="bpml_save_options" class="submit button-primary" />';
+    echo '<br /><br />';
+}
+
+
 /**
  * Processes admin page submit.
  *
  * @global <type> $wpdb
  */
-function bpml_admin_save_settings_submit() {
-    if (current_user_can('manage_options') && wp_verify_nonce(isset($_POST['_wpnonce']), 'bpml_save_options') && isset($_POST['bpml'])) {
-        if (isset($_POST['bpml_clear_google_cache'])) {
+function bpml_admin_save_settings_submit() 
+{
+    if (current_user_can('manage_options') && wp_verify_nonce(isset($_POST['_wpnonce']), 'bpml_save_options') && isset($_POST['bpml'])) 
+	{
+        if (isset($_POST['bpml_clear_google_cache'])) 
+		{
             bpml_activities_clear_cache('all', 'bpml_google_translation');
             bpml_store_admin_notice('settings_saved', '<p>Cache cleared</p>');
-        } else if (isset($_POST['bpml_clear_all_activity_data'])) {
+        }
+		else if (isset($_POST['bpml_clear_all_activity_data'])) 
+		{
             bpml_activities_clear_all_data();
             bpml_store_admin_notice('settings_saved', '<p>Activities data cleared</p>');
-        } else if (isset($_POST['bpml_admin_clear_activity_translations_single'])) {
+        }
+		else if (isset($_POST['bpml_admin_clear_activity_translations_single'])) 
+		{
             bpml_admin_clear_activity_translations_single(key($_POST['bpml_admin_clear_activity_translations_single']));
             bpml_store_admin_notice('settings_saved', '<p>Activity data cleared</p>');
-        } else if (isset($_POST['bpml_admin_clear_activity_data_single'])) {
+        } 
+		else if (isset($_POST['bpml_admin_clear_activity_data_single'])) 
+		{
             bpml_admin_clear_activity_data_single(key($_POST['bpml_admin_clear_activity_data_single']));
             bpml_store_admin_notice('settings_saved', '<p>Activity data cleared</p>');
-        } else if (isset($_POST['bpml_reset_options'])) {
+        }
+		else if (isset($_POST['bpml_reset_options'])) 
+		{
             bpml_save_settings(bpml_default_settings());
             bpml_store_admin_notice('settings_saved', '<p>Settings set to default</p>');
-        } else {
+        } 
+		else 
+		{
             bpml_admin_save_settings_submit_recursive(&$_POST['bpml']);
             bpml_save_settings($_POST['bpml']);
+			
+			//DO_ACTION
             do_action('bpml_settings_saved', $_POST['bpml']);
+			
             bpml_store_admin_notice('settings_saved', '<p>Settings saved</p>');
         }
+		
         wp_redirect(admin_url('options-general.php?page=bpml'));
-        exit;
+        
+		exit;
     }
 }
 
@@ -250,57 +323,16 @@ function bpml_admin_clear_activity_translations_single($type) {
  * @global  $wpdb
  * @param <type> $type
  */
-function bpml_admin_clear_activity_data_single($type) {
+function bpml_admin_clear_activity_data_single($type) 
+{
     global $wpdb;
+
     $results = $wpdb->get_results("SELECT id FROM {$wpdb->prefix}bp_activity WHERE type='" . $type . "'");
+
     foreach ($results as $key => $result) {
         bpml_activities_clear_cache($result->id, 'bpml_google_translation');
         bpml_activities_clear_cache($result->id, 'bpml_lang');
         bpml_activities_clear_cache($result->id, 'bpml_lang_recorded');
         bpml_activities_clear_cache($result->id, 'bpml_lang_orphan');
     }
-}
-
-/**
- * Admin form hook.
- *
- * @global  $bpml
- * @return <type>
- */
-function bpml_profiles_admin_form() {
-    global $bpml;
-    echo '<h2>Profile fields</h2>';
-    echo '<label><input type="radio" name="bpml[profiles][translation]" value="no"' . (($bpml['profiles']['translation'] == 'no' || !isset($bpml['profiles']['translation'])) ? ' checked="checked"' : '') . ' />&nbsp;No translation</label>&nbsp;&nbsp;<br />';
-    echo '<label><input type="radio" name="bpml[profiles][translation]" value="user"' . ($bpml['profiles']['translation'] == 'user' ? ' checked="checked"' : '') . ' />&nbsp;Allow user to translate</label>&nbsp;&nbsp;<br />';
-
-    echo '<br /><br />';
-
-    echo 'Select fields that can be translated:';
-    // get fields
-    $groups = BP_XProfile_Group::get(array(
-                'fetch_fields' => true
-            ));
-    if (empty($groups)) {
-        echo 'No profile fields.';
-        return FALSE;
-    }
-
-    foreach ($groups as $group) {
-        if (empty($group->fields)) {
-            echo 'No fields in this group';
-            continue;
-        }
-        echo '<h4>' . $group->name . '</h4>';
-        foreach ($group->fields as $field) {
-            $checked = isset($bpml['profiles']['fields'][$field->id]) ? ' checked="checked"' : '';
-            echo '<label><input type="checkbox" name="bpml[profiles][fields][' . $field->id . ']" value="1"' . $checked . ' />&nbsp;' . $field->name . '</label>&nbsp;&nbsp;';
-        }
-    }
-
-    echo '<br /><br /><br />Translate field titles<br />';
-    $checked = isset($bpml['profiles']['translate_fields_title']) ? ' checked="checked"' : '';
-    echo '<label><input type="checkbox" name="bpml[profiles][translate_fields_title]" value="1"' . $checked . ' />&nbsp;Yes</label>&nbsp;&nbsp;';
-
-    echo '<br /><br /><input type="submit" value="Save Settings" name="bpml_save_options" class="submit button-primary" />';
-    echo '<br /><br />';
 }
