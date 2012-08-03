@@ -92,26 +92,33 @@ function bpml_bp_get_the_profile_field_name_filter( $name )
         return $name;
     }
 
-	//----------meccanismo di CACHE-------------------------------------
+	
+/*
+/*
+	
+//----------CACHE 1/2 -------------------------------------	
+
+
     static $cache = NULL;
 
     if (is_null($cache)) 
 	{
         $cache = get_option('bpml_profile_fileds_names', array());				//bpml_profile_fileds_names			---fileds-----fields?
-    }
+    }	
 	
+		
     if (isset($cache[$field->id][ICL_LANGUAGE_CODE])) 
 	{
         return $cache[$field->id][ICL_LANGUAGE_CODE];
     }
-     	
-	//---------------------------------------------------------------	
+*/	
+
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// --- [ function bpml_google_translate($content, $from_language, $to_language)  ]----
 	//	
-	//require_once dirname(__FILE__) . '/google-translate.php';
-	//$name = bpml_google_translate($name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE);
+//require_once dirname(__FILE__) . '/google-translate.php';
+//$name = bpml_google_translate($name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE);
 	// 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//
@@ -127,41 +134,163 @@ function bpml_bp_get_the_profile_field_name_filter( $name )
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//
 	// 3 - '_ext'
-	require_once dirname(__FILE__) . '/best2best-translate.php';
-	$name = bpml_fields_names_translate_ext($field, $name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE); 			//aggiungto campo '$field'
-	//
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//require_once dirname(__FILE__) . '/best2best-translate.php';
+	//$name = bpml_fields_names_translate_ext($field, $name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE); 			//aggiungto campo '$field'	
+	
+	
 /*
+Nome						1	x
+Tipo profilo				2	x
+Telefono					5	x
+Indirizzo					6
+Altri contatti				7
+Lista aree di copertura		8
+Descrizione attività		25  X
+Numero letti / coperti		73  X
+Numero stelle				76  X
+
+*/	
+		
+
+	//NOME- id: 1
+	if( $field->id == 1) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Name";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Name (DE)";
+		}
+		
+	}
+	
+	//TIPO PROFILO- id: 2
 	if( $field->id == 2) 
 	{
 		if (ICL_LANGUAGE_CODE=="en") 
 		{
-			//$name = "profile type";
-			//$cache[$field->id][ICL_LANGUAGE_CODE] =  "profile type";
-			//echo 'INGLESE';			
-			$name = "profile type";
+			$name = "Profile Type";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{			
+			$name = "Profile Type (DE)";
+		}	
+	}
+	
+	//TELEFONO - id: 5
+	if( $field->id == 5) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Phone Number";
 		}		
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
-			//echo 'TEDESCO';
-			//$cache[$field->id][ICL_LANGUAGE_CODE] =  "profile type DE";
-			$name = 'profile type DE';
+			$name = "Phone Number(DE)";
 		}
-		else 
-		{
-			$name = 'tipo profiloooo';
-		}				
+		
 	}
-*/	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+
+	//Indirizzo	- id: 6
+	if( $field->id == 6) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Address";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Address (DE)";
+		}
+		
+	}	
+
+	//Altri contatti - id: 7
+	if( $field->id == 7) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Other 	";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Other 	(DE)";
+		}
+		
+	}
+
+	//Lista aree di copertura - id: 8
+	if( $field->id == 8) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Area";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Area(DE)";
+		}
+	}
+
+	//Descrizione attivita - id: 25
+	if( $field->id == 25) 	
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Work Field Description";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Work Field Description (DE)";
+		}
+				
+	}
+		
+	//Numero letti / coperti - id: 73
+	if( $field->id == 73) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Bedrooms Number";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Bedrooms Number(DE)";
+		}
+		
+	}
 	
+
+	//Numero stelle	- id: 76
+	if( $field->id == 76) 
+	{
+		if (ICL_LANGUAGE_CODE=="en") 
+		{			
+			$name = "Stars";
+		}		
+		else if (ICL_LANGUAGE_CODE=="de") 
+		{
+			$name = "Stars (DE)";
+		}
+		
+	}
+	
+
+
+/*
+//----------CACHE 2/2-------------------------------------		
+
+
     $cache[$field->id][ICL_LANGUAGE_CODE] = $name;    
 	
+		
 	update_option('bpml_profile_fileds_names', $cache);				//bpml_profile_fileds_names			---fileds-----fields?
-
-    /* -----------------------------------------------------------------------*/				
-			
-	//		
+    
+*/			
+	//RETURN
 	return $name;	
 }
 

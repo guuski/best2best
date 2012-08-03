@@ -96,7 +96,7 @@ function bpml_init_check() {
 				{
                     require_once dirname(__FILE__) . '/profiles.php';
 					
-					//----------------------------TRANSLATE FIELD TITLES-------------------------------
+					//----------------------------TRANSLATE FIELD TITLES (o NAMES)-------------------------------
                     if (!is_admin() && isset($bpml['profiles']['translate_fields_title'])) 
 					{
 						//FILTER
