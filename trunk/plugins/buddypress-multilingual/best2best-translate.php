@@ -7,7 +7,7 @@
  * Translates strings.....	- 3 - 
  *
  */
-function bpml_fields_names_translate_ext($content, $from_language, $to_language) 
+function bpml_fields_names_translate_ext($field,$content, $from_language, $to_language) 
 {
 /*
 Nome	
@@ -22,8 +22,8 @@ Lista aree di copertura
 */
 
 
-	if( $field->name == "Tipo Profilo") 
-	//if( $field->id == 2) 		
+	//if( $field->name == "Tipo Profilo") 
+	if( $field->id == 2) 		
 	{
 		if (ICL_LANGUAGE_CODE=="en") 
 		{			
@@ -31,7 +31,7 @@ Lista aree di copertura
 		}		
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
-			$content = 'Profile Type (DE)';
+			$content = "Profile Type (DE)";
 		}
 		else 
 		{
@@ -50,8 +50,8 @@ Lista aree di copertura
 		}				
 	}
 	
-	
-	if( $field->name == "Descrizione attività") 
+/*	
+	if( $field->name == "Descrizione attivita") 
 	{
 		if (ICL_LANGUAGE_CODE=="en") 
 		{			
@@ -64,7 +64,7 @@ Lista aree di copertura
 		
 	}
 	
-	
+*/	
 	
 	
 	

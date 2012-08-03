@@ -122,6 +122,7 @@ function bpml_upgrade_110()
 	//------------------------------------------------------------
 																							// 3/3 - MOI
 																							//CREATE TABLE:  $wpdb->prefix . "bp_xprofile_data_bpml";
+/*																							
     $table_name = $wpdb->prefix . "bp_xprofile_data_bpml";
 	
     if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) 
@@ -142,7 +143,7 @@ function bpml_upgrade_110()
 		dbDelta($sql);
     }
 	
-
+*/
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//opzione di default
