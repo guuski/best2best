@@ -96,7 +96,7 @@ function bpml_init_check() {
 				{
                     require_once dirname(__FILE__) . '/profiles.php';
 					
-					//----------------------------TRANSLATE FIELD TITLES (o NAMES)-------------------------------
+					//----------------------------translate FIELD TITLES (o NAMES)-------------------------------
                     if (!is_admin() && isset($bpml['profiles']['translate_fields_title'])) 
 					{
 						//FILTER
@@ -104,8 +104,12 @@ function bpml_init_check() {
 						
 							//perchè da field TITLE si passa a --> field NAME -----?!?!?
                     }
-					//------------------------------------------------------------------------------------
 					
+					//----------------------------translate FIELD GROUPS NAMES-------------------------------
+					//FILTER
+                    add_filter('bp_get_the_profile_group_name', 'bpml_bp_get_the_profile_group_name_filter');
+
+					//------------------------------------------------------------------------------------					
                     add_action('xprofile_data_before_save'		, 'bpml_xprofile_data_before_save_hook');
                     add_action('init'							, 'bpml_profiles_init');
                     add_action('bp_after_profile_edit_content'	, 'bpml_profiles_bp_after_profile_edit_content_hook');
