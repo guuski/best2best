@@ -103,6 +103,7 @@ function bpml_admin_save_settings_submit()
             bpml_store_admin_notice('settings_saved', '<p>Settings saved</p>');
         }
 		
+		//REDIRECT
         wp_redirect(admin_url('options-general.php?page=bpml'));
         
 		exit;
@@ -114,11 +115,16 @@ function bpml_admin_save_settings_submit()
  *
  * @param <type> $array
  */
-function bpml_admin_save_settings_submit_recursive(&$array) {
-    foreach ($array as $key => &$value) {
-        if (is_array($value)) {
+function bpml_admin_save_settings_submit_recursive(&$array) 
+{
+    foreach ($array as $key => &$value) 
+	{
+        if (is_array($value)) 
+		{
             bpml_admin_save_settings_submit_recursive(&$value);
-        } else if ($value == '0' || $value == '1' || $value == '-1') {
+        }
+		else if ($value == '0' || $value == '1' || $value == '-1') 
+		{
             $value = intval($value);
         }
     }
@@ -129,56 +135,65 @@ function bpml_admin_save_settings_submit_recursive(&$array) {
  *
  * @global <type> $bpml
  */
-function bpml_admin_page() {
-    bpml_delete_setting('admin_notices');
-    global $bpml;
+function bpml_admin_page() 
+{
+    
+	bpml_delete_setting('admin_notices');
+    
+	global $bpml;
+	
     echo '<div class="wrap">
 	<div id="icon-options-general" class="icon32"><br /></div>
 <h2>BuddyPress Multilingual</h2><div class="bpml-admin-form">';
     echo '<form action="" method="post">';
-    wp_nonce_field('bpml_save_options');
+    
+	wp_nonce_field('bpml_save_options');
 
     echo '<h2>General</h2>';
-
     echo 'Enable debugging <em>(visible on frontend for admin only)</em><br />';
     echo '<label><input type="radio" name="bpml[debug]" value="1"';
-    if ($bpml['debug'])
+    
+	if ($bpml['debug'])
         echo ' checked="checked"';
-    echo '/> Yes</label>&nbsp;&nbsp;';
+    
+	echo '/> Yes</label>&nbsp;&nbsp;';
     echo '<label><input type="radio" name="bpml[debug]" value="0"';
-    if (!$bpml['debug'])
+    
+	if (!$bpml['debug'])
         echo ' checked="checked"';
+		
     echo '/> No</label>';
-
     echo '<br /><br />';
 
+	//DO_ACTION
     do_action('bpml_settings_form_before');
 
     echo '<h2>Activities</h2>';
-
     echo 'Filter activity entries per language<br /><em>Default: No (activities are all displayed and optionally translated)</em><br />';
     echo '<label><input type="radio" name="bpml[activities][filter]" value="1"';
-    if ($bpml['activities']['filter'])
+    
+	if ($bpml['activities']['filter'])
         echo ' checked="checked"';
+		
     echo '/> Yes</label>&nbsp;&nbsp;';
     echo '<label><input type="radio" name="bpml[activities][filter]" value="0"';
+	
     if (!$bpml['activities']['filter'])
         echo ' checked="checked"';
+		
     echo '/> No</label>';
-
     echo '<br /><br />';
-
     echo '<input type="submit" value="Clear all BPML language activity data" name="bpml_clear_all_activity_data" class="submit button-secondary" onclick="if (confirm(\'Are you sure?\\nAll activities will loose language data!\') == false) { return false; }" />';
-
     echo '<br /><br />';
-
     echo 'Show activity language assign dropdown for admin<br />';
     echo '<label><input type="radio" name="bpml[activities][show_activity_switcher]" value="1"';
-    if ($bpml['activities']['show_activity_switcher'])
+    
+	if ($bpml['activities']['show_activity_switcher'])
         echo ' checked="checked"';
     echo '/> Yes</label>&nbsp;&nbsp;';
     echo '<label><input type="radio" name="bpml[activities][show_activity_switcher]" value="0"';
-    if (!$bpml['activities']['show_activity_switcher'])
+    
+	if (!$bpml['activities']['show_activity_switcher'])
         echo ' checked="checked"';
     echo '/> No</label>';
 
@@ -186,11 +201,14 @@ function bpml_admin_page() {
 
     echo 'Display activity updates without language in:<br />';
     echo '<label><input type="radio" name="bpml[activities][display_orphans]" value="default"';
-    if ($bpml['activities']['display_orphans'] === 'default')
+    
+	
+	if ($bpml['activities']['display_orphans'] === 'default')
         echo ' checked="checked"';
     echo '/>  Default language</label>&nbsp;&nbsp;';
     echo '<label><input type="radio" name="bpml[activities][display_orphans]" value="all"';
-    if ($bpml['activities']['display_orphans'] === 'all')
+    
+	if ($bpml['activities']['display_orphans'] === 'all')
         echo ' checked="checked"';
     echo '/> All languages</label>&nbsp;&nbsp;';
     echo '<label><input type="radio" name="bpml[activities][display_orphans]" value="none"';
@@ -289,12 +307,14 @@ function bpml_admin_page() {
             <input type="submit" value="Clear all data" name="bpml_admin_clear_activity_data_single[' . $type . ']" class="submit button-secondary" onclick="if (confirm(\'Are you sure?\\nThis activity will loose language data!\') == false) { return false; }" />
             </td></tr>';
 
+		//DO_ACTION	
         do_action('bpml_settings_form_collected_activities', $type, $activity);
 
         echo '</table>';
     }
     echo '</div>';
 
+	//DO_ACTION	
     do_action('bpml_settings_form_after');
 
     echo '<br /><br /><input type="submit" value="Save Settings" name="bpml_save_options" class="submit button-primary" />';
@@ -309,10 +329,14 @@ function bpml_admin_page() {
  * @global  $wpdb
  * @param <type> $type
  */
-function bpml_admin_clear_activity_translations_single($type) {
+function bpml_admin_clear_activity_translations_single($type) 
+{
     global $wpdb;
+	
     $results = $wpdb->get_results("SELECT id from {$wpdb->prefix}bp_activity WHERE type='" . $type . "'");
-    foreach ($results as $key => $result) {
+    
+	foreach ($results as $key => $result) 
+	{
         bpml_activities_clear_cache($result->id, 'bpml_google_translation');
     }
 }
@@ -329,7 +353,8 @@ function bpml_admin_clear_activity_data_single($type)
 
     $results = $wpdb->get_results("SELECT id FROM {$wpdb->prefix}bp_activity WHERE type='" . $type . "'");
 
-    foreach ($results as $key => $result) {
+    foreach ($results as $key => $result) 
+	{
         bpml_activities_clear_cache($result->id, 'bpml_google_translation');
         bpml_activities_clear_cache($result->id, 'bpml_lang');
         bpml_activities_clear_cache($result->id, 'bpml_lang_recorded');
