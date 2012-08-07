@@ -140,16 +140,16 @@ function bpml_init_check()
 					//------------------------------------------------------------------------------------					
                     
 					//(per le notifiche)- potrei staccare 3
-					add_action('xprofile_data_before_save'		, 'bpml_xprofile_data_before_save_hook');
+						//add_action('xprofile_data_before_save'		, 'bpml_xprofile_data_before_save_hook');
                     
 					//la funzione è VUOTA!
 					add_action('init'							, 'bpml_profiles_init');
                     
 					//potrei staccare 1
-					add_action('bp_after_profile_edit_content'	, 'bpml_profiles_bp_after_profile_edit_content_hook');
+						//add_action('bp_after_profile_edit_content'	, 'bpml_profiles_bp_after_profile_edit_content_hook');
 					
 					//potrei staccare 2
-                    add_action('bpml_ajax'						, 'bpml_profiles_ajax');					
+						//add_action('bpml_ajax'						, 'bpml_profiles_ajax');					
 					
 					//--------------------------------------------------------------------------------------------
 					

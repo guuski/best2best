@@ -33,10 +33,12 @@ function bpml_profiles_bp_get_the_profile_field_value_filter($value, $type, $fie
 {
     global $sitepress, $bpml, $bpml_profiles_field_value_suppress_filter;
 	
+/*	
     if (!empty($bpml_profiles_field_value_suppress_filter)) 	//?
 	{
         return $value;
     }
+*/	
 	
     if (!isset($bpml['profiles']['fields'][$field_id])) 		// vede l' OPZIONE per il field specifico
 	{
@@ -44,7 +46,10 @@ function bpml_profiles_bp_get_the_profile_field_value_filter($value, $type, $fie
     }
 	
     $lang = $sitepress->get_current_language();	
-    $value = bpml_profiles_get_field_translation($field_id, $lang, $value);		//F call
+    
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	$value = bpml_profiles_get_field_translation($field_id, $lang, $value);		//F call
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
     return $value;
 }
