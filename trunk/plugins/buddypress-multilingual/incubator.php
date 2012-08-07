@@ -41,12 +41,12 @@ function bpml_bp_get_group_name_filter($name) {
         return $name;
     }
     $options = bpml_settings();
-    if ($options['groups']['translate_name'] === 'google_translate_store') {
+    if ($options['groups']['translate_name'] === 'google_translate_store') {				//Google TRANSLATE!
         $translations = groups_get_groupmeta($bp->groups->current_group->id, 'bpml_google_translation');
         if (!isset($translations[ICL_LANGUAGE_CODE])) {
-            bpml_google_translate_wrap($name);
+            bpml_google_translate_wrap($name);					//Google TRANSLATE!
         }
-    } else if ($options['groups']['translate_name'] === 'google_translate_js') {
+    } else if ($options['groups']['translate_name'] === 'google_translate_js') {		//Google TRANSLATE!
 
     }
     return $name;

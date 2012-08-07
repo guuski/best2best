@@ -10,10 +10,102 @@
 function bpml_profiles_init() 
 {
 
-	
+	//VUOTO!
 
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------- XPROFILE FIELD Values  (utente/user, hotel/albergo, webmaster....)	[TABELLA wp_bp_xprofile_data] ---------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Profilae field value filter.
+ * 
+ * @global  $sitepress
+ * @global  $bpml
+ * @global boolean $bpml_profiles_field_value_suppress_filter
+ * @param <type> $value
+ * @param <type> $type
+ * @param <type> $field_id
+ * @return <type>
+ */
+function bpml_profiles_bp_get_the_profile_field_value_filter($value, $type, $field_id) 
+{
+    global $sitepress, $bpml, $bpml_profiles_field_value_suppress_filter;
+	
+    if (!empty($bpml_profiles_field_value_suppress_filter)) 	//?
+	{
+        return $value;
+    }
+	
+    if (!isset($bpml['profiles']['fields'][$field_id])) 		// vede l' OPZIONE per il field specifico
+	{
+        return $value;
+    }
+	
+    $lang = $sitepress->get_current_language();	
+    $value = bpml_profiles_get_field_translation($field_id, $lang, $value);		//F call
+	
+    return $value;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// [TABELLA wp_bp_xprofile_data_bpml]
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Fetches field translation.
+ *
+ * @global $wpdb $wpdb
+ * @global  $bpml
+ * @global  $sitepress
+ * @global boolean $bpml_profiles_field_value_suppress_filter
+ * @param <type> $field_id
+ * @param <type> $lang
+ * @param <type> $value
+ * @return <type>
+ */
+function bpml_profiles_get_field_translation($field_id, $lang, $value = '') 
+{
+    global $wpdb, $bpml, $sitepress, $bpml_profiles_field_value_suppress_filter;
+	
+    if ($sitepress->get_default_language() == $lang) 
+	{
+        return $value;
+    }
+    
+	//
+	$translation 
+		= apply_filters('bp_get_the_profile_field_edit_value', $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}bp_xprofile_data_bpml WHERE field_id=%d and lang=%s", $field_id, $lang)));
+    
+	if (empty($translation)) 
+	{
+		//debug MSG!
+        bpml_debug('Missing tranlsation for field: ' . $field_id);
+		
+        if ($bpml['profiles']['translation']['user-missing'] && empty($bpml_profiles_field_value_suppress_filter)) 
+		{
+			//GOOGLE TRANSLATE!!!
+            require_once dirname(__FILE__) . '/google-translate.php';
+            $value = bpml_google_translate(apply_filters('bp_get_the_profile_field_edit_value', $value), $sitepress->get_default_language(), $lang);
+            
+			//debug MSG!
+			bpml_debug('Fetching Google translation for field: ' . $field_id);
+        }
+		
+        return $value;
+    } 
+	else 
+	{
+        return $translation;
+    }
+}
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//          add_action('bp_after_profile_edit_content'	, 'bpml_profiles_bp_after_profile_edit_content_hook');
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Adds translation options on 'Edit Profile' page.
@@ -28,9 +120,9 @@ function bpml_profiles_bp_after_profile_edit_content_hook()
 {
     global $bp, $bpml, $sitepress, $bpml_profiles_field_value_suppress_filter;
 
-    $bpml_profiles_field_value_suppress_filter = TRUE;
+    $bpml_profiles_field_value_suppress_filter = TRUE;									//suppress FILTER!
 
-    require_once dirname(__FILE__) . '/google-translate.php';
+    require_once dirname(__FILE__) . '/google-translate.php';			//GOOGLE TRANSLATE!
 
     $default_language = $sitepress->get_default_language();
     $langs = $sitepress->get_active_languages();
@@ -75,6 +167,10 @@ function bpml_profiles_bp_after_profile_edit_content_hook()
     }
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// add_action('bpml_ajax'						, 'bpml_profiles_ajax');
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
  * Processes AJAX call for updating field translation.
  * 
@@ -94,6 +190,10 @@ function bpml_profiles_ajax()
 		echo json_encode(array('output' => 'Done'));
     }
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Updates field translation.
@@ -131,82 +231,12 @@ function bpml_profile_update_translation($user_id, $field_id, $lang, $content)
     }
 }
 
-/**
- * Fetches field translation.
- *
- * @global $wpdb $wpdb
- * @global  $bpml
- * @global  $sitepress
- * @global boolean $bpml_profiles_field_value_suppress_filter
- * @param <type> $field_id
- * @param <type> $lang
- * @param <type> $value
- * @return <type>
- */
-function bpml_profiles_get_field_translation($field_id, $lang, $value = '') 
-{
-    global $wpdb, $bpml, $sitepress, $bpml_profiles_field_value_suppress_filter;
-	
-    if ($sitepress->get_default_language() == $lang) 
-	{
-        return $value;
-    }
-    
-	$translation = apply_filters('bp_get_the_profile_field_edit_value', $wpdb->get_var($wpdb->prepare("SELECT value FROM {$wpdb->prefix}bp_xprofile_data_bpml WHERE field_id=%d and lang=%s", $field_id, $lang)));
-    
-	if (empty($translation)) 
-	{
-        bpml_debug('Missing tranlsation for field: ' . $field_id);
-		
-        if ($bpml['profiles']['translation']['user-missing'] && empty($bpml_profiles_field_value_suppress_filter)) 
-		{
-            require_once dirname(__FILE__) . '/google-translate.php';
-            $value = bpml_google_translate(apply_filters('bp_get_the_profile_field_edit_value', $value), $sitepress->get_default_language(), $lang);
-            bpml_debug('Fetching Google translation for field: ' . $field_id);
-        }
-		
-        return $value;
-    } 
-	else 
-	{
-        return $translation;
-    }
-}
 
-//------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
 
-/**
- * Profilae field value filter.
- * 
- * @global  $sitepress
- * @global  $bpml
- * @global boolean $bpml_profiles_field_value_suppress_filter
- * @param <type> $value
- * @param <type> $type
- * @param <type> $field_id
- * @return <type>
- */
-function bpml_profiles_bp_get_the_profile_field_value_filter($value, $type,$field_id) 
-{
-    global $sitepress, $bpml, $bpml_profiles_field_value_suppress_filter;
-	
-    if (!empty($bpml_profiles_field_value_suppress_filter)) 
-	{
-        return $value;
-    }
-	
-    if (!isset($bpml['profiles']['fields'][$field_id])) 
-	{
-        return $value;
-    }
-	
-    $lang = $sitepress->get_current_language();
-	
-    $value = bpml_profiles_get_field_translation($field_id, $lang, $value);
-	
-    return $value;
-}
-//------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+//	aggiunto in 'sitepress-bp.php' 
+// 	---> add_action('xprofile_data_before_save'		, 'bpml_xprofile_data_before_save_hook');
+//------------------------------------------------------------------------------------------------------------------
 
 /**
  * Notices user about changed fields.
@@ -220,41 +250,15 @@ function bpml_xprofile_data_before_save_hook($field)
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-							
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-//
+// 2 - TO DO
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 /**
- * Translates strings.....		- 1 - OK
- *
- */
-function bpml_fields_names_translate_temp() 
-{
-
-
-
-
-
-
-}
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-/**
- * Translates strings.....	- 2 - 
+ * Translates strings.....	
  *
  * @staticvar string $client
  * @param <type> $item
@@ -263,26 +267,9 @@ function bpml_fields_names_translate_temp()
  */
 function bpml_fields_names_translate($content, $from_language, $to_language) 
 {
-/*
-    static $client = NULL;
-    if (is_null($client)) {
-        $client = new WP_Http();
-    }
-    $gtranslateurl = 'http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=%s&langpair=%s|%s';
-    $url = sprintf($gtranslateurl, urlencode($content), $from_language, $to_language);
-    $url = str_replace('|', '%7C', $url);
-    $response = $client->request($url);
-    if (!is_wp_error($response) && $response['response']['code'] == '200' && $response['response']['code'] == '403') {
-        $translation = json_decode($response['body']);
-		
-        $content = $translation->responseData->translatedText;
-    } else {
-    	$content = null;
-    }
-    
-    return $content;
-*/	
+	// 2 - TO DO
 }
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------TRANSLATE FIELD TITLES (o NAMES)-------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -304,15 +291,11 @@ function bpml_bp_get_the_profile_field_name_filter( $name )
     if ($sitepress->get_default_language() == ICL_LANGUAGE_CODE) 
 	{
         return $name;
-    }
-
-	
-/*
+    }	
 /*
 	
-//----------CACHE 1/2 -------------------------------------	
-
-
+//----------CACHE 1/2 --------------
+/*
     static $cache = NULL;
 
     if (is_null($cache)) 
@@ -326,45 +309,36 @@ function bpml_bp_get_the_profile_field_name_filter( $name )
         return $cache[$field->id][ICL_LANGUAGE_CODE];
     }
 */	
-
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// --- [ function bpml_google_translate($content, $from_language, $to_language)  ]----
-	//	
-//require_once dirname(__FILE__) . '/google-translate.php';
-//$name = bpml_google_translate($name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE);
-	// 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+		
+	// 1 - OLD --- [ function bpml_google_translate($content, $from_language, $to_language)  ]----		
 	//
-	// 1 - OK - '_temp'
-	//bpml_fields_names_translate_temp();
-	//	
+	//require_once dirname(__FILE__) . '/google-translate.php';
+	//$name = bpml_google_translate($name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE);		
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//
 	// 2 - TO DO
 	//$name = bpml_fields_names_translate ($name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE);	
 	//
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 	//
 	// 3 - '_ext'
 	//require_once dirname(__FILE__) . '/best2best-translate.php';
 	//$name = bpml_fields_names_translate_ext($field, $name, $sitepress->get_default_language(), ICL_LANGUAGE_CODE); 			//aggiungto campo '$field'	
-	
-	
+		
 /*
 Nome						1	x
 Tipo profilo				2	x
 Telefono					5	x
-Indirizzo					6
-Altri contatti				7
-Lista aree di copertura		8
+Indirizzo					6	x
+Altri contatti				7	x
+Lista aree di copertura		8	x
 Descrizione attività		25  X
 Numero letti / coperti		73  X
 Numero stelle				76  X
-
 */	
 		
+		
+										//	--- N.B--- metti lo SWITCH o INCLUDE ext file 
 
 	//NOME- id: 1
 	if( $field->id == 1) 
@@ -376,8 +350,7 @@ Numero stelle				76  X
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
 			$name = "Name (DE)";
-		}
-		
+		}		
 	}
 	
 	//TIPO PROFILO- id: 2
@@ -404,10 +377,8 @@ Numero stelle				76  X
 		{
 			$name = "Phone Number(DE)";
 		}
-		
 	}
 			
-
 	//Indirizzo	- id: 6
 	if( $field->id == 6) 
 	{
@@ -418,8 +389,7 @@ Numero stelle				76  X
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
 			$name = "Address (DE)";
-		}
-		
+		}		
 	}	
 
 	//Altri contatti - id: 7
@@ -475,8 +445,7 @@ Numero stelle				76  X
 			$name = "Bedrooms Number(DE)";
 		}
 		
-	}
-	
+	}	
 
 	//Numero stelle	- id: 76
 	if( $field->id == 76) 
@@ -492,41 +461,32 @@ Numero stelle				76  X
 		
 	}
 	
-
-
-/*
-//----------CACHE 2/2-------------------------------------		
-
-
-    $cache[$field->id][ICL_LANGUAGE_CODE] = $name;    
+	//----------CACHE 2/2-----------
+	/*
+    $cache[$field->id][ICL_LANGUAGE_CODE] = $name;    		
+	update_option('bpml_profile_fileds_names', $cache);				//bpml_profile_fileds_names			---fileds-----fields?    
+	*/		
 	
-		
-	update_option('bpml_profile_fileds_names', $cache);				//bpml_profile_fileds_names			---fileds-----fields?
-    
-*/			
 	//RETURN
 	return $name;	
 }
 
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-//----------------------------GROUP names-------------------------------
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------
+//------- XFIELD GROUP names  (base, contatti, area fornitura)	[TABELLA wp_bp_xprofile_groups] ---------------------
+//-------------------------------------------------------------------------------------------------------------------
+
 /**
- * Translates field GROUP names.														
+ * Translates XFIELD GROUP names.														
  * 
  * @global  $sitepress
- * @global <type> $field
- * @staticvar array $cache
+ * @global <type> $group
  * @param <type> $name
  * @return array
+ *
  */
 function bpml_bp_get_the_profile_group_name_filter( $name ) 
 {
-/*
-		global $group;
-		return apply_filters( 'bp_get_the_profile_group_name', $group->name );
-		*/
 	//
     global $sitepress, $group;
 	
@@ -546,8 +506,7 @@ function bpml_bp_get_the_profile_group_name_filter( $name )
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
 			$name = "Profil verwalten";
-		}
-		
+		}		
 	}
 	
 	//NOME- id: 2
@@ -560,8 +519,7 @@ function bpml_bp_get_the_profile_group_name_filter( $name )
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
 			$name = "Kontakte";
-		}
-		
+		}		
 	}
 	
 	//NOME- id: 3
@@ -574,8 +532,7 @@ function bpml_bp_get_the_profile_group_name_filter( $name )
 		else if (ICL_LANGUAGE_CODE=="de") 
 		{
 			$name = "Liefer/Service Einzugsgebiet";
-		}
-		
+		}		
 	}
 
 	//RETURN
