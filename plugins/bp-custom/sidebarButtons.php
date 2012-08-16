@@ -154,7 +154,7 @@ input.loading,input.loading:hover  {background-position: 85% 50%;}
 	__('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali d’accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom');
 	__('Ghost Account','custom');
 	__('Il network utile per i tuoi contatti commerciali','custom');
-	__('La tua presenza ad una Fiera, un nuovo prodotto, un nuovo contratto, offerte speciali, promozioni…','buddypress');	
+	__('La tua presenza ad una Fiera, un nuovo prodotto, un nuovo contratto, offerte speciali, promozioni…','custom');	
 	}
 }
 ?>

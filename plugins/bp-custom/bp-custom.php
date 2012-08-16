@@ -97,8 +97,8 @@ add_action( 'widgets_init', create_function( '', 'register_widget("viewReferral_
 		//===============VIEW REVISION=============================================================================================
 		//=========================================================================================================================
 
-		include_once('viewReferral_ENG.php');
-		add_action( 'widgets_init', create_function( '', 'register_widget("viewReferral_ENG_Widget");' ) );
+// 		include_once('viewReferral_ENG.php');
+// 		add_action( 'widgets_init', create_function( '', 'register_widget("viewReferral_ENG_Widget");' ) );
 
 //=========================================================================================================================
 //===============SIDEBAR BUTTONS===========================================================================================
