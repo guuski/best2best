@@ -2,9 +2,6 @@
 <div id="content">
 <div class="padder">
 
-<!-- DO_ACTION -->
-<?php do_action( 'bp_before_blog_single_post' ) ?>
-
 <div class="page" id="blog-single" role="main">
 
 <!-- WP LOOP -->
@@ -90,14 +87,11 @@
 		<?php printf( __( '%1$s <span>in %2$s</span>', 'buddypress' ), get_the_date(), get_the_category_list( ', ' ) ); ?>
 		<span class="post-utility alignright"><?php edit_post_link( __( 'Edit this entry', 'buddypress' ) ); ?></span>
 	</p>
-
+<?php if ( is_user_logged_in() ) : ?>
 	<div class="entry">
 		<?php the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>			
 	</div>
-	
-	
-
 	<br/>
 			
 	<div>
@@ -149,7 +143,7 @@
 <br/> 
 <br/>
 
-
+<?php do_action( 'bp_before_blog_single_post' ) ?>
 <!----------------- FORM per COMMENTI ------------------------->
 
 
@@ -184,37 +178,28 @@ if ( !empty( $bp->loggedin_user->id ) )
 <?php do_action( 'bp_after_comments' ) ?>
 	
 <!-- fine FORM per COMMENTI -->			
+				
+<?php else : ?>
+	<?php $length= 100; { // Outputs an excerpt of variable length (in characters)
+// 		global $post;
+		$text = $post->post_excerpt;
+		if ( '' == $text ) {
+			$text = get_the_content('');
+			$text = apply_filters('the_content', $text);
+			$text = str_replace(']]>', ']]>', $text);
+		}
+			$text = strip_shortcodes( $text ); // optional, recommended
+			$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
+			$text = substr($text,0,$length)."[..]";
 
-					
-	<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
+		echo $text;
+		
+	}  ?>
 	
-<!-- NAVIGATION -->			
-	<?php if(function_exists('wp_pagenavi')) 
-	{ 
-		wp_pagenavi(); 
-	} 
-	else 
-	{
+	<div class="entry"><p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p></div>
 	
-	}
-	?>  
-	<div class="alignleft"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'buddypress' ) . '</span> %title' ); ?></div>
-	<div class="alignright"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'buddypress' ) . '</span>' ); ?></div>
+<?php endif; ?>
 	
-	<div class="navigation">
-		<div class="alignleft"><?php //previous_posts_link('&laquo; Previous') ?></div>
-		<div class="alignright"><?php //next_posts_link('More &raquo;') ?></div>
-	</div>
-	
-	
-<!-- fine NAVIGATION -->	
-
-
-
-
-
-
-
 </div>
 
 </div>

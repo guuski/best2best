@@ -29,7 +29,7 @@
 		<div id="whats-new-textarea">
 			<textarea name="whats-new" id="whats-new" cols="50" rows="10"><?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_attr( $_GET['r'] ); ?> <?php endif; ?></textarea>
 		</div>
-		<em><?php _e('La tua presenza ad una Fiera, un nuovo prodotto, un nuovo contratto, offerte speciali, promozioni…','buddypress'); ?></em>
+		<em><?php _e('La tua presenza ad una Fiera, un nuovo prodotto, un nuovo contratto, offerte speciali, promozioni…','custom'); ?></em>
 		<div id="whats-new-options">
 			<div id="whats-new-submit">
 				<input type="submit" name="aw-whats-new-submit" id="aw-whats-new-submit" value="<?php _e( 'Post Update', 'buddypress' ); ?>" />

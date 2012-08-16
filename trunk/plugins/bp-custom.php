@@ -130,7 +130,7 @@ function nuovo_user_meta($user) {
 // Aggiungiamo la nostra funzione all'amministrazione di Wordpress
 // in questo "semplice" caso, la funzione "mostra" (show_user_profile)
 // e quella di "modifica" (edit_user_profile) coincidono, ma in casi
-// più articolati potrebbero essere differenti
+// piï¿½ articolati potrebbero essere differenti
 add_action( 'show_user_profile', 'nuovo_user_meta' );
 add_action( 'edit_user_profile', 'nuovo_user_meta' );
 // Memorizza, per l'utente $user_id, un nuovo campo identificato come
@@ -153,7 +153,7 @@ add_action( 'bp_before_member_header_meta'	, 'show_ghost_info',1);
 function show_ghost_info() {
 	if(get_the_author_meta('user_is_ghost',bp_displayed_user_id())=='true') {?>
 	<div id="message" class="updated" style ="display:inline-block; margin: 5px 0 -15px;"><p>
-	<?php _e('Attenzione, questo account non è stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali d’accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom'); 
+	<?php _e('Attenzione, questo account non Ã¨ stato verificato. <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#115;&#116;&#50;&#98;&#101;&#115;&#116;&#46;&#105;&#116;?subject=Credenziali+di+accesso&body=Gentile Amministratore,%0A%0A %0A%0Achiedo di avere le credenziali dï¿½accesso per il profilo di '.xprofile_get_field_data( 'Nome', bp_displayed_user_id()).' ('.bp_displayed_user_id().'). %0A%0A%0A%0ACordiali saluti.">Contatta lo Staff Best2Best</a> se sei tu il proprietario','custom'); 
 	?></p></div>
 	<?php 
 	}	
@@ -286,7 +286,8 @@ add_filter('bp_core_fetch_avatar_no_grav', 'fixGRAvatar',10,1);
 function fixGRAvatar($no_grav) {
 	return true;
 }
-
+if ( ! defined( 'BP_DEFAULT_COMPONENT' ) )
+	define( 'BP_DEFAULT_COMPONENT', 'profile' );
 
 
 
@@ -297,7 +298,7 @@ function sync_website_field( $user_id = 0 )
 {
 	global $bp, $wpdb;
 
-	//per ora la lascio che è meglio! :D
+	//per ora la lascio che ï¿½ meglio! :D
 	if ( !empty( $bp->site_options['bp-disable-profile-sync'] ) && (int)$bp->site_options['bp-disable-profile-sync'] )
 		return true;
 
@@ -307,37 +308,15 @@ function sync_website_field( $user_id = 0 )
 	if ( empty( $user_id ) )
 		return false;
 
-	//$sito_web = get_user_meta( $user_id , 'sito_web', true );		
-	$user_info = get_userdata(1);          
+	$user_info = get_userdata($user_id);          
 	$sito_web = $user_info->user_url;
 	
 	if($sito_web != "") 
 	{
-		//365 è il field_id di 'Sito Web'
-		xprofile_set_field_data(365, $user_id ,	$sito_web );
+		xprofile_set_field_data("Sito Web", $user_id ,	$sito_web );
 		
-		//xprofile_set_field_data( $field_id, $user_id, $current_field );
 
-// @uses xprofile_set_field_data() Will update the field data for a user based on field name and user id.		
-		//xprofile_set_field_data( 1, $user_id, $fullname );
-		//xprofile_set_field_data( bp_xprofile_fullname_field_name(), $user_id , $user->display_name );
-		
-		
-	}
-/*
-      $user_info = get_userdata(1);      
-      $user_url = $user_info->user_url;
-      
-      //echo "$first_name $last_name logs into her WordPress site with the user name of $username.";
-	  
-	  user_url
-*/	  
-		
-/*		
-	$sito_web = xprofile_get_field_data( "Sito web" , $user_id );
-	update_user_meta( $user_id, 'Sito web',   $sito_web  );
-	$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->users} SET display_name = %s WHERE ID = %d", $fullname, $user_id ) );
-*/
+	} 
 }
 add_action( 'xprofile_updated_profile'	, 'sync_website_field' );
 add_action( 'bp_core_signup_user'		, 'sync_website_field' );

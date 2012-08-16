@@ -118,7 +118,7 @@ $loop = new WP_Query($query_args);
 					<br />
 					<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
 			</div>	
-			
+			<?php if ( is_user_logged_in() ) : ?>
 			<div class="entry">
 				<?php //the_content();  ?>	
 				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
@@ -206,7 +206,26 @@ $loop = new WP_Query($query_args);
 			<!-- COMMENTI -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
 			<hr />
-			
+			<?php else : ?>
+	<?php $length= 100; { // Outputs an excerpt of variable length (in characters)
+// 		global $post;
+		$text = $post->post_excerpt;
+		if ( '' == $text ) {
+			$text = get_the_content('');
+			$text = apply_filters('the_content', $text);
+			$text = str_replace(']]>', ']]>', $text);
+		}
+			$text = strip_shortcodes( $text ); // optional, recommended
+			$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
+			$text = substr($text,0,$length);
+
+		echo apply_filters('the_excerpt',$text);
+	}  ?>
+	
+	<div class="entry"><p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p></div>
+	
+<?php endif; ?>
+					
 		<?php endwhile; ?>
 		
 		
