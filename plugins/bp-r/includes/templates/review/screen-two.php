@@ -2,6 +2,13 @@
 //--------------------------------------------------------------- SCREEN 2 --> Scrivi Review-----------------------------------------------------------------------------------------
 get_header() ?>
 
+<!--GIOVANNI POPUP------------------>
+	<script>		
+		alert ("<?php _e('Da oggi è possibile inserire anche recensioni negative anonime. Selezionando il radiobutton negative apparirtà la possibilità di scegliere tra Anonimo o mantenere il proprio nome. ','reviews') ?>");
+	</script>
+<!---------------------------------->	
+
+
 	<!-- CONTENT -->
 	<div id="content">
 	
@@ -175,11 +182,35 @@ get_header() ?>
 				<label for = "review-giudizio"><?php _e('Giudizio Complessivo Review', "reviews" )?> </label>	
 				<br /> 
 				<fieldset name = "review-giudizio" id = "review-giudizio">
-					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="positivo" value="positivo"/> <label style="color:green;" for = "positivo" > <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
-					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="neutro"   value="neutro"  /> <label style="color:orange;"  for = "neutro" > <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
-					<input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <label style="color:red;" for = "negativo"><?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
-				</fieldset>			
+					<label style="color:green;" for = "positivo" onclick="negativoSelezionato('chiudi');"> <input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="positivo" value="positivo"/>  <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
+					<label style="color:orange;"  for = "neutro" onclick="negativoSelezionato('chiudi');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="neutro"   value="neutro"  />  <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
+					<label style="color:red;" for = "negativo" onclick="negativoSelezionato('apri');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
+				</fieldset>
+			
+				<div id = "reviewaa" style="display:none;">
+				<fieldset name = "reviewa" id = "reviewa">
+					<input style="position:relative; display:inline;" type="radio" name="review-anonimo" id="nanonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'Anonimo', 'reviews' ); ?>  </label>				  
+					<input style="position:relative; display:inline;" type="radio" name="review-anonimo" id="nregistrato"   	value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'Registrato', 'reviews' ); ?>    </label>				  
+				</fieldset>	
+				</div>
+		
+			
+			
 			</div>
+			
+<!--GIOVANNI CONTROLLO RADIOBUTTON-->
+<script type="text/javascript">	
+function negativoSelezionato(azione)
+{
+	if (azione=='apri')
+		jQuery('div#reviewaa').show("slow");
+	if (azione=='chiudi')
+		jQuery('div#reviewaa').hide("slow");
+	
+	
+}
+</script>
+<!---------------------------------->			
 		<br />
 <div id="new-review-disclaimer">		
 	<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
