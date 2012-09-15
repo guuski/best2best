@@ -274,6 +274,38 @@ class BP_Review_Component extends BP_Component {
 			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
 		}		  
 		
+		// aggiunge...
+		if(review_current_user_can_moderate()) 																			//nome ambiguo!
+		{
+			$sub_nav[] = array
+			(
+					'name'            => __(' ', 'reviews' )				
+
+				,	'slug'            => 'screen-four'
+
+				,	'parent_url'      => $review_link
+				,	'parent_slug'     => $this->slug															
+				,	'screen_function' => 'bp_review_screen_four'
+/*					
+				// ACCESS RESTRICTION 
+			,	'user_has_access' =>
+									(
+									
+									)														
+*/				
+/*					
+				// ACCESS RESTRICTION - only allow on YOUR OWN profile
+			,	'user_has_access' =>
+									(		is_user_logged_in()										
+										&&	bp_is_my_profile()
+									//	&&	bp_is_user()
+									)														
+*/									
+				,	'position'        => 30								//pos  
+				
+			);
+		}		
+		
 		$sub_nav[] = array
 		(
 				'name'            => $nav_text_2				

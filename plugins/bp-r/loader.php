@@ -92,9 +92,39 @@ function load_my_textdomain()
 			)
 			$can_write=true;
 
-		return apply_filters('bp_reviews_can_user_write',$can_write);
+		return apply_filters('bp_reviews_can_user_write',$can_write);					//nome diverso!
 	}
 
+	//attivo lo screen per le review Anonime
+	function review_current_user_can_moderate()
+	{
+		$can_write=false;
+
+/*		
+bp_core_get_user_displayname( $user_id, false )
+bp_core_get_user_displayname( $user_id_or_username ) 		
+
+xprofile_get_field_data( "Nome" , $referral_requester_id);	
+
+bp_core_get_username(....	
+bp_members_get_user_nicename( $user_id ) 
+
+*/
+		
+		//global $bp;
+		//$user_id   = $bp->displayed_user->id; //bp_loggedin_user_id()
+		$user_id   = bp_loggedin_user_id(); 
+		$user_name = bp_core_get_user_displayname( $user_id, false );
+
+		// se l'utente si chiama "		"
+		//if(	$user_name == "Staff-Recensioni-Best2Best" )				//"Staff-Recensioni-Best2Best" 
+		//if(	$user_name == "andrea" )								//"andrea" o "Andrea HelpDesk Best2Best"		
+			$can_write=true;
+
+		//$can_write = true
+	
+		return apply_filters('review_current_user_can_moderate',$can_write);
+	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 // 	IMPORTANTE 
