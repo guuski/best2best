@@ -117,7 +117,7 @@ bp_members_get_user_nicename( $user_id )
 		$user_name = bp_core_get_user_displayname( $user_id, false );
 
 		// se l'utente si chiama "		"
-		//if(	$user_name == "Staff-Recensioni-Best2Best" )				//"Staff-Recensioni-Best2Best" 
+		if(	$user_name == "Staff-Recensioni-Best2Best" )				//"Staff-Recensioni-Best2Best" 
 		//if(	$user_name == "andrea" )								//"andrea" o "Andrea HelpDesk Best2Best"		
 			$can_write=true;
 
