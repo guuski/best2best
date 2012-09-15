@@ -122,6 +122,21 @@ function bp_review_screen_three()
 	
 }
 
+/**
+ * bp_review_screen_four()
+ * 
+ */
+function bp_review_screen_four() 
+{
+	global $bp;
+	
+	// DO ACTION
+	do_action( 'bp_review_screen_four' );												
+		
+	//carica 'screen_four.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );					//FILTER - non usato da nessuno
+	
+}
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //		NOTE sulle  funzioni SCreen
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
