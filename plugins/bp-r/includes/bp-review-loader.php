@@ -279,7 +279,7 @@ class BP_Review_Component extends BP_Component {
 		{
 			$sub_nav[] = array
 			(
-					'name'            => __(' ', 'reviews' )				
+					'name'            => __('Modera le review anonime', 'reviews' )				
 
 				,	'slug'            => 'screen-four'
 
