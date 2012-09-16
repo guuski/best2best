@@ -246,34 +246,18 @@ function accetta_review_anonima()
 		check_admin_referer( 'accetta-review-anonima' );			
 
 		// [POST_vars]
-		$id_post 			= $_POST['id-post'];					
-	
-
-		//ricava il DESTINATARIO
-		$obj_post 		 = get_post($id_post);			
-		$post_author_id  = $obj_post->post_author;
-						
-		// FUNCTION call 
-		$result = 0;
-/*		
-		$result = bp_ref_accept_referral_request 
-		(
-				$id_post
-				, 	$from_user_id
-				,	$to_user_id
-			, 	$tipologia_rapporto
-			, 	$anzianita_rapporto 
-			, 	$utente_consigliato
-			,	$voto_complessivo
-		);	
-*/		
+		$id_post = $_POST['id-post'];					
+			
+		// FUNCTION call 			
+		$result = change_referral_post_status($id_post, 'publish');		
+		
 		if($result)	
 		{				
 			bp_core_add_message( __( 'Review Anonima pubblicata','reviews' ) );
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'errore pubblicazione Review Anonima ', 'review' ) );			
+			bp_core_add_message( __( 'Si &egrave; verificato un errore... ', 'review' ) );			
 		}	
 		
 		//SCREEN 4
@@ -305,26 +289,15 @@ function rifiuta_review_anonima()
 		$id_post = $_POST['id-post'];		
 
 		// FUNCTION call 
-		$result = 0;
-/*		
-		$result = bp_ref_accept_referral_request 
-		(
-				$id_post
-				, 	$from_user_id
-				,	$to_user_id
-			, 	$tipologia_rapporto
-			, 	$anzianita_rapporto 
-			, 	$utente_consigliato
-			,	$voto_complessivo
-		);	
-*/				
+		$result = change_referral_post_status($id_post, 'trash');		
+		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'Review Anonima pubblicata','reviews' ) );
+			bp_core_add_message( __( 'Review Anonima cestinata','reviews' ) );
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'errore pubblicazione Review Anonima ', 'review' ) );			
+			bp_core_add_message( __( 'Si &egrave; verificato un errore... ', 'review' ) );			
 		}	
 		
 		//SCREEN 4
