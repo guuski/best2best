@@ -47,13 +47,14 @@
 	<h4><?php //_e( 'Le Review ANONIME da MODERARE ', 'reviews' ) ?></h4>
 		
 	<?php		
-	
+
 		$query_args = array
 		(
-				'post_status'		=> 'pending'																				//----------pending
-			
+				'post_status'		=> 'pending'						//----------pending			
 			,	'post_type'			=> 'review'				//'review'
-			,	'meta_query'		=> array()				//META_QUERY!
+			//,   'author'			=> bp_displayed_user_id()	
+			//,	'posts_per_page'	=>  -1	
+			//,	'meta_query'		=> array()				//META_QUERY!
 		);
 /*
 		$query_args['meta_query'][] = array					//META_QUERY!
@@ -76,28 +77,28 @@
 							
 			<!-------------------------------------- get AUTHOR --Autore -------------------------------------->
 			
-			<?php //$referral_requester_id	 = $post->post_author; ?>			
-			<?php //$referral_requester_name 	 = xprofile_get_field_data( "Nome" , $referral_requester_id); ?>					
-								
+			<?php $autore_id	 = $post->post_author; ?>			
+			<?php $autore_nome 	 = xprofile_get_field_data( "Nome" , $autore_id); ?>					
+			<?php //$autore_nome 	 = bp_core_get_user_displayname($autore_id); ?>		
+			<?php //$autore_nome 	 = bp_core_get_user_displayname( $autore_id, false ); ?>		
+			<?php //$autore_nome 	 = bp_members_get_user_nicename( $autore_id ); ?>		
+			
+						
 			
 			<div class="title">				
 								
 				<!-- MESSAGGIO  -->
-				<h5><?php //_e( 'REFERRAL per: ', 'referrals' ) ?>
+				<h5><?php _e( 'REVIEW ANONIMA scritta da: ', 'reviews' ) ?>
 				
 					<span>
-						<a href = "<?php //echo bp_core_get_user_domain($referral_requester_id) ?>">	
-							<?php //echo $referral_requester_name; ?>
+						<a href = "<?php echo bp_core_get_user_domain($autore_id) ?>">	
+							<?php echo $autore_nome; ?> <!-- $autore_id-->
 						</a>								
 					</span>					
 				</h5>
 			</div>	
 								
 			<br/>									
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
-	<?php 
-			//$voto_complessivo = $_POST['voto-complessivo'] 	or 0;			
-	?>
 		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  2 FORM -
@@ -107,35 +108,18 @@
 	<!--- review-FORM ACCETTA-->
 	<form action = "<?php 
 	
-								bp_ref_post_form_action() 
+			bp_reviews_post_form_action_SCREEN_4() 
 	
-	?> " method="post" id="review-form" class="standard-form"> 
-				
-		
-	
-		
-		<!-- Lo raccomanderesti? - Utente Consigliato-->
-		<!--
-		<div id="new-referral-consigliato">	
-			<label for = "utente_consigliato"> <?php _e( 'Lo raccomanderesti?', 'referrals' ); ?></label>	
-			<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
-				<label for = "si"> <input type="radio" name="consigliato" id="si" value="si"/><?php _e( 'Si', 'referrals' ); ?>   </label> 	 	
-				<label for = "no"> <input type="radio" name="consigliato" id="no" value="no"/>  <?php _e( 'No', 'referrals' ); ?> </label> 	 	  
-				<label for = "nonso"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> <?php _e( 'Non so', 'referrals' ); ?> </label> 
-			</fieldset>			
-		</div>
-			-->
-		<br/>		
-	
-			
+	?> " method="post" id="review-anonime-form" class="standard-form"> 
+							
 		<!-- bottone ACCETTA -->	
 		<div id="review-moderation-submit">								
-			<input type="submit" name="accetta-review" id="accetta-review" value="<?php _e( 'Accetta', 'reviews' ); ?>" />			
+			<input type="submit" name="accetta-review-anonima" id="accetta-review-anonima" value="<?php _e( 'Pubblica', 'reviews' ); ?>" />			
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
 		</div>					
 										
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'accetta-review' ); ?>				
+		<?php wp_nonce_field( 'accetta-review-anonima' ); ?>				
 	</form>		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
@@ -143,27 +127,24 @@
 	
 	<!--- review-FORM RIFIUTA-->
 	<form action = "<?php 
-	
-			bp_ref_post_form_action() 
+		
+		bp_reviews_post_form_action_SCREEN_4() 
 			
-			
-			?> " method="post" id="review-form" class="standard-form"> 
+			?> " method="post" id="review-anonime-form" class="standard-form"> 
 
 		<!-- bottone RIFIUTA -->	
 		<div id="review-moderation-submit">								
-			<input type="submit" name="rifiuta-review" id="rifiuta-review" value="<?php _e( 'Rifiuta', 'reviews' ); ?>" />			
+			<input type="submit" name="rifiuta-review-anonima" id="rifiuta-review-anonima" value="<?php _e( 'Elimina', 'reviews' ); ?>" />			
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />				
 		</div>					
 										
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'rifiuta-review' ); ?>				
+		<?php wp_nonce_field( 'rifiuta-review-anonima' ); ?>				
 	</form>			
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
 	<br/> 	
-			
-	<hr />	
-			
+							
 	<?php endwhile; ?>
 	
 <?php else: ?>		
