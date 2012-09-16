@@ -192,9 +192,6 @@ function salva()
 add_action( 'bp_actions', 'salva' );
 
 
-
-
-
 /**
  *
  *
@@ -229,4 +226,109 @@ add_action( 'bp_actions', 'show_all_reviews' );
 
 */
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	ACCETTA review anonima
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'bp_actions', 'accetta_review_anonima' );
+
+/**
+ *
+ */
+function accetta_review_anonima() 
+{
+	global $bp;
+	
+	if ( isset( $_POST['accetta-review-anonima'] ) )		
+	{		
+		// [WPNONCE]
+		check_admin_referer( 'accetta-review-anonima' );			
+
+		// [POST_vars]
+		$id_post 			= $_POST['id-post'];					
+	
+
+		//ricava il DESTINATARIO
+		$obj_post 		 = get_post($id_post);			
+		$post_author_id  = $obj_post->post_author;
+						
+		// FUNCTION call 
+		$result = 0;
+/*		
+		$result = bp_ref_accept_referral_request 
+		(
+				$id_post
+				, 	$from_user_id
+				,	$to_user_id
+			, 	$tipologia_rapporto
+			, 	$anzianita_rapporto 
+			, 	$utente_consigliato
+			,	$voto_complessivo
+		);	
+*/		
+		if($result)	
+		{				
+			bp_core_add_message( __( 'Review Anonima pubblicata','reviews' ) );
+		}
+		else 
+		{			
+			bp_core_add_message( __( 'errore pubblicazione Review Anonima ', 'review' ) );			
+		}	
+		
+		//SCREEN 4
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-four' );		
+	}	
+}
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	RIFIUTA
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'bp_actions', 'rifiuta_review_anonima' );
+
+/**
+ *
+ */
+function rifiuta_review_anonima() 
+{
+	global $bp;
+	
+	if ( isset( $_POST['rifiuta-review-anonima'] ) )		
+	{		
+		// [WPNONCE]
+		check_admin_referer( 'rifiuta-review-anonima');			
+
+		// [POST_vars]
+		$id_post = $_POST['id-post'];		
+
+		// FUNCTION call 
+		$result = 0;
+/*		
+		$result = bp_ref_accept_referral_request 
+		(
+				$id_post
+				, 	$from_user_id
+				,	$to_user_id
+			, 	$tipologia_rapporto
+			, 	$anzianita_rapporto 
+			, 	$utente_consigliato
+			,	$voto_complessivo
+		);	
+*/				
+		if($result)	
+		{				
+			bp_core_add_message( __( 'Review Anonima pubblicata','reviews' ) );
+		}
+		else 
+		{			
+			bp_core_add_message( __( 'errore pubblicazione Review Anonima ', 'review' ) );			
+		}	
+		
+		//SCREEN 4
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-four' );				
+	}	
+}
 ?>
