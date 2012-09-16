@@ -301,6 +301,55 @@ function bp_review_reject_terms()
 }
 */
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function change_review_post_status($id_post, $new_post_status) 
+{
+	$wp_update_post_args = array
+	(
+			'ID'			=> $id_post
+		,   'post_status'   => $new_post_status
+	);
+		
+	$result = wp_update_post( $wp_update_post_args );
+
+	return $result;	
+}
+
+/*
+	'new' 		 - When there's no previous status
+	'publish' 	 - A published post or page
+	'pending' 	 - post in pending review
+	'draft' 	 - a post in draft status
+	'auto-draft' - a newly created post, with no content
+'future'     - a post to publish in the future
+'private' 	 - not visible to users who are not logged in
+	'inherit' 	 - a revision. see get_children.
+	'trash' 	 - post is in trashbin. added with Version 2.9.
+*/	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	ma la usa?!?!		-------> pare di no!
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
