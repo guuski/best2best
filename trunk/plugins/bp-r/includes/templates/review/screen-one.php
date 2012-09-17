@@ -2,8 +2,6 @@
 //---------------------------------------------------------- SCREEN 1 (Le mie Review - quelle Ricevute) -----------------------------------------------------------------------------------------
 ?><?php get_header() ?>
 
-	
-
 	<!-- CONTENT -->
 	<div id="content">
 	
@@ -41,7 +39,7 @@
 	</div>
 
 	
-
+<!-- (IF) -->
 <?php if ( $lista_reviewers = bp_review_get_reviewers_list_for_user( bp_displayed_user_id() ) ) : ?>
 
 		
@@ -131,121 +129,122 @@ $loop = new WP_Query($query_args);
 			?>	
 			
 			<div class="title">		
-
 				<?php $authorlogin= get_the_author_meta('user_login')?>
-	<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
-	<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
+				<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
+				<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
 	
-		<small style = "float: right;"><strong>
+				<small style = "float: right;"><strong>
 					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($autore_review_id)?>">
 					<?php //the_author_meta('user_nicename');?>
-					<?php echo $nome; ?>	</a></strong></small>
-
-				<br /> 				
+					<?php echo $nome; ?>	
+				</a></strong></small>
+				
+				<br /> 								
 				
 				<h4><?php  
 					the_title('<a href="' . get_permalink() . '" title="' .	the_title_attribute('echo=0') .	'"rel="bookmark">','</a>');
-				?><ul id="prezzo" class='star-rating'>	
+					?><ul id="prezzo" class='star-rating'>	
 						<li class='current-rating' style="width: <?php echo 25*$media;?>px"></li>
-				</ul>
+					</ul>
 				</h4>				
 			</div>	
+			
+			<!-- (IF) Utente loggato -->
 			<?php if ( is_user_logged_in() ) : ?>
-			<div class="entry">
-				<?php the_excerpt(); ?>	
-			</div>			
-						
-			<br/> 
-						
-			<!--CUSTOM FIELDS-->
-			<div>								
+			
+				<div class="entry">
+					<?php the_excerpt(); ?>	
+				</div>			
 							
-				<div>
-					<p>
-						<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
-						<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
-					</p>
-					<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
-					<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
-				</div>		
+				<br/> 
+							
+				<!--CUSTOM FIELDS-->
+				<div>															
+					<div>
+						<p>
+							<strong > <?php _e( 'Giudizio Review: ', 'reviews' ); ?></strong> 
+							<span style = "color: <?php echo $color?>"> <?php echo $giudizio_review ?></span>
+						</p>
+						<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
+						<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
+					</div>		
+						
+					<br/> 		
+						
+					<div id="new-review-rating">	
 					
-				<br/> 		
-					
-				<div id="new-review-rating">	
+						<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
+							<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
+						</ul>
+						</div>		
+						<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
+							<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
+						</ul>
+						</div>	
+						<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
+							<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
+						</ul>
+						</div>		
+						<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
+							<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
+						</ul>
+						</div>	
+						<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
+							<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
+						</ul>
+						</div>		
+						<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->								  
+					</div>	<!-- fine sezione RATING -->																																																						
+				</div>	<!-- fine CUSTOM FIELDS-->			
+						
+				<br/> 
+						
+				<!-- commenti -->
+				<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
 				
-					<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span> <ul id="prezzo" class='star-rating'>	
-						<li class='current-rating' style="width: <?php echo 25*$prezzo;?>px"></li>			
-					</ul>
-					</div>		
-					<div class="rating-container"><span class="rating-title"><?php _e( 'Servizio', 'reviews' ); ?></span> <ul id="servizio" class='star-rating'>				
-						<li class='current-rating' style="width: <?php echo 25*$servizio;?>px"></li>
-					</ul>
-					</div>	
-					<div class="rating-container"><span class="rating-title"><?php _e( 'Qualit&agrave;', 'reviews' ); ?></span> <ul id="qualita" class='star-rating'>							
-						<li class='current-rating' style="width: <?php echo 25*$qualita;?>px"></li>			
-					</ul>
-					</div>		
-					<div class="rating-container"><span class="rating-title"><?php _e( 'Puntualit&agrave;', 'reviews' ); ?></span> <ul id="puntualita" class='star-rating'>				
-						<li class='current-rating' style="width: <?php echo 25*$puntualita;?>px"></li>
-					</ul>
-					</div>	
-					<div class="rating-container"><span class="rating-title"> <?php _e( 'Affidabilit&agrave;', 'reviews' ); ?></span> <ul id="affidabilita" class='star-rating'>				
-						<li class='current-rating' style="width: <?php echo 25*$affidabilita;?>px"></li>			
-					</ul>
-					</div>		
-					<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
-							  
-				</div>	<!-- fine sezione RATING -->
-																																																						
-			</div>	<!-- fine CUSTOM FIELDS-->			
-					
-			<br/> 
-					
-			<!-- commenti -->
-			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
+				<hr />			
 			
-			<hr />
-					
-					<?php else : ?>
-	<?php $length= 100; { // Outputs an excerpt of variable length (in characters)
-// 		global $post;
-		$text = $post->post_excerpt;
-		if ( '' == $text ) {
-			$text = get_the_content('');
-			$text = apply_filters('the_content', $text);
-			$text = str_replace(']]>', ']]>', $text);
-		}
-			$text = strip_shortcodes( $text ); // optional, recommended
-			$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
-			$text = substr($text,0,$length);
+			<!-- (ELSE) Utente NON Loggato-->
+			<?php else : ?>
+			
+				<?php $length= 100; { // Outputs an excerpt of variable length (in characters)
+				
+				//	global $post;
+				$text = $post->post_excerpt;
+				if ( '' == $text ) 
+				{
+					$text = get_the_content('');
+					$text = apply_filters('the_content', $text);
+					$text = str_replace(']]>', ']]>', $text);
+				}
+					$text = strip_shortcodes( $text ); // optional, recommended
+					$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
+					$text = substr($text,0,$length);
 
-		echo apply_filters('the_excerpt',$text);
-	}  ?>
-	
-	<div class="entry"><p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p></div>
-	
-<?php endif; ?>
-					
-		<?php endwhile; ?>
-		
+					echo apply_filters('the_excerpt',$text);
+				}  
+				?>			
 			
+				<div class="entry"><p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p></div>
+			
+			<!-- (END IF ) -->
+			<?php endif; ?>
+					
+		<?php endwhile; ?>				
 <!-----------------------------------------fine WHILE ------------------------------------------------------------------------------------------------------->		
 
 		
 <!-------------------FORM ------------------------------------------------->		
 	
-
 <?php if ( !($_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) )) : ?>	
 
 <form 
 	action = ""
 	method = "post" id="show-all-reviews-form" 
-	class  = "standard-form">							
-	
+	class  = "standard-form">								
 	<div >								
 		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
 	</div>	
-
 </form>		
 
 <br/><br/>

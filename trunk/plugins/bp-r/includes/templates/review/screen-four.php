@@ -88,14 +88,34 @@
 			<div class="title">				
 								
 				<!-- MESSAGGIO  -->
-				<h5><?php _e( 'REVIEW ANONIMA scritta da: ', 'reviews' ) ?>
+				<h5><?php //_e( 'REVIEW ANONIMA scritta da: ', 'reviews' ) ?>
 				
 					<span>
-						<a href = "<?php echo bp_core_get_user_domain($autore_id) ?>">	
-							<?php echo $autore_nome; ?> <!-- $autore_id-->
+						<a href = "<?php //echo bp_core_get_user_domain($autore_id) ?>">	
+							<?php //echo $autore_nome; ?> <!-- $autore_id-->
 						</a>								
 					</span>					
 				</h5>
+				
+				<!------------------------------------------------------------------------->
+				<?php $authorlogin		= get_the_author_meta('user_login')?>
+				<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
+				<?php $nome 			= xprofile_get_field_data( "Nome" , $autore_review_id);?>	
+	
+				<small style = "float: right;"><strong>
+					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($autore_review_id)?>">
+					<?php //the_author_meta('user_nicename');?>
+					<?php echo $nome; ?>	
+				</a></strong></small>
+				
+				<br /> 								
+				
+				<h4><?php  
+					the_title('<a href="' . get_permalink() . '" title="' .	the_title_attribute('echo=0') .	'"rel="bookmark">','</a>');
+					?>
+				</h4>			
+				<!------------------------------------------------------------------------->				
+				
 			</div>	
 								
 			<br/>									
