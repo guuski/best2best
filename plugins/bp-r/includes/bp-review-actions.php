@@ -162,9 +162,9 @@ function salva()
 			$data_rapporto,
 			$tipologia_rapporto,
 			
-			////////////						[C] anonimo/registrato	
+			////////////////////////						[C] anonimo/registrato	
 			$tipo_review_anonima,
-			////////////
+			////////////////////////
 			
 			array(
 				'prezzo'		=> $voto_prezzo, 

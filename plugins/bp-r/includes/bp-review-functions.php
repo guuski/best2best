@@ -99,8 +99,8 @@ function bp_review_send_review(
 								$to_user_id, $from_user_id, 
 								$title, $content, 
 								$giudizio_review, $data_rapporto, $tipologia_rapporto, 
-								///////////////////////////////////////////
-								$reviewa,								//[C] anonimo/registrato	
+								///////////////////////////////////////////				
+								$tipo_review_anonima,										//[C] anonimo/registrato		
 								///////////////////////////////////////////
 								$voti) 					//[C] Rating
 {
@@ -143,7 +143,11 @@ function bp_review_send_review(
 		//echo count($existing_reviews);
 		
 		//
-		$review->save($title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti);																	
+		$review->save(
+						$title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti
+		
+						,$tipo_review_anonima 		///////////////// [C] anonimo/registrato
+					);																	
 		// [C] Rating
 				
 	}//chiude l'IF
