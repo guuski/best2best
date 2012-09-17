@@ -95,7 +95,14 @@ function bp_reviews_post_form_action_SCREEN_4()
  * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
  *
  */
-function bp_review_send_review( $to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					//[C] Rating
+function bp_review_send_review( 
+								$to_user_id, $from_user_id, 
+								$title, $content, 
+								$giudizio_review, $data_rapporto, $tipologia_rapporto, 
+								///////////////////////////////////////////
+								$reviewa,								//[C] anonimo/registrato	
+								///////////////////////////////////////////
+								$voti) 					//[C] Rating
 {
 	global $bp;
 			
