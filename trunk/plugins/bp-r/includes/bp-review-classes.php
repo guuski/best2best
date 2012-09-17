@@ -1,17 +1,8 @@
 <?php
 /*
 
-
-
-
 		REMINDER: 		devo aggiungere la variabile '$content',no?
-		
-		
-
-
-
-
-
+			
 
 -----------------------------------------
 Contenuto FILE:
@@ -51,10 +42,7 @@ class Review
 	var $recipient_id;
 	var $date;
 	var $query;								
-	
-	
-																														//aggiungere la variabile '$content',no?
-
+		
 	/**
 	 * bp_review_tablename()
 	 *
@@ -105,7 +93,7 @@ class Review
 			$this->recipient_id  = $row->recipient_id;
 			$this->date 	     = $row->date;
 			
-																													//aggiungere la variabile '$content',no?
+			//aggiungere la variabile '$content',no?
 		}
 	}
 
@@ -121,19 +109,21 @@ class Review
 		//[C] Rating
 		global $wpdb, $bp;
 	
+		////////////////////////////////////////////////////////////////////////////////////////////////		
 		$this->reviewer_id		= apply_filters( 'bp_review_data_reviewer_id_before_save', 		$this->reviewer_id, 	$this->id );
 		$this->recipient_id		= apply_filters( 'bp_review_data_recipient_id_before_save', 	$this->recipient_id, 	$this->id );
+		////////////////////////////////////////////////	////////////////////////////////////////////////			
 		$this->date	     		= apply_filters( 'bp_review_data_date_before_save', 			$this->date,		 	$this->id );
 		
-// 		aggiungere la variabile '$content' e title
+		//aggiungere la variabile '$content' e title
 		$voto_prezzo 		= $voti['prezzo'];
 		$voto_servizio		= $voti['servizio'];
 		$voto_qualita		= $voti['qualita'];
 		$voto_puntualita	= $voti['puntualita'];
 		$voto_affidabilita	= $voti['affidabilita'];
 		
-//DO ACTION
-do_action( 'bp_review_data_before_save', $this );
+		//DO ACTION
+		do_action( 'bp_review_data_before_save', $this );
 
 		if ( $this->id ) 			
 		{					
@@ -158,8 +148,11 @@ do_action( 'bp_review_data_before_save', $this );
 				update_post_meta( $result, 'voto_qualita',$voto_qualita);
 				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
 				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);
+				
+				/////////////////////////////////////////////////////////////////////////////
 				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );				
 				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );		
+				///////////////////////////////////////////////////////////////////////////// 
 				
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
@@ -168,10 +161,25 @@ do_action( 'bp_review_data_before_save', $this );
 			}
 		} 
 		else 
-		{			
+		{		
+			/////////////////////////// [C] anonimo/registrato
+			if($reviewa = "anonimo") 
+			{
+				$tipo_post = 'pending';
+			}
+			else //registrato
+			{			
+				$tipo_post = 'publish';
+			}						
+			////////////////////////////////////////////////////////////////////////////////////									
+			//CONTROLLO-TEST: se $reviewa = anonimo/registrato <--> giudizio_review = "negativo"
+			////////////////////////////////////////////////////////////////////////////////////									
+						
 			$wp_insert_post_args = array
 			(
-					'post_status'	=> 'publish'
+//					'post_status'	=> 'publish'
+					'post_status'	=> $tipo_post
+					
 				,	'post_type'		=> 'review'										//post_type
 				,   'post_author'	=> $this->reviewer_id
 				,	'post_title'	=> wp_strip_all_tags($review_title)
@@ -188,42 +196,34 @@ do_action( 'bp_review_data_before_save', $this );
 				update_post_meta( $result, 'voto_qualita',$voto_qualita);
 				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
 				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);	
-				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
-				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );					// nu poco inutile! a
+
+////////////////////////////////////////////////////////////////////////////////	
+update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
+update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );	// nu poco inutile! a
+////////////////////////////////////////////////////////////////////////////////
 				
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
 				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
 				
-			}
-			
-		////////////////////////////////////////
-
-		
-		
-		////////////////////////////////////////	
-						
+			}							
 		}//chiude l' IF
-		
-		
 	
-	////////////////////////////////////////
-	
-	//-------------------calcola Media RATING
+	////////////////////////////////////////////////////////////////////////////////	
+	//-calcola Media RATING
+	////////////////////////////////////////////////////////////////////////////////	
 	$media_voti_rating = ($voto_prezzo + $voto_servizio + $voto_qualita + $voto_puntualita + $voto_affidabilita) / 5;	
-	
-	
+		
 	//recipient_id
 	//$this->recipient_id 	
 	
 	//$user_id = $this->recipient_id;
-	$user_id = get_post_meta( $result, 'bp_review_recipient_id', true );		
-	
+	$user_id = get_post_meta( $result, 'bp_review_recipient_id', true );		//RECIPIENT
 					
 	$num_review_ricevute = get_user_meta( $user_id , 'num_review_ricevute', true );
 	$media_voto_review   = get_user_meta( $user_id , 'media_voto_review', true );
 					
-	//-------------------aggiorna MEDIA
+	//-aggiorna MEDIA
 	
 	//� la prima volta?
 	if(	$num_review_ricevute == 0) 
@@ -246,9 +246,8 @@ do_action( 'bp_review_data_before_save', $this );
 	
 	update_usermeta( $user_id, 'num_review_ricevute', $num_review_ricevute );		
 	update_usermeta( $user_id, 'media_voto_review'	, $media_voto_review   );		
-	////////////////////////////////////////		
-		
-		
+	////////////////////////////////////////////////////////////////////////////////		
+				
 //DO ACTION
 do_action( 'bp_review_data_after_save', $this );
 

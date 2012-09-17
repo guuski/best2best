@@ -100,7 +100,9 @@ function salva()
 		$data_rapporto	    = $_POST['datepicker'];				 
 		$tipologia_rapporto	= $_POST['tipologia'];	 
 		
-		
+		///////////////////////////////////////////			anonimo/registrato
+		$tipo_review_anonima 			= $_POST['tipo_review_anonima'];	 
+		///////////////////////////////////////////
 		
 					
 		//			
@@ -160,6 +162,10 @@ function salva()
 			$data_rapporto,
 			$tipologia_rapporto,
 			
+			////////////						[C] anonimo/registrato	
+			$tipo_review_anonima,
+			////////////
+			
 			array(
 				'prezzo'		=> $voto_prezzo, 
 				'servizio'		=> $voto_servizio,
@@ -171,8 +177,16 @@ function salva()
 					
 		// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
 		if($result)
-		{				
-			bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
+		{	
+		
+			////////////////////////    [C] anonimo/registrato
+			if($tipo_review_anonima == "anonimo")
+				bp_core_add_message( __( 'Review ANONIMA inviata correttamente...in attesa di essere moderata', 'reviews' ) );
+			else if ($tipo_review_anonima == "registrato")
+				bp_core_add_message( __( 'Review ANONIMA inviata correttamente', 'reviews' ) );
+			else
+				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
+			//////////////////////	
 		}
 		else 
 		{
