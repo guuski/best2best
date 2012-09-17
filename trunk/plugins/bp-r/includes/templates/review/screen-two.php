@@ -166,9 +166,10 @@ get_header() ?>
 
 				<!-- [C] anonimo/registrato	-->
 				<div id = "reviewa_div" style="display:none;">
+					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "reviewa" id = "reviewa">
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="anonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'Anonimo', 'reviews' ); ?>  </label>				  
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="registrato"   value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'Registrato', 'reviews' ); ?>    </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="registrato"   value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="anonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
 					</fieldset>	
 				</div>
 			</div>
