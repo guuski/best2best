@@ -120,7 +120,9 @@ function salva()
 			bp_core_add_message( __( 'Assegna un giudizio alla review', 'reviews' ),'error' );						
 			//bp_core_add_message( __( $giudizio_review, 'reviews' ),'error' );						
 			return;
-		}	
+		}	else if ($giudizio_review != 'negativo'){
+			$tipo_review_anonima = "";
+		}
 		
 		if ( empty($data_rapporto)) 	//empty
 		{
@@ -197,7 +199,7 @@ function salva()
 		// fa il REDIRECT
 		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/my-reviews' );			
 		
-		//[ALT] - ma non può reindirizzarti alla scheda 'my-reviews' mi sa!
+		//[ALT] - ma non puï¿½ reindirizzarti alla scheda 'my-reviews' mi sa!
 			//bp_core_redirect(wp_get_referer()); 																	
 	}	
 }
@@ -229,7 +231,7 @@ function show_all_reviews()
 		// fa il REDIRECT
 		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() .		 '/my-reviews' );			
 		
-		//[ALT] - ma non può reindirizzarti alla scheda 'my-reviews' mi sa!
+		//[ALT] - ma non puï¿½ reindirizzarti alla scheda 'my-reviews' mi sa!
 			//bp_core_redirect(wp_get_referer()); 																	
 	}	
 }

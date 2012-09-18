@@ -155,13 +155,14 @@ function bp_review_send_review(
 	//-------------------- 2 parte ---------------------------------------------------------------------------
 
 	//
-	bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
+	if(!$tipo_review_anonima == "anonimo") {
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 	
-	$to_user_link = bp_core_get_userlink( $to_user_id );
-	$from_user_link = bp_core_get_userlink( $from_user_id );
-
-	//
-	bp_review_record_activity( array
+		$to_user_link = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+	
+		//
+		bp_review_record_activity( array
 		(
 			'type' => 'rejected_terms',
 			'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
@@ -169,18 +170,15 @@ function bp_review_send_review(
 		) );
 	
 	
-	//-------------------- 3 parte ---------------------------------------------------------------------------
-	
-	//DO ACTION
-	
-	//---------mancano gli altri PARAMETRI!!!!!! 
-	
-	/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
-	do_action( 'bp_review_send_review', $to_user_id, $from_user_id);					
-	//do_action( 'bp_example_send_high_five', $to_user_id, $from_user_id );
-	 
-	 //$to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					
-	 
+		//-------------------- 3 parte ---------------------------------------------------------------------------
+		//---------mancano gli altri PARAMETRI!!!!!! 
+		
+		/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
+		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);					
+		//do_action( 'bp_example_send_high_five', $to_user_id, $from_user_id );
+		 
+		 //$to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					
+	}
 	
 		
 
