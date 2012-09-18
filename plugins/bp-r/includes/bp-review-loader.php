@@ -387,7 +387,7 @@ class BP_Review_Component extends BP_Component {
 			, 'menu_position'		=> 3														// era 80 --> 3 (prima di Articoli/Post)
 							
 			// REWRITE - SLUG
-			, 'rewrite' 			=> array('slug' => 'ureviews')								// [ST] [?] Ur*?! cambiare?!
+			, 'rewrite' 			=> array('slug' => 'review')								// [ST] [?] Ur*?! cambiare?!
 			
 			// SUPPORT 
 			// aggiunti 'excerpt' e 'custom_fields'	- in prova		
