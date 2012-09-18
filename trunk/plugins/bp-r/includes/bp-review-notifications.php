@@ -89,7 +89,7 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 	global $bp;
 
 	////////////////////////////////////////////////////////////////////////
-	//invia solo se account destinatario è ghost 
+	//invia solo se account destinatario ï¿½ ghost 
 	//if(esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )) == 'false')		
 	if(!esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )))		
 		return false;
@@ -100,7 +100,7 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 	$reciever_name 	= bp_core_get_user_displayname( $to_user_id, false );
 	
 	////////////////////////////////////////////////////////////////////////	
-	// invia solo se la notifica non è stata già vista dall'utente --giusto?!
+	// invia solo se la notifica non ï¿½ stata giï¿½ vista dall'utente --giusto?!
 	if ( 'no' == get_user_meta( (int)$to_user_id, 'notification_review_new_review', true ) )
 		return false;
 	////////////////////////////////////////////////////////////////////////		
@@ -136,7 +136,7 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 	
 'Gentil %s,
 
-%s ha inviato una recensione sulla tua attività tramite il network Best2Best 
+%s ha inviato una recensione sulla tua attivitï¿½ tramite il network Best2Best 
 
 <a href="%s"> clicca qui</a> per scoprire cosa ha scritto sulla tua azienda
 
@@ -152,7 +152,7 @@ function bp_review_send_review_notification( $to_user_id, $from_user_id )
 	
 'Gentil %s,
 
-%s ha inviato una recensione sulla tua attività tramite il network Best2Best 
+hai ricevuto una recensione sulla tua attivita\' tramite il network Best2Best 
 
 clicca qui %s per scoprire cosa ha scritto sulla tua azienda
 
@@ -160,7 +160,7 @@ clicca qui %s per scoprire cosa ha scritto sulla tua azienda
 
 http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile per i tuoi contatti commerciali.
 
-', 'reviews' ), $reciever_name, $sender_name, $reciever_review_link);
+', 'reviews' ), $reciever_name, $reciever_review_link);
 
 	//$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'reviews' ), $reciever_settings_link );
 
