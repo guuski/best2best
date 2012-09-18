@@ -265,7 +265,10 @@ function accetta_review_anonima()
 		$id_post = $_POST['id-post'];					
 			
 		// FUNCTION call 			
-		$result = change_referral_post_status($id_post, 'publish');		
+		$result = change_referral_post_status($id_post, 'publish');
+
+		//TODO ------ cambiare il reviewer id (post-meta)
+		//------ inviare notifiche e mail
 		
 		if($result)	
 		{				
