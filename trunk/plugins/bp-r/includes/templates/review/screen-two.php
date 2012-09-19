@@ -43,7 +43,7 @@ get_header() ?>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  FORM - met 2	- no inclusione ESTERNA
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
-	<form action = "<?php bp_reviews_post_form_action() ?> " method="post" id="review-form" class="standard-form"> <!--- REVIEW-FORM-->
+	<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="review-form" class="standard-form"> <!--- REVIEW-FORM-->
 	
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>

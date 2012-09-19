@@ -27,7 +27,7 @@ global $bp
 */
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// usata dal FORM del file di Template 	----------'screen-one.php'
+// usata dal FORM 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function bp_review_form_action() 
@@ -35,41 +35,35 @@ function bp_review_form_action()
 	echo site_url() . remove_query_arg( array('s','snptcat','n') );
 }
 
-		
-//OPZIONE 2
-function bp_reviews_post_form_action()
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// usata dal FORM 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_review_form_action_screen_two()
 {
     global $bp;
-	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->reviews->root_slug."/create/"); 	//ORIGNAL
-		
-	//echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/screen-two/"); 		//la S  
-// 	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->root_slug."/create/"); 		//la S  //CREATE
-	echo apply_filters('bp_review_post_form_action',  $bp->displayed_user->domain.$bp->review->slug."/screen-two/"); 		//la S  //CREATE
-	
-	
+
+	echo apply_filters('bp_review_form_action_screen_two',  $bp->displayed_user->domain.$bp->review->slug."/screen-two/"); 		//la S  //CREATE
 }
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-// viene chiamata dal metodo '    ()' (in 'bp-review-actions.php') dopo che e' stato inviato 
-// il FORM dello SCREEN 4
-//
+//  // usata dal FORM 
+// viene chiamata dal metodo '    ()' (in 'bp-review-actions.php') 
+// dopo che e' stato inviato  il FORM dello SCREEN 4
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function bp_reviews_post_form_action_SCREEN_4()			 																						
+function bp_review_form_action_screen_four()			 																						
 {
     global $bp;
 		
 	// SCREEN 4		
 	echo apply_filters('bp_reviews_post_form_action_SCREEN_4',  $bp->displayed_user->domain.$bp->review->slug."/screen-four/"); 		
-		
 }
 
 
 
-
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// 
 // viene chiamata dal metodo 'salva()' (in 'bp-review-actions.php') dopo che e' stato inviato il FORM
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -95,14 +89,13 @@ function bp_reviews_post_form_action_SCREEN_4()
  * @see http://codex.wordpress.org/Function_Reference/maybe_unserialize
  *
  */
-function bp_review_send_review( 
-								$to_user_id, $from_user_id, 
-								$title, $content, 
-								$giudizio_review, $data_rapporto, $tipologia_rapporto, 
-								///////////////////////////////////////////				
-								$tipo_review_negativa,										//[C] anonimo/registrato		
-								///////////////////////////////////////////
-								$voti) 					//[C] Rating
+function bp_review_send_review	( 
+									$to_user_id, $from_user_id, 
+									$title, $content, 
+									$giudizio_review, $data_rapporto, $tipologia_rapporto, 								
+									$tipo_review_negativa,																		
+									$voti
+								)
 {
 	global $bp;
 			
@@ -114,7 +107,6 @@ function bp_review_send_review(
 	delete_user_meta( $to_user_id, 'reviews' );	
 	//delete USER_META!
 	
-
 	$existing_reviews = maybe_unserialize( get_user_meta( $to_user_id, 'reviews', true ) );
 	
 	//
@@ -133,8 +125,7 @@ function bp_review_send_review(
 		);
 
 		//
-		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'
-		
+		$review = new Review( $db_args );															//istanzia oggetto della CLASSE 'Review'		
 	
 		//$num_reviews = get_user_meta( $to_user_id, 'reviews', true );
 		//$num_reviews = $existing_reviews;
@@ -146,7 +137,7 @@ function bp_review_send_review(
 		$review->save(
 						$title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti
 		
-						,$tipo_review_negativa 		///////////////// [C] anonimo/registrato
+						,$tipo_review_negativa 		
 					);																	
 		// [C] Rating
 				
@@ -155,7 +146,8 @@ function bp_review_send_review(
 	//-------------------- 2 parte ---------------------------------------------------------------------------
 
 	//
-	if(!$tipo_review_negativa == "anonimo") {
+	if(!$tipo_review_negativa == "anonimo") 		//Escludi nel caso di Review NEGATIVA tipo Anonimo
+	{
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 	
 		$to_user_link = bp_core_get_userlink( $to_user_id );
@@ -171,63 +163,23 @@ function bp_review_send_review(
 	
 	
 		//-------------------- 3 parte ---------------------------------------------------------------------------
+		
 		//---------mancano gli altri PARAMETRI!!!!!! 
 		
 		/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
-		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);					
+		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
+		
 		//do_action( 'bp_example_send_high_five', $to_user_id, $from_user_id );
 		 
 		 //$to_user_id, $from_user_id, $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti) 					
 	}
-	
-		
+			
 
 	//-------------------- incredibile! ---------------------------------------------------------------------------
 	//
-	return true;																					//ATTENZIONE: ritorna sempre TRUE --?!?!? non va proprio!!!
+	return true;		//ATTENZIONE: ritorna sempre TRUE --?!?!? non va proprio!!!
 }
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// da CANCELLARE forse ----> al momento la uso solo per vedere se l'utente ha Reviews
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Restituisce l array costituito dagli ID  degli utenti  che hanno mandato una review all'utente passato come argomento alla funzione
- *
- */
-function bp_review_get_reviewers_list_for_user( $user_id ) 
-{
-	global $bp;
-
-	if ( !$user_id )
-		return false;
-
-	return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// funz da IMPLEMENTARE........
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- *
- * Restituisce la lista delle review per un dato utente
- *
- */
-function bp_review_get_reviews_for_user( $user_id ) 		
-{
-
-	global $bp;
-
-	if ( !$user_id )
-		return false;
-/*
-	//----CANBIARE---return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );				
-*/	
-}
-
-
- 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // se l'utente viene cancellato fa un po' di pulizia
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -248,12 +200,162 @@ add_action( 'wpmu_delete_user', 'bp_review_remove_data', 1 );
 add_action( 'delete_user', 'bp_review_remove_data', 1 );
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	ma le usa ste 2 funzioni ?!?!
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Cambio lo "status" di un post
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ *
+ */
+function bp_review_change_post_status($id_post, $new_post_status) 
+{
+	$wp_update_post_args = array
+	(
+			'ID'			=> $id_post
+		,   'post_status'   => $new_post_status
+	);
+		
+	$result = wp_update_post( $wp_update_post_args );
+
+	return $result;	
+}
+
+/*
+	'new' 		 - When there's no previous status
+	'publish' 	 - A published post or page
+	'pending' 	 - post in pending review
+	'draft' 	 - a post in draft status
+	'auto-draft' - a newly created post, with no content
+'future'     - a post to publish in the future
+'private' 	 - not visible to users who are not logged in
+	'inherit' 	 - a revision. see get_children.
+	'trash' 	 - post is in trashbin. added with Version 2.9.
+*/	
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	verifica se l'utente può SCRIVERE una REVIEW per un altro utente
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_review_current_user_can_write()
+{
+	$can_write=false;
+	 
+	if(
+			is_user_logged_in() &&!bp_is_my_profile()
+//		&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
+	)
+		$can_write=true;
+
+	//apply_filters
+	return apply_filters('bp_review_current_user_can_write',$can_write);					
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	verifica se l'utente può moderare le review NEGATIVE	 
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_review_current_user_can_moderate()
+{
+	$can_moderate = false;
+
+	$user_id   = bp_loggedin_user_id(); 
+	$user_name = bp_core_get_user_displayname( $user_id, false );
+
+	// se l'utente si chiama...
+	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+		$can_moderate = true;
+		
+	//apply_filters	
+	return apply_filters('bp_review_current_user_can_moderate',$can_moderate);
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// da CANCELLARE forse ----> al momento la uso solo per vedere se l'utente ha Reviews
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Restituisce l array costituito dagli ID  degli utenti  che hanno mandato una review all'utente passato come argomento alla funzione
+ *
+ */
+function bp_review_get_reviewers_list_for_user( $user_id ) 
+{
+	global $bp;
+
+	if ( !$user_id )
+		return false;
+
+	return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );
+}
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	ma la usa?!?!		-------> pare di no!
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+/**
+ * The -functions.php file is a good place to store miscellaneous functions needed by your plugin.
+ *
+ * @package BuddyPress_Skeleton_Component
+ * @since 1.6
+ */
+
+/**
+ *
+ */
+function bp_review_load_template_filter( $found_template, $templates )
+{
+	global $bp;
+
+	if ( $bp->current_component != $bp->review->slug )
+		return $found_template;
+
+	foreach ( (array) $templates as $template ) {
+		if ( file_exists( STYLESHEETPATH . '/' . $template ) )
+			$filtered_templates[] = STYLESHEETPATH . '/' . $template;
+		else
+			$filtered_templates[] = dirname( __FILE__ ) . '/templates/' . $template;
+	}
+
+	$found_template = $filtered_templates[0];
+
+	//apply_filters
+	return apply_filters( 'bp_review_load_template_filter', $found_template );
+}
+
+//FILTER
+add_filter( 'bp_located_template', 'bp_review_load_template_filter', 10, 2 );
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+// funz da IMPLEMENTARE........
 // 
+// Restituisce la lista delle review per un dato utente
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*
+function bp_review_get_reviews_for_user( $user_id ) 		
+{
+
+	global $bp;
+
+	if ( !$user_id )
+		return false;
+
+	//----CANBIARE---return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );				
+
+}
+*/	
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ma la usa sta funzione ?!?!
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /**
  *
@@ -282,6 +384,10 @@ function bp_review_accept_terms()
 }
 */
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ma la usa sta funzione ?!?!
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
  *
  *
@@ -309,87 +415,5 @@ function bp_review_reject_terms()
 	return true;
 }
 */
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- *
- *
- */
-function change_review_post_status($id_post, $new_post_status) 
-{
-	$wp_update_post_args = array
-	(
-			'ID'			=> $id_post
-		,   'post_status'   => $new_post_status
-	);
-		
-	$result = wp_update_post( $wp_update_post_args );
-
-	return $result;	
-}
-
-/*
-	'new' 		 - When there's no previous status
-	'publish' 	 - A published post or page
-	'pending' 	 - post in pending review
-	'draft' 	 - a post in draft status
-	'auto-draft' - a newly created post, with no content
-'future'     - a post to publish in the future
-'private' 	 - not visible to users who are not logged in
-	'inherit' 	 - a revision. see get_children.
-	'trash' 	 - post is in trashbin. added with Version 2.9.
-*/	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	ma la usa?!?!		-------> pare di no!
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * The -functions.php file is a good place to store miscellaneous functions needed by your plugin.
- *
- * @package BuddyPress_Skeleton_Component
- * @since 1.6
- */
-
-/**
- *
- */
-function bp_review_load_template_filter( $found_template, $templates )
-{
-	global $bp;
-
-	if ( $bp->current_component != $bp->review->slug )
-		return $found_template;
-
-	foreach ( (array) $templates as $template ) {
-		if ( file_exists( STYLESHEETPATH . '/' . $template ) )
-			$filtered_templates[] = STYLESHEETPATH . '/' . $template;
-		else
-			$filtered_templates[] = dirname( __FILE__ ) . '/templates/' . $template;
-	}
-
-	$found_template = $filtered_templates[0];
-
-	return apply_filters( 'bp_review_load_template_filter', $found_template );
-}
-add_filter( 'bp_located_template', 'bp_review_load_template_filter', 10, 2 );
 
 ?>

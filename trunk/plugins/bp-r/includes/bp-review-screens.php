@@ -68,6 +68,10 @@ function bp_review_screen_one()
 		
 	//carica 'screen_one.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  		//FILTER - non usato da nessuno
+	
+	//NB:
+		//nome FILTRO diverso  
+		//FILTER - non usato da nessuno	
 }
 	
 	
@@ -93,6 +97,10 @@ function bp_review_screen_two()
 		
 	//carica 'screen_two.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_two', 'review/screen-two' ) );					//FILTER - non usato da nessuno
+	
+	//NB:
+		//nome FILTRO diverso  
+		//FILTER - non usato da nessuno	
 	
 }
 
@@ -120,6 +128,9 @@ function bp_review_screen_three()
 	//carica 'screen_three.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_three', 'review/screen-three' ) );					//FILTER - non usato da nessuno
 	
+	//NB:
+		//nome FILTRO diverso  
+		//FILTER - non usato da nessuno	
 }
 
 /**
@@ -134,7 +145,11 @@ function bp_review_screen_four()
 	do_action( 'bp_review_screen_four' );												
 		
 	//carica 'screen_four.php'
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );					//FILTER - non usato da nessuno
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );					
+	
+	//NB:
+		//nome FILTRO diverso  
+		//FILTER - non usato da nessuno
 	
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
