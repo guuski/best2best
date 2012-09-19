@@ -65,7 +65,7 @@ get_header() ?>
 			$contenuto 			= $_POST['review-content']	or '';
 			$giudizio_review    = $_POST['giudizio_review']	or ''; 
 			//[C] anonimo/registrato
-			$tipo_review_anonima    = $_POST['tipo_review_anonima']	or ''; 
+			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or ''; 
 		?>
 						
 		<!-- Review -->
@@ -168,8 +168,8 @@ get_header() ?>
 				<div id = "reviewa_div" style="display:none;">
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "reviewa" id = "reviewa">
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="registrato"   value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_anonima" id="anonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="anonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
 					</fieldset>	
 				</div>
 			</div>
