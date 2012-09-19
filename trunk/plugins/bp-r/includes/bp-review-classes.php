@@ -107,7 +107,7 @@ class Review
 	function save(
 					$review_title, $review_content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti				
 								
-					,$tipo_review_anonima ///////////////// [C] anonimo/registrato
+					,$tipo_review_negativa ///////////////// [C] anonimo/registrato
 				) 														
 	{
 		//[C] Rating
@@ -167,20 +167,20 @@ class Review
 		else 
 		{		
 			////////////////////////////////////////// [C] anonimo/registrato
-			if($tipo_review_anonima == "anonimo") 
+			if($tipo_review_negativa == "anonimo") 
 			{
 				$tipo_post = 'pending';
 			}
-			else if ($tipo_review_anonima == "registrato") 
+			else if ($tipo_review_negativa == "registrato") 
 			{			
-				$tipo_post = 'publish';
+				$tipo_post = 'pending';
 			}		
 			else 
 				$tipo_post = 'publish';
 			//////////////////////////////////////////				
 				
 			////////////////////////////////////////////////////////////////////////////////////									
-			//CONTROLLO-TEST: se $tipo_review_anonima = anonimo/registrato <--> giudizio_review = "negativo"
+			//CONTROLLO-TEST: se $tipo_review_negativa = anonimo/registrato <--> giudizio_review = "negativo"
 			////////////////////////////////////////////////////////////////////////////////////									
 						
 			$wp_insert_post_args = array

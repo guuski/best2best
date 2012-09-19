@@ -100,7 +100,7 @@ function bp_review_send_review(
 								$title, $content, 
 								$giudizio_review, $data_rapporto, $tipologia_rapporto, 
 								///////////////////////////////////////////				
-								$tipo_review_anonima,										//[C] anonimo/registrato		
+								$tipo_review_negativa,										//[C] anonimo/registrato		
 								///////////////////////////////////////////
 								$voti) 					//[C] Rating
 {
@@ -146,7 +146,7 @@ function bp_review_send_review(
 		$review->save(
 						$title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti
 		
-						,$tipo_review_anonima 		///////////////// [C] anonimo/registrato
+						,$tipo_review_negativa 		///////////////// [C] anonimo/registrato
 					);																	
 		// [C] Rating
 				
@@ -155,7 +155,7 @@ function bp_review_send_review(
 	//-------------------- 2 parte ---------------------------------------------------------------------------
 
 	//
-	if(!$tipo_review_anonima == "anonimo") {
+	if(!$tipo_review_negativa == "anonimo") {
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 	
 		$to_user_link = bp_core_get_userlink( $to_user_id );

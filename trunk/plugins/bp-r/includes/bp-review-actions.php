@@ -101,7 +101,7 @@ function salva()
 		$tipologia_rapporto	= $_POST['tipologia'];	 
 		
 		///////////////////////////////////////////			anonimo/registrato
-		$tipo_review_anonima 			= $_POST['tipo_review_anonima'];	 
+		$tipo_review_negativa 			= $_POST['tipo_review_negativa'];	 
 		///////////////////////////////////////////
 		
 					
@@ -120,8 +120,9 @@ function salva()
 			bp_core_add_message( __( 'Assegna un giudizio alla review', 'reviews' ),'error' );						
 			//bp_core_add_message( __( $giudizio_review, 'reviews' ),'error' );						
 			return;
-		}	else if ($giudizio_review != 'negativo'){
-			$tipo_review_anonima = "";
+		}	
+		else if ($giudizio_review != 'negativo'){
+			$tipo_review_negativa = "";
 		}
 		
 		if ( empty($data_rapporto)) 	//empty
@@ -165,7 +166,7 @@ function salva()
 			$tipologia_rapporto,
 			
 			////////////////////////						[C] anonimo/registrato	
-			$tipo_review_anonima,
+			$tipo_review_negativa,
 			////////////////////////
 			
 			array(
@@ -182,10 +183,10 @@ function salva()
 		{	
 		
 			////////////////////////    [C] anonimo/registrato
-			if($tipo_review_anonima == "anonimo")
-				bp_core_add_message( __( 'Review ANONIMA inviata correttamente...in attesa di essere moderata', 'reviews' ) );
-			else if ($tipo_review_anonima == "registrato")
-				bp_core_add_message( __( 'Review ANONIMA inviata correttamente', 'reviews' ) );
+			if($tipo_review_negativa == "anonimo")
+				bp_core_add_message( __( 'Review NEGATIVA anonima inviata correttamente...in attesa di essere moderata', 'reviews' ) );
+			else if ($tipo_review_negativa == "registrato")
+				bp_core_add_message( __( 'Review NEGATIVA inviata correttamente...in attesa di essere moderata', 'reviews' ) );
 			else
 				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
 			//////////////////////	
