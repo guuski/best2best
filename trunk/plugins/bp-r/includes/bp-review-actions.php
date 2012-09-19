@@ -266,9 +266,39 @@ function accetta_review_anonima()
 			
 		// FUNCTION call 			
 		$result = change_referral_post_status($id_post, 'publish');
-
+		
+		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+		$id_staff= $user_staff->ID;
+		error_log("id_staff =>  ______".$id_staff);
+		
+		//aggiorno autore
+		$my_post = array();
+		$my_post['post_author'] =$id_staff;
+		wp_update_post( $my_post );
+		
+		//aggiorno reviewer meta
+		update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
+		
 		//TODO ------ cambiare il reviewer id (post-meta)
 		//------ inviare notifiche e mail
+		$to_user_id = get_post_meta($id_post, "bp_review_recipient_id", true);
+		$from_user_id = $id_staff;
+		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
+		
+		$to_user_link = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+		
+		//
+		bp_review_record_activity( array
+				(
+						'type' => 'rejected_terms',
+						'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+						'item_id' => $to_user_id,
+				) );
+		
+		/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
+		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);
 		
 		if($result)	
 		{				
