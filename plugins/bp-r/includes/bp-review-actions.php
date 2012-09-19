@@ -100,10 +100,7 @@ function salva()
 		$data_rapporto	    = $_POST['datepicker'];				 
 		$tipologia_rapporto	= $_POST['tipologia'];	 
 		
-		///////////////////////////////////////////			anonimo/registrato
-		$tipo_review_negativa 			= $_POST['tipo_review_negativa'];	 
-		///////////////////////////////////////////
-		
+		$tipo_review_negativa = $_POST['tipo_review_negativa'];	 
 					
 		//			
 		if ( empty($content) || empty($title)) 	//if ( check_text($content,20) || check_text($title,5)) 
@@ -121,7 +118,8 @@ function salva()
 			//bp_core_add_message( __( $giudizio_review, 'reviews' ),'error' );						
 			return;
 		}	
-		else if ($giudizio_review != 'negativo'){
+		else if ($giudizio_review != 'negativo')
+		{
 			$tipo_review_negativa = "";
 		}
 		
@@ -135,8 +133,7 @@ function salva()
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'reviews' ),'error' );					
 			return;
-		}	
-		
+		}			
 
 		//
 		if ( 		check_voto( $voto_prezzo ) 
@@ -165,7 +162,7 @@ function salva()
 			$data_rapporto,
 			$tipologia_rapporto,
 			
-			////////////////////////						[C] anonimo/registrato	
+			////////////////////////						
 			$tipo_review_negativa,
 			////////////////////////
 			
@@ -181,15 +178,12 @@ function salva()
 		// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
 		if($result)
 		{	
-		
-			////////////////////////    [C] anonimo/registrato
 			if($tipo_review_negativa == "anonimo")
 				bp_core_add_message( __( 'Review NEGATIVA anonima inviata correttamente...in attesa di essere moderata', 'reviews' ) );
 			else if ($tipo_review_negativa == "registrato")
 				bp_core_add_message( __( 'Review NEGATIVA inviata correttamente...in attesa di essere moderata', 'reviews' ) );
 			else
-				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );
-			//////////////////////	
+				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );			
 		}
 		else 
 		{
@@ -245,31 +239,33 @@ add_action( 'bp_actions', 'show_all_reviews' );
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//	ACCETTA review anonima
+//	ACCETTA review Negativa
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-add_action( 'bp_actions', 'accetta_review_anonima' );
+add_action( 'bp_actions', 'accetta_review_negativa' );
 
 /**
  *
  */
-function accetta_review_anonima() 
+function accetta_review_negativa() 
 {
 	global $bp;
 	
-	if ( isset( $_POST['accetta-review-anonima'] ) )		
+	if ( isset( $_POST['accetta-review-negativa'] ) )		
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'accetta-review-anonima' );			
+		check_admin_referer( 'accetta-review-negativa' );			
 
 		// [POST_vars]
 		$id_post = $_POST['id-post'];					
 			
 		// FUNCTION call 			
-		$result = change_referral_post_status($id_post, 'publish');
+		$result = bp_review_change_post_status($id_post, 'publish');
+		
+		//--------------------------------------------------------------------------------------------------------
 		
 		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
-		$id_staff= $user_staff->ID;
+		$id_staff = $user_staff->ID;
 		error_log("id_staff =>  ______".$id_staff);
 		
 		//aggiorno autore
@@ -301,13 +297,15 @@ function accetta_review_anonima()
 		/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
 		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);
 		
+		//--------------------------------------------------------------------------------------------------------
+		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'Review Anonima pubblicata','reviews' ) );
+			bp_core_add_message( __( 'Review NEGATIVA pubblicata','reviews' ) );
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'Si &egrave; verificato un errore... ', 'review' ) );			
+			bp_core_add_message( __( 'Si &egrave; verificato un errore durante l\'invio della Review... ', 'review' ) );			
 		}	
 		
 		//SCREEN 4
@@ -318,22 +316,22 @@ function accetta_review_anonima()
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//	RIFIUTA
+//	RIFIUTA Review Negativa
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-add_action( 'bp_actions', 'rifiuta_review_anonima' );
+add_action( 'bp_actions', 'rifiuta_review_negativa' );
 
 /**
  *
  */
-function rifiuta_review_anonima() 
+function rifiuta_review_negativa() 
 {
 	global $bp;
 	
-	if ( isset( $_POST['rifiuta-review-anonima'] ) )		
+	if ( isset( $_POST['rifiuta-review-negativa'] ) )		
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'rifiuta-review-anonima');			
+		check_admin_referer( 'rifiuta-review-negativa');			
 
 		// [POST_vars]
 		$id_post = $_POST['id-post'];		
@@ -343,7 +341,7 @@ function rifiuta_review_anonima()
 		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'Review Anonima cestinata','reviews' ) );
+			bp_core_add_message( __( 'Review NEGATIVA cestinata','reviews' ) );
 		}
 		else 
 		{			

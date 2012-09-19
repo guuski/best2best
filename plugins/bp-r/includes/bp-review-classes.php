@@ -107,7 +107,7 @@ class Review
 	function save(
 					$review_title, $review_content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti				
 								
-					,$tipo_review_negativa ///////////////// [C] anonimo/registrato
+					,$tipo_review_negativa 
 				) 														
 	{
 		//[C] Rating
@@ -166,14 +166,14 @@ class Review
 		} 
 		else 
 		{		
-			////////////////////////////////////////// [C] anonimo/registrato
+
 			if($tipo_review_negativa == "anonimo") 
 			{
-				$tipo_post = 'pending';
+				$tipo_post = 'pending';								// (1) Pending
 			}
 			else if ($tipo_review_negativa == "registrato") 
 			{			
-				$tipo_post = 'pending';
+				$tipo_post = 'pending';								//Pending
 			}		
 			else 
 				$tipo_post = 'publish';

@@ -1,5 +1,5 @@
 <?php
-//--------------------------------------------------- Review ANONIME da MODERARE ------------------------------------------------------------------------------->		
+//--------------------------------------------------- Review NEGATIVE da MODERARE ------------------------------------------------------------------------------->		
 ?>
 
 <!-- HEADER -->
@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 	
-	<!--------------------------------------------------- Review ANONIME da MODERARE ------------------------------------------------------------------------------->		
+	<!--------------------------------------------------- Review NEGATIVE da MODERARE ------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php //_e( 'Le Review ANONIME da MODERARE ', 'reviews' ) ?></h4>
+	<h4><?php //_e( 'Le Review NEGATIVE da MODERARE ', 'reviews' ) ?></h4>
 		
 	<?php		
 
@@ -83,28 +83,16 @@
 			<?php //$autore_nome 	 = bp_core_get_user_displayname( $autore_id, false ); ?>		
 			<?php //$autore_nome 	 = bp_members_get_user_nicename( $autore_id ); ?>		
 			
+			<?php $authorlogin		= get_the_author_meta('user_login')?>
+			<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
+			<?php $nome 			= xprofile_get_field_data( "Nome" , $autore_review_id);?>	
 						
 			
 			<div class="title">				
 								
-				<!-- MESSAGGIO  -->
-				<h5><?php //_e( 'REVIEW ANONIMA scritta da: ', 'reviews' ) ?>
-				
-					<span>
-						<a href = "<?php //echo bp_core_get_user_domain($autore_id) ?>">	
-							<?php //echo $autore_nome; ?> <!-- $autore_id-->
-						</a>								
-					</span>					
-				</h5>
-				
-				<!------------------------------------------------------------------------->
-				<?php $authorlogin		= get_the_author_meta('user_login')?>
-				<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); ?>
-				<?php $nome 			= xprofile_get_field_data( "Nome" , $autore_review_id);?>	
-	
+				<!------------------------------------------------------------------------->				
 				<small style = "float: right;"><strong>
-					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($autore_review_id)?>">
-					<?php //the_author_meta('user_nicename');?>
+					<?php _e('Autore: ');?> <a href="<?php echo bp_core_get_user_domain($autore_review_id)?>">					
 					<?php echo $nome; ?>	
 				</a></strong></small>
 				
@@ -124,42 +112,34 @@
 	<!--  2 FORM -
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
-	<!--- review-FORM ACCETTA-->
-	<form action = "<?php 
 	
-			bp_reviews_post_form_action_SCREEN_4() 
-	
-	?> " method="post" id="review-anonime-form" class="standard-form"> 
+	<!--- (1) review-moderation-FORM (ACCETTA) -->
+	<form action = "<?php bp_review_form_action_screen_four() ?> " method="post" id="review-moderation-form" class="standard-form"> 
 							
 		<!-- bottone ACCETTA -->	
 		<div id="review-moderation-submit">								
-			<input type="submit" name="accetta-review-anonima" id="accetta-review-anonima" value="<?php _e( 'Pubblica', 'reviews' ); ?>" />			
+			<input type="submit" name="accetta-review-negativa" id="accetta-review-negativa" value="<?php _e( 'Pubblica', 'reviews' ); ?>" />			
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
 		</div>					
 										
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'accetta-review-anonima' ); ?>				
+		<?php wp_nonce_field( 'accetta-review-negativa' ); ?>				
 	</form>		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
 	<br/> 	
 	
-	<!--- review-FORM RIFIUTA-->
-	<form action = "<?php 
-		
-		bp_reviews_post_form_action_SCREEN_4() 
-			
-			?> " method="post" id="review-anonime-form" class="standard-form"> 
+	<!--- (1) review-moderation-FORM (RIFIUTA) -->
+	<form action = "<?php bp_review_form_action_screen_four() ?> " method="post" id="review-moderation-form" class="standard-form"> 
 
 		<!-- bottone RIFIUTA -->	
 		<div id="review-moderation-submit">								
-			<input type="submit" name="rifiuta-review-anonima" id="rifiuta-review-anonima" value="<?php _e( 'Elimina', 'reviews' ); ?>" />			
+			<input type="submit" name="rifiuta-review-negativa" id="rifiuta-review-negativa" value="<?php _e( 'Elimina', 'reviews' ); ?>" />			
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />				
 		</div>					
 										
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'rifiuta-review-anonima' ); ?>				
+		<?php wp_nonce_field( 'rifiuta-review-negativa' ); ?>				
 	</form>			
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
@@ -170,7 +150,7 @@
 <?php else: ?>		
 		
 		<!-- MESSAGGIO -->
-		<h6><?php _e( ' nessuna Review Anonima da moderare', 'reviews' ) ?></h6>												
+		<h6><?php _e( ' nessuna Review NEGATIVA da moderare', 'reviews' ) ?></h6>												
 		
 	<?php endif; ?>
 	

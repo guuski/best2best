@@ -79,54 +79,6 @@ function load_my_textdomain()
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//	---> SPOSTA nel file 'bp-review-functions.php'
-//--------------------------------------------------------------------------------------------------------------------------------------------------		
-
-	//can user write review
-	function review_current_user_can_write()
-	{
-		$can_write=false;
-		 
-		if(is_user_logged_in() &&!bp_is_my_profile()
-			//	&&  friends_check_friendship(bp_displayed_user_id(), bp_loggedin_user_id())
-			)
-			$can_write=true;
-
-		return apply_filters('bp_reviews_can_user_write',$can_write);					//nome diverso!
-	}
-
-	//attivo lo screen per le review Anonime
-	function review_current_user_can_moderate()
-	{
-		$can_write=false;
-
-/*		
-bp_core_get_user_displayname( $user_id, false )
-bp_core_get_user_displayname( $user_id_or_username ) 		
-
-xprofile_get_field_data( "Nome" , $referral_requester_id);	
-
-bp_core_get_username(....	
-bp_members_get_user_nicename( $user_id ) 
-
-*/
-		
-		//global $bp;
-		//$user_id   = $bp->displayed_user->id; //bp_loggedin_user_id()
-		$user_id   = bp_loggedin_user_id(); 
-		$user_name = bp_core_get_user_displayname( $user_id, false );
-
-		// se l'utente si chiama "		"
-		if(	$user_name == "Staff-Recensioni-Best2Best" )				//"Staff-Recensioni-Best2Best" 
-		//if(	$user_name == "andrea" )								//"andrea" o "Andrea HelpDesk Best2Best"		
-			$can_write=true;
-
-		//$can_write = true
-	
-		return apply_filters('review_current_user_can_moderate',$can_write);
-	}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------		
 // 	IMPORTANTE 
 //
 //	il link! ---> review/screen-two			SCREEN-TWO  o CREATE 
@@ -143,7 +95,7 @@ add_action( 'bp_member_header_actions'	, 'add_review_button',1);
  */
 function add_review_button()																	
 {
-	if(review_current_user_can_write())
+	if(bp_review_current_user_can_write())
 	{
 		echo '
 		<div class = "add-reviews" >
@@ -157,9 +109,15 @@ function add_review_button()
 		</div>';
 	}
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
 function add_list_review_button()
 { 
 	global $members_template;
+	
 	if(is_user_logged_in()  && $members_template->member->id != bp_loggedin_user_id())
 	{		
 		$write_rev_href= bp_core_get_user_domain($members_template->member->id);
