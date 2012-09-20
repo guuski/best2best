@@ -128,6 +128,9 @@ http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile
 	
 	// WP_MAIL - invia la mail
 	wp_mail( $to, $subject, $message );
+	
+	//LOG
+	error_log("mail inviata");
 }
 
 

@@ -38,7 +38,9 @@ global $bp
 */
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//	SCREEN-ONE (LISTA REVIEWS)- 1/3 --> assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
+//	SCREEN-ONE (LISTA REVIEWS)- 1/4
+//   
+//  assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 /**
@@ -69,7 +71,7 @@ function bp_review_screen_one()
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	screen SCREEN-TWO (SCRIVI REVIEW) - 2/3
+//	SCREEN-TWO (SCRIVI REVIEW) - 2/4
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -92,10 +94,9 @@ function bp_review_screen_two()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	screen SCREEN-THREE (REVIEW SCRITTE) - 3/3
+//	SCREEN-THREE (REVIEW SCRITTE) - 3/4
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
-//
 //
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
@@ -113,6 +114,15 @@ function bp_review_screen_three()
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_three', 'review/screen-three' ) );					//FILTER - non usato da nessuno
 }
 
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	
+//	SCREEN-FOUR (MODERA LE REVIEW NEGATIVE) - 4/4
+//
+//	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
+//
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
 /**
  * SCREEN 4
  */
@@ -125,103 +135,6 @@ function bp_review_screen_four()
 		
 	//carica 'screen_four.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );						
-}
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-// NOTE sulle  funzioni SCreen....
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-
-/*
-
-	NOTA BENE:
-	
-		� collegata la seguente riga nel FILE delle notifiche
-			//add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );		 //ACTION del plugin -- 'screen_one'
-		
-	
-	come era nel vecchio PLUGIN la funzione Screen ONE:
-
-		{
-			bp_reviews_delete_between_user_by_type(bp_loggedin_user_id(), bp_displayed_user_id(),$bp->reviews->id);		
-			
-			add_action('bp_template_content',array(&$this,'home_content'));													
-			
-					---> 
-					function home_content()
-					{
-						bp_reviews_load_template('reviews/review-loop.php');												
-					}
-	
-			bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));					
-		}
-		
-		
-	
-	//function screen_write()
-	
-		//add_action('bp_template_content','write_content');	
-		/*
-					---> 
-				
-					function write_content()
-					{
-						bp_reviews_post_form();																				//[T]	vd (S1)
-					}
-					
-        */					
-		//bp_core_load_template(apply_filters('user_review_template','members/single/plugins'));				 		
-
-	
-	
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//  non le usa pennnnniente!		---BOH!
-//
-// - forse servono nel caso non ci caricano i FILE DI TEMPLATE della cartella review espicitamente!
-// - la 2 ha lo stesso contenuto del FILE di template REVIEW LOOP!					 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-function bp_review_screen_one_title() 
-{
-	//_e( 'Screen One', 'reviews' );
-	
-	//_e( 'SLA LA LA LA LA e', 'reviews' );
-}
-
-function bp_review_screen_one_content() 
-{
-				
-/*
-	global $bp;
-
-	$reviews = bp_review_get_reviews_for_user( $bp->displayed_user->id );	
-	$send_link = wp_nonce_url( $bp->displayed_user->domain . $bp->current_component . '/screen-one/send-rw', 'bp_review_send_review' );
-?>
-	<h4><?php _e( 'Welcome to Screen One', 'reviews' ) ?></h4>
-	<p><?php printf( __( 'Send %s a <a href="%s" title="Send Review!">review!</a>', 'reviews' ), $bp->displayed_user->fullname, $send_link ) ?></p>
-
-	<?php if ( $reviews ) : ?>
-		<h4><?php _e( 'Received Reviews', 'reviews' ) ?></h4>
-
-		<table id="reviews">
-			<?php foreach ( $reviews as $user_id ) : ?>
-			<tr>
-				<td width="1%"><?php echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'width' => 25, 'height' => 25 ) ) ?></td>
-				<td>&nbsp; <?php echo bp_core_get_userlink( $user_id ) ?></td>
-			</tr>
-			<?php endforeach; ?>
-		</table>
-	<?php endif; ?>
-	
-	<?php
-*/
-
 }
 	
 ?>
