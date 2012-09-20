@@ -1,24 +1,26 @@
 <?php
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//	RIMUOVI Notifica
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );			//ACTION del plugin -- 'screen_one'																										
+add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
+
 /**
- * bp_review_remove_screen_notifications()
- *
  * Remove a screen notification for a user.
  */
 function bp_review_remove_screen_notifications()
  {
 	global $bp;
 
-	/**
-	 * When clicking on a screen notification, we need to remove it from the menu.
-	 * The following command will do so.
- 	 */
+	//When clicking on a screen notification, we need to remove it from the menu. The following command will do so.
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' );
 }
-add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );									//ACTION del plugin -- 'screen_one'
-																											
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//	FORMATTA Notifiche
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * bp_review_format_notifications()
@@ -37,11 +39,12 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 {
 	global $bp;
 	$text_title ="";
+	
 	switch ( $action ) 
 	{
 		case 'new_review':
+			
 			// $item_id e' l'user ID dell'utente che ha inviato la review
-
 			if ( (int)$total_items > 1 ) 
 			{
 				//return apply_filters( 'bp_review_multiple_new_review_notification', '<a class="ab-item" href="' . $bp->loggedin_user->domain . $bp->review->slug . '/" title="' . __( 'Multiple reviews', 'reviews' ) . '">' . sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items ) . '</a>', $total_items );
@@ -52,28 +55,29 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 				$user_fullname = bp_core_get_user_displayname( $item_id, false );
 				$text_title = apply_filters( 'bp_review_single_new_review_notification', sprintf( __( '%s ti ha mandato una review', 'reviews' ), $user_fullname ) , $user_fullname );
 			}
-		break;
+			
+			break;
 	}
 
-	$return =  array(
-			'text' => $text_title,
-			'link' => $bp->loggedin_user->domain . $bp->review->slug,
-			'title' => __( 'Reviews', 'reviews' )
+	$return =  array
+	(
+		'text' => $text_title,
+		'link' => $bp->loggedin_user->domain . $bp->review->slug,
+		'title' => __( 'Reviews', 'reviews' )
 	);
 	
-	
+	//DO_ACTION - chiama funzione
 	do_action( 'bp_review_format_notifications', $action, $item_id, $secondary_item_id, $total_items );
 	
  	return $return;
-
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-//	
-//		non USATA!
-//
-//							staccata con questa riga! ---> return FALSE;
+//	INVIA MAIL di Notifica 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+//ACTION legata a "bp_review_send_review"
+add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2 );
 
 /**
  * Notification functions are used to send email notifications to users on specific events
@@ -82,72 +86,32 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
  *
  * You should use your own custom actions to determine when an email notification should be sent.
  */
-
-
 function bp_review_send_review_notification( $to_user_id, $from_user_id ) 
 {
 	global $bp;
 
-	////////////////////////////////////////////////////////////////////////
-	//invia solo se account destinatario � ghost 
-	//if(esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )) == 'false')		
+	//invia solo se account destinatario � ghost 	
 	if(!esc_attr(get_the_author_meta( 'user_is_ghost', $to_user_id )))		
 		return false;
-	////////////////////////////////////////////////////////////////////////	
-			
-	// Let's grab both user's names to use in the email. 
+				
 	$sender_name	= bp_core_get_user_displayname( $from_user_id, false );
 	$reciever_name 	= bp_core_get_user_displayname( $to_user_id, false );
-	
-	////////////////////////////////////////////////////////////////////////	
-	// invia solo se la notifica non � stata gi� vista dall'utente --giusto?!
+		
+	// invia solo se la notifica non � stata gi� vista dall'utente 
 	if ( 'no' == get_user_meta( (int)$to_user_id, 'notification_review_new_review', true ) )
 		return false;
-	////////////////////////////////////////////////////////////////////////		
-
-	// Get the userdata for the reciever and sender, this will include usernames and emails that we need. 
+	
+	// USER DATA - Get the userdata for the reciever and sender, this will include usernames and emails that we need. 
 	$reciever_ud = get_userdata( $to_user_id );
 	$sender_ud 	 = get_userdata( $from_user_id );
 
-	// Now we need to construct the URL's that we are going to use in the email 
-	
-	
-	//$sender_profile_link	= site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->profile->slug );
+	// URL - now we need to construct the URL's that we are going to use in the email 	
 	$sender_profile_link	= site_url( adesioni . '/' . $sender_ud->user_login . '/' . $bp->profile->slug );
-	
-	
-	//$sender_review_link		= site_url( BP_MEMBERS_SLUG . '/' . $sender_ud->user_login . '/' . $bp->review->slug . '/screen-one' );
-	
-	//$reciever_review_link 	= site_url( BP_MEMBERS_SLUG . '/' . $reciever_ud->user_login . '/' . $bp->review->slug . '/my-reviews' );
 	$reciever_review_link 	= site_url( adesioni . '/' . $reciever_ud->user_login . '/' . $bp->review->slug . '/my-reviews' );
 	
-	//$reciever_settings_link = site_url( BP_MEMBERS_SLUG . '/' . $reciever_ud->user_login . '/settings/notifications' );
-	//$reciever_settings_link = site_url( adesioni . '/' . $reciever_ud->user_login . '/settings/notifications' );
-	
-
-	// Set up and send the message 
-	$to		 = $reciever_ud->user_email;
-	
-	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ti ha mandato una review', 'reviews' ), stripslashes($sender_name) );
-	//ti ha mandato una review
-	//ha scritto una review su di te!
-/*	
-	$message = sprintf( __(
-	
-'Gentil %s,
-
-%s ha inviato una recensione sulla tua attivit� tramite il network Best2Best 
-
-<a href="%s"> clicca qui</a> per scoprire cosa ha scritto sulla tua azienda
-
----------------------
-
-<a href="http://www.best2best.it/registrati/"> Registrati adesso </a> ed entra nel network utile per i tuoi contatti commerciali.
-
-', 'reviews' ), $reciever_name, $sender_name, $reciever_review_link);
-*/
-
-
+	// MESSAGE - Set up and send the message 
+	$to		 = $reciever_ud->user_email;	
+	$subject = '[' . get_blog_option( 1, 'blogname' ) . '] ' . sprintf( __( '%s ti ha mandato una review', 'reviews' ), stripslashes($sender_name) );	
 	$message = sprintf( __(
 	
 'Gentil %s,
@@ -161,20 +125,14 @@ clicca qui %s per scoprire cosa ha scritto sulla tua azienda
 http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile per i tuoi contatti commerciali.
 
 ', 'reviews' ), $reciever_name, $reciever_review_link);
-
-	//$message .= sprintf( __( 'To disable these notifications please log in and go to: %s', 'reviews' ), $reciever_settings_link );
-
-	// Send it!
+	
+	// WP_MAIL - invia la mail
 	wp_mail( $to, $subject, $message );
 }
-add_action( 'bp_review_send_review', 'bp_review_send_review_notification', 10, 2 );
-
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-//
-//		non USATA!
-//				
+// (non USATA)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**

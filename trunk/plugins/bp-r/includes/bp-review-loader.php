@@ -1,12 +1,6 @@
 <?php
 /*
 
-
-						
-			// REWRITE - SLUG
-			, 'rewrite' 			=> array('slug' => 'ureviews')								// [ST] [?] Ur*?! cambiare?!
-			
-			
 -----------------------------------------
 [C] changes
 -----------------------------------------
@@ -103,7 +97,8 @@ class BP_Review_Component extends BP_Component {
 	{
 		global $bp;
 
-		parent::start(
+		parent::start
+		(
 			'review',						//ID
 			__( 'Review', 'reviews' ),														//[T] traduci	
 			BP_REVIEW_PLUGIN_DIR			//untrailingslashit(BP_REVIEW_PLUGIN_DIR) 
@@ -114,8 +109,7 @@ class BP_Review_Component extends BP_Component {
 		// cos� che la funzione 'bp_is_active( 'review')' restituisce TRUE;
 		$bp->active_components[$this->id] = '1';
 
-		add_action( 'init', array( &$this, 'register_post_types' ) );
-		
+		add_action( 'init', array( &$this, 'register_post_types' ) );		
 	}
 
 	/**
@@ -141,7 +135,8 @@ class BP_Review_Component extends BP_Component {
 		parent::includes( $includes );
 
 		//inclusione Manuale
-		if ( is_admin() || is_network_admin() ) {
+		if ( is_admin() || is_network_admin() ) 
+		{
 			//include( BP_REVIEW_PLUGIN_DIR . '/includes/bp-review-admin.php' );			//[C] 1
 		}
 	}
@@ -155,25 +150,21 @@ class BP_Review_Component extends BP_Component {
 		
 		if ( !defined( 'BP_REVIEW_SLUG' ) ) 
 		{
-			define( 'BP_REVIEW_SLUG', $this->id );
-			//define('BP_REVIEW_SLUG','review'); 
+			define( 'BP_REVIEW_SLUG', $this->id );			
 		}
 		
 		// [?] la uso?
-		$global_tables = array(
+		$global_tables = array
+		(
 			'table_name'      => $bp->table_prefix . 'bp_review'
 		);
 		
 		$globals = array
 		(
-			'slug'                  => BP_REVIEW_SLUG,
-			
-			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_REVIEW_SLUG,
-			
-			//DIRECTORY 
-			//'has_directory'         => true, 
-			'has_directory'         => false, 
-			
+			'slug'                  => BP_REVIEW_SLUG,			
+			'root_slug'             => isset( $bp->pages->{$this->id}->slug ) ? $bp->pages->{$this->id}->slug : BP_REVIEW_SLUG,			
+			//DIRECTORY 			
+			'has_directory'         => false, 			
 			//NOTIFICATIONS
 			'notification_callback' => 'bp_review_format_notifications',
 			'search_string'         => __( 'Search Reviews...', 'buddypress' ),
@@ -181,8 +172,7 @@ class BP_Review_Component extends BP_Component {
 		);
 		
 		parent::setup_globals( $globals );		
-	}
-	
+	}	
 
 	/**
 	 *	Configura i men� di navigazione
@@ -194,16 +184,11 @@ class BP_Review_Component extends BP_Component {
 		
 		$main_nav = array
 		(
-			'name' 		      		=> __( 'Review', 'reviews' ),																//[I] manca GET TOTAL COUNT delle reviews!---crea la funzione!		
-//			'name'          		=> sprintf( __( 'Reviews <span>%d</span>', 'reviews' ),---get_total_count()----),			
-
+			'name' 		      		=> __( 'Review', 'reviews' ),				
 			'slug' 		      		=> bp_get_review_slug(), //&$this->slug			
 			'position' 	      		=> 80,														//[?]
-			'screen_function'     	=> 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE
-			
-//			'default_subnav_slug' 	=> 'screen-one'			 
-			'default_subnav_slug' 	=> 'my-reviews',																		// [C] S
-			
+			'screen_function'     	=> 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
+			'default_subnav_slug' 	=> 'my-reviews',			// 'default_subnav_slug' 	=> 'screen-one'					
 //			'item_css_id'         	=> $this->id				
 		);
 
@@ -225,12 +210,8 @@ class BP_Review_Component extends BP_Component {
 		
 		$sub_nav[] = array
 		(
-			//'name'            =>  __( 'Lista Review', 'reviews' ),
-			'name'            => $nav_text,																	
-			
-			//'slug'            => 'screen-one',																			
-			'slug'            => 'my-reviews',																
-			
+			'name'            => $nav_text,																										
+			'slug'            => 'my-reviews',              //'slug'            => 'screen-one',																																		
 			'parent_url'      => $review_link,				//			
 			'parent_slug'     => bp_get_review_slug(), 		// $this->slug,			
 			'screen_function' => 'bp_review_screen_one',	//'screen_function' => array(&$this,'screen_home'),		 		// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
@@ -245,7 +226,7 @@ class BP_Review_Component extends BP_Component {
 			(
 					'name'            => __('Scrivi una Review', 'reviews' )				
 
-				,	'slug'            => 'screen-two'						// [S] create ---> se cambio qui devo cambiare il link del BOTTONE AddReview!!!
+				,	'slug'            => 'screen-two' // [S] create ---> se cambio qui devo cambiare il link del BOTTONE AddReview!!!
 //				,	'slug'            => 'create'
 
 				,	'parent_url'      => $review_link
@@ -253,7 +234,8 @@ class BP_Review_Component extends BP_Component {
 				,	'screen_function' => 'bp_review_screen_two'								 	// IMPORTANTE: funzione 'bp_review_screen_two()' nel FILE....			
 				
 				// ACCESS RESTRICTION - only allow on other's profile
-				,	'user_has_access' => (		is_user_logged_in()										
+				,	'user_has_access' => 
+										(		is_user_logged_in()										
 											&&	!bp_is_my_profile()
 											&&	bp_is_user()
 										)
@@ -264,14 +246,12 @@ class BP_Review_Component extends BP_Component {
 		if(bp_is_my_profile())
 		{
 			$nav_text_2	 =	sprintf(__('Review scritte da me','reviews'));						
-			$review_link_2 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );	
-			//$review_link = trailingslashit( bp_loggedin_user_domain() . bp_get_review_slug() );
+			$review_link_2 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );				
 		}
 		else
 		{
 			$nav_text_2	 =	sprintf (__('Le Review scritte da %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$review_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
-			//$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
+			$review_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);				
 		}		  
 		
 		// aggiunge la TAB "Modera le review NEGATIVE"
@@ -302,24 +282,24 @@ class BP_Review_Component extends BP_Component {
 			,	'slug'            => 'screen-three'															
 			,	'parent_url'      => $review_link_2
 			,	'parent_slug'     => $this->slug														
-			,	'screen_function' => 'bp_review_screen_three'											// IMPORTANTE: funzione 'bp_review_screen_three()' nel FILE....						
+			,	'screen_function' => 'bp_review_screen_three'  // IMPORTANTE: funzione 'bp_review_screen_three()' nel FILE....						
 			,	'position'        => 30
 		);
-		
-		
+				
 		//inserimento AUTOMATICO
 		parent::setup_nav( $main_nav, $sub_nav );
 
 		//inserimento MANUALE --> vedi 'bp_review_screen_settings_menu()'
-		bp_core_new_subnav_item( 
+		bp_core_new_subnav_item
+		( 
 			array
 			(
-				'name' 		  => __( 'Review Settings', 'reviews' ),				
-				'slug' 		  => 'review-admin',
+				'name' 		 	  => __( 'Review Settings', 'reviews' ),				
+				'slug' 		  	  => 'review-admin',
 				'parent_slug'     => bp_get_settings_slug(),
 				'parent_url' 	  => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
 				'screen_function' => 'bp_review_screen_settings_menu',
-				'position' 	  => 40,
+				'position' 	  	  => 40,
 				'user_has_access' => bp_is_my_profile() // accesso consentito solo all'utente sul proprio profilo
 			) 
 		);	
@@ -422,18 +402,7 @@ add_action( 'bp_loaded', 'bp_review_load_core_component' );
 // 2 hoos + 3 funzioni di cui una di callback
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-												
-												
-												
-												//add_action( 'add_meta_boxes', 'add_review_meta_box');	
-												
-												
-												
-												
-												
-												
-												
-
+	//add_action( 'add_meta_boxes', 'add_review_meta_box');	
 	//add_action( 'admin_init', 'add_review_meta_box');					//[ALT]
 
 /**
@@ -531,260 +500,6 @@ function save_review_meta_box( $post_id )
 	if ( isset( $_POST['voto_servizio'] ) ) 
 		update_post_meta( $post_id, 'voto_servizio', strip_tags( $_POST['voto_servizio'] ) );		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//			 
-//										---------still need to figure it out!
-//
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * show_archive_review_search_form()
- * 
- */
-function show_archive_review_search_form() 
-{	
-
-
-?> <!------------------ TAG Open ------------------------------------>								
-
-
-
-
-
-
-
-<!-- potrei mettere queste 3 righe in 'bp-review-loader' se uso l'ACTION  'bp_before_blog_post' 	-- E IGNORARE IL loop PRECEDENTE
-<?php //endwhile; ?>
-<?php //else : ?>
-<?php //endif; ?>
-
-
-
-<!-- FORM ------->
-<form>
-
-	<!-- [...] -->
-		
-</form>		
-
-<?php
-
-if($_SERVER['REQUEST_METHOD']=='POST' || isset($_POST['order_by']) ) 	
-{		
-
-	//[....]
-
-}
-
-//lancia la QUERY!
-$loop = new WP_Query($query_args);	
-
-
-?>
-		
-		
-	<!-- IF -->					
-	<?php //if ( $loop->have_posts() ) : ?>	
-		
-		<!-- ------------//------------------------>
-		<?php //bp_dtheme_content_nav( 'nav-above' ); ?>
-		
-		<!-- WHILE -->
-		<?php //while($loop->have_posts()): $loop->the_post();?>			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-<!----------------------- TAG Close -------------------------------------------->								
-<?php	
-
-}//chiude la FUNZIONE show_archive_review_search_form()
-
-
-				
-				
-//ACTION
-												//add_action('bp_before_archive','show_archive_review_search_form');
-
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//			 FILTER o ACTION per L'HOOK pre_get_posts
-//
-// L'HOOK 'pre_get_posts' viene attivato prima dell'esecuzione della query principale
-//
-// http://codex.wordpress.org/Plugin_API/Action_Reference/pre_get_posts
-//
-// WordPress includes a single global setting for controlling the number of posts that appear one one loop page (under "Blog pages show at most" in the admin"). 
-// It is possible to create an action hook that changes / overrides the posts_per_page setting on a case-by-case basis. 
-// Best of all, this is done before the query is even executed (so there is no performance cost)!
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-/**
- *
- *
- */
-function change_review_post_type_archive_query($query) 
-{
-
-	if ( is_post_type_archive('review') )											
-	{     
-		//OLD
-        //$query->query_vars['posts_per_page'] = 1;
-		
-		//$query->query_vars['voto_prezzo'] = 1;
-		
-		//------------------------------ ORDINA per --------------------------------
-		
-		//PREZZO
-		$query->query_vars['orderby'] = "voto_prezzo";
-		
-		//SERVIZIO
-		//$query->query_vars['orderby'] = "voto_servizio";
-		
-		if( isset($_POST['order_by']) ) 
-		{		
-			//$query->query_vars['orderby'] = stripslashes($_POST['order_by']);
-		}
-		
-		if($_SERVER['REQUEST_METHOD']=='POST') 
-		{
-			//$query->query_vars['orderby'] = stripslashes($_POST['order_by']);
-		}
-	}
-	
-	//IMPORTANTE
-    return;
-}
-
-
-// ACTION
-							//add_action('pre_get_posts','change_review_post_type_archive_query');		 //PRIORITà 1 magari
-	
-
-	
-	
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
-	
-	//'posts_fields'	
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
-
-
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
-function orderby_review_query_filter( $orderby )
-{
-
-  if( is_post_type_archive('review') ) 
-  {
-     return "post_title ASC";
-  }
-
-  // 
-  return $orderby;
-
-}	
-
-//FILTER
-													//add_filter('posts_orderby', 'orderby_review_query_filter' );				
-									
-	
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
-
-
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------		
-
-/**
- *
- * @see http://codex.wordpress.org/Function_Reference/is_post_type_archive
- */
-function show_review_post_type($query) 
-{
-
-	//---------------------- NB : facendo così viene ignorato il template 'archive-review.php' -----------------	
-	if(	is_archive() ) 
-	{
-		$query->set('post_type',array('review'));
-		
-	}
-	
-	return $query;
-
-}
-
-
-//FILTER
-													//add_filter('pre_get_posts','show_review_post_type');			
-													
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------			
-	
-	
-//----------------------------------------------------------------- REFERENCE	--------------------------------------------------------------------
-//	wp-includes/query.php
-//----------------------------------------------------------------- REFERENCE	--------------------------------------------------------------------
-
-/*
-	// Apply post-paging filters on where and join.  Only plugins that
-		// manipulate paging queries should use these hooks.
-		if ( !$q['suppress_filters'] ) {
-			$where		= apply_filters_ref_array( 'posts_where_paged',	array( $where, &$this ) );
-			$groupby	= apply_filters_ref_array( 'posts_groupby',		array( $groupby, &$this ) );
-			$join		= apply_filters_ref_array( 'posts_join_paged',	array( $join, &$this ) );
-			$orderby	= apply_filters_ref_array( 'posts_orderby',		array( $orderby, &$this ) );
-			$distinct	= apply_filters_ref_array( 'posts_distinct',	array( $distinct, &$this ) );
-			$limits		= apply_filters_ref_array( 'post_limits',		array( $limits, &$this ) );
-			$fields		= apply_filters_ref_array( 'posts_fields',		array( $fields, &$this ) );
-			
-	'posts_groupby'
-	'posts_orderby'		
-	'posts_fields'	
-	'posts_distinct'
-	'post_limits'		
-			
-	?
-		
-	'posts_where'
-	'posts_join'	
-*/
-
-
-
 
 
 ?>

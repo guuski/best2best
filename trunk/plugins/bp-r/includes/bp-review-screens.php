@@ -37,20 +37,12 @@ global $bp
 
 */
 
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//	
-//	screen SCREEN-ONE (LISTA REVIEWS)- 1/3
-//
-//	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
-//
-//
+//	SCREEN-ONE (LISTA REVIEWS)- 1/3 --> assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-
 
 /**
- * bp_review_screen_one()
- * 
+ * SCREEN 1
  */
 function bp_review_screen_one() 
 {
@@ -67,7 +59,7 @@ function bp_review_screen_one()
 		// Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
 		
 	//carica 'screen_one.php'
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );				  		//FILTER - non usato da nessuno
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );	//FILTER - non usato da nessuno
 	
 	//NB:
 		//nome FILTRO diverso  
@@ -81,12 +73,10 @@ function bp_review_screen_one()
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
-//
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 /**
- * bp_review_screen_two()
- * 
+ * SCREEN 2
  */
 function bp_review_screen_two() 
 {
@@ -96,12 +86,7 @@ function bp_review_screen_two()
 	do_action( 'bp_review_screen_two' );												
 		
 	//carica 'screen_two.php'
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_two', 'review/screen-two' ) );					//FILTER - non usato da nessuno
-	
-	//NB:
-		//nome FILTRO diverso  
-		//FILTER - non usato da nessuno	
-	
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_two', 'review/screen-two' ) );	//FILTER - non usato da nessuno	
 }
 
 
@@ -115,8 +100,7 @@ function bp_review_screen_two()
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 /**
- * bp_review_screen_three()
- * 
+ * SCREEN 3
  */
 function bp_review_screen_three() 
 {
@@ -127,15 +111,10 @@ function bp_review_screen_three()
 		
 	//carica 'screen_three.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_three', 'review/screen-three' ) );					//FILTER - non usato da nessuno
-	
-	//NB:
-		//nome FILTRO diverso  
-		//FILTER - non usato da nessuno	
 }
 
 /**
- * bp_review_screen_four()
- * 
+ * SCREEN 4
  */
 function bp_review_screen_four() 
 {
@@ -145,17 +124,19 @@ function bp_review_screen_four()
 	do_action( 'bp_review_screen_four' );												
 		
 	//carica 'screen_four.php'
-	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );					
-	
-	//NB:
-		//nome FILTRO diverso  
-		//FILTER - non usato da nessuno
-	
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );						
 }
+
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//		NOTE sulle  funzioni SCreen
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+// NOTE sulle  funzioni SCreen....
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
 /*
 
 	NOTA BENE:

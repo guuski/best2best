@@ -109,8 +109,6 @@ function bp_review_get_review_name()
 }
 
 
-
-
 /**
  * 
  *
