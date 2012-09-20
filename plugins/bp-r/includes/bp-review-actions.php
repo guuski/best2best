@@ -30,7 +30,7 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 	bp_loggedin_user_id()
 	
 	
-	'bp_actions' --> 'salva()'
+	'bp_actions' --> 'invia_nuova_review()'
 	
 -----------------------------------------
 global $bp
@@ -65,19 +65,17 @@ function countchar ($string)
 	echo $result;  
 } 
 
+//------------------------------------------------------------------------------------------------------------------------------------
+// INVIA Nuova REVIEW - non e' richiamata direttamente da NEssuno  ma viene richiamata perche' e' stata aggiunta con 'add_action' all HOOK: 'bp-actions'
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//[?] se stacco l'action funziona lo stesso secondo me!
+add_action( 'bp_actions', 'invia_nuova_review' );
 
 /**
  *
- *
- *
- *	NOTA BENE: 
- *  
- *  non e' richiamata direttamente da NEssuno
- *  ma viene richiamata perche' e' stata aggiunta 
- *  con 'add_action' all HOOK: 'bp-actions'
- *
  */
-function salva() 
+function invia_nuova_review() 
 {
 	global $bp;
 	
@@ -149,8 +147,7 @@ function salva()
 			return;
 		}	
 		
-		// funzione del FILE 'bp-review-functions.php' - se restituisce true e' OK!			
-		// [I] [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!		
+		// funzione del FILE 'bp-review-functions.php' - se restituisce true e' OK!					
 		$result = bp_review_send_review
 		(	
 			bp_displayed_user_id(), 
@@ -161,10 +158,8 @@ function salva()
 			$giudizio_review,
 			$data_rapporto,
 			$tipologia_rapporto,
-			
-			////////////////////////						
-			$tipo_review_negativa,
-			////////////////////////
+										
+			$tipo_review_negativa,			
 			
 			array(
 				'prezzo'		=> $voto_prezzo, 
@@ -174,20 +169,18 @@ function salva()
 				'affidabilita'	=> $voto_affidabilita
 			)
 		);																																						
-					
-		// [W] - ATTENZIONE: la funzione 'bp_review_send_review()' al momento restituisce sempre TRUE!!! -- controllo non funzionante!
+							
 		if($result)
 		{	
 			if($tipo_review_negativa == "anonimo")
-				bp_core_add_message( __( 'Review NEGATIVA anonima inviata correttamente...in attesa di essere moderata', 'reviews' ) );
+				bp_core_add_message( __( 'Review Negativa (anonima) inviata correttamente...in attesa di essere moderata', 'reviews' ) );
 			else if ($tipo_review_negativa == "registrato")
-				bp_core_add_message( __( 'Review NEGATIVA inviata correttamente...in attesa di essere moderata', 'reviews' ) );
+				bp_core_add_message( __( 'Review Negativa (non anonima) inviata correttamente...in attesa di essere moderata', 'reviews' ) );
 			else
 				bp_core_add_message( __( 'Review inviata correttamente', 'reviews' ) );			
 		}
 		else 
-		{
-			//[W] - ATTENZIONE: non ci va mai qui!
+		{			
 			bp_core_add_message( __( 'Review non inviata', 'reviews' ) );			
 		}	
 			
@@ -198,45 +191,6 @@ function salva()
 			//bp_core_redirect(wp_get_referer()); 																	
 	}	
 }
-
-//[OSS] - se stacco l'action funziona lo stesso secondo me!
-add_action( 'bp_actions', 'salva' );
-
-
-/**
- *
- *
- *
- */
- /*
-function show_all_reviews() 
-{
-	global $bp;
-	
-	//
-	if ( isset( $_POST['review-show-all-reviews'] ) && bp_is_active( 'review' ) ) 	
-	{		
-		// [WPNONCE]
-		check_admin_referer( 'bp_review_show_all_reviews' );			
-		
-		//recupera i valori inviati dal FORM
-		$content  			= $_POST['  '];				
-		
-			
-		// fa il REDIRECT
-		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() .		 '/my-reviews' );			
-		
-		//[ALT] - ma non pu� reindirizzarti alla scheda 'my-reviews' mi sa!
-			//bp_core_redirect(wp_get_referer()); 																	
-	}	
-}
-
-//[OSS] - se stacco l'action funziona lo stesso secondo me!
-add_action( 'bp_actions', 'show_all_reviews' );
-
-
-*/
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //	ACCETTA review Negativa
@@ -261,29 +215,34 @@ function accetta_review_negativa()
 			
 		// FUNCTION call 			
 		$result = bp_review_change_post_status($id_post, 'publish');
-		
+				
+		//--------------------------------------------------------------------------------------------------------
+		// TODO: manca un IF il codice seguente va usato se la la Review NEGATIVA è del tipo "anonimo" ---> serva un META tag "tipo_review_negativa"
 		//--------------------------------------------------------------------------------------------------------
 		
 		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
-		$id_staff = $user_staff->ID;
+		$id_staff   = $user_staff->ID;
+		
+		//LOG
 		error_log("id_staff =>  ______".$id_staff);
 		
 		//aggiorno autore
 		$my_post = array();
-		$my_post['post_author'] =$id_staff;
+		$my_post['post_author'] = $id_staff;
 		wp_update_post( $my_post );
 		
 		//aggiorno reviewer meta
 		update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
 		
-		//TODO ------ cambiare il reviewer id (post-meta)
-		//------ inviare notifiche e mail
-		$to_user_id = get_post_meta($id_post, "bp_review_recipient_id", true);
+		//-----------------------------------------------------------------------------------------------------------------
+		//TODO: cambiare il reviewer id (post-meta) ----> forse non è necessario
+		//-----------------------------------------------------------------------------------------------------------------
+		$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
 		$from_user_id = $id_staff;
 		
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 		
-		$to_user_link = bp_core_get_userlink( $to_user_id );
+		$to_user_link   = bp_core_get_userlink( $to_user_id );
 		$from_user_link = bp_core_get_userlink( $from_user_id );
 		
 		//
@@ -294,14 +253,21 @@ function accetta_review_negativa()
 						'item_id' => $to_user_id,
 				) );
 		
-		/* We'll use this do_action call to send the email notification. See bp-example-notifications.php */
-		do_action( 'bp_review_send_review', $to_user_id, $from_user_id);
+		//-----------------------------------------------------------------------------------------------------------------
+		// TODO: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo! ---> vd "bp-review-functions.php" riga 146
+		//-----------------------------------------------------------------------------------------------------------------
+		
+		/* We'll use this do_action call to send the EMAIL notification. */
+		// - 1 - 
+			//do_action( 'bp_review_send_review', $to_user_id, $from_user_id);
+		// - 2 - 
+		bp_review_send_review_notification($to_user_id, $from_user_id);
 		
 		//--------------------------------------------------------------------------------------------------------
 		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'Review NEGATIVA pubblicata','reviews' ) );
+			bp_core_add_message( __( 'Review Negativa pubblicata','reviews' ) );
 		}
 		else 
 		{			
@@ -339,9 +305,14 @@ function rifiuta_review_negativa()
 		// FUNCTION call 
 		$result = change_referral_post_status($id_post, 'trash');		
 		
+		
+		//-----------------------------------------------------------------------------------------------------------------
+		// TODO: manda la notifica all'autore della REVIEW! 
+		//-----------------------------------------------------------------------------------------------------------------
+		
 		if($result)	
 		{				
-			bp_core_add_message( __( 'Review NEGATIVA cestinata','reviews' ) );
+			bp_core_add_message( __( 'Review Negativa cestinata','reviews' ) );
 		}
 		else 
 		{			
