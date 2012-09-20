@@ -37,14 +37,14 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 */
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+// COSTANTI 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 	
-//contiene il path alla cartella del plugin 
+// 1 - Contiene il path alla cartella del plugin 
 define( 'BP_REVIEW_PLUGIN_DIR', dirname( __FILE__ ) );
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+// INIT
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
 add_action( 'bp_include', 'bp_review_init' );
@@ -60,40 +60,35 @@ function bp_review_init()
 		require( dirname( __FILE__ ) . '/includes/bp-review-loader.php' );
 }
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+// LOCALIZZAZIONE
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-add_action( 'init', 'load_my_textdomain');
-
+add_action( 'init', 'bp_review_load_my_textdomain');
 
 /**
  *
  * @see http://codex.wordpress.org/Function_Reference/load_plugin_textdomain
  */
-function load_my_textdomain()
+function bp_review_load_my_textdomain()
 {
 	load_plugin_textdomain( 'reviews', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-// 	IMPORTANTE 
 //
-//	il link! ---> review/screen-two			SCREEN-TWO  o CREATE 
+//  "ADD REVIEW" button
 //
+// 	IMPORTANTE:	il link! ---> review/screen-two			SCREEN-TWO  o CREATE 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-add_action( 'bp_member_header_actions'	, 'add_review_button',1);	
+add_action( 'bp_member_header_actions'	, 'bp_review_add_review_button',1);	
 		
-
 /**	 
  * 	
  *
  */
-function add_review_button()																	
+function bp_review_add_review_button()																	
 {
 	if(bp_review_current_user_can_write())
 	{
@@ -111,10 +106,16 @@ function add_review_button()
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-//
+//  "ADD LIST_REVIEW" button  (?x)
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-function add_list_review_button()
+
+add_action( 'bp_directory_members_actions'	, 'bp_review_add_list_review_button',100);
+
+/*
+ *
+ */
+function bp_review_add_list_review_button()
 { 
 	global $members_template;
 	
@@ -132,110 +133,73 @@ function add_list_review_button()
 	}
 }
 
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
+// Aggiunge i CSS
 //
+// ----il datepicker di jQuery è stato staccato?
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-
-add_action( 'wp_print_scripts'  		, 'add_css');					
+add_action( 'wp_print_scripts' , 'bp_review_add_css');					
 
 /**
  *
  * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_style
+ * @see http://codex.wordpress.org/Function_Reference/wp_register_style
  */
-function add_css()																						//---usa il metodo add_JS
+function bp_review_add_css()																						//---usa il metodo add_JS
 {
-
-	//CSS
-	
-//if(self::is_review_component())										
-	wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
-	
-	
-	
-/*	
-	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
-    wp_enqueue_style( 'datepicker-css');  
-	
-	wp_register_script('datepicker-js',  plugin_dir_url (__FILE__). 'includes/jquery-ui-1.8.19.custom.min.js');  
-    wp_enqueue_script( 'datepicker-js');  
-	
-	//JS
-	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
-	wp_enqueue_script('jquery');
-	wp_enqueue_script('jquery-ui-core');
-	//wp_enqueue_script('jquery-ui-core.min');
-	//wp_enqueue_script('jquery-ui-datepicker.min');
-	
-	//wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
-	//wp_enqueue_script('jquery-ui-datepicker', plugin_dir_url (__FILE__).'/includes/jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
-	
-*/		
+	//if(self::is_review_component() 
+	//{							
+		//Review FILE
+		wp_enqueue_style ('review',  plugin_dir_url (__FILE__).'/includes/review.css');
+			
+		//DATEPICKER - Css (vd la funz sotto...)	
+			//wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
+			//wp_enqueue_style( 'datepicker-css');  
+	//}		
 }  
 
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-
+// Aggiunge il Javascript
+//
+// ----il datepicker di jQuery è stato staccato?
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head' , 'add_js_review');					
-
-function add_js_review ()
-{	
-	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
-    wp_enqueue_style( 'datepicker-css');  
-	
-	wp_register_script('datepicker-js',  plugin_dir_url (__FILE__). 'includes/jquery-ui-1.8.19.custom.min.js');  
-    wp_enqueue_script( 'datepicker-js');  
-	
-	//JS
-	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
-	wp_enqueue_script('jquery');
-	wp_enqueue_script('jquery-ui-core');
-	//wp_enqueue_script('jquery-ui-core.min');
-	//wp_enqueue_script('jquery-ui-datepicker.min');
-	
-	//wp_enqueue_script('jquery-ui-datepicker',  FILE_URL . 'jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
-	//wp_enqueue_script('jquery-ui-datepicker', plugin_dir_url (__FILE__).'/includes/jquery.ui.datepicker.js', array('jquery','jquery-ui-core') );
-		
-}  
-
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-// SOSTITUISCI con versione Giamba e ATTIVA! 
-// ---> SPOSTA in bp-review-loader
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-
-//add_action( 'bp_before_comments', 'show_comments',1);
-
-function show_comments() 
-{
-
+add_action( 'wp_head' , 'bp_review_add_js');					
 
 /*
-	$destinatario_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );
+ * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_style   (rimuovi...)
+ * @see http://codex.wordpress.org/Function_Reference/wp_register_style  (rimuovi...)
+ * @see http://codex.wordpress.org/Function_Reference/wp_register_script
+ * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_script
+ */
+function bp_review_add_js()
+{	
+	//DATEPICKER - Css  (sposta nella fuzione "Aggiunge il CSS) ------ (rimuovi...)
+	wp_register_style('datepicker-css', plugin_dir_url (__FILE__). 'includes/ui-lightness/jquery-ui-1.8.19.custom.css');  
+    wp_enqueue_style( 'datepicker-css');  
+	
+	//DATEPICKER - Js
+	wp_register_script('datepicker-js',  plugin_dir_url (__FILE__). 'includes/jquery-ui-1.8.19.custom.min.js');  
+    wp_enqueue_script( 'datepicker-js');  
+	
+	//Review FILE
+	wp_enqueue_script('review',  plugin_dir_url (__FILE__).'/includes/review.js');
+	
+	//JQUERY
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-core');		
+}  
 
-	if(
-			bp_loggedin_user_id() == $post->post_author 
-		||  bp_loggedin_user_id() == $destinatario_review_id
-	)  
-	{
-		echo 'COMMENTI version 1';
-		comments_template();
-	}		
-	else 
-	{
-		echo 'COMMENTI version 2';
-		comments_template();
-		echo '<div id="respond" style = "display: none" > <div>';
-	}
-*/	
-}
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+// show_points 1
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
-add_action( 'bp_before_member_header_meta'	, 'show_points',1);
+add_action( 'bp_before_member_header_meta'	, 'bp_review_show_points',1);
 
-
-function show_points() 
+/*
+ *
+ */
+function bp_review_show_points() 
 {
 	$points = get_the_author_meta('media_voto_review',bp_displayed_user_id());
 	
@@ -249,31 +213,39 @@ function show_points()
 	}
 }
 
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+// show_points 2
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
+add_action( 'bp_directory_members_item'	, 'bp_review_show_points_members_directory',1);
 
-function show_points_members_directory() 
+/*
+ *
+ */
+function bp_review_show_points_members_directory() 
 {
-	//echo 'ciao ciao ciao ciao ciao ciao ciao ciao ';
-
-	//$points = get_the_author_meta('media_voto_review',$current_user->ID); //
+	
 	$points = get_the_author_meta('media_voto_review',bp_get_member_user_id()); //
 	
-	//bp_get_member_user_id()
-	//$user_id = $current_user->ID; 
-	
-	
-	
-	if($points != '') {
-		//echo $points;
+	if($points != '') 
+	{	
 		?><ul class='star-rating'><li class='current-rating' style='height: 0px; padding-top: 10px; border: 0; width: <?php echo 25*$points;?>px'></li>	</ul>
 		<?php 
 	}
 
 }
 
-function move_member_points() {
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+// show_points 3
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action("bp_after_members_loop","bp_review_move_member_points");
+
+/*
+ *
+ */
+function bp_review_move_member_points() 
+{
 	?><script>
 	jQuery(document).ready(function(){
 		jQuery(".item-title").children("a").after(function(){
@@ -282,10 +254,5 @@ function move_member_points() {
 	</script>
 	<?php 
 }
-
-add_action( 'bp_directory_members_item'	, 'show_points_members_directory',1);
-add_action("bp_after_members_loop","move_member_points");
-add_action( 'bp_directory_members_actions'	, 'add_list_review_button',100);
-
 
 ?>
