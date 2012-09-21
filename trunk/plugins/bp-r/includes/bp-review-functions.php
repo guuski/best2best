@@ -217,21 +217,60 @@ function bp_review_current_user_can_write()
 //	verifica se l'utente può MODERARE le review NEGATIVE	 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-function bp_review_current_user_can_moderate()
-{
-	$can_moderate = false;
+		function bp_review_current_user_can_moderate()
+		{
+			$can_moderate = false;
 
-	$user_id   = bp_loggedin_user_id(); 
+			$user_id   = bp_loggedin_user_id(); 
+			$user_name = bp_core_get_user_displayname( $user_id, false );
+
+			// se l'utente si chiama...
+			if(	$user_name == "Staff-Recensioni-Best2Best" )		
+				$can_moderate = true;
+				
+			//FILTER	
+			return apply_filters('bp_review_current_user_can_moderate',$can_moderate);
+		}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	IS_STAFF_MEMBER? - (1) DISPLAYED User
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_review_displayed_user_is_staff_member()
+{
+	$is_staff_member = false;
+
+	$user_id   = bp_displayed_user_id(); //DISPLAYED
 	$user_name = bp_core_get_user_displayname( $user_id, false );
 
 	// se l'utente si chiama...
 	if(	$user_name == "Staff-Recensioni-Best2Best" )		
-		$can_moderate = true;
+		$is_staff_member = true;
 		
 	//FILTER	
-	return apply_filters('bp_review_current_user_can_moderate',$can_moderate);
+	return apply_filters('bp_review_displayed_user_is_staff_member',$is_staff_member);
 }
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	IS_STAFF_MEMBER?  - (2) LOGGED IN User
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_review_loggedin_user_is_staff_member()
+{
+	$is_staff_member = false;
+
+	$user_id   = bp_loggedin_user_id(); // LOGGED IN 
+	$user_name = bp_core_get_user_displayname( $user_id, false );
+
+	// se l'utente si chiama...
+	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+		$is_staff_member = true;
+		
+	//FILTER	
+	return apply_filters('bp_review_loggedin_user_is_staff_member',$is_staff_member);
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // LISTA ReviewERs per l'utente - (da CANCELLARE) al momento la uso solo per vedere se l'utente ha Reviews

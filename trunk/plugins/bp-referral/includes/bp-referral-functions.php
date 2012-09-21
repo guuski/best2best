@@ -1,10 +1,47 @@
 <?php
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	IS_STAFF_MEMBER? - (1) DISPLAYED User
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
 
+function bp_referral_displayed_user_is_staff_member()
+{
+	$is_staff_member = false;
+
+	$user_id   = bp_displayed_user_id(); //DISPLAYED
+	$user_name = bp_core_get_user_displayname( $user_id, false );
+
+	// se l'utente si chiama...
+	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+		$is_staff_member = true;
+		
+	//FILTER	
+	return apply_filters('bp_referral_displayed_user_is_staff_member',$is_staff_member);
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	IS_STAFF_MEMBER?  - (2) LOGGED IN User
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+
+function bp_referral_loggedin_user_is_staff_member()
+{
+	$is_staff_member = false;
+
+	$user_id   = bp_loggedin_user_id(); // LOGGED IN 
+	$user_name = bp_core_get_user_displayname( $user_id, false );
+
+	// se l'utente si chiama...
+	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+		$is_staff_member = true;
+		
+	//FILTER	
+	return apply_filters('bp_referral_loggedin_user_is_staff_member',$is_staff_member);
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-function user_can_access_write_referral_screen()
+function user_can_access_write_referral_screen() 			//TODO [A] (1/3) rinomina in "bp_referral_loggedin_user_can_ask_referral
 {
 	$can_write=false;
 	 
@@ -40,7 +77,6 @@ function user_can_access_write_referral_screen()
 	{
 		$can_write = false;
 	}	
-	//////////////////////////////////////////////////////////////////////
 			
 	//////////////////////////////////////////////////////////////////////
 	// 2 - publish
@@ -65,8 +101,7 @@ function user_can_access_write_referral_screen()
 	if ( $loop->have_posts() ) 
 	{
 		$can_write = false;
-	}
-	//////////////////////////////////////////////////////////////////////
+	}	
 	
 	//////////////////////////////////////////////////////////////////////
 	// 3 - pending
@@ -92,10 +127,11 @@ function user_can_access_write_referral_screen()
 	{
 		$can_write = false;
 	}
-	//////////////////////////////////////////////////////////////////////	
-
+	
 	//--------------------------------------------------------------------
-	return apply_filters('user_can_access_write_referral_screen',$can_write);
+	
+	//FILTER
+	return apply_filters('user_can_access_write_referral_screen',$can_write); //TODO [A] (2/3) rinomina in "bp_referral_loggedin_user_can_ask_referral
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		

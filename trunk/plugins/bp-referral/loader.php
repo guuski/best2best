@@ -82,9 +82,11 @@ add_action( 'bp_member_header_actions'	, 'add_referral_button',1);
  *																								//EXAMPLE --> REFERRAL
  */
 function add_referral_button()																	
-{
-	//if(referral_current_user_can_write())
-	if(user_can_access_write_referral_screen())					
+{	
+	if(			user_can_access_write_referral_screen() 
+			&& !bp_referral_loggedin_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso
+			&& !bp_referral_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" viene escluso
+		)
 	{
 		echo '
 		<div class = "add-referrals" >
@@ -100,7 +102,10 @@ function add_referral_button()
 	else 
 	{
 	
-		if(referral_current_user_can_write())
+		if(			referral_current_user_can_write() 
+				&& !bp_referral_loggedin_user_is_staff_member()//l'utente "Staff-Recensioni-Best2best" viene escluso
+				&& !bp_referral_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" viene escluso
+			) 
 		{
 			//disabled
 			// vai a uno SCREEN nuovo che ti avverte con un MSG

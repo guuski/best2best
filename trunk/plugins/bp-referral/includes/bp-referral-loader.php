@@ -108,6 +108,15 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 			//'default_subnav_slug' => 'screen-one'			
 			'default_subnav_slug' => 'screen-five'				// 5
 			//'default_subnav_slug' => 'screen-two'				// 2
+			
+			// ACCESS RESTRICTION 
+/*			
+			,	'user_has_access' =>
+
+										&&  !bp_referral_loggedin_user_is_staff_member()	//l'utente "Staff-Recensioni-Best2best" viene escluso
+										&&  !bp_referral_displayed_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso 												
+									)							
+*/									
 		);
 		
 		//togliere?!
@@ -144,6 +153,8 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 									(		is_user_logged_in()										
 										&&	bp_is_my_profile()
 									//	&&	bp_is_user()
+										&&  !bp_referral_loggedin_user_is_staff_member()	//l'utente "Staff-Recensioni-Best2best" viene escluso
+										&&  !bp_referral_displayed_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso 												
 									)						
 		);
 		
@@ -152,7 +163,12 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 		//
 		
 		// aggiunge...
-		if(user_can_access_write_referral_screen()) 																			//nome ambiguo!
+		//nome ambiguo!		
+		if(		
+					user_can_access_write_referral_screen()	//TODO [A] (3/3) rinomina in "bp_referral_loggedin_user_can_ask_referral				
+				&& !bp_referral_loggedin_user_is_staff_member()			//l'utente "Staff-Recensioni-Best2best" viene escluso) 			
+				&& !bp_referral_displayed_user_is_staff_member()  		//l'utente "Staff-Recensioni-Best2best" viene escluso 			
+			) 
 		{
 			$sub_nav[] = array
 			(
@@ -168,6 +184,9 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 										(		is_user_logged_in()										
 											&&	!bp_is_my_profile()
 											&&	bp_is_user()
+											
+											&&  !bp_referral_loggedin_user_is_staff_member()	//l'utente "Staff-Recensioni-Best2best" viene escluso
+											&&  !bp_referral_displayed_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso 			
 										)				
 			);
 		}
@@ -187,6 +206,9 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 										(		 is_user_logged_in()										
 											&&	!bp_is_my_profile()
 											&&	 bp_is_user()
+											
+											&&  !bp_referral_loggedin_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso) 			
+											&&  !bp_referral_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" viene escluso) 			
 										)				
 			);
 		
@@ -223,6 +245,8 @@ class BP_Example_Component extends BP_Component 														//EXAMPLE --> REFE
 									(		is_user_logged_in()										
 										&&	bp_is_my_profile()
 									//	&&	bp_is_user()
+										&&  !bp_referral_loggedin_user_is_staff_member()	//l'utente "Staff-Recensioni-Best2best" viene escluso
+										&&  !bp_referral_displayed_user_is_staff_member()  //l'utente "Staff-Recensioni-Best2best" viene escluso 												
 									)
 		);
 		
