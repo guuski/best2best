@@ -50,20 +50,10 @@
 
 		$query_args = array
 		(
-				'post_status'		=> 'pending'						//----------pending			
+				'post_status'		=> 'pending'			// PENDING
 			,	'post_type'			=> 'review'				//'review'
-			//,   'author'			=> bp_displayed_user_id()	
-			//,	'posts_per_page'	=>  -1	
-			//,	'meta_query'		=> array()				//META_QUERY!
 		);
-/*
-		$query_args['meta_query'][] = array					//META_QUERY!
-		(
-				'key'	  => 'bp_referral_recipient_id',
-				'value'	  => (array)bp_displayed_user_id(),
-				'compare' => 'IN' 							// Allows $recipient_id to be an array 
-		);		
-*/		
+
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);	
 	
@@ -113,7 +103,7 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 
 	
-	<!--- (1) review-moderation-FORM (ACCETTA) -->
+	<!--- (1) review-moderation[FORM] ACCETTA -->
 	<form action = "<?php bp_review_form_action_screen_four() ?> " method="post" id="review-moderation-form" class="standard-form"> 
 							
 		<!-- bottone ACCETTA -->	
@@ -122,14 +112,14 @@
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />
 		</div>					
 										
-		<!-- [WPNONCE] -->
+		<!-- [WPNONCE] ACCETTA -->
 		<?php wp_nonce_field( 'accetta-review-negativa' ); ?>				
 	</form>		
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
 	
 	<br/> 	
 	
-	<!--- (1) review-moderation-FORM (RIFIUTA) -->
+	<!--- (2) review-moderation[FORM] RIFIUTA -->
 	<form action = "<?php bp_review_form_action_screen_four() ?> " method="post" id="review-moderation-form" class="standard-form"> 
 
 		<!-- bottone RIFIUTA -->	
@@ -138,7 +128,7 @@
 			<input type="hidden" name="id-post" id="id-post" value="<?php the_ID() ?>" />				
 		</div>					
 										
-		<!-- [WPNONCE] -->
+		<!-- [WPNONCE] RIFIUTA-->
 		<?php wp_nonce_field( 'rifiuta-review-negativa' ); ?>				
 	</form>			
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
@@ -152,12 +142,12 @@
 		<!-- MESSAGGIO -->
 		<h6><?php _e( ' nessuna Review NEGATIVA da moderare', 'reviews' ) ?></h6>												
 		
-	<?php endif; ?>
+<?php endif; ?>
 	
-	<!-- IMPORTANTE -->
-	<?php wp_reset_postdata() ?>		
+<!-- IMPORTANTE -->
+<?php wp_reset_postdata() ?>		
 	
-	<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------->
 
 </div><!-- #item-body -->
 </div><!-- .padder -->

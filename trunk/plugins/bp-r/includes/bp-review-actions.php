@@ -118,7 +118,7 @@ function invia_nuova_review()
 		}	
 		else if ($giudizio_review != 'negativo')
 		{
-			$tipo_review_negativa = "";
+			$tipo_review_negativa = "";																		//$tipo_review_negativa 
 		}
 		
 		if ( empty($data_rapporto)) 	//empty
@@ -213,17 +213,55 @@ function accetta_review_negativa()
 		// [POST_vars]
 		$id_post = $_POST['id-post'];					
 			
-		// FUNCTION call 			
+		// FUNCTION call ---> result var 			
 		$result = bp_review_change_post_status($id_post, 'publish');
-				
-		//--------------------------------------------------------------------------------------------------------
-		// TODO: manca un IF il codice seguente va usato se la la Review NEGATIVA è del tipo "anonimo" ---> serva un META tag "tipo_review_negativa"
-		//--------------------------------------------------------------------------------------------------------
-		
+
+
+//------------------------------------------------------------------------------------------------------------------------------------				
+
+//------------------------------------------------------------------------------------------------------------------------------------				
+// TODO: test box
+//if($giudizio_review != "negativo") {  ....}
+//------------------------------------------------------------------------------------------------------------------------------------				
+
+if(!$tipo_review_negativa == "anonimo") 		
+{								
+
+// 1) per le Review  NEGATIVE del tipo "registrato"
+
 		//ricava il DESTINATARIO
-		$obj_post 		 = get_post($id_post);			
-		$post_author_id  = $obj_post->post_author;
+			//$obj_post 		 = get_post($id_post);			
+			//$post_author_id  = $obj_post->post_author;
+						
+		//--- NOTIFICA -----------------------------------------------------------------------------------------------------------------
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 		
+		$to_user_link   = bp_core_get_userlink( $to_user_id );
+		$from_user_link = bp_core_get_userlink( $from_user_id );
+		
+		//--- ATTIVITA -----------------------------------------------------------------------------------------------------------------		
+		bp_review_record_activity( array
+		(
+			'type' => 'rejected_terms',
+			'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+			'item_id' => $to_user_id,
+		) );
+						
+		//--MAIL ---------------------------------------------------------------------------------------------------------------				
+		
+		//-----------------------------------------------------------------------------------------------------------------
+		// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA ---> vd "bp-review-functions.php" riga 146
+		//-----------------------------------------------------------------------------------------------------------------
+		
+		// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
+		// - 2 - 
+			bp_review_send_review_notification($to_user_id, $from_user_id);		
+}		
+else  
+{
+	// 2) per le Review NEGATIVE del tipo "anonimo" 
+
+			//-AUTORE e REVIEWER ----------------------------------------------------------------------------------------------------------------
 		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
 		$id_staff   = $user_staff->ID;
 		
@@ -234,41 +272,45 @@ function accetta_review_negativa()
 		$my_post = array();
 		$my_post['post_author'] = $id_staff;
 		wp_update_post( $my_post );
-		
-		//aggiorno reviewer meta
-		update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
-		
+
 		//-----------------------------------------------------------------------------------------------------------------
 		//TODO: cambiare il reviewer id (post-meta) ----> forse non è necessario
-		//-----------------------------------------------------------------------------------------------------------------
+		//-----------------------------------------------------------------------------------------------------------------		
+		
+		//aggiorno reviewer meta
+		update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);		
 		$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
 		$from_user_id = $id_staff;
 		
+		//--- NOTIFICA -----------------------------------------------------------------------------------------------------------------
+/*		
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' );
 		
 		$to_user_link   = bp_core_get_userlink( $to_user_id );
 		$from_user_link = bp_core_get_userlink( $from_user_id );
-		
-		//
-		bp_review_record_activity( array
-				(
-						'type' => 'rejected_terms',
-						'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
-						'item_id' => $to_user_id,
-				) );
+*/		
+		//--- ATTIVITA -----------------------------------------------------------------------------------------------------------------	//ATTIVITA		
+/*		bp_review_record_activity( array
+		(
+			'type' => 'rejected_terms',
+			'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
+			'item_id' => $to_user_id,
+		) );
+*/						
+		//--MAIL ---------------------------------------------------------------------------------------------------------------				
 		
 		//-----------------------------------------------------------------------------------------------------------------
-		// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo! ---> vd "bp-review-functions.php" riga 146
+		// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA ---> vd "bp-review-functions.php" riga 146
 		//-----------------------------------------------------------------------------------------------------------------
-		
-		/* We'll use this do_action call to send the EMAIL notification. */
-		// - 1 - 
-			//do_action( 'bp_review_send_review', $to_user_id, $from_user_id);
+/*		
+		// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
 		// - 2 - 
-		bp_review_send_review_notification($to_user_id, $from_user_id);
-		
-		//--------------------------------------------------------------------------------------------------------
-		
+			bp_review_send_review_notification($to_user_id, $from_user_id);		
+*/
+
+}		
+//------------------------------------------------------------------------------------------------------------------------------------
+		// result var <---
 		if($result)	
 		{				
 			bp_core_add_message( __( 'Review Negativa pubblicata','reviews' ) );
@@ -311,7 +353,7 @@ function rifiuta_review_negativa()
 		
 		
 		//-----------------------------------------------------------------------------------------------------------------
-		// TODO: manda la notifica all'autore della REVIEW! 
+		// TODO [C]: manda la notifica + mail all'autore della REVIEW! 
 		//-----------------------------------------------------------------------------------------------------------------
 		
 		if($result)	
