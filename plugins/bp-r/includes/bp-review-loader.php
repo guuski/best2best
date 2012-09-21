@@ -181,14 +181,33 @@ class BP_Review_Component extends BP_Component {
 	{
 	
 		global $bp;
+/*		
+		if(					
+//				   !bp_review_loggedin_user_is_staff_member() 
+//				&& 
+					!bp_review_displayed_user_is_staff_member()
+			) 		
+		{
+			$default_subnav_slug = 'screen-four';
+			$screen_function = 'bp_review_screen_four';
+		}
+		else 
+			$default_subnav_slug = 'my-reviews';
+			$screen_function = 'bp_review_screen_one';
+*/			
 		
 		$main_nav = array
 		(
 			'name' 		      		=> __( 'Review', 'reviews' ),				
 			'slug' 		      		=> bp_get_review_slug(), //&$this->slug			
 			'position' 	      		=> 80,														//[?]
+			
+			//'screen_function'     	=> $screen_function, 
 			'screen_function'     	=> 'bp_review_screen_one', // =>array(&$this,'screen_home'),							// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
+			
+			//'default_subnav_slug' 	=> $default_subnav_slug, 
 			'default_subnav_slug' 	=> 'my-reviews',			// 'default_subnav_slug' 	=> 'screen-one'					
+			
 //			'item_css_id'         	=> $this->id				
 		);
 
@@ -207,20 +226,43 @@ class BP_Review_Component extends BP_Component {
 			$review_link = 	trailingslashit( $bp->displayed_user->domain . $this->slug);	
 			//[ALT] //$review_link = trailingslashit( -----DISPLAYED USER! . bp_get_review_slug() );
 		}		  		
-		
-		$sub_nav[] = array
-		(
-			'name'            => $nav_text,																										
-			'slug'            => 'my-reviews',              //'slug'            => 'screen-one',																																		
-			'parent_url'      => $review_link,				//			
-			'parent_slug'     => bp_get_review_slug(), 		// $this->slug,			
-			'screen_function' => 'bp_review_screen_one',	//'screen_function' => array(&$this,'screen_home'),		 		// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
-			'position'        => 10			
-//			'item_css_id'     => 'review-my-review'
-		);
+/*		
+		if(					
+//				   !bp_review_loggedin_user_is_staff_member() 
+//				&& 
+					!bp_review_displayed_user_is_staff_member()
+			) 		
+		{
+*/		
+			$sub_nav[] = array
+			(
+				'name'            => $nav_text,																										
+				'slug'            => 'my-reviews',              //'slug'            => 'screen-one',																																		
+				'parent_url'      => $review_link,				//			
+				'parent_slug'     => bp_get_review_slug(), 		// $this->slug,			
+				'screen_function' => 'bp_review_screen_one',	//'screen_function' => array(&$this,'screen_home'),		 		// IMPORTANTE: funzione 'bp_review_screen_one()' nel FILE			
+				'position'        => 10			
+	//			'item_css_id'     => 'review-my-review'
+				
+				// ACCESS RESTRICTION - 
+	/*
+					,	'user_has_access' => 
+											(
+												//	!bp_review_loggedin_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review			
+												//&&
+												//!bp_review_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review							
+											
+											)
+	*/
+			);
+//}
 		
 		// aggiunge la TAB "Scrivi Review"
-		if(bp_review_current_user_can_write()) 																			//nome ambiguo!
+		if(			
+					bp_review_current_user_can_write() 				
+				&& !bp_review_loggedin_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review			
+				&& !bp_review_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review							
+			) 
 		{
 			$sub_nav[] = array
 			(

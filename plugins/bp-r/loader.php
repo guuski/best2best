@@ -90,7 +90,11 @@ add_action( 'bp_member_header_actions'	, 'bp_review_add_review_button',1);
  */
 function bp_review_add_review_button()																	
 {
-	if(bp_review_current_user_can_write())
+	if(			bp_review_current_user_can_write() 
+			&& !bp_review_current_user_can_moderate() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review
+			&& !bp_review_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review
+			&& !bp_review_loggedin_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review
+		) 
 	{
 		echo '
 		<div class = "add-reviews" >
