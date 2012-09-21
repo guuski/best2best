@@ -126,6 +126,7 @@ function bp_review_send_review	(
 	
 	if($save_result) 									//Se la Review è stata salvata correttamente....
 	{			
+		//per le Review POSITIVE, NEUTRE, NEGATIVE del tipo "registrato"
 		if(!$tipo_review_negativa == "anonimo") 		//Escludi nel caso di Review NEGATIVA tipo Anonimo
 		{
 			//NOTIFICA del tipo/nome "NEW_REVIEW"
@@ -143,13 +144,22 @@ function bp_review_send_review	(
 			) );
 				
 			//--------------------------------------------- 3 parte ----------------------------------------------------------------				
-			
-			// ------------------------------------------------------------------------------------------------------
-			// TODO: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo!
-			// ------------------------------------------------------------------------------------------------------
-			
-			// DO_ACTION -- We'll use this do_action call to send the email notification. See bp-example-notifications.php 
+						
+			// DO_ACTION -- We'll use this do_action call to send the email notification. See bp-review-notifications.php 
 			do_action( 'bp_review_send_review', $to_user_id, $from_user_id);															
+		}
+		else 
+		{
+			//per le Review NEGATIVE del tipo "anonimo"
+
+			// ------------------------------------------------------------------------------------------------------
+			// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo!
+			//
+			// ---> vd "bp-review-functions.php" riga 146
+			// ------------------------------------------------------------------------------------------------------
+	
+			// DO_ACTION -- We'll use this do_action call to send the email notification. See bp-review-notifications.php 
+			do_action( 'bp_review_send_review', $to_user_id, $from_user_id);																	
 		}
 	}
 	
