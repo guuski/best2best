@@ -220,6 +220,10 @@ function accetta_review_negativa()
 		// TODO: manca un IF il codice seguente va usato se la la Review NEGATIVA è del tipo "anonimo" ---> serva un META tag "tipo_review_negativa"
 		//--------------------------------------------------------------------------------------------------------
 		
+		//ricava il DESTINATARIO
+		$obj_post 		 = get_post($id_post);			
+		$post_author_id  = $obj_post->post_author;
+		
 		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
 		$id_staff   = $user_staff->ID;
 		
@@ -254,7 +258,7 @@ function accetta_review_negativa()
 				) );
 		
 		//-----------------------------------------------------------------------------------------------------------------
-		// TODO: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo! ---> vd "bp-review-functions.php" riga 146
+		// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo! ---> vd "bp-review-functions.php" riga 146
 		//-----------------------------------------------------------------------------------------------------------------
 		
 		/* We'll use this do_action call to send the EMAIL notification. */

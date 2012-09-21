@@ -130,7 +130,8 @@ http://www.best2best.it/registrati/ Registrati adesso ed entra nel network utile
 	wp_mail( $to, $subject, $message );
 	
 	//LOG
-	error_log("mail inviata");
+	error_log("____bp_review_send_review_notification");
+	error_log("MAIL =>  ______". "bp_review_send_review_notification");
 }
 
 

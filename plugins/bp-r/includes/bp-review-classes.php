@@ -26,8 +26,9 @@ FILE, CLASSI, OGGETTI, METODI collegati o richiamati
 		
 		oppure:
 		
-			
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------					
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 
 /**
  *
@@ -41,10 +42,7 @@ class Review
 	var $query;								
 		
 	/**
-	 * bp_review_tablename()
-	 *
-	 * Crea a nuovo oggetto vuoto se non viene fornito un ID o preleva la riga corrispondente nel DB se l'ID viene fornito
-     *
+	 * Crea a nuovo oggetto vuoto se non viene fornito un ID o preleva la riga corrispondente nel DB se l'ID viene fornito     
 	 */
 	function __construct( $args = array() ) 
 	{	
@@ -53,7 +51,7 @@ class Review
 			'id'			=> 0,
 			'reviewer_id' 	=> 0,
 			'recipient_id'  => 0,
-			'date' 			=> date( 'Y-m-d H:i:s' )																	//aggiungere la variabile '$content',no?
+			'date' 			=> date( 'Y-m-d H:i:s' )					//aggiungere la variabile '$content',no?
 		);
 		
 		$r = wp_parse_args( $args, $defaults );
@@ -74,12 +72,12 @@ class Review
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// (NON USATA)
+// 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * populate()
 	 *	 
-	 */
+	 */ 
 	function populate() 
 	{
 		global $wpdb, $bp; //$creds;
@@ -146,7 +144,8 @@ class Review
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
 				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
-							
+				
+				update_post_meta( $result, 'tipo_review_negativa', $tipo_review_negativa );						
 			}
 		} 
 		else 
@@ -190,12 +189,14 @@ class Review
 				
 				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
 				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
-				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );		
+				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );	
+
+				update_post_meta( $result, 'tipo_review_negativa', $tipo_review_negativa );							
 				
 			}							
 		}//chiude l' IF
 			
-		//------------- calcola Media RATING -------------------------------------------	
+		//--------------------------------------------- calcola Media RATING --------------------------------------------
 		$media_voti_rating = ($voto_prezzo + $voto_servizio + $voto_qualita + $voto_puntualita + $voto_affidabilita) / 5;				
 		$user_id = get_post_meta( $result, 'bp_review_recipient_id', true );		//RECIPIENT					
 		$num_review_ricevute = get_user_meta( $user_id , 'num_review_ricevute', true );
@@ -221,6 +222,8 @@ class Review
 		update_usermeta( $user_id, 'num_review_ricevute', $num_review_ricevute );		
 		update_usermeta( $user_id, 'media_voto_review'	, $media_voto_review   );		
 						
+		//------------- ----------------------------------------------------------------------------------------------
+		
 		//DO ACTION
 		do_action( 'bp_review_data_after_save', $this );
 
@@ -228,9 +231,9 @@ class Review
 	}
 
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// (NON USATA)
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------------------------------
+//  
+//------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
 	 * lancia la WP_Query
@@ -246,7 +249,7 @@ class Review
 				'recipient_id'	=> 0,
 				'per_page'		=> 10,
 				'paged'			=> 1
-																										//aggiungere la variabile '$content',no?
+																				//aggiungere la variabile '$content',no?
 			);
 
 			$r = wp_parse_args( $args, $defaults );
@@ -299,7 +302,7 @@ class Review
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Non USATE
+//  
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	/**
 	 * vedi 'bp_review_has_reviews()' loop
@@ -328,6 +331,7 @@ class Review
 		return wp_trash_post( $this->id );
 	}
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 }//chiude la CLASSE
 
 ?>
