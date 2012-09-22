@@ -129,29 +129,43 @@ function bp_review_send_review	(
 		
 			// - NOTIFICA - (1) - 
 				
-				//notifica all'autore che la review è in MODERAZIONE!
-				
-				//"new_review_moderation"
-					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation' ); 														
+				//notifica all'autore che la review è in MODERAZIONE!								
+					//"new_review_moderation_1 autore"
+						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
+														
+				//notifica allo staff MODERATORE
+					//"new_review_moderation_2 staff"
+						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
 				
 			// - ACTIVITY - (1) -						
 				//NO! perchè è in MODERAZIONE						
-			// - MAIL - (1) - 
-				//NO! perchè è in MODERAZIONE						
 			
+			// - MAIL - (1) - 
+					
+				//MAIL di notifica allo staff MODERATORE --- c'è una review NEGATIVA da moderare!
+					//bp_review_send_review_notification($to_user_id, $from_user_id);											
 		}
 		else if ($tipo_review_negativa == "registrato")
 		{
 		// ------ (2) ------ per le Review NEGATIVE del tipo "registrato" (sono in MODERAZIONE)
 		
 			// - NOTIFICA - (2) - 
-				//notifica all'autore che la review è in MODERAZIONE!
-					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '			' ); 										
-				
+			
+				//notifica all'autore che la review è in MODERAZIONE!								
+					//"new_review_moderation_1 autore"
+						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 		
+															
+				//notifica allo staff MODERATORE
+					//"new_review_moderation_2 staff"
+						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
+									
 			// - ACTIVITY - (2) -						
 				//NO! perchè è in MODERAZIONE						
+			
 			// - MAIL - (2) - 
-				//NO! perchè è in MODERAZIONE						
+				
+				//MAIL di notifica allo staff MODERATORE --- c'è una review NEGATIVA da moderare!					
+					//bp_review_send_review_notification($to_user_id, $from_user_id);								
 			
 		}
 		else 
