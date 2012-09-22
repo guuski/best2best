@@ -273,14 +273,20 @@ function accetta_review_negativa()
 				{
 				// ----- 2) per le Review  NEGATIVE del tipo "registrato"  ----- 		
 
-					// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
-					// NOTA BENE: questa parte è uguale a quella delle Review POSITIVE e NEUTRE (vd riga 159 di 'bp-review-functions') 
-					// ---------------------------------------------------------------------------------------------------------------
+				  // -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
+				  // NOTA BENE: questa parte è uguale a quella delle Review POSITIVE e NEUTRE (vd riga 159 di 'bp-review-functions') 
+				  // ---------------------------------------------------------------------------------------------------------------
 					
-					// - NOTIFICA - (2) - 
+				  // - NOTIFICA - (2) - 
 					bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 	
+															
+				  // - ACTIVITY - (2) - 		
 					
-					// - ACTIVITY - (2) - 		
+					//ricava gli utenti
+					$to_user_id		= get_post_meta($id_post, "bp_review_recipient_id", true);
+					$from_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true);					
+					
+					//ricava i link utenti
 					$to_user_link   = bp_core_get_userlink( $to_user_id );
 					$from_user_link = bp_core_get_userlink( $from_user_id );		
 					bp_review_record_activity( array
@@ -290,7 +296,7 @@ function accetta_review_negativa()
 						'item_id' => $to_user_id,
 					) );
 
-					// - MAIL - (2) - 						
+				  // - MAIL - (2) - 						
 						// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
 						// - 2 - 
 						bp_review_send_review_notification($to_user_id, $from_user_id);								
