@@ -142,7 +142,7 @@ function invia_nuova_review()
 		}	
 		
 		// FUNCTION call ---> result var [vd FILE 'bp-review-functions.php']
-		$review_sent = bp_review_send_review
+		$review_sent_result = bp_review_send_review
 		(	
 			bp_displayed_user_id(), 
 			bp_loggedin_user_id(), 			
@@ -162,7 +162,7 @@ function invia_nuova_review()
 		);																																						
 
 		// result var <---							
-		if($review_sent)
+		if($review_sent_result)
 		{	
 			if($tipo_review_negativa == "anonimo")
 				bp_core_add_message( __( 'Review Negativa (anonima) inviata correttamente...in attesa di essere moderata', 'reviews' ) );

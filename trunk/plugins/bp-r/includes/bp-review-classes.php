@@ -138,12 +138,12 @@ class Review
 			);
 			
 			//UPDATE Post
-			$result = wp_update_post( $wp_update_post_args );
+			$result = wp_update_post( $wp_update_post_args );						//IMP occhio a rinominare "result"!!!!
 
 			//Post_META
-			if ( $result ) 
+			if ( $result ) 															//IMP occhio a rinominare "result"!!!!
 			{
-				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);				
+				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);				//IMP occhio a rinominare "result"!!!!
 				update_post_meta( $result, 'voto_servizio',$voto_servizio);
 				update_post_meta( $result, 'voto_qualita',$voto_qualita);
 				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
@@ -203,17 +203,17 @@ class Review
 			if ( $post_inserted_result ) 			
 			{
 				//Post_META
-				update_post_meta( $result, 'voto_prezzo',$voto_prezzo);										
-				update_post_meta( $result, 'voto_servizio',$voto_servizio);
-				update_post_meta( $result, 'voto_qualita',$voto_qualita);
-				update_post_meta( $result, 'voto_puntualita',$voto_puntualita);
-				update_post_meta( $result, 'voto_affidabilita',$voto_affidabilita);					
-				update_post_meta( $result, 'bp_review_recipient_id', $this->recipient_id );			
-				update_post_meta( $result, 'bp_review_reviewer_id', $this->reviewer_id );	// nu poco inutile perchè c'è AUTHOR				
-				update_post_meta( $result, 'giudizio_review', $giudizio_review );		
-				update_post_meta( $result, 'data_rapporto', $data_rapporto );		
-				update_post_meta( $result, 'tipologia_rapporto', $tipologia_rapporto );	
-				update_post_meta( $result, 'tipo_review_negativa', $tipo_review_negativa );											
+				update_post_meta( $post_inserted_result, 'voto_prezzo',$voto_prezzo);										
+				update_post_meta( $post_inserted_result, 'voto_servizio',$voto_servizio);
+				update_post_meta( $post_inserted_result, 'voto_qualita',$voto_qualita);
+				update_post_meta( $post_inserted_result, 'voto_puntualita',$voto_puntualita);
+				update_post_meta( $post_inserted_result, 'voto_affidabilita',$voto_affidabilita);					
+				update_post_meta( $post_inserted_result, 'bp_review_recipient_id', $this->recipient_id );			
+				update_post_meta( $post_inserted_result, 'bp_review_reviewer_id', $this->reviewer_id );	// nu poco inutile perchè c'è AUTHOR				
+				update_post_meta( $post_inserted_result, 'giudizio_review', $giudizio_review );		
+				update_post_meta( $post_inserted_result, 'data_rapporto', $data_rapporto );		
+				update_post_meta( $post_inserted_result, 'tipologia_rapporto', $tipologia_rapporto );	
+				update_post_meta( $post_inserted_result, 'tipo_review_negativa', $tipo_review_negativa );											
 			}						
 			
 			//----------------------------------------------------------------------------------------------------------------------------	
@@ -252,7 +252,8 @@ class Review
 		//DO ACTION
 		do_action( 'bp_review_data_after_save', $this );
 
-		return $result;
+		//RETURN
+		return $post_inserted_result;
 	}
 
 	//------------------------------------------------------------------------------------------------------------------------------------
