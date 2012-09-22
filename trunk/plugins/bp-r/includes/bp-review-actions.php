@@ -230,7 +230,25 @@ function accetta_review_negativa()
 				{								
 				// ----- 1) per le Review NEGATIVE del tipo "anonimo"  ----- 
 
-									
+					// AUTORE e REVIEWER 
+					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+					$id_staff   = $user_staff->ID;
+					
+					//LOG
+					error_log("id_staff =>  ______".$id_staff);
+					
+					//aggiorno AUTORE
+					$my_post = array();
+					$my_post['post_author'] = $id_staff;
+					wp_update_post( $my_post );
+
+					//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con author)
+					update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);//cambiare il reviewer id (post-meta) ----> forse non è necessario
+					$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
+					$from_user_id = $id_staff;
+
+					// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
+					
 					// - NOTIFICA - (1) - 
 					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '   			' ); 
 						//"new_review_NEGATIVA_ANONIMA_accettata"								
@@ -255,24 +273,9 @@ function accetta_review_negativa()
 				{
 				// ----- 2) per le Review  NEGATIVE del tipo "registrato"  ----- 		
 
-					// AUTORE e REVIEWER 
-					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
-					$id_staff   = $user_staff->ID;
-					
-					//LOG
-					error_log("id_staff =>  ______".$id_staff);
-					
-					//aggiorno AUTORE
-					$my_post = array();
-					$my_post['post_author'] = $id_staff;
-					wp_update_post( $my_post );
-
-					//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con author)
-					update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);//cambiare il reviewer id (post-meta) ----> forse non è necessario
-					$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
-					$from_user_id = $id_staff;
-					
-					// ------------- questa parte è uguale a quella delle Review POSITIVE e NEUTRE (vd riga 159 di 'bp-review-functions') ----------
+					// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
+					// NOTA BENE: questa parte è uguale a quella delle Review POSITIVE e NEUTRE (vd riga 159 di 'bp-review-functions') 
+					// ---------------------------------------------------------------------------------------------------------------
 					
 					// - NOTIFICA - (2) - 
 					bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 	
@@ -311,7 +314,7 @@ function accetta_review_negativa()
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'Si &egrave; verificato un errore durante l\'invio della Review... ', 'review' ) );			
+			bp_core_add_message( __( 'Si &egrave; verificato un errore durante l\'invio della Review... ', 'reviews' ) );			
 		}	
 			
 		//SCREEN 4
@@ -356,7 +359,9 @@ function rifiuta_review_negativa()
 		//-----------------------------------------------------------------------------------------------------------------
 		//
 		// - NOTIFICA - (1) - 
-		//		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '			' );  //"new_review_NEGATIVA_ANONIMA_rifiutata"
+				
+		//		"new_review_NEGATIVA_ANONIMA_rifiutata"
+		//			bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '					' );  
 		//
 		// - MAIL - (1) - 	
 		//
@@ -369,7 +374,7 @@ function rifiuta_review_negativa()
 		}
 		else 
 		{			
-			bp_core_add_message( __( 'Si &egrave; verificato un errore... ', 'review' ) );			
+			bp_core_add_message( __( 'Si &egrave; verificato un errore... ', 'reviews' ) );			
 		}	
 		
 		//SCREEN 4
