@@ -476,7 +476,7 @@ function add_review_meta_box()
 function show_review_meta_box( $post ) 							
 {
 	$bp_review_recipient_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true );		//NB:
-	$bp_review_reviewer_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true );		//NB:
+	$bp_review_reviewer_id 	= get_post_meta( $post->ID, 'bp_review_reviewer_id', true );		//NB:
 	$voto_prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
 	$voto_servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );		
 		

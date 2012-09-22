@@ -34,10 +34,17 @@
 
 <!------ AUTORE Review BOX -------->					
 <small style = "float: right;"> <strong>	
+	
 	<?php
-		$authorlogin= get_the_author_meta('user_login');
-		$autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); 
-		$nome = xprofile_get_field_data( "Nome" , $autore_review_id);
+		
+		$authorlogin		= get_the_author_meta('user_login');
+		
+		$autore_review_id 	= get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); //TODO bp_review_reviewer_id sostituire con AUTHOR 
+		//ricava il DESTINATARIO
+			//$obj_post 		 = get_post($id_post);			
+			//$post_author_id  	 = $obj_post->post_author;
+		
+		$nome 				= xprofile_get_field_data( "Nome" , $autore_review_id);
 	?>	
 	
 	<?php _e('Autore: ');?> 
