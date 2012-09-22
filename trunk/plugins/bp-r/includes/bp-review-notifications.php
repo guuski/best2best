@@ -16,18 +16,16 @@ function bp_review_remove_screen_notifications()
 
 	//When clicking on a screen notification, we need to remove it from the menu. The following command will do so.
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' );
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_anonima' );
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica - (2/2) - per le Review NEGATIVE Anonimo 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-
+/*
 add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );			//ACTION del plugin -- 'screen_one'																										
 add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
 
-/** 
- */
- 
 function bp_review_remove_screen_notifications()
  {
 	global $bp;
@@ -35,6 +33,7 @@ function bp_review_remove_screen_notifications()
 	//When clicking on a screen notification, we need to remove it from the menu. The following command will do so.
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_anonima' );
 }
+*/
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	FORMATTA Notifiche
