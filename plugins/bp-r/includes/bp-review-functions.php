@@ -75,11 +75,7 @@ function bp_review_form_action_screen_four()
  *
  *  - Registra una notifica per l'utente con il "notifications menu" 
  *  - Registra un "activity stream item" col seguente testo: "Utente 1 ha inviato una review a Utente 2".
- *
- * ----- parte 3 --------
- *
  *  - manda una MAIL all utente.
- *
  *
  * @see http://codex.wordpress.org/Function_Reference/check_admin_referer
  * @see http://codex.wordpress.org/Function_Reference/delete_user_meta
@@ -90,14 +86,14 @@ function bp_review_send_review	(
 									$to_user_id, $from_user_id, 
 									$title, $content, 
 									$giudizio_review, $data_rapporto, $tipologia_rapporto, 								
-									$tipo_review_negativa,																		
-									$voti
+									$voti,
+									$tipo_review_negativa																										
 								)
 {
 	global $bp;
 			
 	// [WPNONCE]
-	check_admin_referer( 'bp_review_new_review' );
+	//check_admin_referer( 'bp_review_new_review' );
 	
 	// TODO: riscrivi da qua fino a $review = new Review( $db_args );
 	delete_user_meta( $to_user_id, 'reviews' );	    //cancella il campo 'reviews' associato  all'utente di destinazione! ---> ma picchi? - cmq non si puo' staccare!			
@@ -117,54 +113,77 @@ function bp_review_send_review	(
 		$review = new Review( $db_args );		//istanzia oggetto della CLASSE 'Review'		
 			
 		//Save
-		$save_result = $review->save( $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti		
-									 ,$tipo_review_negativa 		
-									);																							
-	}//TODO: va esteso forse fino a comprendere la 2 parte che al momento rimane fuori
+		$review_saved_result = $review->save( $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti, $tipo_review_negativa);																							
+	}
+	//TODO: va esteso forse fino a comprendere la 2 parte che al momento rimane fuori
 	
 	//---------------------------------------------- 2 parte ---------------------------------------------------------------
 	
-	if($save_result) 									//Se la Review è stata salvata correttamente....
+	//Se la Review è stata salvata correttamente....
+	if($review_saved_result) 							
 	{			
-		// 1) per le Review POSITIVE, NEUTRE, NEGATIVE del tipo "registrato"
-		if(!$tipo_review_negativa == "anonimo") 		//Escludi nel caso di Review NEGATIVA tipo Anonimo
+
+		// ------ (1) ------ per le Review NEGATIVE del tipo "anonimo" 	(sono in MODERAZIONE)
+		if($tipo_review_negativa == "anonimo") 		 
+		{		
+		
+			// - NOTIFICA - (1) - 
+				
+				//notifica all'autore che la review è in MODERAZIONE!
+				
+				//"new_review_moderation"
+					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation' ); 														
+				
+			// - ACTIVITY - (1) -						
+				//NO! perchè è in MODERAZIONE						
+			// - MAIL - (1) - 
+				//NO! perchè è in MODERAZIONE						
+			
+		}
+		else if ($tipo_review_negativa == "registrato")
 		{
-			//NOTIFICA del tipo/nome "NEW_REVIEW"
-			bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 
+		// ------ (2) ------ per le Review NEGATIVE del tipo "registrato" (sono in MODERAZIONE)
 		
+			// - NOTIFICA - (2) - 
+				//notifica all'autore che la review è in MODERAZIONE!
+					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '			' ); 										
+				
+			// - ACTIVITY - (2) -						
+				//NO! perchè è in MODERAZIONE						
+			// - MAIL - (2) - 
+				//NO! perchè è in MODERAZIONE						
+			
+		}
+		else 
+		{
+		// ------ (3) ------ per le Review POSITIVE e NEUTRE		
+
+			// - NOTIFICA - (3) - 
+			bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 										
+		
+			// - ACTIVITY - (3) - 
 			$to_user_link   = bp_core_get_userlink( $to_user_id );
-			$from_user_link = bp_core_get_userlink( $from_user_id );
-		
-			//ACTIVITY
+			$from_user_link = bp_core_get_userlink( $from_user_id );									
 			bp_review_record_activity( array
 			(
 				'type' => 'rejected_terms',
 				'action' => apply_filters( 'bp_review_new_review_activity_action', sprintf( __( '%s ha scritto una review per %s!', 'reviews' ), $from_user_link, $to_user_link ), $from_user_link, $to_user_link ),
 				'item_id' => $to_user_id,
-			) );
-				
-			//--------------------------------------------- 3 parte ----------------------------------------------------------------				
+			) );			
 						
-			// DO_ACTION -- We'll use this do_action call to send the email notification. See bp-review-notifications.php 
-			do_action( 'bp_review_send_review', $to_user_id, $from_user_id);															
+			// - MAIL - (3) - 				
+			do_action( 'bp_review_send_review', $to_user_id, $from_user_id); // DO_ACTION -- We'll use this do_action call to send the email notification. See bp-review-notifications.php 																	
 		}
-		else // 2) per le Review NEGATIVE del tipo "anonimo" 
-		{
-			
-
-			// ------------------------------------------------------------------------------------------------------
-			// TODO [B]: non viene mandata l'ENAIL per la Review NEGATIVA tipo Anonimo!
-			//
-			// ---> vd "bp-review-functions.php" riga 261
-			// ------------------------------------------------------------------------------------------------------
-	
-			// DO_ACTION -- We'll use this do_action call to send the email notification. See bp-review-notifications.php 
-			do_action( 'bp_review_send_review', $to_user_id, $from_user_id);																	
-		}
+	}
+	else
+	{
+		//ERRORE nel salvataggio della la Review!
+		
+		//LOG 1/2 (vd riga 178 di bp-review-functions)
 	}
 	
 	//RETURN	
-	return $save_result;
+	return $review_saved_result;
 }
 
 
