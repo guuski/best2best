@@ -1,8 +1,6 @@
 <?php
 //--------------------------------------------------------------- SCREEN 3 -->  Le Reviews scritta da me-----------------------------------------------------------------------------------------
 get_header() ?>
-
-
 	
 	<!-- CONTENT -->
 	<div id="content">
@@ -10,11 +8,9 @@ get_header() ?>
 		<!-- PADDER -->
 		<div class="padder" style="padding:19px 0 0 0;" >
 
-			<div id="item-header" style="padding:19px 0 0 0;">
-			
+			<div id="item-header" style="padding:19px 0 0 0;">			
 				<!-- buddypress MEMBER HEADER -->
-				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->
-				
+				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->				
 			</div>
 
 			<div id="item-nav">
@@ -24,8 +20,7 @@ get_header() ?>
 						<?php bp_get_displayed_user_nav() ?>
 					</ul>
 				</div>
-			</div>
-			
+			</div>			
 <!------------------------------------------>			
 <div id="sidebar-squeeze">										<!-- pezza per FRISCO -->
 	<div id="main-column">
@@ -41,18 +36,11 @@ get_header() ?>
 				<?php bp_get_options_nav() ?>
 			</ul>
 		</div>
-
-
-	
-	<!--------------------------------------------------- LISTA 3  Le Reviews scritta da me ------------------------------------------------------------------------------->	
-	
+		
+	<!--------------------------------------------------- LISTA 3  Le Reviews scritta da me ------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
 	<h4><?php //_e( 'Le Reviews scritta da me', 'reviews' ) ?></h4>
-		
-
-
-
 
 <?php
 
@@ -87,30 +75,42 @@ else
 
 }//end IF Request - FORM inviato	
 
-
 //langia la QUERY!
 $loop = new WP_Query($query_args);
 
 ?>			
-	
-
-	
-	
-	
-		
+			
 	<!-- IF -->	
 	<?php if ( $loop->have_posts() ) : ?>	
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
 		
+		 <!------------------------------------------------>			
+		 <!--//  if tipo review negativa  è ANONIMA
+		 <!------------------------------------------------>	
+		
+		 <!------------------------------------------------>	
+		 <!-- Patch 1
+		 <!------------------------------------------------>	
+		 <?php if ( $post->post_type == "pending") : ?>	
+			<?php continue;?>
+		 <?php endif; ?>
+		 <!------------------------------------------------>	
+		 <!-- Patch 2
+		 <!------------------------------------------------>			 
+		 <?php
+			$autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); 
+		 	if ($autore_review_id != $post->post_author) 
+			  continue;
+		?>					
+		<!------------------------------------------------>			
 			<div class="title">
 				
 				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
-			<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
-	<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
-			
-			
+				<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
+				<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
+						
 				<small style = "float: right;"><strong>
 					<?php  _e('Recensione su: ');?> 
 					<a href="<?php echo bp_core_get_user_domain(get_post_meta( $post->ID, 'bp_review_recipient_id', true ))?>">
