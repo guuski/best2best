@@ -238,9 +238,14 @@ function accetta_review_negativa()
 					error_log("id_staff =>  ______".$id_staff);
 					
 					//aggiorno AUTORE
-					$my_post = array();
+/*					
+					$my_post = array();												//NON FUNONZIA :(
 					$my_post['post_author'] = $id_staff;
 					wp_update_post( $my_post );
+*/
+					//ricava il DESTINATARIO
+					$obj_post 		 = get_post($id_post);			
+					$post_author_id  = $obj_post->post_author;					
 
 					//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con author)
 					update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);//cambiare il reviewer id (post-meta) ----> forse non è necessario
