@@ -197,7 +197,7 @@ get_header() ?>
 		<?php do_action( 'bp_after_review_post_form' ); ?>								
 
 		<!-- [WPNONCE] -->
-		<?php wp_nonce_field( 'bp_review_new_review' ); ?>		
+		<?php wp_nonce_field( 'new_review_action' ); ?>		
 		
 	</form>
 <!--------------------------------------------------------------------------fine FORM -------------------------------------------------------------------------------------->						

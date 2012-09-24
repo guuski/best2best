@@ -85,7 +85,7 @@ function invia_nuova_review()
 		) 	
 	{		
 		// [WPNONCE]
-		check_admin_referer( 'bp_review_new_review' );			
+		check_admin_referer( 'new_review_action' );			
 		
 		//recupera i valori inviati dal FORM
 		$content  				= $_POST['review-content'];				
@@ -298,6 +298,8 @@ function accetta_review_negativa()
 				  // ---------------------------------------------------------------------------------------------------------------
 					
 				  // - NOTIFICA - (2) - 
+					
+					//la notifica nel caso di Review NEGATIVA non cambia --- è sempre una generica "new_review"
 					bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 	
 															
 				  // - ACTIVITY - (2) - 		
@@ -329,7 +331,7 @@ function accetta_review_negativa()
 		else
 		{
 			
-			//lo stato del posto è rimasto "pending". non è riuscito a cambiarlo!
+			//lo stato del post è rimasto "pending". non è riuscito a cambiarlo!
 						
 			
 		

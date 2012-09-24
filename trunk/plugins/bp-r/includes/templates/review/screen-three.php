@@ -68,8 +68,7 @@ else
 	(
 			'post_status'		=> 'publish'
 		,	'post_type'			=> 'review'						
-		,   'author'			=> bp_displayed_user_id()							
-												
+		,   'author'			=> bp_displayed_user_id()																			
 		,	'posts_per_page'	=> 3	
 	);
 
