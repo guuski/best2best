@@ -263,18 +263,24 @@ function accetta_review_negativa()
 						
 						//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con post->author)
 						update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
-						$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
-						$from_user_id = $id_staff;
+						
+						//(*)
+						$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true); //---il destinatario della Revew
+						//(*)
+						//$from_user_id = $id_staff;
 
 						// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
-						
+/*						
 						// - NOTIFICA - (1) - 
-						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '   			' ); 
-							//"new_review_NEGATIVA_ANONIMA_accettata"								
-						
+						$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+						$id_staff   = $user_staff->ID;		
+						//$from_user_id = $id_staff;	//l'autore è il MODERATORE					(*)
+						bp_core_add_notification( $from_user_id,  		, $bp->review->slug, 'negative_review_accepted'); //	
+															
+*/						
 						// - ACTIVITY - (1) - 										
-						$to_user_link   = bp_core_get_userlink( $to_user_id );
-						$from_user_link = bp_core_get_userlink( $from_user_id );		
+						$to_user_link   = bp_core_get_userlink( $to_user_id ); //non posso cambiarlo sopra (*)
+						//$from_user_link = bp_core_get_userlink( $from_user_id ); //non posso cambiarlo sopra (*)	//non serve se usa la parola "qualcuno"!
 						bp_review_record_activity( array
 						(
 							'type' => 'rejected_terms',
@@ -381,18 +387,22 @@ function rifiuta_review_negativa()
 
 		// FUNCTION call 
 		$post_status_result = change_referral_post_status($id_post, 'trash');				
+									
+		// - NOTIFICA - 
 		
-		//-----------------------------------------------------------------------------------------------------------------
-		// TODO [C]: manda la notifica + mail all'autore della REVIEW! 
-		//-----------------------------------------------------------------------------------------------------------------
-		//
-		// - NOTIFICA - (1) - 
-				
-		//		"new_review_NEGATIVA_ANONIMA_rifiutata"
-		//			bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '					' );  
-		//
-		// - MAIL - (1) - 	
-		//
+		//ricava gli utenti
+		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+		$id_staff   = $user_staff->ID;		
+		$from_user_id = $id_staff;	//l'autore della notifica è il MODERATORE		
+		$to_user_id	= get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 
+		//--- oppure AUTHOR post----
+		
+		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'negative_review_refused' );  
+		
+		// - MAIL -
+		
+			// mandare una mail all'autore!	
+		
 		//-----------------------------------------------------------------------------------------------------------------
 		
 		// result var <---

@@ -17,6 +17,11 @@ function bp_review_remove_screen_one_notifications() //_screen_one_
 
 	//legata a SCREEN 1
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' ); 
+	
+			//spostare....
+			bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_refused' ); 
+			bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_accepted' ); 
+			
 		
 }
 
@@ -120,19 +125,50 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 			
 		//3
 		case 'new_review_moderation_request':	
-			/*		
+				
 			if ( (int)$total_items > 1 ) 
 			{				
-				$text_title = sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items );
+				$text_title = sprintf( __( '%d nuove review da moderare', 'reviews' ), (int)$total_items );
+			}
+			else 
+			{			
+				//NO FILTER!
+				$text_title = __( 'nuova review negativa da moderare', 'reviews' );
+			}
+
+			break;				
+			
+		//4
+		case 'negative_review_refused':	
+				
+			if ( (int)$total_items > 1 ) 
+			{				
+				$text_title = sprintf( __( '%d delle tue review negative inviate sono state rifiutate', 'reviews' ), (int)$total_items );
 			}
 			else 
 			{
-			*/
+			
 				//NO FILTER!
-				$text_title = __( 'nuova review negativa da moderare', 'reviews' );
-			//}
+				$text_title = __( 'una tua review negativa è stata rifiutata', 'reviews' );
+			}
 
-			break;					
+			break;				
+			
+		//5
+		case 'negative_review_accepted':	
+				
+			if ( (int)$total_items > 1 ) 
+			{				
+				$text_title = sprintf( __( '%d delle tue review negative inviate sono state accettate/pubblicate', 'reviews' ), (int)$total_items );
+			}
+			else 
+			{
+			
+				//NO FILTER!
+				$text_title = __( 'una tua review negativa è stata accetata', 'reviews' );
+			}
+
+			break;			
 			
 	}
 
