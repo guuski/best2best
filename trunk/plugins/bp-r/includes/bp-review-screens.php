@@ -38,7 +38,7 @@ global $bp
 */
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//	SCREEN-ONE (LISTA REVIEWS)- 1/4
+//	SCREEN-ONE (LISTA REVIEWS)- 1/5
 //   
 //  assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
@@ -71,7 +71,7 @@ function bp_review_screen_one()
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-TWO (SCRIVI REVIEW) - 2/4
+//	SCREEN-TWO (SCRIVI REVIEW) - 2/5
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -94,7 +94,7 @@ function bp_review_screen_two()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-THREE (REVIEW SCRITTE) - 3/4
+//	SCREEN-THREE (REVIEW SCRITTE) - 3/5
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -117,7 +117,7 @@ function bp_review_screen_three()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-FOUR (MODERA LE REVIEW NEGATIVE) - 4/4
+//	SCREEN-FOUR (MODERA LE REVIEW NEGATIVE) - 4/5
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -135,6 +135,24 @@ function bp_review_screen_four()
 		
 	//carica 'screen_four.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_four', 'review/screen-four' ) );						
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	SCREEN-FIVE( review Negative in attesa di essere moderate) - 5/5
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
+/**
+ * SCREEN 5
+ */
+function bp_review_screen_five() 
+{
+	global $bp;
+	
+	// DO ACTION
+	do_action( 'bp_review_screen_five' );												
+		
+	//carica 'screen_five.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_five', 'review/screen-five' ) );						
 }
 	
 ?>

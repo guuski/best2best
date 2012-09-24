@@ -235,7 +235,40 @@ function bp_review_change_post_status($id_post, $new_post_status)
 
 	return $result;	
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Cambia lo "STATUS" di un POST (in questo di una post di tipo Review)
+//
 
+/*
+	APPUNTI: 
+	
+	'new' 		 - When there's no previous status
+	'publish' 	 - A published post or page
+	'pending' 	 - post in pending review
+	'draft' 	 - a post in draft status
+	'auto-draft' - a newly created post, with no content
+		'future'     - a post to publish in the future
+		'private' 	 - not visible to users who are not logged in
+	'inherit' 	 - a revision. see get_children.
+	'trash' 	 - post is in trashbin. added with Version 2.9.
+*/	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ *
+ */
+function bp_review_change_post_author($id_post, $new_author_id) 
+{
+	$wp_update_post_args = array
+	(
+			'ID'			=> $id_post
+		,	'post_author'	=> $new_author_id			//o "author"?
+	);
+		
+	$result = wp_update_post( $wp_update_post_args );
+
+	return $result;	
+}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	verifica se l'utente può SCRIVERE una REVIEW per un altro utente
@@ -414,67 +447,5 @@ function bp_review_get_reviews_for_user( $user_id )
 }
 */	
 
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  TERMS func 1 - (NON USATA)
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/**
- *
- */
- 
- /*
-function bp_review_accept_terms() 
-{
-	global $bp;
-
-	check_admin_referer( 'bp_review_accept_terms' );
-	$user_link = bp_core_get_userlink( $bp->loggedin_user->id );
-
-	bp_review_record_activity( array
-	(
-		'type' => 'accepted_terms',
-		'action' => apply_filters( 'bp_review_accepted_terms_activity_action', sprintf( __( '%s accepted the really exciting terms and conditions!', 'reviews' ), $user_link ), $user_link ),
-	) );
-
-	if ( function_exists( 'bp_activity_delete') )
-		bp_activity_delete( array( 'type' => 'rejected_terms', 'user_id' => $bp->loggedin_user->id ) );
-
-	do_action( 'bp_review_accept_terms', $bp->loggedin_user->id );
-
-	return true;
-}
-*/
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  TERMS func 2 - (NON USATA)
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- *
- *
- */
- /*
-function bp_review_reject_terms() 
-{
-	global $bp;
-
-	check_admin_referer( 'bp_review_reject_terms' );
-
-	$user_link = bp_core_get_userlink( $bp->loggedin_user->id );
-
-	bp_review_record_activity( array
-	(
-		'type' => 'rejected_terms',
-		'action' => apply_filters( 'bp_review_rejected_terms_activity_action', sprintf( __( '%s rejected the really exciting terms and conditions.', 'reviews' ), $user_link ), $user_link ),
-	) );
-
-	if ( function_exists( 'bp_activity_delete') )
-		bp_activity_delete( array( 'type' => 'accepted_terms', 'user_id' => $bp->loggedin_user->id ) );
-
-	do_action( 'bp_review_reject_terms', $bp->loggedin_user->id );
-
-	return true;
-}
-*/
 
 ?>

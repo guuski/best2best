@@ -207,7 +207,7 @@ function accetta_review_negativa()
 		// [POST_vars]
 		$id_post = $_POST['id-post'];					
 			
-		// FUNCTION call ---> result var 			
+		// FUNCTION call (1)---> result var 			
 		$post_status_result = bp_review_change_post_status($id_post, 'publish');
 					
 		// result var 1/2 <---			
@@ -229,50 +229,65 @@ function accetta_review_negativa()
 				if($tipo_review_negativa == "anonimo") 		
 				{								
 				// ----- 1) per le Review NEGATIVE del tipo "anonimo"  ----- 
-
-					// AUTORE e REVIEWER 
+					
+					
+					//-------------------- aggiorno AUTORE ----------------------------------------
+					
+					// AUTORE attuale
+					//$obj_post 		 = get_post($id_post);			
+					//$post_author_id  = $obj_post->post_author;					
+					
+					//------ parte 1 ------
+					
+					// AUTORE nuovo
 					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
-					$id_staff   = $user_staff->ID;
+					$id_staff   = $user_staff->ID;										
+					error_log("id_staff =>  ______".$id_staff);  //LOG
+					$new_author_id = $id_staff;				
 					
-					//LOG
-					error_log("id_staff =>  ______".$id_staff);
+					// FUNCTION call (2) ---> result var 			
+					$post_author_result = bp_review_change_post_author($id_post, $new_author_id);
 					
-					//aggiorno AUTORE
-/*					
-					$my_post = array();												//NON FUNONZIA :(
-					$my_post['post_author'] = $id_staff;
-					wp_update_post( $my_post );
-*/
-					//ricava il DESTINATARIO
-					$obj_post 		 = get_post($id_post);			
-					$post_author_id  = $obj_post->post_author;					
+					// result var <---		
+					if(!$post_author_result) 
+					{
+						//break;
+						
+						//FLAG 
+						
+						//ERRORE msg "autore non cambiato"
+					}					
+					else
+					{
+						//------ parte 2 ------		(TODO: risolvere def. cancelladno '..reviewer_id...' dal plugin
+						
+						//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con post->author)
+						update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
+						$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
+						$from_user_id = $id_staff;
 
-					//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con author)
-					update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);//cambiare il reviewer id (post-meta) ----> forse non è necessario
-					$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true);
-					$from_user_id = $id_staff;
-
-					// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
-					
-					// - NOTIFICA - (1) - 
-					//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '   			' ); 
-						//"new_review_NEGATIVA_ANONIMA_accettata"								
-					
-					// - ACTIVITY - (1) - 										
-					$to_user_link   = bp_core_get_userlink( $to_user_id );
-					$from_user_link = bp_core_get_userlink( $from_user_id );		
-					bp_review_record_activity( array
-					(
-						'type' => 'rejected_terms',
-						'action' => apply_filters( 'bp_review_new_review_anonima_activity_action', sprintf( __( 'Qualcuno ha scritto una review negativa per %s!', 'reviews' ), $to_user_link ), $to_user_link ),
-						'item_id' => $to_user_id,
-					) );
-		
-					// - MAIL - (1) - 								
-						// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
-						// - 2 - //bp_review_send_review_notification($to_user_id, $from_user_id);		
-						// - 3 -
-						bp_review_send_review_anonima_notification($to_user_id, $from_user_id);		
+						// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
+						
+						// - NOTIFICA - (1) - 
+						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, '   			' ); 
+							//"new_review_NEGATIVA_ANONIMA_accettata"								
+						
+						// - ACTIVITY - (1) - 										
+						$to_user_link   = bp_core_get_userlink( $to_user_id );
+						$from_user_link = bp_core_get_userlink( $from_user_id );		
+						bp_review_record_activity( array
+						(
+							'type' => 'rejected_terms',
+							'action' => apply_filters( 'bp_review_new_review_anonima_activity_action', sprintf( __( 'Qualcuno ha scritto una review negativa per %s!', 'reviews' ), $to_user_link ), $to_user_link ),
+							'item_id' => $to_user_id,
+						) );
+			
+						// - MAIL - (1) - 								
+							// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
+							// - 2 - //bp_review_send_review_notification($to_user_id, $from_user_id);		
+							// - 3 -
+							bp_review_send_review_anonima_notification($to_user_id, $from_user_id);		
+					}		
 				}		
 				else  
 				{
@@ -314,6 +329,8 @@ function accetta_review_negativa()
 		else
 		{
 			
+			//lo stato del posto è rimasto "pending". non è riuscito a cambiarlo!
+						
 			
 		
 		}			
@@ -338,8 +355,6 @@ function accetta_review_negativa()
 	}
 	*/	
 }
-
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIFIUTA Review Negativa
