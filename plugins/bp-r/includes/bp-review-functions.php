@@ -91,9 +91,6 @@ function bp_review_send_review	(
 								)
 {
 	global $bp;
-			
-	// [WPNONCE]
-	//check_admin_referer( 'bp_review_new_review' );
 	
 	// TODO: riscrivi da qua fino a $review = new Review( $db_args );
 	delete_user_meta( $to_user_id, 'reviews' );	    //cancella il campo 'reviews' associato  all'utente di destinazione! ---> ma picchi? - cmq non si puo' staccare!			
@@ -129,13 +126,16 @@ function bp_review_send_review	(
 		
 			// - NOTIFICA - (1) - 
 				
-				//notifica all'autore che la review è in MODERAZIONE!								
-					//"new_review_moderation_1 autore"
-						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
+				//notifica all'autore che la sua review è in MODERAZIONE!								
+				bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_negative_review_sent' ); 														
 														
-				//notifica allo staff MODERATORE
-					//"new_review_moderation_2 staff"
-						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
+				//notifica allo staff MODERATORE ---- ($to_user_id --> id_staff   )
+				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+				$id_staff   = $user_staff->ID;		
+				$to_user_id = $id_staff;
+				bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation_request' ); 	//id_staff													
+				
+				//notific al Destinatario della review ---> NO! perchè è in MODERAZIONE						
 				
 			// - ACTIVITY - (1) -						
 				//NO! perchè è in MODERAZIONE						
@@ -151,21 +151,26 @@ function bp_review_send_review	(
 		
 			// - NOTIFICA - (2) - 
 			
-				//notifica all'autore che la review è in MODERAZIONE!								
-					//"new_review_moderation_1 autore"
-						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 		
+				//notifica all'autore che la sua review è in MODERAZIONE!	
+				
+				//inverti AUTORE e DESTINATARIO
+				$new_from_user_id = $to_user_id;
+				$new_to_user_id   = $from_user_id;
+				bp_core_add_notification( $new_from_user_id, $new_to_user_id, $bp->review->slug, 'new_negative_review_sent' ); 	//new_from_user_id //new_to_user_id													
 															
-				//notifica allo staff MODERATORE
-					//"new_review_moderation_2 staff"
-						//bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation		' ); 														
+				//notifica allo staff MODERATORE ---- ($to_user_id --> id_staff   )
+				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+				$id_staff   = $user_staff->ID;		
+				bp_core_add_notification( $from_user_id, $id_staff, $bp->review->slug, 'new_review_moderation_request' ); 	//id_staff													
+				
+				//notific al Destinatario della review ---> NO! perchè è in MODERAZIONE						
 									
-			// - ACTIVITY - (2) -						
-				//NO! perchè è in MODERAZIONE						
+			// - ACTIVITY - (2) ---> NO! perchè è in MODERAZIONE						
 			
 			// - MAIL - (2) - 
 				
 				//MAIL di notifica allo staff MODERATORE --- c'è una review NEGATIVA da moderare!					
-					//bp_review_send_review_notification($to_user_id, $from_user_id);								
+					//bp_review_send_review_notification($to_user_id, $from_user_id,   ------- swicht oggetto msg-------);								
 			
 		}
 		else 

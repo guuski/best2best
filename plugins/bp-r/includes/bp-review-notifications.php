@@ -3,37 +3,56 @@
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica - (1/2) -  per le Review POSITIVE, NEUTRE e NEGATIVE Registrato
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );			//ACTION del plugin -- 'screen_one'																										
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
+add_action( 'bp_review_screen_one', 'bp_review_remove_screen_one_notifications' );			//ACTION del plugin -- 'screen_one'																										
+add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_one_notifications' );
 
 /**
  *
  */
-function bp_review_remove_screen_notifications()
+function bp_review_remove_screen_one_notifications() //_screen_one_
  {
 	global $bp;
 
-	//When clicking on a screen notification, we need to remove it from the menu. The following command will do so.
-	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' );
-	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_anonima' );
+	/* When clicking on a screen notification, we need to remove it from the menu. The following command will do so.*/
+
+	//legata a SCREEN 1
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' ); 
+		
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-//	RIMUOVI Notifica - (2/2) - per le Review NEGATIVE Anonimo 
+//	RIMUOVI Notifica -  
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-add_action( 'bp_review_screen_one', 'bp_review_remove_screen_notifications' );			//ACTION del plugin -- 'screen_one'																										
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_notifications' );
+add_action( 'bp_review_screen_four', 'bp_review_remove_screen_four_notifications' );			//ACTION del plugin -- 'screen_four'																										
+add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_four_notifications' );
 
-function bp_review_remove_screen_notifications()
+function bp_review_remove_screen_four_notifications() //_screen_four_
  {
 	global $bp;
-
-	//When clicking on a screen notification, we need to remove it from the menu. The following command will do so.
-	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_anonima' );
+	
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_moderation_request' );
 }
-*/
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//	RIMUOVI Notifica -  
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+add_action( 'bp_review_screen_five', 'bp_review_remove_screen_five_notifications' );			//ACTION del plugin -- 'screen_five'																										
+add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_five_notifications' );
+
+function bp_review_remove_screen_five_notifications() //_screen_five_
+ {
+	global $bp;
+	
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_negative_review_sent' );
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//	RIMUOVI Notifica -  
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	FORMATTA Notifiche
@@ -65,6 +84,7 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 	
 	switch ( $action ) 
 	{
+		//1	
 		case 'new_review':
 						
 			if ( (int)$total_items > 1 ) 
@@ -81,26 +101,45 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 			}
 			
 			break;
-			
-		case 'new_review_anonima':	
-						
+		
+		//2			
+		case 'new_negative_review_sent':	
+			/*		
 			if ( (int)$total_items > 1 ) 
 			{				
 				$text_title = sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items );
 			}
 			else 
 			{
+			*/
 				//NO FILTER!
-				$text_title = __( 'hai ricevuto una review NEGATIVA anonima', 'reviews' );
-			}
+				$text_title = __( 'Hai inviato una review Negativa. Prima di diventare pubblica deve essere moderata', 'reviews' );
+			//}
 
 			break;			
+			
+		//3
+		case 'new_review_moderation_request':	
+			/*		
+			if ( (int)$total_items > 1 ) 
+			{				
+				$text_title = sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items );
+			}
+			else 
+			{
+			*/
+				//NO FILTER!
+				$text_title = __( 'nuova review negativa da moderare', 'reviews' );
+			//}
+
+			break;					
+			
 	}
 
 	$return =  array
 	(
-		'text' => $text_title,
-		'link' => $bp->loggedin_user->domain . $bp->review->slug,
+		'text'  => $text_title,
+		'link'  => $bp->loggedin_user->domain . $bp->review->slug,
 		'title' => __( 'Reviews', 'reviews' )
 	);
 	
