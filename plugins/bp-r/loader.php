@@ -128,12 +128,9 @@ function bp_review_add_list_review_button()
 		$write_rev_href= bp_core_get_user_domain($members_template->member->id);
 		echo '
 		<div class = "add-reviews" style="float:right; background: url(/wp-content/plugins/bp-review/includes/img/alt_star.gif) right center no-repeat;">
-		<a
-		class = "add-reviews button"
-		title = "'.__('Add Review','reviews').'"
+		<a class = "add-reviews button"	title = "'.__('Add Review','reviews').'"
 		href="'.$write_rev_href.'review/screen-two#user-activity"
-		></a>
-		</div>';
+		>'.__('Add Review','reviews').'&nbsp;&nbsp;&nbsp;</a></div>';
 	}
 }
 
