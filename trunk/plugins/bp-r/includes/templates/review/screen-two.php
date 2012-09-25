@@ -64,6 +64,9 @@ get_header() ?>
 			
 			$titolo 			= $_POST['review-title'] 	or '';
 			$contenuto 			= $_POST['review-content']	or '';
+			
+			//.......checkboxes.....
+			
 			$giudizio_review    = $_POST['giudizio_review']	or ''; 						
 			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or ''; 
 		?>
@@ -71,7 +74,7 @@ get_header() ?>
 		<!-- Review -->
 		<div id="new-review-content">
 			<div id="new-review-textarea">	
-				<label for="review-title"> <?php _e( 'Titolo Review', 'reviews' ); ?>  </label>			
+				<label for="review-title"> <?php _e( 'Titolo', 'reviews' ); ?>  </label>			
 				<textarea name="review-title" id="review-title" cols="2" rows="2"><?php 
 				echo $titolo
 				?></textarea>
@@ -88,8 +91,8 @@ get_header() ?>
 			<div id="new-review-tipologia">		
 				<label for = "review-tipologia-rapporto"> <?php _e( 'Tipologia Rapporto Commerciale ', 'reviews' ); ?></label>	
 				<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
-					<label for = "una tantum"	> <input type="radio" name="tipologia" id="una tantum" value="una tantum"/> <?php _e( 'Una Tantum ', 'reviews' ); ?> </label> 
-					<label for = "continuativo" > <input type="radio" name="tipologia" id="continuativo" value="continuativo"/> <?php _e( 'Continuativo', 'reviews' ); ?>  </label>
+					<label for = "una tantum"	> <input type="radio" name="tipologia_rapporto" id="una tantum" value="una tantum"/> <?php _e( 'Una Tantum ', 'reviews' ); ?> </label> 
+					<label for = "continuativo" > <input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"/> <?php _e( 'Continuativo', 'reviews' ); ?>  </label>
 				</fieldset>			
 			</div>
 			<br/>	

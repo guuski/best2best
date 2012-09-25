@@ -1,5 +1,7 @@
-(function(jQuery) {
-	jQuery.datepicker.regional['it'] = {
+(function(jQuery) 
+{	
+	jQuery.datepicker.regional['it'] = 
+	{
 		monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
 		'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
 		monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
@@ -22,17 +24,18 @@
 		dayStatus: '\'Seleziona\' D, M d', defaultStatus: 'Scegliere una data',
 		isRTL: false
 	};
+	
 	jQuery.datepicker.setDefaults(jQuery.datepicker.regional['it']);
+	
 })(jQuery);
 
 jQuery(document).ready(function(){
   
 	var jq=jQuery;
 	
-	jq('#review-content').focus( function(){
-		//jq('#new-review-options').animate({height:'40px'});
+	jq('#review-content').focus( function()
+	{
 		jq('#review-content').animate({height:'200px'});
-		//jq('#review-submit').prop('disabled', false);
 	});
 
 });
@@ -48,18 +51,15 @@ function vote(point, field)
 	return false;					
 }
 
-/*
-jQuery(document).ready(function()
- { 
-	jQuery( "#datepicker" ).datepicker(); 
-});                     
-*/
-
-jQuery(function() {
-	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+jQuery(function() 
+{
+	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });		//yy o yyyy?
 });
 
-//------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
 
 jQuery(document).ready(function()
 {
@@ -69,35 +69,34 @@ jQuery(document).ready(function()
 		
 	var form = jq("#review-form");		
 	
-	var tipo_review_negativa = jq("#tipo_review_negativa");
-	var giudizio_review 	 = jq("#giudizio_review");
-	var title 				 = jq("#review-title");	
-	var nameInfo			 = jq("#nameInfo");
-	var message 		 	 = jq("#review-content");
-	var data_rapporto   	 = jq("#datepicker");
+	var nameInfo			 = jq("#nameInfo");	//usata in validate_title() ...<span id="nameInfo"> <?php _e( 'Inserisci un titolo...', 'reviews' ); ?>  </span>
+		
+	var title 				 = jq("#review-title");		
+	var message 		 	 = jq("#review-content");		//testo/contenuto review
 	var tipologia_rapporto   = jq("#tipologia_rapporto");
+	var data_rapporto   	 = jq("#datepicker");
+	var giudizio_review 	 = jq("#giudizio_review");
+	var tipo_review_negativa = jq("#tipo_review_negativa");
+
 	
 	//blur
 	title.blur(validateTitle);
 		
 	//key press	
-	title.keyup(validateTitle);
-	//message.keyup(validateMessage);
+	title.keyup(validateTitle);	
 	
-
-		//	function form_submit()			
 	form.submit(function()		
 	{
 		//alert('entra FORM!');
 		
 		if
-		(		!validateTipoReviewNegativa() 
-			||	!validateGiudizio_Review() 
-			||  !validateTitle() 
-			||  !validateMessage() 
+		(		!validateTitle() 
+			||  !validateMessage() 		//testo/contenuto review
 			||  !validateTipologia() 
-			||	!validateData_Rapporto()   
 			||  !validateConsigliato()
+			||	!validateTipologiaRapporto()   
+			||	!validateGiudizio_Review() 
+			||	!validateTipoReviewNegativa() 
 			||  !validateDisclaimer()
 		
 		) 
@@ -105,7 +104,7 @@ jQuery(document).ready(function()
 	
 			if(!validateTitle() ) 
 			{
-				alert('Titolo Review mancante!');
+				alert('Titolo mancante!');
 				return false;			
 			}
 
@@ -152,22 +151,102 @@ jQuery(document).ready(function()
 			}
 		}		
 		//
-		return true;
-		
-		
-		
-//		if(validateTitle() & validateMessage()) 
-//		{
-			//alert('OK');
-//			return true		
-//		}
-//		else 
-//		{
-//			alert('Compila tutti i campi!');
-//			return false;
-//		}
-		
+		return true;	
 });
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
+
+function validateTitle()
+{
+	if(title.val().length < 3)
+	{
+		//title.addClass("error");
+		nameInfo.text("troppo corto!");
+		//nameInfo.addClass("error");
+		return false;
+	}		
+	else
+	{
+		//title.removeClass("error");
+		nameInfo.text("OK");
+		//nameInfo.removeClass("error");
+		return true;
+	}
+}
+
+function validateMessage()
+{	
+	if(message.val().length < 3)
+	{
+		//message.addClass("error");
+		return false;
+	}		
+	else
+	{			
+		//message.removeClass("error");
+		return true;
+	}
+}
+
+function validateTipologiaRapporto()
+{	
+	if(!jQuery('input[name=tipologia_rapporto]').is(':checked'))
+	{
+		//alert('tipologia non checked');			
+		return false;
+	}		
+	else
+	{	
+		//alert('tipologia Settata');					
+		return true;
+	}
+}
+	
+function validateConsigliato()
+{	
+	if(!jQuery('input[name=consigliato]').is(':checked'))
+	{
+		//alert('consigliato non checked');			
+		return false;
+	}		
+	else
+	{	
+		//alert('consigliato Settata');					
+		return true;
+	}
+}
+
+//VOTI - RATING
+
+function validateData_Rapporto () 
+{
+	if(data_rapporto.val().length < 10)
+	{		
+		return false;
+	}		
+	else
+	{			
+		return true;
+	}
+
+}	
+		
+function validateGiudizio_Review()
+{	
+	
+	if(!jQuery('input[name=giudizio_review]').is(':checked'))
+	{
+		//alert('GIUDIZIO REVIEW non checked');			
+		return false;
+	}		
+	else
+	{	
+		//alert('GIUDIZIO REVIEW Settata');					
+		return true;
+	}
+}	
 
 function validateTipoReviewNegativa()
 {		
@@ -180,214 +259,22 @@ function validateTipoReviewNegativa()
 		return true;
 	}
 }		
-		
-	function validateGiudizio_Review()
-	{	
-		
-		if(!jQuery('input[name=giudizio_review]').is(':checked'))
-		{
-			//alert('GIUDIZIO REVIEW non checked');			
-			return false;
-		}		
-		else
-		{	
-			//alert('GIUDIZIO REVIEW Settata');					
-			return true;
-		}
-	}
-	
-	function validateTitle()
+
+function validateDisclaimer()
+{	
+	if(!jQuery('input[name=disclaimer]').is(':checked'))
 	{
-		if(title.val().length < 3)
-		{
-			//title.addClass("error");
-			nameInfo.text("troppo corto!");
-			//nameInfo.addClass("error");
-			return false;
-		}		
-		else
-		{
-			//title.removeClass("error");
-			nameInfo.text("OK");
-			//nameInfo.removeClass("error");
-			return true;
-		}
-	}
-
-	function validateMessage()
-	{	
-		if(message.val().length < 3)
-		{
-			//message.addClass("error");
-			return false;
-		}		
-		else
-		{			
-			//message.removeClass("error");
-			return true;
-		}
-	}
-	
-	function validateTipologiaRapporto()
-	{	
-		if(!jQuery('input[name=tipologia_rapporto]').is(':checked'))
-		{
-			//alert('tipologia non checked');			
-			return false;
-		}		
-		else
-		{	
-			//alert('tipologia Settata');					
-			return true;
-		}
-	}
-	
-	function validateData_Rapporto () 
-	{
-		if(data_rapporto.val().length < 10)
-		{		
-			return false;
-		}		
-		else
-		{			
-			return true;
-		}
-	
-	}
-	
-	
-
-
-	function validateConsigliato()
-	{	
-		if(!jQuery('input[name=consigliato]').is(':checked'))
-		{
-			//alert('consigliato non checked');			
-			return false;
-		}		
-		else
-		{	
-			//alert('consigliato Settata');					
-			return true;
-		}
-	}
-	
-	function validateDisclaimer()
-	{	
-		if(!jQuery('input[name=disclaimer]').is(':checked'))
-		{
-			//alert('disclaimer non checked');			
-			return false;
-		}		
-		else
-		{	
-			//alert('disclaimer Settata');					
-			return true;
-		}
-	}
-	
-	
-	//jQuery('input[name=foo]').attr('checked')
-	
-});
-
-//------------------------------------------------------------------------------------------------------------------------------------------------
-
-/*
-<form method="post" id="customForm" action="">
-			<div>
-				<label for="name">Name</label>
-				<input id="name" name="name" type="text" />
-				<span id="nameInfo">What's your name?</span>
-			</div>
-			
-			<div>
-				<label for="message">Message</label>
-				<textarea id="message" name="message" cols="" rows=""></textarea>
-			</div>
-			
-			<div>
-				<input id="send" name="send" type="submit" value="Send" />
-			</div>
-		
-*/
-
-/*
-function form_submit()			
-	{
-		//alert('entra FORM!');
-		
-		if(!validateTitle() || !validateMessage() || !validateGiudizio_Review || !validateData_Rapporto) 
-		{
-			if(!validateTitle() ) 
-			{
-				alert('Titolo Review mancante!');
-				return true		
-			}
-
-			if(!validateMessage()) 
-			{
-				alert('Manca il Contenuto della Review!');
-				return true		
-			}
-			
-			if(!validateGiudizio_Review()) 
-			{
-				alert('Manca Giudizio sulla Review!');
-				return true		
-			}
-			
-			if(!validateData_Rapporto()) 
-			{
-				alert('Manca la Data inizio Rapporto commerciale!');
-				return true		
-			}
-		}		
-		//
+		//alert('disclaimer non checked');			
 		return false;
-		
-		
-
-}
-
-*/
-/*
-
-	function validateTitle()
-	{
-	
-	
-
-		var t 	= jQuery("#review-title");				
-		
-		if(t.val().length < 3)
-		{			
-			nameInfo.text("troppo corto!");			
-			return false;
-		}		
-		else
-		{			
-			nameInfo.text("OK");			
-			return true;
-		}
+	}		
+	else
+	{	
+		//alert('disclaimer Settata');					
+		return true;
 	}
-*/	
-
-
-jQuery(document).ready(function() {
-
-
-//var display = jQuery("#respond").css("display", "none")
-
-//var display2 = jQuery("reply").css("display", "none")
-
-//var display3 = jQuery("comment-reply-link").css("display", "none")
-
-//var display4 = jQuery("comment-options").css("display", "none")
-
+}
+	
 });
 
-jQuery('#respond').focus( function(){
-	//jQuery('#respond')//.animate({height:'200px'});
-});
+
 

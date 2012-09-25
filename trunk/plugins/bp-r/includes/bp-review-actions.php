@@ -97,7 +97,7 @@ function invia_nuova_review()
 		$voto_affidabilita		= $_POST['affidabilita'];				
 		$giudizio_review    	= $_POST['giudizio_review'];			
 		$data_rapporto	    	= $_POST['datepicker'];				 
-		$tipologia_rapporto		= $_POST['tipologia'];	 		
+		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 		
 		$tipo_review_negativa 	= $_POST['tipo_review_negativa'];	 
 							
 		if ( 		empty($content) 	//empty
