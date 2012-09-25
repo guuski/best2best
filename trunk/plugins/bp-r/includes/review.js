@@ -69,14 +69,13 @@ jQuery(document).ready(function()
 		
 	var form = jq("#review-form");		
 	
-
-	var giudizio_review = jq("#giudizio_review");
-	var title 			= jq("#review-title");	
-	var nameInfo		= jq("#nameInfo");
-	var message 		= jq("#review-content");
-	var data_rapporto   = jq("#datepicker");
-
-		var tipologia   = jq("#tipologia");
+	var tipo_review_negativa = jq("#tipo_review_negativa");
+	var giudizio_review 	 = jq("#giudizio_review");
+	var title 				 = jq("#review-title");	
+	var nameInfo			 = jq("#nameInfo");
+	var message 		 	 = jq("#review-content");
+	var data_rapporto   	 = jq("#datepicker");
+	var tipologia_rapporto   = jq("#tipologia_rapporto");
 	
 	//blur
 	title.blur(validateTitle);
@@ -92,8 +91,8 @@ jQuery(document).ready(function()
 		//alert('entra FORM!');
 		
 		if
-		(
-				!validateGiudizio_Review() 
+		(		!validateTipoReviewNegativa() 
+			||	!validateGiudizio_Review() 
 			||  !validateTitle() 
 			||  !validateMessage() 
 			||  !validateTipologia() 
@@ -103,7 +102,11 @@ jQuery(document).ready(function()
 		
 		) 
 		{
-				
+			if(!validateTipoReviewNegativa()) 
+			{
+				alert('Manca Giudizio sulla Review!');
+				return false;			
+			}				
 			if(!validateGiudizio_Review()) 
 			{
 				alert('Manca Giudizio sulla Review!');
@@ -122,7 +125,7 @@ jQuery(document).ready(function()
 				return false;		
 			}
 				
-			if(!validateTipologia()) 
+			if(!validateTipologiaRapporto()) 
 			{
 				alert('Manca la Tipologia Rapporto commerciale!');
 				return false;			
@@ -163,6 +166,18 @@ jQuery(document).ready(function()
 //		}
 		
 });
+
+function validateTipoReviewNegativa()
+{		
+	if(!jQuery('input[name=tipo_review_negativa]').is(':checked'))
+	{		
+		return false;
+	}		
+	else
+	{			
+		return true;
+	}
+}		
 		
 	function validateGiudizio_Review()
 	{	
@@ -211,9 +226,9 @@ jQuery(document).ready(function()
 		}
 	}
 	
-	function validateTipologia()
+	function validateTipologiaRapporto()
 	{	
-		if(!jQuery('input[name=tipologia]').is(':checked'))
+		if(!jQuery('input[name=tipologia_rapporto]').is(':checked'))
 		{
 			//alert('tipologia non checked');			
 			return false;

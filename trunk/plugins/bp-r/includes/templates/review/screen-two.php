@@ -61,10 +61,10 @@ get_header() ?>
 			$qualita 			= $_POST['qualita'] 		or 0;
 			$puntualita 		= $_POST['puntualita'] 		or 0;
 			$affidabilita 		= $_POST['affidabilita'] 	or 0;
+			
 			$titolo 			= $_POST['review-title'] 	or '';
 			$contenuto 			= $_POST['review-content']	or '';
-			$giudizio_review    = $_POST['giudizio_review']	or ''; 
-			//[C] anonimo/registrato
+			$giudizio_review    = $_POST['giudizio_review']	or ''; 						
 			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or ''; 
 		?>
 						
