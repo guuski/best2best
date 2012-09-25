@@ -102,17 +102,7 @@ jQuery(document).ready(function()
 		
 		) 
 		{
-			if(!validateTipoReviewNegativa()) 
-			{
-				alert('Manca Giudizio sulla Review!');
-				return false;			
-			}				
-			if(!validateGiudizio_Review()) 
-			{
-				alert('Manca Giudizio sulla Review!');
-				return false;			
-			}
-			
+	
 			if(!validateTitle() ) 
 			{
 				alert('Titolo Review mancante!');
@@ -142,6 +132,18 @@ jQuery(document).ready(function()
 				alert('Manca il campo "Lo Raccomdanderesti?"');
 				return false;			
 			}
+		
+			if(!validateGiudizio_Review()) 
+			{
+				alert('Manca Giudizio sulla Review!');
+				return false;			
+			}
+						
+			if(!validateTipoReviewNegativa()) 
+			{
+				alert('Specifica la tipologia di review negativa');
+				return false;			
+			}				
 			
 			if(!validateDisclaimer()) 
 			{
