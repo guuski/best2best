@@ -39,7 +39,8 @@ get_header() ?>
 	
 	<!-- MESSAGGIO  Opt 1 -->
 	<h5><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h5>
-							
+	<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
+		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> </h6>						
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  FORM - met 2	- no inclusione ESTERNA
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
@@ -217,7 +218,7 @@ get_header() ?>
 
 <!--GIOVANNI POPUP------------------>
 <script>		
-	alert ("<?php _e('Da oggi è possibile inserire anche recensioni negative anonime. Selezionando un giduzio negativo per la review apparirà la possibilità di scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?>");
+	//alert ("<?php ?>");
 </script>
 
 <!--GIOVANNI CONTROLLO RADIOBUTTON-->
