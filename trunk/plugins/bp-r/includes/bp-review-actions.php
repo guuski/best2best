@@ -143,19 +143,24 @@ function invia_nuova_review()
 			bp_core_add_message( __( 'Indica la data rapporto commerciale', 'reviews' ),'error' );						
 			return;
 		}	
-				
+		
+		//---------------------------------------------------------------------------------------------------------
 		if ( empty($giudizio_review)) 	//empty
 		{
 			bp_core_add_message( __( 'Assegna un giudizio complessivo alla review', 'reviews' ),'error' );									
 			return;
 		}	
-		else if ($giudizio_review != 'negativo')
+		else if ($giudizio_review != 'negativo')			//non è ncessario forse!
 		{
 			$tipo_review_negativa = "";											//$tipo_review_negativa 
 		}
-
-		//.........$tipo_review_negativa .......
 		
+		if ($giudizio_review == 'negativo'  && $tipo_review_negativa = "") 	
+		{
+			bp_core_add_message( __( 'Specifica il tipo di review negativa', 'reviews' ),'error' );									
+			return;
+		}
+		//---------------------------------------------------------------------------------------------------------
 		
 		
 		// FUNCTION call ---> result var [vd FILE 'bp-review-functions.php']
