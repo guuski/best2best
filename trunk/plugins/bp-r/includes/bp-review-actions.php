@@ -90,37 +90,32 @@ function invia_nuova_review()
 		//recupera i valori inviati dal FORM
 		$content  				= $_POST['review-content'];				
 		$title  				= $_POST['review-title'];				
+		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 				
+		
+		//....consigliato....		
+		
 		$voto_prezzo    		= $_POST['prezzo'];					
 		$voto_servizio  		= $_POST['servizio'];	
 		$voto_qualita			= $_POST['qualita'];
 		$voto_puntualita		= $_POST['puntualita'];
 		$voto_affidabilita		= $_POST['affidabilita'];				
-		$giudizio_review    	= $_POST['giudizio_review'];			
+		
 		$data_rapporto	    	= $_POST['datepicker'];				 
-		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 		
+		$giudizio_review    	= $_POST['giudizio_review'];						
 		$tipo_review_negativa 	= $_POST['tipo_review_negativa'];	 
-							
-		if ( 		empty($content) 	//empty
-				|| 	empty($title)
-			) 	
+		
+		//....disclaimer....		
+	
+	
+		if ( empty($title)) 			//empty
+		{
+			bp_core_add_message( __( 'Inserisci il titolo', 'reviews' ),'error' );						
+			return;
+		}		
+	
+		if (empty($content))	//empty							
 		{
 			bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );						
-			return;
-		}	
-		
-		if ( empty($giudizio_review)) 	//empty
-		{
-			bp_core_add_message( __( 'Assegna un giudizio alla review', 'reviews' ),'error' );									
-			return;
-		}	
-		else if ($giudizio_review != 'negativo')
-		{
-			$tipo_review_negativa = "";																		//$tipo_review_negativa 
-		}
-		
-		if ( empty($data_rapporto)) 	//empty
-		{
-			bp_core_add_message( __( 'Indica la data rapporto commerciale', 'reviews' ),'error' );						
 			return;
 		}	
 		
@@ -128,7 +123,9 @@ function invia_nuova_review()
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'reviews' ),'error' );					
 			return;
-		}			
+		}	
+		
+		//.......consigliato........
 		
 		if ( 		check_voto( $voto_prezzo ) 
 				|| 	check_voto( $voto_qualita)
@@ -139,7 +136,27 @@ function invia_nuova_review()
 		{
 			bp_core_add_message( __( 'Assegna tutti i voti', 'reviews' ),'error' );						
 			return;
+		}			
+				
+		if ( empty($data_rapporto)) 	//empty
+		{
+			bp_core_add_message( __( 'Indica la data rapporto commerciale', 'reviews' ),'error' );						
+			return;
 		}	
+				
+		if ( empty($giudizio_review)) 	//empty
+		{
+			bp_core_add_message( __( 'Assegna un giudizio complessivo alla review', 'reviews' ),'error' );									
+			return;
+		}	
+		else if ($giudizio_review != 'negativo')
+		{
+			$tipo_review_negativa = "";											//$tipo_review_negativa 
+		}
+
+		//.........$tipo_review_negativa .......
+		
+		
 		
 		// FUNCTION call ---> result var [vd FILE 'bp-review-functions.php']
 		$review_sent_result = bp_review_send_review
