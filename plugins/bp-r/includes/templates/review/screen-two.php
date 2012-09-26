@@ -67,11 +67,11 @@ get_header() ?>
 			
 			$titolo 			= $_POST['review-title'] 	or '';
 			$contenuto 			= $_POST['review-content']	or '';
-			
-			//.......checkboxes.....
-			
+			$tipologia_rapporto = $_POST['tipologia_rapporto']	or '';
+			$consigliato		= $_POST['consigliato']	or '';
 			$giudizio_review    = $_POST['giudizio_review']	or ''; 						
 			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or ''; 
+			$disclaimer= $_POST['disclaimer']	or ''; 
 		?>
 						
 		<!-- Review -->
@@ -91,20 +91,47 @@ get_header() ?>
 				?></textarea>
 			</div>
 			<br />
+																	
 			<div id="new-review-tipologia">		
 				<label for = "review-tipologia-rapporto"> <?php _e( 'Tipologia Rapporto Commerciale ', 'reviews' ); ?></label>	
-				<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  
-					<label for = "una tantum"	> <input type="radio" name="tipologia_rapporto" id="una tantum" value="una tantum"/> <?php _e( 'Una Tantum ', 'reviews' ); ?> </label> 
-					<label for = "continuativo" > <input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"/> <?php _e( 'Continuativo', 'reviews' ); ?>  </label>
+				<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  				
+					<label for = "una tantum"> 
+						<input type="radio" name="tipologia_rapporto" id="una tantum" value="una tantum" 
+							<?php if($tipologia_rapporto == "una tantum") echo 'checked="checked"';?>
+						/> 
+						<?php _e( 'Una Tantum ', 'reviews' ); ?> 
+					</label> 
+					
+					<label for = "continuativo" > 
+						<input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"
+						<?php if($tipologia_rapporto == "continuativo") echo 'checked="checked"';?>
+						/> 
+						<?php _e( 'Continuativo', 'reviews' ); ?>  
+					</label>
 				</fieldset>			
 			</div>
 			<br/>	
 			<div id="new-review-consigliato">		
 				<label for = "utente_consigliato"> <?php _e( 'Lo raccomanderesti?', 'reviews' ); ?></label>	
 				<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
-					<label for = "si"> <input type="radio" name="consigliato" id="si" value="si"/><?php _e( 'Si', 'reviews' ); ?>   </label> 	 	
-					<label for = "no"> <input type="radio" name="consigliato" id="no" value="no"/>  <?php _e( 'No', 'reviews' ); ?> </label> 	 	  
-					<label for = "nonso"> <input type="radio" name="consigliato" id="nonso" value="nonso"/> <?php _e( 'Non so', 'reviews' ); ?> </label> 
+					<label for = "si"> 
+						<input type="radio" name="consigliato" id="si" value="si"
+						<?php if($consigliato == "si") echo 'checked="checked"';?>
+						/>
+						<?php _e( 'Si', 'reviews' ); ?> 
+					</label> 	 	
+					
+					<label for = "no"> 
+						<input type="radio" name="consigliato" id="no" value="no"
+						<?php if($consigliato == "no") echo 'checked="checked"';?>
+						/>  <?php _e( 'No', 'reviews' ); ?> 
+					</label> 	 	  
+					
+					<label for = "nonso"> 
+						<input type="radio" name="consigliato" id="nonso" value="nonso"
+						<?php if($consigliato == "nonso") echo 'checked="checked"';?>
+						/> <?php _e( 'Non so', 'reviews' ); ?> 
+					</label> 
 				</fieldset>			
 			</div>				
 			<!--------------------------------------------- sezione RATING ------------------------------------->
@@ -165,17 +192,17 @@ get_header() ?>
 				<label for = "review-giudizio"><?php _e('Giudizio Complessivo Review', "reviews" )?> </label>	
 				<br /> 
 				<fieldset name = "review-giudizio" id = "review-giudizio">
-					<label style="color:green;" for = "positivo" onclick="negativoSelezionato('chiudi');"> <input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="positivo" value="positivo"/>  <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
-					<label style="color:orange;"  for = "neutro" onclick="negativoSelezionato('chiudi');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="neutro"   value="neutro"  />  <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
-					<label style="color:red;" for = "negativo" onclick="negativoSelezionato('apri');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"/>  <?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
+					<label style="color:green;" for = "positivo" onclick="negativoSelezionato('chiudi');"> <input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="positivo" value="positivo" <?php if($giudizio_review == "positivo") echo 'checked="checked"';?>/>  <?php _e( 'Positiva', 'reviews' ); ?>  </label>				  
+					<label style="color:orange;"  for = "neutro" onclick="negativoSelezionato('chiudi');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="neutro"   value="neutro"  <?php if($giudizio_review == "neutro") echo 'checked="checked"';?>/>  <?php _e( 'Neutra', 'reviews' ); ?>    </label>				  
+					<label style="color:red;" for = "negativo" onclick="negativoSelezionato('apri');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"<?php if($giudizio_review == "negativo") echo 'checked="checked"';?>/>  <?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
 				</fieldset>
 
 				<!-- [C] anonimo/registrato	-->
 				<div id = "reviewa_div" style="display:none;">
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "reviewa" id = "reviewa">
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  /> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
-						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="anonimo" 		value="anonimo"/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
+						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="anonimo" 		value="anonimo"<?php if($tipo_review_negativa == "anonimo") echo 'checked="checked"';?>/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
 					</fieldset>	
 				</div>
 			</div>
@@ -184,7 +211,7 @@ get_header() ?>
 			<div id="new-review-disclaimer">		
 				<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
 				<fieldset name = "disclaimer" id = "disclaimer">	  
-					<label for = "disclaimer"> <?php _e( 'Accetto', 'reviews' ); ?></label> <input type="checkbox" name="disclaimer" value="si"/>	  
+					<label for = "disclaimer"> <?php _e( 'Accetto', 'reviews' ); ?></label> <input type="checkbox" name="disclaimer" value="si" <?php if($disclaimer == "si") echo 'checked="checked"';?>/>	  
 				</fieldset>			
 			</div>
 			<br />
