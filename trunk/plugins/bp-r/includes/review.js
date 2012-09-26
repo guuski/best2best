@@ -269,8 +269,11 @@ function validateTipoReviewNegativa()
 	if( 	!jQuery('input[name=giudizio_review]').is(':checked')
 		&&  !jQuery('input[name=tipo_review_negativa]').is(':checked'))
 */		
-	if(	//	 jQuery('input[name=giudizio_review]').val() == "negativo"
-		//&& 
+	if(	
+			!jQuery('input[name=giudizio_review]').val() != "negativo"
+		&& 
+			!jQuery('input[name=giudizio_review]').is(':checked')
+		&& 
 			!jQuery('input[name=tipo_review_negativa]').is(':checked')
 		//|| !jQuery('input[name=tipo_review_negativa]').val() == " "
 	)
