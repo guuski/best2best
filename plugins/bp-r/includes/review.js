@@ -100,6 +100,16 @@ jQuery(document).ready(function()
 
 		) 
 		{
+		
+		
+//---------------------------							
+	if(!validateTipoReviewNegativa()) 
+	{
+		alert('Specifica la tipologia di review negativa');
+		return false;			
+	}				
+
+//---------------------------							
 	
 			if(!validateTitolo() ) 
 			{
@@ -126,31 +136,30 @@ jQuery(document).ready(function()
 			}	
 			
 				//voti,ratings ---> vd		
-
 	
-			if(!validateData_Rapporto()) 
-			{
-				alert('Manca la Data inizio Rapporto commerciale!');
-				return false;			
-			}
-		
+//---------------------------				
+if(!validateData_Rapporto()) 
+{
+	alert('Manca la Data inizio Rapporto commerciale!');
+	return false;			
+}
+//---------------------------		
 			if(!validateGiudizio_Review()) 
 			{
 				alert('Manca Giudizio sulla Review!');
 				return false;			
 			}
-						
-			if(!validateTipoReviewNegativa()) 
-			{
-				alert('Specifica la tipologia di review negativa');
-				return false;			
-			}				
+//---------------------------		
+
+//---------------------------							
+
 			
 			if(!validateDisclaimer()) 
 			{
 				alert('Devi accettare il Disclaimer');
 				return false;		
-			}
+			}			
+
 		}
 		
 		//
@@ -256,8 +265,15 @@ function validateGiudizio_Review()
 
 function validateTipoReviewNegativa()
 {		
+/*
 	if( 	!jQuery('input[name=giudizio_review]').is(':checked')
 		&&  !jQuery('input[name=tipo_review_negativa]').is(':checked'))
+*/		
+	if(	//	 jQuery('input[name=giudizio_review]').val() == "negativo"
+		//&& 
+			!jQuery('input[name=tipo_review_negativa]').is(':checked')
+		//|| !jQuery('input[name=tipo_review_negativa]').val() == " "
+	)
 	{		
 		return false;
 	}		

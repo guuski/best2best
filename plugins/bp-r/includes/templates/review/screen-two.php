@@ -70,7 +70,7 @@ get_header() ?>
 			$tipologia_rapporto = $_POST['tipologia_rapporto']	or '';
 			$consigliato		= $_POST['consigliato']	or '';
 			$giudizio_review    = $_POST['giudizio_review']	or ''; 						
-			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or ''; 
+			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or 'registrato'; //registrato
 			$disclaimer= $_POST['disclaimer']	or ''; 
 		?>
 						
@@ -198,7 +198,8 @@ get_header() ?>
 				</fieldset>
 
 				<!-- [C] anonimo/registrato	-->
-				<div id = "reviewa_div" style="display:none;">
+				<div id = "reviewa_div" 
+				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> style="display:none;" <?php //endif; ?>
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "reviewa" id = "reviewa">
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
@@ -247,18 +248,38 @@ get_header() ?>
 <!-- FOOTER -->	
 <?php get_footer() ?>
 
-<!--GIOVANNI POPUP------------------>
-<script>		
-	//alert ("<?php ?>");
-</script>
-
 <!--GIOVANNI CONTROLLO RADIOBUTTON-->
 <script type="text/javascript">	
+
 	function negativoSelezionato(azione)
-	{
-		if (azione=='apri')
+	{			
+		//var $checkedElement = jQuery('input[name=tipo_review_negativa]:checked');
+		//var $checkedElement = jQuery('input[name=tipo_review_negativa]').is(':checked');
+		
+		jQuery('input[name="tipo_review_negativa"]:checked').length == 0		
+		
+/*		
+		//if ( !$checkedElement.length) 
+		if ( $checkedElement.length == 0) 
+		{
+			// no option was selected, return false or alert
+		} 
+		else
+		{
+			jQuery('div#reviewa_div').show("slow");
+			//if(		)	{	}
+		
+		}
+*/		
+		//var opt = $checkedElement.val();
+		
+		//----------------------------------------------------------------------
+
+		if (azione=='apri'	)//|| !$checkedElement.length) //TODO: oppure il radio button è selezionato)		
 			jQuery('div#reviewa_div').show("slow");
 		if (azione=='chiudi')
 			jQuery('div#reviewa_div').hide("slow");	
+
+		//----------------------------------------------------------------------
 	}
 </script>
