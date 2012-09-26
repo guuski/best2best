@@ -44,7 +44,9 @@ get_header() ?>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  FORM - met 2	- no inclusione ESTERNA
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
-	<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="review-form" class="standard-form"> <!--- REVIEW-FORM-->
+	
+	<!--- REVIEW-FORM-->												<!--onsubmit:="return validateForm(this);"-->
+	<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="review-form" class="standard-form"> 
 	
 		<!-- DO ACTION -->
 		<?php do_action( 'bp_before_review_post_form' ); ?>
@@ -178,6 +180,7 @@ get_header() ?>
 				</div>
 			</div>
 			<br />
+			<!-- Checkbox -->
 			<div id="new-review-disclaimer">		
 				<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
 				<fieldset name = "disclaimer" id = "disclaimer">	  
@@ -185,13 +188,14 @@ get_header() ?>
 				</fieldset>			
 			</div>
 			<br />
-			<!-- bottone INVIA -->	
+			<!-- bottone INVIA -->									<!--ONCLICK:   ValidateForm(this.form)-->
 			<div id="new-review-options">
 				<br />
+				<!-- onClick="ValidateForm(this.form)" -->
 				<div id="new-review-submit">								
-					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />
-					<!-- <input type="submit" hidden="hidden" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
-					<!-- <input type="button" name="form_button" id="form_button" onclick="form_submit()" value="<?php _e( 'Invia', 'reviews' ); ?>" />-->
+					<input type="submit" name="review-submit" id="review-submit" 
+					
+					value="<?php _e( 'Invia', 'reviews' ); ?>" />
 				</div>
 				<br />
 			</div>							
