@@ -8,7 +8,8 @@ jQuery("input[name='datepicker']").datepicker(
 	changeMonth: true, 
 	changeYear: true, 
 	numberOfMonths: 1, 
-	showButtonPanel: true
+	showButtonPanel: true,
+	maxDate: new Date								//non puoi inserire una data futura!
 });
 
 
@@ -99,7 +100,7 @@ jQuery(document).ready(function()
 	var testo 	 			 = jq("#review-content");		//testo / contenuto 
 	var tipologia_rapporto   = jq("#tipologia_rapporto");
 	var consigliato   		 = jq("#consigliato");		
-	var data_rapporto   	 = jq("#datepicker");
+	//var data_rapporto   	 = jq("#datepicker");			//vuota-staccata!
 	var giudizio_review 	 = jq("#giudizio_review");
 	var tipo_review_negativa = jq("#tipo_review_negativa");	
 	
@@ -119,7 +120,7 @@ jQuery(document).ready(function()
 			||  !validateTesto() 					//testo/contenuto review			
 			||	!validateTipologiaRapporto()			
 			||  !validateConsigliato()									
-			||  !validateData_Rapporto()			//vuota-staccata!
+//			||  !validateData_Rapporto()			//vuota-staccata!
 			||	!validateGiudizio_Review() 
 			||	!validateTipoReviewNegativa() 
 			||  !validateDisclaimer()
@@ -151,13 +152,13 @@ jQuery(document).ready(function()
 			}	
 			
 			//voti,ratings ---> vd		
-				
+/*				
 			if(!validateData_Rapporto()) 
 			{
 				alert('Manca la Data inizio Rapporto commerciale!');
 				return false;			
 			}
-			
+*/			
 			if(!validateGiudizio_Review()) 
 			{
 				alert('Manca Giudizio sulla Review!');
@@ -240,7 +241,7 @@ function validateConsigliato()
 		return true;
 	}
 }
-
+/*
 
 function validateData_Rapporto () 				
 {
@@ -254,7 +255,8 @@ function validateData_Rapporto ()
 	}
 
 }	
-		
+*/
+	
 function validateGiudizio_Review()
 {		
 	if(!jQuery('input[name=giudizio_review]').is(':checked'))
