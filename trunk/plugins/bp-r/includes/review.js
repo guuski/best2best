@@ -110,8 +110,8 @@ jQuery(document).ready(function()
 	}				
 	else 
 	{
-		alert('tipologia di review negativa settata');
-		return false;
+		//alert('tipologia di review negativa settata');
+		//return true;
 	}
 
 //---------------------------							
@@ -263,8 +263,8 @@ function validateGiudizio_Review()
 	}		
 	else
 	{	
-		alert('GIUDIZIO REVIEW Settata');					
-		return true;
+		//alert('GIUDIZIO REVIEW Settata');					
+		//return true;
 	}
 }	
 
@@ -288,7 +288,7 @@ function validateTipoReviewNegativa()
 
 if (jQuery('input[name=giudizio_review]').is(':checked')) 
 {
-	alert('GIUDIZIO REVIEW checked');	
+	//alert('GIUDIZIO REVIEW checked');	
 	
 	if(	
 			
