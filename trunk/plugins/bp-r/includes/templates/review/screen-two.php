@@ -59,19 +59,21 @@ get_header() ?>
 		</div>				
 		
 		<?php 
-			$prezzo 			= $_POST['prezzo'] 			or 0;
-			$servizio 			= $_POST['servizio'] 		or 0;
-			$qualita 			= $_POST['qualita'] 		or 0;
-			$puntualita 		= $_POST['puntualita'] 		or 0;
-			$affidabilita 		= $_POST['affidabilita'] 	or 0;
+		
+
+			$prezzo 				= $_POST['prezzo'] 			or 0;
+			$servizio 				= $_POST['servizio'] 		or 0;
+			$qualita 				= $_POST['qualita'] 		or 0;
+			$puntualita 			= $_POST['puntualita'] 		or 0;
+			$affidabilita 			= $_POST['affidabilita'] 	or 0;
 			
-			$titolo 			= $_POST['review-title'] 	or '';
-			$contenuto 			= $_POST['review-content']	or '';
-			$tipologia_rapporto = $_POST['tipologia_rapporto']	or '';
-			$consigliato		= $_POST['consigliato']	or '';
-			$giudizio_review    = $_POST['giudizio_review']	or ''; 						
-			$tipo_review_negativa    = $_POST['tipo_review_negativa']	or 'registrato'; //registrato
-			$disclaimer= $_POST['disclaimer']	or ''; 
+			$titolo 				= $_POST['review-title'] 	or '';
+			$contenuto 				= $_POST['review-content']	or '';
+			//$tipologia_rapporto 	= $_POST['tipologia_rapporto']	or '';
+			$consigliato			= $_POST['consigliato']	or '';
+			$giudizio_review    	= $_POST['giudizio_review']	or ''; 						
+			$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or 'registrato'; 		//DEFAULT VALUE: "registrato"
+			$disclaimer				= $_POST['disclaimer']	or ''; 
 		?>
 						
 		<!-- Review -->
@@ -97,14 +99,16 @@ get_header() ?>
 				<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  				
 					<label for = "una tantum"> 
 						<input type="radio" name="tipologia_rapporto" id="una tantum" value="una tantum" 
-							<?php if($tipologia_rapporto == "una tantum") echo 'checked="checked"';?>
+							<?php //if($tipologia_rapporto == "una tantum") echo 'checked="checked"';?>
+							<?php echo (isset($_POST['tipologia_rapporto'])?'checked="checked"':'')?>
 						/> 
 						<?php _e( 'Una Tantum ', 'reviews' ); ?> 
 					</label> 
 					
 					<label for = "continuativo" > 
 						<input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"
-						<?php if($tipologia_rapporto == "continuativo") echo 'checked="checked"';?>
+						<?php //if($tipologia_rapporto == "continuativo") echo 'checked="checked"';?>
+						<?php echo (isset($_POST['tipologia_rapporto'])?'checked="checked"':'')?>
 						/> 
 						<?php _e( 'Continuativo', 'reviews' ); ?>  
 					</label>
@@ -198,6 +202,7 @@ get_header() ?>
 				</fieldset>
 
 				<?php 
+				/*
 				if (	//$tipo_review_negativa == '' 
 						//||  
 						$giudizio_review != 'negativo' 
@@ -209,6 +214,7 @@ get_header() ?>
 				{
 					$checkbox_style="display:all;";
 				}					
+				*/
 				?>					
 
 				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> 
@@ -217,12 +223,16 @@ get_header() ?>
 					<!-- style="display:all;" -->
 				<?php //endif; ?>
 
-				
-				<div id = "reviewa_div"				
-					style=<?php echo $checkbox_style;?>
-				> 				
+<!--				
+				<div id = "review-tipo-negativa-div"				
+					style=<?php //echo $checkbox_style;?>
+				> 
+	-->			
+				<div id = "review-tipo-negativa-div"				
+					style="display:none;"
+				> 
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
-					<fieldset name = "reviewa" id = "reviewa">
+					<fieldset name = "review-tipo-negativa" id = "review-tipo-negativa">
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="anonimo" 		value="anonimo"<?php if($tipo_review_negativa == "anonimo") echo 'checked="checked"';?>/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
 					</fieldset>	
@@ -287,7 +297,7 @@ get_header() ?>
 		} 
 		else
 		{
-			jQuery('div#reviewa_div').show("slow");
+			jQuery('div#review-tipo-negativa-div').show("slow");
 			//if(		)	{	}
 		
 		}
@@ -297,9 +307,9 @@ get_header() ?>
 		//----------------------------------------------------------------------
 
 		if (azione=='apri'	)//|| !$checkedElement.length) //TODO: oppure il radio button è selezionato)		
-			jQuery('div#reviewa_div').show("slow");
+			jQuery('div#review-tipo-negativa-div').show("slow");
 		if (azione=='chiudi')
-			jQuery('div#reviewa_div').hide("slow");	
+			jQuery('div#review-tipo-negativa-div').hide("slow");	
 
 		//----------------------------------------------------------------------
 	}
