@@ -108,6 +108,11 @@ jQuery(document).ready(function()
 		alert('Specifica la tipologia di review negativa');
 		return false;			
 	}				
+	else 
+	{
+		alert('tipologia di review negativa settata');
+		return false;
+	}
 
 //---------------------------							
 	
@@ -253,12 +258,12 @@ function validateGiudizio_Review()
 {		
 	if(!jQuery('input[name=giudizio_review]').is(':checked'))
 	{
-		//alert('GIUDIZIO REVIEW non checked');			
+		alert('GIUDIZIO REVIEW non checked');			
 		return false;
 	}		
 	else
 	{	
-		//alert('GIUDIZIO REVIEW Settata');					
+		alert('GIUDIZIO REVIEW Settata');					
 		return true;
 	}
 }	
@@ -272,11 +277,22 @@ function validateTipoReviewNegativa()
 //jQuery('input[name=giudizio_review]').attr('value')!= "negativo"
 //jQuery('input[name=giudizio_review]').val() != "negativo"
 	
+//Any of 
+	//$(this).val() 
+	//$(this).attr("value") 
+	//this.getAttriute("value") or 
+	//this.value 
+//will work
+
+//(jQuery('input[name=giudizio_review]').attr('value')!= "negativo")
+
 if (jQuery('input[name=giudizio_review]').is(':checked')) 
 {
+	alert('GIUDIZIO REVIEW checked');	
 	
 	if(	
-			!(jQuery('input[name=giudizio_review]').attr('value')!= "negativo")
+			
+			!(jQuery('input[name=giudizio_review]').attr('value')== 3)
 		&& 
 			!jQuery('input[name=tipo_review_negativa]').is(':checked')
 		//|| !jQuery('input[name=tipo_review_negativa]').val() == " "
@@ -291,7 +307,8 @@ if (jQuery('input[name=giudizio_review]').is(':checked'))
 }
 else 
 {
-	return true;
+	//alert('GIUDIZIO REVIEW non checked');	
+	//return true;
 }
 	
 }		
