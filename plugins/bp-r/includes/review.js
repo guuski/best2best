@@ -4,12 +4,13 @@
 
 jQuery("input[name='datepicker']").datepicker(
 { 
-	dateFormat: 'dd/mm/yy', 
-	changeMonth: true, 
-	changeYear: true, 
-	numberOfMonths: 1, 
-	showButtonPanel: true,
-	maxDate: new Date								//non puoi inserire una data futura!
+	dateFormat: 'dd/mm/yy'
+	, changeMonth: true
+	, changeYear: true
+	, numberOfMonths: 1
+	, showButtonPanel: true
+	, maxDate: new Date								//non puoi inserire una data futura!
+//	,constrainInput: true 
 });
 
 
@@ -23,6 +24,18 @@ jQuery(function()
 
 //-------------------------------------------------------------------------------------------------------
 
+/*
+$(function() {
+		$.datepicker.setDefaults( $.datepicker.regional[ "" ] );
+		$( "#datepicker" ).datepicker( $.datepicker.regional[ "fr" ] );
+		$( "#locale" ).change(function() {
+			$( "#datepicker" ).datepicker( "option",
+				$.datepicker.regional[ $( this ).val() ] );
+		});
+	});
+*/
+//-------------------------------------------------------------------------------------------------------	
+	
 (function(jQuery) 
 {	
 	jQuery.datepicker.regional['it'] = 
