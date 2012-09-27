@@ -22,19 +22,7 @@ jQuery(function()
 });
 */
 
-//-------------------------------------------------------------------------------------------------------
 
-/*
-$(function() {
-		$.datepicker.setDefaults( $.datepicker.regional[ "" ] );
-		$( "#datepicker" ).datepicker( $.datepicker.regional[ "fr" ] );
-		$( "#locale" ).change(function() {
-			$( "#datepicker" ).datepicker( "option",
-				$.datepicker.regional[ $( this ).val() ] );
-		});
-	});
-*/
-//-------------------------------------------------------------------------------------------------------	
 	
 (function(jQuery) 
 {	
