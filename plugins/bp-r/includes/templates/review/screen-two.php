@@ -197,9 +197,30 @@ get_header() ?>
 					<label style="color:red;" for = "negativo" onclick="negativoSelezionato('apri');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"<?php if($giudizio_review == "negativo") echo 'checked="checked"';?>/>  <?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
 				</fieldset>
 
-				<!-- [C] anonimo/registrato	-->
-				<div id = "reviewa_div" 
-				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> style="display:none;" <?php //endif; ?>
+				<?php 
+				if (	//$tipo_review_negativa == '' 
+						//||  
+						$giudizio_review != 'negativo' 
+				)
+				{
+					$checkbox_style="display:none;" ;
+				}
+				else
+				{
+					$checkbox_style="display:all;";
+				}					
+				?>					
+
+				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> 
+					<!-- style="display:none;" -->
+				<?php //elseif: ?>
+					<!-- style="display:all;" -->
+				<?php //endif; ?>
+
+				
+				<div id = "reviewa_div"				
+					style=<?php echo $checkbox_style;?>
+				> 				
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "reviewa" id = "reviewa">
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
