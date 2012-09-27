@@ -1,3 +1,14 @@
+//-------------------------------------------------------------------------------------------------------
+// #datepicker
+//-------------------------------------------------------------------------------------------------------
+
+jQuery(function() 
+{
+	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });		//yy o yyyy?
+});
+
+//-------------------------------------------------------------------------------------------------------
+
 (function(jQuery) 
 {	
 	jQuery.datepicker.regional['it'] = 
@@ -29,6 +40,10 @@
 	
 })(jQuery);
 
+//-------------------------------------------------------------------------------------------------------
+// #review-content
+//-------------------------------------------------------------------------------------------------------
+
 jQuery(document).ready(function(){
   
 	var jq=jQuery;
@@ -40,6 +55,9 @@ jQuery(document).ready(function(){
 
 });
 
+//-------------------------------------------------------------------------------------------------------
+// rating
+//-------------------------------------------------------------------------------------------------------
 
 function vote(point, field) 
 {
@@ -51,16 +69,11 @@ function vote(point, field)
 	return false;					
 }
 
-jQuery(function() 
-{
-	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });		//yy o yyyy?
-});
-
-
 //------------------------------------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------------------------------------
 
+//$('#submit_button').click(function() {									//ALT
 jQuery(document).ready(function()
 {
 	//alert('dentro...');
@@ -84,37 +97,44 @@ jQuery(document).ready(function()
 	//key press	
 	titolo.keyup(validateTitolo);	
 	
+	//$('#submit_button').click(function() {								//ALT
 	form.submit(function()		
 	{
 		//alert('entra FORM!');
 		
 		if
 		(		!validateTitolo() 
-			||  !validateTesto() 		//testo/contenuto review			
+			||  !validateTesto() 					//testo/contenuto review			
 			||	!validateTipologiaRapporto()			
 			||  !validateConsigliato()									
-			||  !validateData_Rapporto()			//vuota
+			||  !validateData_Rapporto()			//vuota-staccata!
 			||	!validateGiudizio_Review() 
 			||	!validateTipoReviewNegativa() 
 			||  !validateDisclaimer()
 
 		) 
-		{
-		
-		
-//---------------------------							
-	if(!validateTipoReviewNegativa()) 
-	{
-		alert('Specifica la tipologia di review negativa');
-		return false;			
-	}				
-	else 
-	{
-		//alert('tipologia di review negativa settata');
-		//return true;
-	}
+		{		
+			//---------------------------							
+			if(!validateTipoReviewNegativa() ) 
+			{
+				alert('Specifica la tipologia di review negativa');
+				return false;			
+			}				
+			else 
+			{
+				//alert('tipologia di review negativa settata');
+				//return true;
+			}
 
-//---------------------------							
+			//---------------------------		
+
+			if(!validateGiudizio_Review()) 
+			{
+				alert('Manca Giudizio sulla Review!');
+				return false;			
+			}			
+			
+			//---------------------------		
 	
 			if(!validateTitolo() ) 
 			{
@@ -142,22 +162,19 @@ jQuery(document).ready(function()
 			
 				//voti,ratings ---> vd		
 	
-//---------------------------				
-if(!validateData_Rapporto()) 
-{
-	alert('Manca la Data inizio Rapporto commerciale!');
-	return false;			
-}
-//---------------------------		
-			if(!validateGiudizio_Review()) 
+			//---------------------------				
+			if(!validateData_Rapporto()) 
 			{
-				alert('Manca Giudizio sulla Review!');
+				alert('Manca la Data inizio Rapporto commerciale!');
 				return false;			
 			}
-//---------------------------		
+			//---------------------------		
+			
 
-//---------------------------							
+			
+			//---------------------------		
 
+			//---------------------------							
 			
 			if(!validateDisclaimer()) 
 			{
@@ -167,7 +184,7 @@ if(!validateData_Rapporto())
 
 		}
 		
-		//
+		//RETURN
 		return true;	
 });
 
@@ -202,9 +219,8 @@ function validateTesto()
 }
 
 function validateTipologiaRapporto()
-{		
-	//if(!tipologia_rapporto.is(':checked'))
-	if(!jQuery('input[name=tipologia_rapporto]').is(':checked'))
+{			
+	if(!jQuery('input[name=tipologia_rapporto]').is(':checked'))		//ALT - //if(!tipologia_rapporto.is(':checked'))
 	{
 		//alert('Indica tipologia rapporto commerciale');			
 		return false;
@@ -228,22 +244,19 @@ function validateConsigliato()
 	}
 }
 
-//VOTI - RATING
 
-function validateData_Rapporto () 
+function validateData_Rapporto () 				
 {
-
-						return true;
-
-//<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
+	//------------------------------------------
+	return true;																						//disattivata!
+	//------------------------------------------
+	
+	//<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
 
 	//if(data_rapporto.val().length < 10)
 	//if(data_rapporto.length < 10)	
-	
-	//if(!jQuery('input[name="data_rapporto"]:checked').length == 0)
-	
 /*	
-	if(!jQuery('input[name=data_rapporto]').is(':checked'))		
+	if(!jQuery('input[name="data_rapporto"]').length == 0)
 	{		
 		return false;
 	}		
@@ -258,65 +271,43 @@ function validateGiudizio_Review()
 {		
 	if(!jQuery('input[name=giudizio_review]').is(':checked'))
 	{
-		alert('GIUDIZIO REVIEW non checked');			
+		//alert('GIUDIZIO REVIEW non checked');			
 		return false;
 	}		
 	else
 	{	
 		//alert('GIUDIZIO REVIEW Settata');					
-		//return true;
+		return true;																				//non ritornat TRUE
 	}
 }	
 
 function validateTipoReviewNegativa()
 {		
-/*
-	if( 	!jQuery('input[name=giudizio_review]').is(':checked')
-		&&  !jQuery('input[name=tipo_review_negativa]').is(':checked'))
-*/		
-//jQuery('input[name=giudizio_review]').attr('value')!= "negativo"
-//jQuery('input[name=giudizio_review]').val() != "negativo"
+	var valore_giudizio_review = jQuery('input[name=giudizio_review]:checked').val();					//:checked
+	var valore_tipo_review_negativa = jQuery('input[name=tipo_review_negativa]:checked').val();			//:checked
 	
-//Any of 
-	//$(this).val() 
-	//$(this).attr("value") 
-	//this.getAttriute("value") or 
-	//this.value 
-//will work
-
-//(jQuery('input[name=giudizio_review]').attr('value')!= "negativo")
-
-if (jQuery('input[name=giudizio_review]').is(':checked')) 
-{
-	//alert('GIUDIZIO REVIEW checked');	
-	
-	if(	
-			
-			!(jQuery('input[name=giudizio_review]').attr('value')== 3)
-		&& 
-			!jQuery('input[name=tipo_review_negativa]').is(':checked')
-		//|| !jQuery('input[name=tipo_review_negativa]').val() == " "
+	if(		!jQuery('input[name=tipo_review_negativa]').is(':checked')	
+		&&  jQuery('input[name=giudizio_review]').is(':checked')
+		&&  valore_giudizio_review == "negativo"
 	)
 	{		
+			
+		console.log("giuzizio review:  " + valore_giudizio_review);
+		console.log("tipo_review_negativa:  " + valore_tipo_review_negativa);
+		
 		return false;
 	}		
 	else
-	{			
+	{	
+	
+		console.log("giuzizio review:  " + valore_giudizio_review);
+		console.log("tipo_review_negativa:  " + valore_tipo_review_negativa);
 		return true;
 	}
-}
-else 
-{
-	//alert('GIUDIZIO REVIEW non checked');	
-	//return true;
-}
-	
 }		
 
 function validateDisclaimer()
 {		
-	//if(!jQuery('input:disclaimer').is(':checked'))
-	//if(!jQuery('input[name=disclaimer]').is(':checked'))
 	if (jQuery('input[name="disclaimer"]:checked').length == 0) 
 	{
 		//alert('disclaimer non checked');			
