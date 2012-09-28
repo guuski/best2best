@@ -4,15 +4,20 @@
 
 jQuery("input[name='datepicker']").datepicker(
 { 
-	dateFormat: 'dd/mm/yy'
-	, changeMonth: true
-	, changeYear: true
-	, numberOfMonths: 1
-	, showButtonPanel: true
-	, maxDate: new Date								//non puoi inserire una data futura!
-//	,constrainInput: true 
+	  dateFormat: 		'dd/mm/yy'
+	, changeMonth: 		true
+	, changeYear: 		true
+	, numberOfMonths: 	1
+	, showButtonPanel: 	true
+	, maxDate:			new Date								//non puoi inserire una data futura!
+//	, constrainInput: true 
+
+//	, setDate:			new Date								//
+//	, setDate:			'25/06/12'								//
 });
 
+//-------------------------------------------------------------------------------------------------------
+//jQuery("input[name='datepicker']").datepicker().datepicker('setDate', '25/06/12');
 
 //-------------------------------------------------------------------------------------------------------
 /*
