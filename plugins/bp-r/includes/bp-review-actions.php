@@ -87,25 +87,38 @@ function invia_nuova_review()
 		// [WPNONCE]
 		check_admin_referer( 'new_review_action' );			
 		
-		//recupera i valori inviati dal FORM
+		//------------- recupera i valori inviati dal FORM ------------
 		$content  				= $_POST['review-content'];				
 		$title  				= $_POST['review-title'];				
-		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 				
-		
-		//....consigliato....		
-		
+		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 						
+		//consigliato	--> NON LO RECUPERO!			
 		$voto_prezzo    		= $_POST['prezzo'];					
 		$voto_servizio  		= $_POST['servizio'];	
 		$voto_qualita			= $_POST['qualita'];
 		$voto_puntualita		= $_POST['puntualita'];
-		$voto_affidabilita		= $_POST['affidabilita'];				
-		
+		$voto_affidabilita		= $_POST['affidabilita'];						
 		$data_rapporto	    	= $_POST['datepicker'];				 
-		$giudizio_review    	= $_POST['giudizio_review'];						
-		$tipo_review_negativa 	= $_POST['tipo_review_negativa'];	 
+		$giudizio_review    	= $_POST['giudizio_review'];								
+
+		//-------------------------------------------------------------
+		//(*) - vd RIGA 173		
+		//-------------------------------------------------------------
 		
-		//....disclaimer....		
+		//PHP Notice:  Undefined index: tipo_review_negativa inbp-review-actions.php on line 105							
+		if( isset( $_POST['tipo_review_negativa'] )	)
+		{
+			$tipo_review_negativa 	= $_POST['tipo_review_negativa'];	 
+		}
+		else 
+		{
+			//$_POST['tipo_review_negativa'] = "undefined";
+			$tipo_review_negativa 	= "undefined";								
+		}
+		//-------------------------------------------------------------			
+			
+		//disclaimer --> non ci intressa!
 	
+		//--------------------------------------------------------------------------------------------------------------------			
 	
 		if ( empty($title)) 			//empty
 		{
@@ -145,24 +158,37 @@ function invia_nuova_review()
 		}	
 		
 		//---------------------------------------------------------------------------------------------------------
+
 		if ( empty($giudizio_review)) 	//empty
 		{
 			bp_core_add_message( __( 'Assegna un giudizio complessivo alla review', 'reviews' ),'error' );									
 			return;
 		}	
-		else if ($giudizio_review != 'negativo')			//non è ncessario forse!
+
+		else if ($giudizio_review != 'negativo')			//non è ncessario forse! ---> MOLTO NECESSARIA invece ---> vd(*)
 		{
 			$tipo_review_negativa = "undefined";											//$tipo_review_negativa "UNDEFINED"
-		}
-		// Undefined index: tipo_review_negativa bp-review-actions.php on line 105
-		// Undefined index: tipo_review_negativascreen-two.php on line 87
-		
-		if ($giudizio_review == 'negativo'  && $tipo_review_negativa = "") 	
+		}		
+		else if (		$giudizio_review 		== 'negativo'  
+						&&  $tipo_review_negativa 	== ""
+					) 	
 		{
 			bp_core_add_message( __( 'Specifica il tipo di review negativa', 'reviews' ),'error' );									
 			return;
 		}
 		//---------------------------------------------------------------------------------------------------------
+		// Undefined index: tipo_review_negativa bp-review-actions.php on line 105
+		// Undefined index: tipo_review_negativascreen-two.php on line 87
+	
+/*
+
+	
+	(*) vd rige above e riga 106
+	
+		cosa se succede se l'utente invia una review POS e NEUT... ma il la checkbox 'tipo_review_negativa' è stata settata? 
+		- giudizio_review == POSITIVO || giudizio_review == NEUTRO
+		- tipo_review_negativa == "positivo" o "neutro"
+*/		
 		
 		
 		// FUNCTION call ---> result var [vd FILE 'bp-review-functions.php']
