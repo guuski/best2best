@@ -152,8 +152,10 @@ function invia_nuova_review()
 		}	
 		else if ($giudizio_review != 'negativo')			//non è ncessario forse!
 		{
-			$tipo_review_negativa = "";											//$tipo_review_negativa 
+			$tipo_review_negativa = "undefined";											//$tipo_review_negativa "UNDEFINED"
 		}
+		// Undefined index: tipo_review_negativa bp-review-actions.php on line 105
+		// Undefined index: tipo_review_negativascreen-two.php on line 87
 		
 		if ($giudizio_review == 'negativo'  && $tipo_review_negativa = "") 	
 		{
