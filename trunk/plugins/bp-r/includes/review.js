@@ -14,6 +14,16 @@ jQuery("input[name='datepicker']").datepicker(
 
 //	, setDate:			new Date								//
 //	, setDate:			'25/06/12'								//
+
+/*
+	onSelect: function(datepicker) 
+	{
+      var date = $(this).datepicker('getDate');
+      //date.setDate(date.getDate() + 1);
+	  console.log("date  :  " + date);
+   }
+*/
+
 });
 
 //-------------------------------------------------------------------------------------------------------
@@ -106,7 +116,9 @@ jQuery(document).ready(function()
 	var testo 	 			 = jq("#review-content");		//testo / contenuto 
 	var tipologia_rapporto   = jq("#tipologia_rapporto");
 	var consigliato   		 = jq("#consigliato");		
-	//var data_rapporto   	 = jq("#datepicker");			//vuota-staccata!
+	
+		var data_rapporto   	 = jq("#datepicker");			//vuota-staccata!
+	
 	var giudizio_review 	 = jq("#giudizio_review");
 	var tipo_review_negativa = jq("#tipo_review_negativa");	
 	
@@ -126,7 +138,7 @@ jQuery(document).ready(function()
 			||  !validateTesto() 					//testo/contenuto review			
 			||	!validateTipologiaRapporto()			
 			||  !validateConsigliato()									
-//			||  !validateData_Rapporto()			//vuota-staccata!
+			||  !validateData_Rapporto()			//vuota-staccata!
 			||	!validateGiudizio_Review() 
 			||	!validateTipoReviewNegativa() 
 			||  !validateDisclaimer()
@@ -158,13 +170,13 @@ jQuery(document).ready(function()
 			}	
 			
 			//voti,ratings ---> vd		
-/*				
+
 			if(!validateData_Rapporto()) 
 			{
 				alert('Manca la Data inizio Rapporto commerciale!');
 				return false;			
 			}
-*/			
+
 			if(!validateGiudizio_Review()) 
 			{
 				alert('Manca Giudizio sulla Review!');
@@ -247,21 +259,51 @@ function validateConsigliato()
 		return true;
 	}
 }
-/*
 
 function validateData_Rapporto () 				
 {
-	if(!jQuery('input[name="data_rapporto"]').length == 0)
+	
+	var data   = jQuery('input[name=datepicker]').val();
+	var data_3 = jQuery('input[name=datepicker]').datepicker( "getDate" );
+		//var data_3 = "niente";
+
+/*		
+	if(data != null) 
+		alert('data:  '.data); //datA
+
+	//if(date != null) 		alert('date:  '.date);  //datE
+
+	
+	if(data_3!= null) 
+		alert('data3:  '.data_3);  //data_3
+*/	
+	
+	//if(!jQuery('input[name="data_rapporto"]').length == 0)
+	//if(!jQuery('input[name="data_rapporto"]').is(':empty'))
+	
+	//if(!jQuery('input[name="datepicker"]').length == 0)
+	if(!jQuery('input[name="datepicker"]').is(':empty'))
+		
+	//if( !("#datepicker").is(':empty') )
+	//if(data_3 != null)
 	{		
+		console.log("datA  :  " + data);
+		//console.log("datE  :  " + date);
+		console.log("datA 3  :  " + data_3);		
+		
 		return false;
 	}		
 	else
 	{			
+		console.log("datA  :  " + data);
+		//console.log("datE  :  " + date);
+		console.log("datA 3  :  " + data_3);
+		
 		return true;
 	}
 
 }	
-*/
+
 	
 function validateGiudizio_Review()
 {		

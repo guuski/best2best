@@ -122,6 +122,10 @@ get_header() ?>
 				$titolo 				= $_POST['review-title'] 	or '';
 				$contenuto 				= $_POST['review-content']	or '';
 				
+				
+				
+$datepicker = $_POST['datepicker']	or '';
+				
 				//-------------------------------------------------------------------------------------------
 				//-------------------------------------------------------------------------------------------			
 				$tipologia_rapporto = '';			
@@ -284,7 +288,8 @@ get_header() ?>
 			
 			<div>
 				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
-					<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
+					<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;" 
+					value="<?php echo $datepicker?>"> 
 				</label>							
 			</div>
 			
