@@ -1,5 +1,5 @@
 <?php
-//--------------------------------------------------------------- SCREEN 2 --> Scrivi Review-----------------------------------------------------------------------------------------
+// 											SCREEN 2 Scrivi Review								
 get_header() ?>
 
 	<!-- CONTENT -->
@@ -12,27 +12,26 @@ get_header() ?>
 				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>		<!-- locate_template () -->				
 			</div>
 
-		<div id="item-nav">
-			<div class="item-list-tabs no-ajax" id="object-nav">
-				<ul>
-					<!-- -->
-					<?php bp_get_displayed_user_nav() ?>
-				</ul>
+			<div id="item-nav">
+				<div class="item-list-tabs no-ajax" id="object-nav">
+					<ul>
+						<!-- -->
+						<?php bp_get_displayed_user_nav() ?>
+					</ul>
+				</div>
 			</div>
-		</div>
 			
-		<!------------------------------------------>			
-		<div id="sidebar-squeeze">										<!-- pezza per FRISCO -->
-		<div id="main-column">
-		<!------------------------------------------>				
+			<!------------------------------------------>			
+			<div id="sidebar-squeeze">										<!-- pezza per FRISCO -->
+				<div id="main-column">
+			<!------------------------------------------>				
 	
 <div id="item-body">											
 
 	<?php do_action( 'bp_before_member_body' ); ?>
 
 	<div class="item-list-tabs no-ajax" id="subnav">
-		<ul>
-			<!-- -->
+		<ul>			
 			<?php bp_get_options_nav() ?>
 		</ul>
 	</div>
@@ -41,11 +40,11 @@ get_header() ?>
 	<h5><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h5>
 	<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
 		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> </h6>						
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
+	<!-- ------------------------------------------------------------------------------------------------------------------------- -->
 	<!--  FORM - met 2	- no inclusione ESTERNA
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						
+	<!-- -------------------------------------------------------------------------------------------------------------------------- -->						
 	
-	<!--- REVIEW-FORM-->												<!--onsubmit:="return validateForm(this);"-->
+	<!-- REVIEW-FORM -->												<!--onsubmit:="return validateForm(this);"-->
 	<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="review-form" class="standard-form"> 
 	
 		<!-- DO ACTION -->
@@ -280,13 +279,17 @@ get_header() ?>
 					<li><a href="#" onclick="return vote(5, this);" title='5 / 5' class='five-stars'>5</a></li>
 				</ul><input type="hidden" name="affidabilita" value="<?php echo $affidabilita?>" />
 				</div>		
-				<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->						  
 			</div>	<!-- fine sezione RATING -->			
 			<br/>	
-			<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
-				<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
-			</label>							
+			
+			<div>
+				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
+					<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;"> 
+				</label>							
+			</div>
+			
 			<br />
+			
 			<div id="radio-toolbar">				
 				<label for = "review-giudizio"><?php _e('Giudizio Complessivo Review', "reviews" )?> </label>	
 				<br /> 
@@ -296,48 +299,27 @@ get_header() ?>
 					<label style="color:red;" for = "negativo" onclick="negativoSelezionato('apri');"><input style="position:relative; display:inline;" type="radio" name="giudizio_review" id="negativo" value="negativo"<?php if($giudizio_review == "negativo") echo 'checked="checked"';?>/>  <?php _e( 'Negativa', 'reviews' ); ?>   </label>								 
 				</fieldset>
 
-				<?php 
-				
-				if (	//$tipo_review_negativa == '' 
-						//||  
-						$giudizio_review != 'negativo' 
-				)
-				{
-					$checkbox_style="display:none;" ;
-									
-									//
-									$tipo_review_negativa = "undefined"; 					//new!		
-				}
-				else
-				{
-					$checkbox_style="display:all;";
-				}					
-				
+				<?php 					
+					if ($giudizio_review != 'negativo')
+					{
+						$checkbox_style="display:none;" ;
+						$tipo_review_negativa = "undefined"; 					//new!		
+					}
+					else
+					{
+						$checkbox_style="display:all;";
+					}									
 				?>					
-
-				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> 
-					<!-- style="display:none;" -->
-				<?php //elseif: ?>
-					<!-- style="display:all;" -->
-				<?php //endif; ?>
-
 				
-				<div id = "review-tipo-negativa-div"				
-					style=<?php echo $checkbox_style;?>
-				> 
-<!--	
-				<div id = "review-tipo-negativa-div"				
-					style="display:none;"
-				> 
--->				
-					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
+				<div id = "review-tipo-negativa-div" style=<?php echo $checkbox_style;?>> 
+					<label> <?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "review-tipo-negativa" id = "review-tipo-negativa">
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="anonimo" 		value="anonimo"<?php if($tipo_review_negativa == "anonimo") echo 'checked="checked"';?>/> 		<label style="color:red;" 		for = "anonimo" ><?php _e( 'no (voglio restare anonimo)', 'reviews' ); ?>  </label>				  
 					</fieldset>	
 				</div>
-			</div>
-			<br />
+			</div> <!--#radio-toolbar-->	
+			<br />				
 			<!-- Checkbox -->
 			<div id="new-review-disclaimer">		
 				<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
@@ -351,9 +333,7 @@ get_header() ?>
 				<br />
 				<!-- onClick="ValidateForm(this.form)" -->
 				<div id="new-review-submit">								
-					<input type="submit" name="review-submit" id="review-submit" 
-					
-					value="<?php _e( 'Invia', 'reviews' ); ?>" />
+					<input type="submit" name="review-submit" id="review-submit" value="<?php _e( 'Invia', 'reviews' ); ?>" />
 				</div>
 				<br />
 			</div>							
@@ -369,11 +349,12 @@ get_header() ?>
 <!--------------------------------------------------------------------------fine FORM -------------------------------------------------------------------------------------->						
 
 </div><!-- #item-body -->
-</div> <!--#main-column -->
+</div><!-- #main-column -->
 <?php locate_template( array( 'sidebar.php' ), true ) ?>	
+</div><!-- #sidebar-squeeze -->
 </div><!-- .padder -->
+
 </div><!-- #content -->
-</div>
 
 <!-- FOOTER -->	
 <?php get_footer() ?>
