@@ -59,8 +59,6 @@ get_header() ?>
 		</div>				
 		
 		<?php 
-		
-
 			$prezzo 				= $_POST['prezzo'] 			or 0;
 			$servizio 				= $_POST['servizio'] 		or 0;
 			$qualita 				= $_POST['qualita'] 		or 0;
@@ -69,10 +67,37 @@ get_header() ?>
 			
 			$titolo 				= $_POST['review-title'] 	or '';
 			$contenuto 				= $_POST['review-content']	or '';
-			//$tipologia_rapporto 	= $_POST['tipologia_rapporto']	or '';
-			$consigliato			= $_POST['consigliato']	or '';
+			
+			//-------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------			
+			$tipologia_rapporto = '';			
+			if( !isset($_POST['tipologia_rapporto']) )
+				$_POST['tipologia_rapporto'] = 'undefined'; 			
+			else 
+				$tipologia_rapporto = $_POST['tipologia_rapporto'];			
+			//-------------------------------------------------------------------------------------------	
+							
+			//-------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------
+			$consigliato = '';			
+			if( !isset($_POST['consigliato']) )			
+				$_POST['consigliato'] = 'undefined'; 							
+			else 			
+				$consigliato = $_POST['consigliato'];			
+			//-------------------------------------------------------------------------------------------
+
 			$giudizio_review    	= $_POST['giudizio_review']	or ''; 						
-			$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or 'registrato'; 		//DEFAULT VALUE: "registrato"
+
+			//-------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------
+			$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or '';
+				// Undefined index: tipo_review_negativa bp-review-actions.php on line 105
+				// Undefined index: tipo_review_negativascreen-two.php on line 87				
+			
+			//$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or 'undefined'; 	
+			//$tipo_review_negativa = "undefined";			//$tipo_review_negativa "UNDEFINED"
+			//-------------------------------------------------------------------------------------------
+			
 			$disclaimer				= $_POST['disclaimer']	or ''; 
 		?>
 						
@@ -99,16 +124,16 @@ get_header() ?>
 				<fieldset name = "review-tipologia-rapporto" id = "review-tipologia-rapporto">	  	  				
 					<label for = "una tantum"> 
 						<input type="radio" name="tipologia_rapporto" id="una tantum" value="una tantum" 
-							<?php //if($tipologia_rapporto == "una tantum") echo 'checked="checked"';?>
-							<?php echo (isset($_POST['tipologia_rapporto'])?'checked="checked"':'')?>
+							<?php //echo (isset($_POST['tipologia_rapporto'])?'checked="checked"':'')?>
+							<?php if($tipologia_rapporto == "una tantum") echo 'checked="checked"';?>
 						/> 
 						<?php _e( 'Una Tantum ', 'reviews' ); ?> 
 					</label> 
 					
 					<label for = "continuativo" > 
-						<input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"
-						<?php //if($tipologia_rapporto == "continuativo") echo 'checked="checked"';?>
-						<?php echo (isset($_POST['tipologia_rapporto'])?'checked="checked"':'')?>
+						<input type="radio" name="tipologia_rapporto" id="continuativo" value="continuativo"						
+						<?php //echo (isset($_POST['tipologia_rapporto'] && )?'checked="checked"':'')?>
+						<?php if($tipologia_rapporto == "continuativo") echo 'checked="checked"';?>
 						/> 
 						<?php _e( 'Continuativo', 'reviews' ); ?>  
 					</label>
@@ -120,14 +145,26 @@ get_header() ?>
 				<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
 					<label for = "si"> 
 						<input type="radio" name="consigliato" id="si" value="si"
-						<?php if($consigliato == "si") echo 'checked="checked"';?>
+						<?php if( 
+									//	(isset($_POST['consigliato']) 
+									//&& 
+										($consigliato == "si")
+								) 
+								echo 'checked="checked"';
+						?>
 						/>
 						<?php _e( 'Si', 'reviews' ); ?> 
 					</label> 	 	
 					
 					<label for = "no"> 
 						<input type="radio" name="consigliato" id="no" value="no"
-						<?php if($consigliato == "no") echo 'checked="checked"';?>
+						<?php if( 
+									//	(isset($_POST['consigliato']) 
+									//&& 
+										($consigliato == "no")
+								) 
+								echo 'checked="checked"';
+						?>
 						/>  <?php _e( 'No', 'reviews' ); ?> 
 					</label> 	 	  
 					
@@ -202,7 +239,7 @@ get_header() ?>
 				</fieldset>
 
 				<?php 
-				/*
+				
 				if (	//$tipo_review_negativa == '' 
 						//||  
 						$giudizio_review != 'negativo' 
@@ -214,7 +251,7 @@ get_header() ?>
 				{
 					$checkbox_style="display:all;";
 				}					
-				*/
+				
 				?>					
 
 				<?php //if ($tipo_review_negativa == '' || $giudizio_review != 'negativo' ): ?> 
@@ -223,14 +260,15 @@ get_header() ?>
 					<!-- style="display:all;" -->
 				<?php //endif; ?>
 
-<!--				
+				
 				<div id = "review-tipo-negativa-div"				
-					style=<?php //echo $checkbox_style;?>
+					style=<?php echo $checkbox_style;?>
 				> 
-	-->			
+<!--	
 				<div id = "review-tipo-negativa-div"				
 					style="display:none;"
 				> 
+-->				
 					<label><?php _e("Vuoi che la tua recensione venga resa pubblica con il tuo nome o attraverso il Team recensioni Negative?","review")?></label>
 					<fieldset name = "review-tipo-negativa" id = "review-tipo-negativa">
 						<input style="position:relative; display:inline;" type="radio" name="tipo_review_negativa" id="registrato"   value="registrato"  <?php if($tipo_review_negativa == "registrato") echo 'checked="checked"';?>/> 	<label style="color:green;"  	for = "registrato" ><?php _e( 'si', 'reviews' ); ?>    </label>				  
