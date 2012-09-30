@@ -286,11 +286,25 @@ $datepicker = $_POST['datepicker']	or '';
 			</div>	<!-- fine sezione RATING -->			
 			<br/>	
 			
+			<!-- class = "DateTextBox NoMonth"-->
+			<!-- value = "<?php //echo $datepicker?>"-->
+			
 			<div>
 				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
-					<input type="text" name ="datepicker" maxlength="12" size="12" style="width:auto;" 
-					value="<?php echo $datepicker?>"> 
+					
+					<input type="text" 	maxlength="12" size="12" style="width:auto;" 
+					
+					name  = "datepicker" 
+					id    = "datepicker" 
+					class = "DateTextBox NoCalendar"
+					value = "<?php echo $datepicker?>"> 
 				</label>							
+				
+				<input type="text" maxlength="12" size="12" style="width:auto;" 
+					name  = "datepicker_2" 
+					id	  = "datepicker_2"
+					class = "DateTextBox NoYear"
+					> 
 			</div>
 			
 			<br />
