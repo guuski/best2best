@@ -2,42 +2,111 @@
 // #datepicker
 //-------------------------------------------------------------------------------------------------------
 
+jQuery('.DateTextBox.NoYear').datepicker(
+{
+	beforeShow: function (input, inst) 
+	{
+		inst.dpDiv.addClass('NoYearDatePicker');
+	},
+
+	onClose: function(dateText, inst){
+		inst.dpDiv.removeClass('NoYearDatePicker');
+	}
+
+});
+
+
+/*
+jQuery('.DateTextBox.NoMonth').datepicker(
+{
+	beforeShow: function (input, inst) 
+	{
+		inst.dpDiv.addClass('NoMonthDatePicker');
+	},
+	
+	onClose: function(dateText, inst){
+		inst.dpDiv.removeClass('NoMonthDatePicker');
+	}
+});
+*/
+
+/*
+jQuery('.DateTextBox.NoCalendar').datepicker(
+{
+	beforeShow: function (input, inst) 
+	{
+		inst.dpDiv.addClass('NoCalendarDatePicker');
+	},
+
+//	onClose: function(dateText, inst){
+//		inst.dpDiv.removeClass('NoCalendarDatePicker');
+//	}
+	
+});
+*/
+
+/*
+jQuery('#datepicker_2').datepicker( 
+{ 
+    changeYear: true, 
+    dateFormat: 'yy', }
+);
+*/
+
+
 jQuery("input[name='datepicker']").datepicker(
 { 
-	  dateFormat: 		'dd/mm/yy'
-	, changeMonth: 		true
-	, changeYear: 		true
-	, numberOfMonths: 	1
+//    dateFormat: 		'dd/mm/yy'
+	  dateFormat: 'yy' 
+
+    , changeYear: 		true
+//	, changeMonth: 		false									//	
+//	, changeDay: 		false									//
+//	, numberOfMonths: 	1
 	, showButtonPanel: 	true
+    
+	, minDate: new Date("1980-09-01")
+
+//	, maxDate: "+5Y",	
 	, maxDate:			new Date								//non puoi inserire una data futura!
+	
 //	, constrainInput: true 
 
 //	, setDate:			new Date								//
 //	, setDate:			'25/06/12'								//
 
-/*
-	onSelect: function(datepicker) 
-	{
-      var date = $(this).datepicker('getDate');
-      //date.setDate(date.getDate() + 1);
-	  console.log("date  :  " + date);
-   }
-*/
+	,   onClose: function(dateText, inst) 
+		{ 
+            //var month 	= jQuery("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var year	= jQuery("#ui-datepicker-div .ui-datepicker-year :selected").val();
+			
+            //jQuery(this).datepicker('setDate', new Date(year, month, 1));
+			jQuery(this).datepicker('setDate', new Date(year, 1, 1));
+        }
+
+	,	onSelect: function(datepicker) 
+		{
+			var date = jQuery(this).datepicker('getDate');
+			//date.setDate(date.getDate() + 1);
+			console.log("date  :  " + date);
+		}
 
 });
 
 //-------------------------------------------------------------------------------------------------------
+
 //jQuery("input[name='datepicker']").datepicker().datepicker('setDate', '25/06/12');
 
 //-------------------------------------------------------------------------------------------------------
+
 /*
 jQuery(function() 
 {
-	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });		//yy o yyyy?
+	jQuery("#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });							//yy o yyyy?
 });
 */
 
-
+//-------------------------------------------------------------------------------------------------------
 	
 (function(jQuery) 
 {	
@@ -70,19 +139,20 @@ jQuery(function()
 	
 })(jQuery);
 
+
 //-------------------------------------------------------------------------------------------------------
-// #review-content
+// ANIMATE #review-content
 //-------------------------------------------------------------------------------------------------------
 
-jQuery(document).ready(function(){
-  
-	var jq=jQuery;
-	
-	jq('#review-content').focus( function()
+jQuery(document).ready(function()
+{  
+	jQuery('#review-content').focus( function()
 	{
-		jq('#review-content').animate({height:'200px'});
+		jQuery('#review-content').animate(
+		{
+			height:'200px'
+		});
 	});
-
 });
 
 //-------------------------------------------------------------------------------------------------------
@@ -91,10 +161,13 @@ jQuery(document).ready(function(){
 
 function vote(point, field) 
 {
-	var fieldname= jQuery(field).parent().parent()[0].id; 
+	var fieldname = jQuery(field).parent().parent()[0].id; 
 	
 	jQuery("input[name="+fieldname+"]").val(point);
-	jQuery("#"+fieldname+" li.current-rating").css({'width':(point*25)+'px'});
+	jQuery("#"+fieldname+" li.current-rating").css(
+	{
+		'width':(point*25)+'px'
+	});
 	
 	return false;					
 }

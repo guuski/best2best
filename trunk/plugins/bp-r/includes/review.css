@@ -1,8 +1,37 @@
+/* correzione altezza datepicker */
+/*
+.ui-datepicker td span, .ui-datepicker td a 
+{
+	padding: 0px 2px;
+}
+*/
+
+.NoCalendarDatePicker .ui-datepicker-calendar 
+{
+    display: none;
+}
+	
+ .NoYearDatePicker .ui-datepicker-year
+{
+ display:none;   
+}
+
+
+.NoMonthDatePicker .ui-datepicker-month
+{
+ display:none;   
+}
+
+	
+/* ------------------------------------------------------------------------------------------------------------------ */
+
 .review div#item-header {
 	background: #EAEAEA;
 	margin: -19px -19px 0;
 	padding: 19px 19px 0;
 }
+
+
 #review-form {
 	border-bottom: 1px solid #ddd;
 	margin: 20px 0 10px;
@@ -385,17 +414,8 @@ fieldset
     background-color:#bbb;
 }
 
-
-
-
-/* --------------nascondi FORM ricerca 'page-review.php' -----*/
+/* nascondi FORM ricerca 'page-review.php' -----*/
 #review-filter-post-form 
 {
 	display: none;
-}
-
-}
-/* correzione altezza datepicker */
-.ui-datepicker td span, .ui-datepicker td a {
-	padding: 0px 2px;
 }
