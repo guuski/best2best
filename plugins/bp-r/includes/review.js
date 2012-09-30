@@ -90,7 +90,12 @@ jQuery("input[name='datepicker']").datepicker(
 			//date.setDate(date.getDate() + 1);
 			console.log("date  :  " + date);
 		}
-
+		
+	,	onChangeMonthYear: function(year, month, inst) 
+		{
+			var year	= jQuery("#ui-datepicker-div .ui-datepicker-year :selected").val();
+			jQuery(this).datepicker('setDate', new Date(year, 1, 1));
+		}
 });
 
 //-------------------------------------------------------------------------------------------------------

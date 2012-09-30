@@ -5,7 +5,11 @@
 	padding: 0px 2px;
 }
 */
-
+.ui-datepicker-calendar 
+{
+    display: none;
+}
+	
 .NoCalendarDatePicker .ui-datepicker-calendar 
 {
     display: none;
@@ -15,7 +19,6 @@
 {
  display:none;   
 }
-
 
 .NoMonthDatePicker .ui-datepicker-month
 {
