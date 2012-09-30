@@ -70,6 +70,10 @@ jQuery("input[name='datepicker']").datepicker(
 //	, maxDate: "+5Y",	
 	, maxDate:			new Date								//non puoi inserire una data futura!
 	
+	, yearRange: "1950:2030"
+	
+	, yearSuffix: " anno"
+	
 //	, constrainInput: true 
 
 //	, setDate:			new Date								//
