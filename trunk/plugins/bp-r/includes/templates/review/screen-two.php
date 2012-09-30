@@ -299,12 +299,13 @@ $datepicker = $_POST['datepicker']	or '';
 					class = "DateTextBox NoCalendar"
 					value = "<?php echo $datepicker?>"> 
 				</label>							
-				
+<!--				
 				<input type="text" maxlength="12" size="12" style="width:auto;" 
 					name  = "datepicker_2" 
 					id	  = "datepicker_2"
 					class = "DateTextBox NoYear"
 					> 
+-->					
 			</div>
 			
 			<br />
