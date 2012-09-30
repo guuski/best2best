@@ -5,10 +5,26 @@
 	padding: 0px 2px;
 }
 */
+
+.ui-datepicker-month
+{
+    display: none;
+}
+
 .ui-datepicker-calendar 
 {
     display: none;
 }
+.ui-icon ui-icon-circle-triangle-w
+{
+    display: none;
+}
+
+.ui-datepicker-prev ui-corner-all
+{
+    display: none;
+}
+/*
 	
 .NoCalendarDatePicker .ui-datepicker-calendar 
 {
@@ -24,7 +40,7 @@
 {
  display:none;   
 }
-
+*/
 	
 /* ------------------------------------------------------------------------------------------------------------------ */
 

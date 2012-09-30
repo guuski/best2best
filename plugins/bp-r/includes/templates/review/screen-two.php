@@ -292,7 +292,7 @@ $datepicker = $_POST['datepicker']	or '';
 			<div>
 				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
 					
-					<input type="text" 	maxlength="12" size="12" style="width:auto;" 
+					<input type="text" 	maxlength="2" size="2" style="width:auto;" 
 					
 					name  = "datepicker" 
 					id    = "datepicker" 
