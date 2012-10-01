@@ -96,10 +96,15 @@ $loop = new WP_Query($query_args);
 	<!-- IF 2/2 annidato -->					
 	<?php if ( $loop->have_posts() ) : ?>	
 		
+																			<?php $counter = 0; ?>
+		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
 		
+																				<?php $counter++; ?>
+			
 			<?php 	
+			
 				$prezzo 			= get_post_meta( $post->ID, 'voto_prezzo', true );		
 				$servizio 			= get_post_meta( $post->ID, 'voto_servizio', true );
 				$qualita 			= get_post_meta( $post->ID, 'voto_qualita', true );
@@ -239,7 +244,15 @@ $loop = new WP_Query($query_args);
 		
 <!-------------------FORM ------------------------------------------------->		
 	
-<?php if ( !($_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) )) : ?>	
+<?php if ( 	
+			(	
+					!($_SERVER['REQUEST_METHOD']=='POST' 	
+				|| 	isset($_POST['show-all-reviews']) )
+			)
+			
+			&&  $counter > 3
+		 )
+ : ?>	
 
 <form 
 	action = ""
@@ -271,7 +284,7 @@ $loop = new WP_Query($query_args);
 
 <?php endif; ?>
 
-<!-- -------------------------------chiusura DIV sottostanti CHECKED  --------------------------------------------------------------------------------------------------------------->
+<!-- -------------------------------//TODO chiusura DIV sottostanti --------------------------------------------------------------------------------------------------------------->
 
 </div><!-- #item-body -->					<!-- OK -->
 </div><!-- .padder -->						<!-- chiude MAIN COLUMN! -->
