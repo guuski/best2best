@@ -1,5 +1,11 @@
 <?php
 
+//TODO
+//
+// --> bp_core_delete_notifications_by_type
+//
+//     EX Referral -- bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_accepted');
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica - (1/2) -  per le Review POSITIVE, NEUTRE e NEGATIVE Registrato
 //---------------------------------------------------------------------------------------------------------------------------------------------------

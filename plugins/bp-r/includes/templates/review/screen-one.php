@@ -132,7 +132,7 @@ $loop = new WP_Query($query_args);
 				
 				<?php 
 					$authorlogin		= get_the_author_meta('user_login');
-					$autore_review_id 	= get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); // TODO bp_review_reviewer_id sostituire con AUTHOR 
+					$autore_review_id 	= get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); //TODO bp_review_reviewer_id sostituire con AUTHOR 
 					$nome 				= xprofile_get_field_data( "Nome" , $autore_review_id);
 				?>	
 	
