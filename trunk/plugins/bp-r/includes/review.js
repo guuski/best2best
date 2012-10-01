@@ -199,8 +199,12 @@ jQuery(document).ready(function()
 	var tipologia_rapporto   = jq("#tipologia_rapporto");
 	var consigliato   		 = jq("#consigliato");		
 	
-		var data_rapporto   	 = jq("#datepicker");			//vuota-staccata!
+	//---------------------------------------------
+	var prezzo   		 	 = jq("#prezzo");		
+	var servizio   		 	 = jq("#servizio");		
+	//---------------------------------------------
 	
+	var data_rapporto   	 = jq("#datepicker");			
 	var giudizio_review 	 = jq("#giudizio_review");
 	var tipo_review_negativa = jq("#tipo_review_negativa");	
 	
@@ -220,6 +224,12 @@ jQuery(document).ready(function()
 			||  !validateTesto() 					//testo/contenuto review			
 			||	!validateTipologiaRapporto()			
 			||  !validateConsigliato()									
+			
+			//---------------------------------------------
+			||  !validateVotoPrezzo()							
+			||  !validateVotoServizio()							
+			//---------------------------------------------			
+			
 			||  !validateData_Rapporto()			//vuota-staccata!
 			||	!validateGiudizio_Review() 
 			||	!validateTipoReviewNegativa() 
@@ -251,7 +261,28 @@ jQuery(document).ready(function()
 				return false;			
 			}	
 			
-			//voti,ratings ---> vd		
+
+
+			
+			//voti,ratings 
+			
+			//----------------------
+			if(!validateVotoPrezzo()) 
+			{
+				alert('Voto Prezzo mancante');
+				return false;			
+			}				
+			//----------------------
+			
+			//----------------------
+			if(!validateVotoServizio()) 
+			{
+				alert('Voto Servizio mancante');
+				return false;			
+			}				
+			//----------------------
+
+			
 
 			if(!validateData_Rapporto()) 
 			{
@@ -281,7 +312,7 @@ jQuery(document).ready(function()
 				alert('Devi accettare il Disclaimer');
 				return false;		
 			}			
-
+						
 		}
 		
 		//RETURN
@@ -342,6 +373,63 @@ function validateConsigliato()
 	}
 }
 
+function validateVotoServizio() 				
+{
+	var s = jQuery('input[name=servizio]').val();
+	
+	if (s < 1) 
+	{
+		//alert('servizio non settato');
+		console.log("servizio(non settato)  :  " + s);
+		return false;	
+	}
+	else
+	{
+		//alert('servizio OK');	
+		console.log("servizio(OK)  :  " + s);
+		return true;
+	}
+	
+}
+
+
+function validateVotoPrezzo() 				
+{
+	var p = jQuery('input[name=prezzo]').val();
+	
+	if (p < 1) 
+	{
+		//alert('prezzo non settato');
+		console.log("prezzo(non settato)  :  " + p);
+		return false;	
+	}
+	else
+	{
+		//alert('prezzo OK');	
+		console.log("prezzo(OK)  :  " + p);
+		return true;
+	}
+	
+/*	
+	//if(!jQuery('input[name=prezzo]').is(':empty'))	
+	if(!(jQuery('input[name="prezzo"]').length == 0))
+	{		
+		//alert('prezzo non settato');
+		console.log("prezzo(non settato)  :  " + p);
+		return false;
+	}		
+	else
+	{	
+		//alert('prezzo OK');	
+		console.log("prezzo(OK)  :  " + p);
+		return true;
+	}
+*/	
+}
+
+
+
+
 function validateData_Rapporto () 				
 {
 	
@@ -360,14 +448,18 @@ function validateData_Rapporto ()
 		alert('data3:  '.data_3);  //data_3
 */	
 	
+	
+
 	//if(!jQuery('input[name="data_rapporto"]').length == 0)
 	//if(!jQuery('input[name="data_rapporto"]').is(':empty'))
 	
 	//if(!jQuery('input[name="datepicker"]').length == 0)
-	if(!jQuery('input[name="datepicker"]').is(':empty'))
+	
 		
 	//if( !("#datepicker").is(':empty') )
-	//if(data_3 != null)
+	
+	if(data_3 == null)
+	//if(!jQuery('input[name="datepicker"]').is(':empty'))
 	{		
 		console.log("datA  :  " + data);
 		//console.log("datE  :  " + date);
@@ -383,6 +475,7 @@ function validateData_Rapporto ()
 		
 		return true;
 	}
+	
 
 }	
 
@@ -401,7 +494,7 @@ function validateGiudizio_Review()
 
 function validateTipoReviewNegativa()
 {		
-	var valore_giudizio_review = jQuery('input[name=giudizio_review]:checked').val();					//:checked
+	var valore_giudizio_review 		= jQuery('input[name=giudizio_review]:checked').val();					//:checked
 	var valore_tipo_review_negativa = jQuery('input[name=tipo_review_negativa]:checked').val();			//:checked
 	
 	if(		!jQuery('input[name=tipo_review_negativa]').is(':checked')	
@@ -426,7 +519,7 @@ function validateTipoReviewNegativa()
 
 function validateDisclaimer()
 {		
-	if (jQuery('input[name="disclaimer"]:checked').length == 0) 
+	if (jQuery('input[name="disclaimer"]:checked').length == 0) //checked
 	{
 		return false;
 	}		

@@ -294,6 +294,8 @@ $datepicker = $_POST['datepicker']	or '';
 					
 					<input type="text" 	maxlength="2" size="2" style="width:auto;" 
 					
+					readonly = "readonly"
+					
 					name  = "datepicker" 
 					id    = "datepicker" 
 					class = "DateTextBox NoCalendar"
