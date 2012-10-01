@@ -27,6 +27,41 @@ global $bp
 */
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// VALIDAZIONE 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ *
+ *
+ */
+function bp_review_check_voto($voto) 
+{
+	return (empty($voto) || $voto==0);
+}
+
+/*
+function check_text($tt,$ll) 
+{
+	$ll = 5;
+	return (empty($text) || !(countchar($tt) < $ll) ); //!(isValidLength($text, $length)) );
+}
+*/
+
+/*
+function isValidLength($t, $l)
+{
+    return (count(explode(" " , $t)) < $l);
+}
+*/
+
+/*
+function countchar ($string) 
+{ 
+    $result = strlen ($string)  -   substr_count($string, ' '); 
+	echo $result;  
+} 
+*/
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // (usata dal FORM)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -92,7 +127,7 @@ function bp_review_send_review	(
 {
 	global $bp;
 	
-	// TODO: riscrivi da qua fino a $review = new Review( $db_args );
+	//TODO: riscrivi da qua fino a $review = new Review( $db_args );
 	delete_user_meta( $to_user_id, 'reviews' );	    //cancella il campo 'reviews' associato  all'utente di destinazione! ---> ma picchi? - cmq non si puo' staccare!			
 	$existing_reviews = maybe_unserialize( get_user_meta( $to_user_id, 'reviews', true ) );	
 		
@@ -216,6 +251,32 @@ function bp_review_send_review	(
 }
 
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// SEND Review NEGATIVA
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ACCETTA Review NEGATIVA
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// RIFIUTA Review NEGATIVA
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Cambia lo "STATUS" di un POST (in questo di una post di tipo Review)
 //
@@ -233,7 +294,6 @@ function bp_review_send_review	(
 	'inherit' 	 - a revision. see get_children.
 	'trash' 	 - post is in trashbin. added with Version 2.9.
 */	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  *
@@ -250,23 +310,11 @@ function bp_review_change_post_status($id_post, $new_post_status)
 
 	return $result;	
 }
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Cambia lo "STATUS" di un POST (in questo di una post di tipo Review)
+// Cambia l' AUTHOR di un POST 
 //
 
-/*
-	APPUNTI: 
-	
-	'new' 		 - When there's no previous status
-	'publish' 	 - A published post or page
-	'pending' 	 - post in pending review
-	'draft' 	 - a post in draft status
-	'auto-draft' - a newly created post, with no content
-		'future'     - a post to publish in the future
-		'private' 	 - not visible to users who are not logged in
-	'inherit' 	 - a revision. see get_children.
-	'trash' 	 - post is in trashbin. added with Version 2.9.
-*/	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -377,12 +425,55 @@ function bp_review_get_reviewers_list_for_user( $user_id )
 	if ( !$user_id )
 		return false;
 
-	return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );
+	return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );					//META
 }
 
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Restituisce la lista delle review per un dato utente - (da IMPLEMENTARE)
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*
+function bp_review_get_reviews_for_user( $user_id ) 		
+{
+
+	global $bp;
+
+	if ( !$user_id )
+		return false;
+
+	//----CANBIARE---return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );				
+
+}
+*/	
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//
+// Rimuovi DATA per un Utente eliminato - (NON USATA)
+//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * bp_review_remove_data()
+ *
+ */
+ 
+ /*
+function bp_review_remove_data( $user_id ) 
+{
+	delete_user_meta( $user_id, 'bp_review_some_setting' );															//delete USER_META!
+	
+	//DO ACTION
+	do_action( 'bp_review_remove_data', $user_id );
+}
+
+add_action( 'wpmu_delete_user', 'bp_review_remove_data', 1 );
+add_action( 'delete_user', 'bp_review_remove_data', 1 );
+*/
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
-// LOAD TEMPLATE Filter - (NON USATA)
+// LOAD TEMPLATE Filter - importantissima! senza di questa non carica nessun template!!!
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
 /**
@@ -416,51 +507,6 @@ function bp_review_load_template_filter( $found_template, $templates )
 }
 
 //FILTER
-add_filter( 'bp_located_template', 'bp_review_load_template_filter', 10, 2 );
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
-// Rimuovi DATA per un Utente eliminato - (NON USATA)
-//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * bp_review_remove_data()
- *
- */
- 
- /*
-function bp_review_remove_data( $user_id ) 
-{
-	delete_user_meta( $user_id, 'bp_review_some_setting' );															//delete USER_META!
-	
-	//DO ACTION
-	do_action( 'bp_review_remove_data', $user_id );
-}
-
-add_action( 'wpmu_delete_user', 'bp_review_remove_data', 1 );
-add_action( 'delete_user', 'bp_review_remove_data', 1 );
-*/
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Restituisce la lista delle review per un dato utente - (da IMPLEMENTARE)
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/*
-function bp_review_get_reviews_for_user( $user_id ) 		
-{
-
-	global $bp;
-
-	if ( !$user_id )
-		return false;
-
-	//----CANBIARE---return maybe_unserialize( get_user_meta( $user_id, 'reviews', true ) );				
-
-}
-*/	
-
+add_filter( 'bp_located_template', 'bp_review_load_template_filter', 10, 2 );						//IMP: "bp_located_template"
 
 ?>

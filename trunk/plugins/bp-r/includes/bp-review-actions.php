@@ -39,32 +39,6 @@ global $bp
 */
 
 
-/**
- *
- *
- */
-function check_voto($voto) 
-{
-	return (empty($voto) || $voto==0);
-}
-
-function check_text($tt,$ll) 
-{
-	$ll = 5;
-	return (empty($text) || !(countchar($tt) < $ll) ); //!(isValidLength($text, $length)) );
-}
-
-function isValidLength($t, $l)
-{
-    return (count(explode(" " , $t)) < $l);
-}
-
-function countchar ($string) 
-{ 
-    $result = strlen ($string)  -   substr_count($string, ' '); 
-	echo $result;  
-} 
-
 //------------------------------------------------------------------------------------------------------------------------------------
 // INVIA Nuova REVIEW - non e' richiamata direttamente da NEssuno  ma viene richiamata perche' e' stata aggiunta con 'add_action' all HOOK: 'bp-actions'
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -81,17 +55,17 @@ function invia_nuova_review()
 	
 	//
 	if ( 		isset( $_POST['review-submit'] ) 
-			&& 	bp_is_active( 'review' ) 
+			&& 	bp_is_active( 'review' ) 							//NB
 		) 	
 	{		
 		// [WPNONCE]
 		check_admin_referer( 'new_review_action' );			
 		
-		//------------- recupera i valori inviati dal FORM ------------
+		//-------------------------------------- recupera i valori inviati dal FORM ----------------------------------------------
 		$content  				= $_POST['review-content'];				
 		$title  				= $_POST['review-title'];				
 		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 						
-		//consigliato	--> NON LO RECUPERO!			
+		//consigliato			--> NON LO RECUPERO!			
 		$voto_prezzo    		= $_POST['prezzo'];					
 		$voto_servizio  		= $_POST['servizio'];	
 		$voto_qualita			= $_POST['qualita'];
@@ -99,11 +73,8 @@ function invia_nuova_review()
 		$voto_affidabilita		= $_POST['affidabilita'];						
 		$data_rapporto	    	= $_POST['datepicker'];				 
 		$giudizio_review    	= $_POST['giudizio_review'];								
-
-		//-------------------------------------------------------------
-		//(*) - vd RIGA 173		
-		//-------------------------------------------------------------
 		
+		//(*) - vd RIGA 173				
 		//PHP Notice:  Undefined index: tipo_review_negativa inbp-review-actions.php on line 105							
 		if( isset( $_POST['tipo_review_negativa'] )	)
 		{
@@ -113,38 +84,37 @@ function invia_nuova_review()
 		{
 			//$_POST['tipo_review_negativa'] = "undefined";
 			$tipo_review_negativa 	= "undefined";								
-		}
-		//-------------------------------------------------------------			
+		}		
 			
-		//disclaimer --> non ci intressa!
+		//disclaimer 			--> non ci intressa!
 	
 		//--------------------------------------------------------------------------------------------------------------------			
 	
-		if ( empty($title)) 			//empty
+		if ( empty($title)) 			 //empty
 		{
 			bp_core_add_message( __( 'Inserisci il titolo', 'reviews' ),'error' );						
 			return;
 		}		
 	
-		if (empty($content))	//empty							
+		if (empty($content))			 //empty							
 		{
 			bp_core_add_message( __( 'Inserisci del testo', 'reviews' ),'error' );						
 			return;
 		}	
 		
-		if ( empty($tipologia_rapporto)) 	//empty
+		if ( empty($tipologia_rapporto)) //empty
 		{
 			bp_core_add_message( __( 'Indica la tipologia del rapporto commerciale', 'reviews' ),'error' );					
 			return;
 		}	
 		
-		//.......consigliato........
+		//consigliato	--> DO NOTHING!		
 		
-		if ( 		check_voto( $voto_prezzo ) 
-				|| 	check_voto( $voto_qualita)
-				|| 	check_voto( $voto_puntualita)
-				||  check_voto( $voto_affidabilita)
-				||  check_voto( $voto_servizio)
+		if ( 		bp_review_check_voto( $voto_prezzo ) 
+				|| 	bp_review_check_voto( $voto_qualita)
+				|| 	bp_review_check_voto( $voto_puntualita)
+				||  bp_review_check_voto( $voto_affidabilita)
+				||  bp_review_check_voto( $voto_servizio)
 			) 	
 		{
 			bp_core_add_message( __( 'Assegna tutti i voti', 'reviews' ),'error' );						
@@ -170,8 +140,8 @@ function invia_nuova_review()
 			$tipo_review_negativa = "undefined";											//$tipo_review_negativa "UNDEFINED"
 		}		
 		else if (		$giudizio_review 		== 'negativo'  
-						&&  $tipo_review_negativa 	== ""
-					) 	
+					&&  $tipo_review_negativa 	== ""
+				) 	
 		{
 			bp_core_add_message( __( 'Specifica il tipo di review negativa', 'reviews' ),'error' );									
 			return;
@@ -181,7 +151,6 @@ function invia_nuova_review()
 		// Undefined index: tipo_review_negativascreen-two.php on line 87
 	
 /*
-
 	
 	(*) vd rige above e riga 106
 	
@@ -232,7 +201,9 @@ function invia_nuova_review()
 			
 		// fa il REDIRECT
 		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/my-reviews' );			
-		//bp_core_redirect(wp_get_referer());  	//[ALT] - ma non pu� reindirizzarti alla scheda 'my-reviews' mi sa!																	
+		
+		//[ALT] - ma non pu� reindirizzarti alla scheda 'my-reviews' mi sa!																	
+			//bp_core_redirect(wp_get_referer());  
 	}	
 }
 
@@ -257,7 +228,7 @@ function accetta_review_negativa()
 		// [POST_vars]
 		$id_post = $_POST['id-post'];					
 			
-		// FUNCTION call (1)---> result var 			
+		// FUNCTION call (1) ---> result var 			
 		$post_status_result = bp_review_change_post_status($id_post, 'publish');
 					
 		// result var 1/2 <---			
@@ -269,7 +240,7 @@ function accetta_review_negativa()
 			
 		 //------------------------------------------------------------------------------------------------------------------------------------				
 		 //
-		 // TODO: test box
+		 //TODO: test box
 		 //
 		 // if($giudizio_review == "negativo") 
 		 // {  
@@ -283,20 +254,19 @@ function accetta_review_negativa()
 					
 					//-------------------- aggiorno AUTORE ----------------------------------------
 					
-					// AUTORE attuale
-					//$obj_post 		 = get_post($id_post);			
-					//$post_author_id  = $obj_post->post_author;					
+					// ricava AUTORE del Post attuale
+						//$obj_post 		 = get_post($id_post);			
+						//$post_author_id    = $obj_post->post_author;					
 					
 					//------ parte 1 ------
 					
 					// AUTORE nuovo
-					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");//usa una funzione, così puoi cambiare il nome!
 					$id_staff   = $user_staff->ID;										
-					error_log("id_staff =>  ______".$id_staff);  //LOG
-					$new_author_id = $id_staff;				
+					//error_log("id_staff =>  ______".$id_staff);  //LOG					
 					
 					// FUNCTION call (2) ---> result var 			
-					$post_author_result = bp_review_change_post_author($id_post, $new_author_id);
+					$post_author_result = bp_review_change_post_author($id_post, $id_staff);
 					
 					// result var <---		
 					if(!$post_author_result) 
@@ -309,28 +279,40 @@ function accetta_review_negativa()
 					}					
 					else
 					{
-						//------ parte 2 ------		(TODO: risolvere def. cancelladno '..reviewer_id...' dal plugin
+						//------ parte 2 ------		(//TODO: risolvere def. cancelladno '..reviewer_id...' dal plugin
 						
 						//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con post->author)
 						update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
 						
-						//(*)
-						$to_user_id   = get_post_meta($id_post, "bp_review_recipient_id", true); //---il destinatario della Revew
-						//(*)
-						//$from_user_id = $id_staff;
 
 						// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
-/*						
+
 						// - NOTIFICA - (1) - 
-						$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+												
+/* 		vd RIGHE 293,294   
+		(già fatto)						
+						$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");		//usa una funzione, così puoi cambiare il nome!
 						$id_staff   = $user_staff->ID;		
-						//$from_user_id = $id_staff;	//l'autore è il MODERATORE					(*)
-						bp_core_add_notification( $from_user_id,  		, $bp->review->slug, 'negative_review_accepted'); //	
-															
 */						
+						//ricava gli utenti
+						$from_user_id = $id_staff;												//l'autore della notifica è il MODERATORE		
+						$to_user_id	  = get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 
+
+						//--- ALT - oppure ricava AUTHOR post----
+						
+						// ricava AUTORE del Post attuale
+							//$obj_post 		 = get_post($id_post);			
+							//$post_author_id    = $obj_post->post_author;					
+						//$to_user_id	= $post_author_id;											
+						
+						//invia la Notifica
+						bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'negative_review_accepted' );  						
+																				
 						// - ACTIVITY - (1) - 										
 						$to_user_link   = bp_core_get_userlink( $to_user_id ); //non posso cambiarlo sopra (*)
 						//$from_user_link = bp_core_get_userlink( $from_user_id ); //non posso cambiarlo sopra (*)	//non serve se usa la parola "qualcuno"!
+						
+						//invia l'Activity
 						bp_review_record_activity( array
 						(
 							'type' => 'rejected_terms',
@@ -362,11 +344,13 @@ function accetta_review_negativa()
 					
 					//ricava gli utenti
 					$to_user_id		= get_post_meta($id_post, "bp_review_recipient_id", true);
-					$from_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true);					
-					
+					$from_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true); //--- ALT - oppure ricava AUTHOR post----					
+										
 					//ricava i link utenti
 					$to_user_link   = bp_core_get_userlink( $to_user_id );
 					$from_user_link = bp_core_get_userlink( $from_user_id );		
+					
+					//invia l'Activity
 					bp_review_record_activity( array
 					(
 						'type' => 'rejected_terms',
@@ -385,12 +369,8 @@ function accetta_review_negativa()
 			//------------------------------------------------------------------------------------------------------------------------------------				
 		}	
 		else
-		{
-			
-			//lo stato del post è rimasto "pending". non è riuscito a cambiarlo!
-						
-			
-		
+		{			
+			//lo stato del post è rimasto "pending". non è riuscito a cambiarlo!		
 		}			
 			
 		// result var 2/2 <---
@@ -436,25 +416,28 @@ function rifiuta_review_negativa()
 		$id_post = $_POST['id-post'];		
 
 		// FUNCTION call 
-		$post_status_result = change_referral_post_status($id_post, 'trash');				
+		$post_status_result = bp_review_change_post_status($id_post, 'trash');				
 									
 		// - NOTIFICA - 
 		
 		//ricava gli utenti
-		$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
-		$id_staff   = $user_staff->ID;		
+		$user_staff   = get_user_by("login", "Staff-Recensioni-Best2Best");
+		$id_staff     = $user_staff->ID;		
 		$from_user_id = $id_staff;	//l'autore della notifica è il MODERATORE		
-		$to_user_id	= get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 
-		//--- oppure AUTHOR post----
+		$to_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 
 		
+		//--- ALT - oppure ricava AUTHOR post----		
+		// ricava AUTORE del Post attuale
+			//$obj_post 		 = get_post($id_post);			
+			//$post_author_id    = $obj_post->post_author;					
+		//$to_user_id	= $post_author_id;			
+		
+		//invia la Notifica
 		bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'negative_review_refused' );  
 		
-		// - MAIL -
-		
-			// mandare una mail all'autore!	
-		
-		//-----------------------------------------------------------------------------------------------------------------
-		
+		// - MAIL -		
+			//TODO mandare una mail all'autore!	
+						
 		// result var <---
 		if($post_status_result)	
 		{				
