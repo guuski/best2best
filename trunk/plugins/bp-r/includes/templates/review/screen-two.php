@@ -263,12 +263,14 @@ get_header() ?>
 			<!-- class = "DateTextBox NoMonth"-->
 			<!-- value = "<?php //echo $datepicker?>"-->
 			
+			<!-- readonly = "readonly"-->
+			
 			<div>
 				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
 					
-					<input type="text" 	maxlength="2" size="2" style="width:auto;" 
+					<input type="text" 	maxlength="4" size="4" style="width:auto;" 
 					
-					readonly = "readonly"
+					
 					
 					name  = "datepicker" 
 					id    = "datepicker" 
