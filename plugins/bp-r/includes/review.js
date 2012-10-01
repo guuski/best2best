@@ -53,7 +53,7 @@ jQuery('#datepicker_2').datepicker(
 );
 */
 
-
+/*
 jQuery("input[name='datepicker']").datepicker(
 { 
 //    dateFormat: 		'dd/mm/yy'
@@ -101,6 +101,7 @@ jQuery("input[name='datepicker']").datepicker(
 			jQuery(this).datepicker('setDate', new Date(year, 1, 1));
 		}
 });
+*/
 
 //-------------------------------------------------------------------------------------------------------
 
@@ -495,7 +496,7 @@ function validateData_Rapporto ()
 	
 		
 	//if( !("#datepicker").is(':empty') )
-	
+/*	
 	if(data_3 == null)
 	//if(!jQuery('input[name="datepicker"]').is(':empty'))
 	{		
@@ -513,7 +514,25 @@ function validateData_Rapporto ()
 		
 		return true;
 	}
-	
+*/	
+	if(data < 1)														//TODO: validazione DATA 
+	//if(!jQuery('input[name="datepicker"]').is(':empty'))
+	{		
+		console.log("datA  :  " + data);
+			//console.log("datE  :  " + date);
+		//console.log("datA 3  :  " + data_3);		
+		
+		return false;
+	}		
+	else
+	{			
+		console.log("datA  :  " + data);
+			//console.log("datE  :  " + date);
+		//console.log("datA 3  :  " + data_3);
+		
+		return true;
+	}
+
 
 }	
 
