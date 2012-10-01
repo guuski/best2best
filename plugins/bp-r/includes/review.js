@@ -92,7 +92,7 @@ jQuery("input[name='datepicker']").datepicker(
 		{
 			var date = jQuery(this).datepicker('getDate');
 			//date.setDate(date.getDate() + 1);
-			console.log("date  :  " + date);
+			//console.log("date  :  " + date);
 		}
 		
 	,	onChangeMonthYear: function(year, month, inst) 
@@ -201,7 +201,7 @@ jQuery(document).ready(function()
 	
 	//---------------------------------------------
 	var prezzo   		 	 = jq("#prezzo");		
-	var servizio   		 	 = jq("#servizio");		
+	//var servizio   		 	 = jq("#servizio");				//va lo stesso		
 	//---------------------------------------------
 	
 	var data_rapporto   	 = jq("#datepicker");			
@@ -226,11 +226,13 @@ jQuery(document).ready(function()
 			||  !validateConsigliato()									
 			
 			//---------------------------------------------
-			||  !validateVotoPrezzo()							
-			||  !validateVotoServizio()							
+			//||  !validateVotoPrezzo()							
+			//||  !validateVotoServizio()							
+			
+			||  !validateVoti()				
 			//---------------------------------------------			
 			
-			||  !validateData_Rapporto()			//vuota-staccata!
+			||  !validateData_Rapporto()			
 			||	!validateGiudizio_Review() 
 			||	!validateTipoReviewNegativa() 
 			||  !validateDisclaimer()
@@ -260,30 +262,33 @@ jQuery(document).ready(function()
 				alert('Manca il campo "Lo Raccomdanderesti?"');
 				return false;			
 			}	
-			
 
 
-			
+			//-----------------------------------------------------
 			//voti,ratings 
+			//-----------------------------------------------------
+
+			if(!validateVoti()) 
+			{
+				alert('Assegna tutti i voti');
+				return false;			
+			}		
 			
-			//----------------------
+/*			
 			if(!validateVotoPrezzo()) 
 			{
 				alert('Voto Prezzo mancante');
 				return false;			
 			}				
-			//----------------------
 			
-			//----------------------
 			if(!validateVotoServizio()) 
 			{
 				alert('Voto Servizio mancante');
 				return false;			
-			}				
-			//----------------------
-
+			}					
+*/			
+			//-----------------------------------------------------
 			
-
 			if(!validateData_Rapporto()) 
 			{
 				alert('Manca la Data inizio Rapporto commerciale!');
@@ -373,6 +378,37 @@ function validateConsigliato()
 	}
 }
 
+
+//-----------------------------------------------------//-----------------------------------------------------//-----------------------------------------------------
+function validateVoti() 				
+{
+	var v1 = jQuery('input[name=prezzo]').val();
+	var v2 = jQuery('input[name=servizio]').val();
+	var v3 = jQuery('input[name=qualita]').val();
+	var v4 = jQuery('input[name=affidabilita]').val();
+	var v5 = jQuery('input[name=puntualita]').val();
+
+	if ( v1 < 1 || v2 < 1 || v3 < 1 || v4 < 1 || v5 < 1 ) 
+	{
+		//alert('servizio non settato');
+		//console.log("servizio(non settato)  :  " + s);
+		return false;	
+	}
+	else
+	{
+		//alert('servizio OK');	
+		//console.log("servizio(OK)  :  " + s);
+		return true;
+	}	
+	
+}
+
+//-----------------------------------------------------
+
+//-----------------------------------------------------
+// SERVIZIO
+//-----------------------------------------------------
+
 function validateVotoServizio() 				
 {
 	var s = jQuery('input[name=servizio]').val();
@@ -380,19 +416,21 @@ function validateVotoServizio()
 	if (s < 1) 
 	{
 		//alert('servizio non settato');
-		console.log("servizio(non settato)  :  " + s);
+		//console.log("servizio(non settato)  :  " + s);
 		return false;	
 	}
 	else
 	{
 		//alert('servizio OK');	
-		console.log("servizio(OK)  :  " + s);
+		//console.log("servizio(OK)  :  " + s);
 		return true;
 	}
 	
 }
 
-
+//-----------------------------------------------------
+// PREZZO
+//-----------------------------------------------------
 function validateVotoPrezzo() 				
 {
 	var p = jQuery('input[name=prezzo]').val();
@@ -400,13 +438,13 @@ function validateVotoPrezzo()
 	if (p < 1) 
 	{
 		//alert('prezzo non settato');
-		console.log("prezzo(non settato)  :  " + p);
+		//console.log("prezzo(non settato)  :  " + p);
 		return false;	
 	}
 	else
 	{
 		//alert('prezzo OK');	
-		console.log("prezzo(OK)  :  " + p);
+		//console.log("prezzo(OK)  :  " + p);
 		return true;
 	}
 	
@@ -428,7 +466,7 @@ function validateVotoPrezzo()
 }
 
 
-
+//-----------------------------------------------------//-----------------------------------------------------
 
 function validateData_Rapporto () 				
 {
@@ -461,17 +499,17 @@ function validateData_Rapporto ()
 	if(data_3 == null)
 	//if(!jQuery('input[name="datepicker"]').is(':empty'))
 	{		
-		console.log("datA  :  " + data);
-		//console.log("datE  :  " + date);
-		console.log("datA 3  :  " + data_3);		
+		//console.log("datA  :  " + data);
+			//console.log("datE  :  " + date);
+		//console.log("datA 3  :  " + data_3);		
 		
 		return false;
 	}		
 	else
 	{			
-		console.log("datA  :  " + data);
-		//console.log("datE  :  " + date);
-		console.log("datA 3  :  " + data_3);
+		//console.log("datA  :  " + data);
+			//console.log("datE  :  " + date);
+		//console.log("datA 3  :  " + data_3);
 		
 		return true;
 	}

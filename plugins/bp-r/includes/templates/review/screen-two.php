@@ -36,10 +36,13 @@ get_header() ?>
 		</ul>
 	</div>
 	
-	<!-- MESSAGGIO  Opt 1 -->
+	<!-- MSG 1 -->
 	<h5><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h5>
+	
+	<!-- MSG 2 -->
 	<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
 		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> </h6>						
+		
 	<!-- ------------------------------------------------------------------------------------------------------------------------- -->
 	<!--  FORM - met 2	- no inclusione ESTERNA
 	<!-- -------------------------------------------------------------------------------------------------------------------------- -->						
@@ -59,6 +62,13 @@ get_header() ?>
 		
 		<?php 
 
+		
+		$tipologia_rapporto  = '';		
+			// PHP Notice:  Undefined variable: tipologia_rapporto in screen-two.php on line 161
+			// PHP Notice:  Undefined variable: tipologia_rapporto in screen-two.php on line 169
+		
+		
+		
 			if(		!$_SERVER['REQUEST_METHOD']=='POST' 
 				//|| 	isset($_POST['$tipologia_rapporto'])
 			) 
@@ -74,91 +84,55 @@ get_header() ?>
 				$titolo 			 = '';
 				$contenuto  		 = '';
 */								
-				//$tipologia_rapporto  = '';										//prova a togliere QUESTA!	
-				//$_POST['tipologia_rapporto'] = 'undefined'; 	
+				$tipologia_rapporto  		 = '';										
+				$_POST['tipologia_rapporto'] = 'undefined'; 	
 				
 				$consigliato		  = '';						
 				$_POST['consigliato'] = 'undefined';
+								
+				$giudizio_review		  = '';		
+				$_POST['giudizio_review'] = 'undefined';
 				
-				$tipo_review_negativa	 = '';						
+				$tipo_review_negativa		   = '';						
 				$_POST['tipo_review_negativa'] = 'undefined';
-				
-/*				
-				$giudizio_review	 = '';		
-				
-				
-				
-				$disclaimer			 = '';		
 
-*/
+//				$disclaimer			 = '';		
 				
 			}
 			else 
 			{
-				//$_POST['tipologia_rapporto'] = 'undefined'; 	
-				//$_POST['consigliato'] 		 = 'undefined';
-				
-				//$tipologia_rapporto = $_POST['tipologia_rapporto'];			
 			
+				if( !isset($_POST['tipologia_rapporto']) )
+					$_POST['tipologia_rapporto'] = 'undefined'; 			
+				else 
+					$tipologia_rapporto = $_POST['tipologia_rapporto'];			
+
 				if( isset($_POST['consigliato']) )			
 					$consigliato = $_POST['consigliato'];			
 				else	
 					$consigliato = "undefined";
+									
+				if( isset($_POST['giudizio_review']) )			
+					$giudizio_review = $_POST['giudizio_review'];			
+				else	
+					$giudizio_review = "undefined";	
 					
-				//------------------	
 				if( isset($_POST['tipo_review_negativa']) )			
 					$tipo_review_negativa = $_POST['tipo_review_negativa'];			
 				else	
 					$tipo_review_negativa = "undefined";	
 			}
 
-		//-------------------------------------------------------------------
-				$prezzo 				= $_POST['prezzo'] 			or 0;
-				$servizio 				= $_POST['servizio'] 		or 0;
-				$qualita 				= $_POST['qualita'] 		or 0;
-				$puntualita 			= $_POST['puntualita'] 		or 0;
-				$affidabilita 			= $_POST['affidabilita'] 	or 0;
-				
-				$titolo 				= $_POST['review-title'] 	or '';
-				$contenuto 				= $_POST['review-content']	or '';
-				
-				
-				
-$datepicker = $_POST['datepicker']	or '';
-				
-				//-------------------------------------------------------------------------------------------
-				//-------------------------------------------------------------------------------------------			
-				$tipologia_rapporto = '';			
-				if( !isset($_POST['tipologia_rapporto']) )
-					$_POST['tipologia_rapporto'] = 'undefined'; 			
-				else 
-					$tipologia_rapporto = $_POST['tipologia_rapporto'];			
-				//-------------------------------------------------------------------------------------------	
-								
-				//-------------------------------------------------------------------------------------------
-				//-------------------------------------------------------------------------------------------
-/*				
-				$consigliato = '';			
-				if( !isset($_POST['consigliato']) )			
-					$_POST['consigliato'] = 'undefined'; 							
-				else 			
-					$consigliato = $_POST['consigliato'];						
-*/					
-				//-------------------------------------------------------------------------------------------
-
-				$giudizio_review    	= $_POST['giudizio_review']	or ''; 						
-
-				//-------------------------------------------------------------------------------------------
-				//-------------------------------------------------------------------------------------------
-				//$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or '';
-					// Undefined index: tipo_review_negativa bp-review-actions.php on line 105
-					// Undefined index: tipo_review_negativascreen-two.php on line 87				
-				
-				//$tipo_review_negativa 	= $_POST['tipo_review_negativa']	or 'undefined'; 	
-				//$tipo_review_negativa = "undefined";			//$tipo_review_negativa "UNDEFINED"
-				//-------------------------------------------------------------------------------------------
-				
-				$disclaimer				= $_POST['disclaimer']	or ''; 
+			//-------------------------------------------------------------------
+			$prezzo 				= $_POST['prezzo'] 			or 0;
+			$servizio 				= $_POST['servizio'] 		or 0;
+			$qualita 				= $_POST['qualita'] 		or 0;
+			$puntualita 			= $_POST['puntualita'] 		or 0;
+			$affidabilita 			= $_POST['affidabilita'] 	or 0;			
+			$titolo 				= $_POST['review-title'] 	or '';
+			$contenuto 				= $_POST['review-content']	or '';			
+			$datepicker 			= $_POST['datepicker']	    or '';									
+			$disclaimer				= $_POST['disclaimer']	    or ''; 
 			
 		?>
 						

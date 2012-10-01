@@ -1,5 +1,13 @@
 <?php
 
+//Warning
+//
+//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line .....236
+//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line .....237
+
+//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in   bp-review-notifications.php on line .....295
+//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line ....296
+
 //TODO
 //
 // --> bp_core_delete_notifications_by_type

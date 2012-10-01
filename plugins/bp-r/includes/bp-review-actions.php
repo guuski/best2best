@@ -308,7 +308,12 @@ function accetta_review_negativa()
 						//invia la Notifica
 						bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'negative_review_accepted' );  						
 																				
-						// - ACTIVITY - (1) - 										
+						// - ACTIVITY - (1) - 								
+					
+						//ricava gli utenti										
+						$to_user_id	  = get_post_meta($id_post, "bp_review_recipient_id", true); //dest dell Activity è il dest della Review (RECIPIENT) 
+						
+						//ricava i link utenti
 						$to_user_link   = bp_core_get_userlink( $to_user_id ); //non posso cambiarlo sopra (*)
 						//$from_user_link = bp_core_get_userlink( $from_user_id ); //non posso cambiarlo sopra (*)	//non serve se usa la parola "qualcuno"!
 						
