@@ -1,3 +1,5 @@
+//$('#submit_button').click(function() {								//ALT
+
 //-------------------------------------------------------------------------------------------------------
 // #datepicker
 //-------------------------------------------------------------------------------------------------------
@@ -186,7 +188,6 @@ function vote(point, field)
 //
 //------------------------------------------------------------------------------------------------------------
 
-//$('#submit_button').click(function() {									//ALT
 jQuery(document).ready(function()
 {
 	
@@ -215,7 +216,7 @@ jQuery(document).ready(function()
 	//key press	
 	titolo.keyup(validateTitolo);	
 	
-	//$('#submit_button').click(function() {								//ALT
+	
 	form.submit(function()		
 	{
 		//alert('entra FORM!');
@@ -518,18 +519,12 @@ function validateData_Rapporto ()
 	if(data < 1)														//TODO: validazione DATA 
 	//if(!jQuery('input[name="datepicker"]').is(':empty'))
 	{		
-		console.log("datA  :  " + data);
-			//console.log("datE  :  " + date);
-		//console.log("datA 3  :  " + data_3);		
-		
+		//console.log("datA  :  " + data);		
 		return false;
 	}		
 	else
 	{			
-		console.log("datA  :  " + data);
-			//console.log("datE  :  " + date);
-		//console.log("datA 3  :  " + data_3);
-		
+		//console.log("datA  :  " + data);						
 		return true;
 	}
 
@@ -588,13 +583,11 @@ function validateDisclaimer()
 	
 });
 
-
-//$('#submit_button').click(function() {		
-//("#review-form");		
-//jQuery('#datepicker_div').submit(function(e) 	
+//----------------------------------------------------------------------------------------------------------------------------
 
 jQuery('#review-form').submit(function(e) 	
 {
+/*
 	//
     e.preventDefault();
  
@@ -603,34 +596,38 @@ jQuery('#review-form').submit(function(e)
 	{
         jQuery('#errors').remove();
     }
-		 
+
+	 
     var errors = '';
 	var year = jQuery('#datepicker').val();		
 	console.log("year:  " + year);
 	
-	if (year.length == 0) 
+	if (year.length < 1) 
 	{
-        errors += '<span class="error"> 				</span>';
+        errors += '<span class="error"> e: </span>';
     } 
 	else 
 	{
 		var now 		= new Date();
 		var currentYear = now.getFullYear();
 
+		//---------------------------------------------------
 		if (year > currentYear || year < (currentYear - 100)) 
 		{
-			errors += '<span class="error"> anno non valido</span>';
+			errors += '<span class="error"> anno non valido </span>';
 		}	
+		//---------------------------------------------------
 	}
 	
 	if (errors != '') 
 	{
-        //jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker_div');
-		jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker');
+		//alert('data non valida');
+        jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker_div');
+		//jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker');		
     } 
 	else 
 	{
         alert('data valida');
     }
-	
+*/	
 });
