@@ -457,4 +457,41 @@ function rifiuta_review_negativa()
 		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-four' );				
 	}	
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//	NASCONDI Msg
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+add_action( 'bp_actions', 'nascondi_msg' );
+
+/**
+ *
+ */
+function nascondi_msg() 
+{		
+	if ( isset( $_POST['nascondi-msg-submit'] ) )		
+	{		
+		// [WPNONCE]
+		check_admin_referer( 'nascondi-msg-action');					
+
+		//ricava l'utente
+		$user_id = 	bp_loggedin_user_id(); 
+		
+		// FUNCTION call 
+		$result = update_user_meta( $user_id, 'review_form_msg_ack', true);														
+		
+		// result var <---
+		if($result)	
+		{				
+			//bp_core_add_message( __( 'OK','reviews' ) );
+		}
+		else 
+		{			
+			bp_core_add_message( __( 'errore', 'reviews' ) );			
+		}	
+		
+		//SCREEN 2
+		bp_core_redirect( bp_displayed_user_domain() . bp_get_review_slug() . '/screen-two' );				
+	}	
+}
 ?>

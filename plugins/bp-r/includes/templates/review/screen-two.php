@@ -39,10 +39,35 @@ get_header() ?>
 	<!-- MSG 1 -->
 	<h5><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h5>
 	
-	<!-- MSG 2 -->
+	<?php 
+		$user_id = bp_loggedin_user_id(); 
+		$review_form_msg_ack = get_user_meta( $user_id , 'review_form_msg_ack', true );		
+	?>
+	
+<?php if ( !$review_form_msg_ack ) : ?>
+	
+	<!-- MSG 2 --> <!-- //TODO: sposta style rules in "review.css" -->	
 	<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
-		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> </h6>						
-		
+		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> 
+	</h6>				
+	
+	<span>
+		<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="nascondi-msg-form" class="standard-form"> 		
+			<input type="submit" name="nascondi-msg-submit" id="nascondi-msg-submit" value="<?php _e( 'Non mostrare pi&ugrave', 'reviews' ); ?>" />						
+			<?php wp_nonce_field( 'nascondi-msg-action' ); ?>		
+		</form>
+	</span>	
+	
+	<span id="button"> </span>
+	
+<?php else : ?>
+
+	<!-- MSG 3 --> 
+	<h6><?php //_e('visto','reviews') ?> </h6>	
+	
+<?php endif; ?>	
+
+	
 	<!-- ------------------------------------------------------------------------------------------------------------------------- -->
 	<!--  FORM - met 2	- no inclusione ESTERNA
 	<!-- -------------------------------------------------------------------------------------------------------------------------- -->						
