@@ -587,3 +587,50 @@ function validateDisclaimer()
 }
 	
 });
+
+
+//$('#submit_button').click(function() {		
+//("#review-form");		
+//jQuery('#datepicker_div').submit(function(e) 	
+
+jQuery('#review-form').submit(function(e) 	
+{
+	//
+    e.preventDefault();
+ 
+    //
+	if (jQuery('#errors').length) 
+	{
+        jQuery('#errors').remove();
+    }
+		 
+    var errors = '';
+	var year = jQuery('#datepicker').val();		
+	console.log("year:  " + year);
+	
+	if (year.length == 0) 
+	{
+        errors += '<span class="error"> 				</span>';
+    } 
+	else 
+	{
+		var now 		= new Date();
+		var currentYear = now.getFullYear();
+
+		if (year > currentYear || year < (currentYear - 100)) 
+		{
+			errors += '<span class="error"> anno non valido</span>';
+		}	
+	}
+	
+	if (errors != '') 
+	{
+        //jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker_div');
+		jQuery('<div id="errors"/>').html(errors).appendTo('#datepicker');
+    } 
+	else 
+	{
+        alert('data valida');
+    }
+	
+});
