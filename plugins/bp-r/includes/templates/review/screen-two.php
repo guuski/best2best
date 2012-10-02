@@ -91,7 +91,7 @@ get_header() ?>
 			$contenuto = '';	
 			$tipologia_rapporto  	= '';		
 			$consigliato		 	= '';																
-			$datepicker			 	= '';														
+			$datepicker			 	= '';									//'' o 0 ?					
 			$giudizio_review		= '';								
 			$tipo_review_negativa 	= '';										
 			$disclaimer				= '';						
@@ -122,8 +122,8 @@ get_header() ?>
 					$consigliato		  = '';						
 				$_POST['consigliato'] = 'undefined';
 														
-					$datepicker= '';						
-				$_POST['disclaimer'] = 'undefined';				
+					$datepicker= '';									//'' o 0 ?
+				$_POST['datepicker'] = '';				
 				
 					$giudizio_review		  = '';		
 				$_POST['giudizio_review'] = 'undefined';
@@ -182,7 +182,12 @@ get_header() ?>
 					$consigliato = $_POST['consigliato'];			
 				else	
 					$consigliato = "undefined";
-									
+				
+				if( isset($_POST['datepicker']) )								
+					$datepicker = $_POST['datepicker'];			
+				else	
+					$datepicker = '';												//'' o 0 ?
+					
 				if( isset($_POST['giudizio_review']) )			
 					$giudizio_review = $_POST['giudizio_review'];			
 				else	
@@ -198,10 +203,7 @@ get_header() ?>
 				else	
 					$disclaimer = "undefined";	
 					
-				if( isset($_POST['datepicker']) )								
-					$datepicker = $_POST['datepicker'];			
-				else	
-					$datepicker = "undefined";		
+
 					
 			}
 
