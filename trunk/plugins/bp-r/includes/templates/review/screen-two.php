@@ -39,34 +39,28 @@ get_header() ?>
 	<!-- MSG 1 -->
 	<h5><?php _e( 'Scrivi una review per '.bp_get_displayed_user_fullname() , 'reviews' ) ?></h5>
 	
+	<!-- ---------------------- MSG 2 ----------------------------- --> 	
 	<?php 
 		$user_id = bp_loggedin_user_id(); 
 		$review_form_msg_ack = get_user_meta( $user_id , 'review_form_msg_ack', true );		
 	?>
 	
-<?php if ( !$review_form_msg_ack ) : ?>
-	
-	<!-- MSG 2 --> <!-- //TODO: sposta style rules in "review.css" -->	
-	<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
-		_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> 
-	</h6>				
-	
-	<span>
-		<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="nascondi-msg-form" class="standard-form"> 		
-			<input type="submit" name="nascondi-msg-submit" id="nascondi-msg-submit" value="<?php _e( 'Non mostrare pi&ugrave', 'reviews' ); ?>" />						
-			<?php wp_nonce_field( 'nascondi-msg-action' ); ?>		
-		</form>
-	</span>	
-	
-	<span id="button"> </span>
-	
-<?php else : ?>
-
-	<!-- MSG 3 --> 
-	<h6><?php //_e('visto','reviews') ?> </h6>	
-	
-<?php endif; ?>	
-
+	<?php if ( !$review_form_msg_ack ) : ?>		
+		<!-- //TODO: sposta style rules in "review.css" -->	
+		<h6 style="border: 1px solid #FFDE00; padding: 4px 10px; background: #FFFDD0;color: #666;"><?php 
+			_e('&Egrave; possibile inserire recensioni negative anonime. Selezionando un giudizio negativo potrete scegliere tra Anonimo o mantenere il proprio nome (registrato). ','reviews') ?> 
+		</h6>						
+		<span>
+			<form action = "<?php bp_review_form_action_screen_two() ?> " method="post" id="nascondi-msg-form" class="standard-form"> 		
+				<input type="submit" name="nascondi-msg-submit" id="nascondi-msg-submit" value="<?php _e( 'Non mostrare pi&ugrave', 'reviews' ); ?>" />						
+				<?php wp_nonce_field( 'nascondi-msg-action' ); ?>		
+			</form>
+		</span>			
+	<?php else : ?>
+		<!-- MSG 3 --> 
+		<h6><?php //_e('visto','reviews') ?> </h6>			
+	<?php endif; ?>	
+	<!-- ---------------------------------------------------------- --> 
 	
 	<!-- ------------------------------------------------------------------------------------------------------------------------- -->
 	<!--  FORM - met 2	- no inclusione ESTERNA
@@ -87,46 +81,98 @@ get_header() ?>
 		
 		<?php 
 
-		
-		$tipologia_rapporto  = '';		
-			// PHP Notice:  Undefined variable: tipologia_rapporto in screen-two.php on line 161
-			// PHP Notice:  Undefined variable: tipologia_rapporto in screen-two.php on line 169
-		
-		
-		
-			if(		!$_SERVER['REQUEST_METHOD']=='POST' 
-				//|| 	isset($_POST['$tipologia_rapporto'])
-			) 
-			{
-			
-/*				
-				$prezzo 			 = 0;
-				$servizio 			 = 0;
-				$qualita 			 = 0;
-				$puntualita 		 = 0;
-				$affidabilita 		 = 0;
-											
-				$titolo 			 = '';
-				$contenuto  		 = '';
-*/								
-				$tipologia_rapporto  		 = '';										
+			//PATCH
+			$prezzo 		= 0;										
+			$servizio 		= 0;										
+			$qualita 		= 0;										
+			$puntualita 	= 0;										
+			$affidabilita 	= 0;		
+			$titolo	 = '';		
+			$contenuto = '';	
+			$tipologia_rapporto  	= '';		
+			$consigliato		 	= '';																
+			$datepicker			 	= '';														
+			$giudizio_review		= '';								
+			$tipo_review_negativa 	= '';										
+			$disclaimer				= '';						
+								
+			//	
+			if(	!$_SERVER['REQUEST_METHOD']=='POST' ) 
+			{			
+					$prezzo 		= 0;										
+					$servizio 		= 0;										
+					$qualita 		= 0;										
+					$puntualita 	= 0;										
+					$affidabilita 	= 0;														
+				$_POST['prezzo'] 		= 0; 	
+				$_POST['servizio'] 		= 0; 	
+				$_POST['qualita'] 		= 0; 	
+				$_POST['puntualita'] 	= 0; 	
+				$_POST['affidabilita'] 	= 0; 	
+				
+					$titolo	 = '';											//nomi diversi! "titolo" - "review-title"
+				$_POST['review-title'] = 'undefined'; 	
+				
+					$contenuto = '';										
+				$_POST['review-content'] = 'undefined'; 				//nomi diversi! 
+				
+					$tipologia_rapporto  		 = '';										
 				$_POST['tipologia_rapporto'] = 'undefined'; 	
 				
-				$consigliato		  = '';						
+					$consigliato		  = '';						
 				$_POST['consigliato'] = 'undefined';
-								
-				$giudizio_review		  = '';		
+														
+					$datepicker= '';						
+				$_POST['disclaimer'] = 'undefined';				
+				
+					$giudizio_review		  = '';		
 				$_POST['giudizio_review'] = 'undefined';
 				
-				$tipo_review_negativa		   = '';						
+					$tipo_review_negativa		   = '';						
 				$_POST['tipo_review_negativa'] = 'undefined';
 
-//				$disclaimer			 = '';		
-				
+					$disclaimer	= '';						
+				$_POST['disclaimer'] = 'undefined';	
+
 			}
 			else 
 			{
-			
+	
+				if( !isset($_POST['review-title']) )						//nomi diversi! "titolo" - "review-title"
+					$_POST['review-title'] = 'undefined'; 			
+				else 
+					$titolo = $_POST['review-title'] ;			
+					
+				if( !isset($_POST['review-content']) )					//nomi diversi!
+					$_POST['review-content'] = 'undefined'; 			
+				else 
+					$contenuto = $_POST['review-content'];			
+										
+				if( !isset($_POST['prezzo']) )
+					$_POST['prezzo'] = 0; 			
+				else 
+					$prezzo = $_POST['prezzo'];			
+					
+				if( !isset($_POST['servizio']) )
+					$_POST['servizio'] = 0; 			
+				else 
+					$servizio = $_POST['servizio'];								
+					
+				if( !isset($_POST['qualita']) )
+					$_POST['qualita'] = 0; 			
+				else 
+					$qualita = $_POST['qualita'];								
+					
+				if( !isset($_POST['puntualita']) )
+					$_POST['puntualita'] = 0; 			
+				else 
+					$puntualita = $_POST['puntualita'];													
+					
+				if( !isset($_POST['affidabilita']) )
+					$_POST['affidabilita'] = 0; 			
+				else 
+					$affidabilita = $_POST['affidabilita'];														
+					
 				if( !isset($_POST['tipologia_rapporto']) )
 					$_POST['tipologia_rapporto'] = 'undefined'; 			
 				else 
@@ -146,19 +192,28 @@ get_header() ?>
 					$tipo_review_negativa = $_POST['tipo_review_negativa'];			
 				else	
 					$tipo_review_negativa = "undefined";	
+					
+				if( isset($_POST['disclaimer']) )			
+					$disclaimer = $_POST['disclaimer'];			
+				else	
+					$disclaimer = "undefined";	
+					
+				if( isset($_POST['datepicker']) )								
+					$datepicker = $_POST['datepicker'];			
+				else	
+					$datepicker = "undefined";		
+					
 			}
 
 			//-------------------------------------------------------------------
-			$prezzo 				= $_POST['prezzo'] 			or 0;
-			$servizio 				= $_POST['servizio'] 		or 0;
-			$qualita 				= $_POST['qualita'] 		or 0;
-			$puntualita 			= $_POST['puntualita'] 		or 0;
-			$affidabilita 			= $_POST['affidabilita'] 	or 0;			
-			$titolo 				= $_POST['review-title'] 	or '';
-			$contenuto 				= $_POST['review-content']	or '';			
-			$datepicker 			= $_POST['datepicker']	    or '';									
-			$disclaimer				= $_POST['disclaimer']	    or ''; 
-			
+			// OLD
+			//-------------------------------------------------------------------
+			//....
+			//$affidabilita = $_POST['affidabilita'] 	or 0;			
+			//$titolo 		= $_POST['review-title'] 	or '';
+			//....
+			//-------------------------------------------------------------------
+													
 		?>
 						
 		<!-- Review -->
@@ -177,6 +232,7 @@ get_header() ?>
 				echo $contenuto
 				?></textarea>
 			</div>
+			
 			<br />
 																	
 			<div id="new-review-tipologia">		
@@ -199,7 +255,9 @@ get_header() ?>
 					</label>
 				</fieldset>			
 			</div>
+			
 			<br/>	
+			
 			<div id="new-review-consigliato">		
 				<label for = "utente_consigliato"> <?php _e( 'Lo raccomanderesti?', 'reviews' ); ?></label>	
 				<fieldset name = "utente_consigliato" id = "utente_consigliato">	  	  
@@ -235,6 +293,7 @@ get_header() ?>
 					</label> 
 				</fieldset>			
 			</div>				
+			
 			<!--------------------------------------------- sezione RATING ------------------------------------->
 			<div id="new-review-rating">									
 				<div class="rating-container"><span class="rating-title"><?php _e( 'Prezzo', 'reviews' ); ?></span><ul id="prezzo" class='star-rating'>	
@@ -283,24 +342,20 @@ get_header() ?>
 				</ul><input type="hidden" name="affidabilita" value="<?php echo $affidabilita?>" />
 				</div>		
 			</div>	<!-- fine sezione RATING -->			
+			
 			<br/>	
 			
-			<!-- class = "DateTextBox NoMonth"-->
-			<!-- value = "<?php //echo $datepicker?>"-->
-			
+			<!-- class = "DateTextBox NoMonth"-->						
 			<!-- readonly = "readonly"-->
 		
 			<div id="datepicker_div">
-				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
-					
-					<input type="text" 	maxlength="4" size="4" style="width:auto;" 
-					
-					
-					
-					name  = "datepicker" 
-					id    = "datepicker" 
-					class = "DateTextBox NoCalendar"
-					value = "<?php echo $datepicker?>"> 
+				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>					
+					<input 
+						type="text" 	maxlength="4" size="4" style="width:auto;" 					
+						name  = "datepicker" 
+						id    = "datepicker" 
+						class = "DateTextBox NoCalendar"
+						value = "<?php echo $datepicker?>"> 
 				</label>							
 <!--				
 				<input type="text" maxlength="12" size="12" style="width:auto;" 
@@ -309,9 +364,7 @@ get_header() ?>
 					class = "DateTextBox NoYear"
 					> 
 -->					
-			</div>
-			
-<!-- <div id="errors"> </div>-->
+			</div>						
 			
 			<br />
 			
@@ -344,7 +397,9 @@ get_header() ?>
 					</fieldset>	
 				</div>
 			</div> <!--#radio-toolbar-->	
+			
 			<br />				
+			
 			<!-- Checkbox -->
 			<div id="new-review-disclaimer">		
 				<label for = "disclaimer"> <?php _e( 'Disclaimer, Termini e Condizioni', 'reviews' ); ?></label>	
@@ -352,7 +407,9 @@ get_header() ?>
 					<label for = "disclaimer"> <?php _e( 'Accetto', 'reviews' ); ?></label> <input type="checkbox" name="disclaimer" value="si" <?php if($disclaimer == "si") echo 'checked="checked"';?>/>	  
 				</fieldset>			
 			</div>
+			
 			<br />
+			
 			<!-- bottone INVIA -->									<!--ONCLICK:   ValidateForm(this.form)-->
 			<div id="new-review-options">
 				<br />
@@ -377,9 +434,10 @@ get_header() ?>
 </div><!-- #main-column -->
 <?php locate_template( array( 'sidebar.php' ), true ) ?>	
 </div><!-- #sidebar-squeeze -->
+</div>
 </div><!-- .padder -->
 
-</div><!-- #content -->
+<!-- #content -->
 
 <!-- FOOTER -->	
 <?php get_footer() ?>
@@ -389,33 +447,9 @@ get_header() ?>
 
 	function negativoSelezionato(azione)
 	{			
-		//var $checkedElement = jQuery('input[name=tipo_review_negativa]:checked');
-		//var $checkedElement = jQuery('input[name=tipo_review_negativa]').is(':checked');
-		
-		jQuery('input[name="tipo_review_negativa"]:checked').length == 0		
-		
-/*		
-		//if ( !$checkedElement.length) 
-		if ( $checkedElement.length == 0) 
-		{
-			// no option was selected, return false or alert
-		} 
-		else
-		{
-			jQuery('div#review-tipo-negativa-div').show("slow");
-			//if(		)	{	}
-		
-		}
-*/		
-		//var opt = $checkedElement.val();
-		
-		//----------------------------------------------------------------------
-
-		if (azione=='apri'	)//|| !$checkedElement.length) //TODO: oppure il radio button è selezionato)		
+		if (azione=='apri'	)
 			jQuery('div#review-tipo-negativa-div').show("slow");
 		if (azione=='chiudi')
 			jQuery('div#review-tipo-negativa-div').hide("slow");	
-
-		//----------------------------------------------------------------------
 	}
 </script>

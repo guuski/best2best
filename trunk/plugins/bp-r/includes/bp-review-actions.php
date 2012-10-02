@@ -62,8 +62,9 @@ function invia_nuova_review()
 		check_admin_referer( 'new_review_action' );			
 		
 		//-------------------------------------- recupera i valori inviati dal FORM ----------------------------------------------
-		$content  				= $_POST['review-content'];				
-		$title  				= $_POST['review-title'];				
+		
+		$content  				= $_POST['review-content'];				//nomi diversi!
+		$title  				= $_POST['review-title'];				//nomi diversi!
 		$tipologia_rapporto		= $_POST['tipologia_rapporto'];	 						
 		//consigliato			--> NON LO RECUPERO!			
 		$voto_prezzo    		= $_POST['prezzo'];					
@@ -71,7 +72,7 @@ function invia_nuova_review()
 		$voto_qualita			= $_POST['qualita'];
 		$voto_puntualita		= $_POST['puntualita'];
 		$voto_affidabilita		= $_POST['affidabilita'];						
-		$data_rapporto	    	= $_POST['datepicker'];				 
+		$data_rapporto	    	= $_POST['datepicker'];				 	//nomi diversi!
 		$giudizio_review    	= $_POST['giudizio_review'];								
 		
 		//(*) - vd RIGA 173				
