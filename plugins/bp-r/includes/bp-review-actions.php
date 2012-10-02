@@ -252,13 +252,14 @@ function accetta_review_negativa()
 				{								
 				// ----- 1) per le Review NEGATIVE del tipo "anonimo"  ----- 
 					
-					
-					//-------------------- aggiorno AUTORE ----------------------------------------
-					
-					// ricava AUTORE del Post attuale
+					// ricava AUTORE del Post attuale (mi serve per mandargli la notifica)
+					$original_reviewer_id = get_post_meta($id_post, "bp_review_reviewer_id", true); 	//TODO elimina reviewER					
+					//--- ALT - oppure ricava AUTHOR post----						
 						//$obj_post 		 = get_post($id_post);			
-						//$post_author_id    = $obj_post->post_author;					
-					
+						//$post_author_id    = $obj_post->post_author;
+													
+					//-------------------- aggiorno AUTORE ----------------------------------------
+										
 					//------ parte 1 ------
 					
 					// AUTORE nuovo
@@ -296,10 +297,8 @@ function accetta_review_negativa()
 						$id_staff   = $user_staff->ID;		
 */						
 						//ricava gli utenti
-						$from_user_id = $id_staff;												//l'autore della notifica è il MODERATORE		
-						$to_user_id	  = get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 
-
-						//--- ALT - oppure ricava AUTHOR post----
+						$from_user_id = $id_staff;				//l'autore della notifica è il MODERATORE		
+						$to_user_id	  = $original_reviewer_id;	//dest notifica è l'autore ORIGINALE della Review (REVIEWER_ID) 													
 						
 						// ricava AUTORE del Post attuale
 							//$obj_post 		 = get_post($id_post);			
