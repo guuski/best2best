@@ -264,8 +264,8 @@ get_header() ?>
 			<!-- value = "<?php //echo $datepicker?>"-->
 			
 			<!-- readonly = "readonly"-->
-			
-			<div>
+		
+			<div id="datepicker_div">
 				<label for = "datepicker"> <?php _e( 'Data Inizio Rapporto Commerciale ', 'reviews' ); ?>
 					
 					<input type="text" 	maxlength="4" size="4" style="width:auto;" 
@@ -285,6 +285,8 @@ get_header() ?>
 					> 
 -->					
 			</div>
+			
+<!-- <div id="errors"> </div>-->
 			
 			<br />
 			
