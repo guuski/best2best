@@ -289,13 +289,15 @@ jQuery(document).ready(function()
 				return false;			
 			}					
 */			
-			//-----------------------------------------------------
-			
-			if(!validateData_Rapporto()) 
-			{
-				alert('Manca la Data inizio Rapporto commerciale!');
-				return false;			
-			}
+//-----------------------------------------------------
+/*
+if(!validateData_Rapporto()) 
+{
+	alert('Manca la Data inizio Rapporto commerciale!');
+	return false;			
+}
+*/
+//-----------------------------------------------------
 
 			if(!validateGiudizio_Review()) 
 			{
@@ -516,19 +518,23 @@ function validateData_Rapporto ()
 		return true;
 	}
 */	
-	if(data < 1)														//TODO: validazione DATA 
-	//if(!jQuery('input[name="datepicker"]').is(':empty'))
-	{		
-		//console.log("datA  :  " + data);		
+
+
+		/*
+			if(data < 1)														//TODO: validazione DATA 
+			//if(!jQuery('input[name="datepicker"]').is(':empty'))
+			{		
+				//console.log("datA  :  " + data);		
+				return false;
+			}		
+			else
+			{			
+				//console.log("datA  :  " + data);						
+				return true;
+			}
+		*/
+
 		return false;
-	}		
-	else
-	{			
-		//console.log("datA  :  " + data);						
-		return true;
-	}
-
-
 }	
 
 	
@@ -588,6 +594,7 @@ function validateDisclaimer()
 jQuery('#review-form').submit(function(e) 	
 {
 /*
+
 	//
     e.preventDefault();
  
@@ -627,7 +634,7 @@ jQuery('#review-form').submit(function(e)
     } 
 	else 
 	{
-        alert('data valida');
+        //alert('data valida');
     }
 */	
 });
