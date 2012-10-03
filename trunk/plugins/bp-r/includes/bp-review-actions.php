@@ -161,6 +161,20 @@ function invia_nuova_review()
 */		
 		
 		
+		////////////////////////////		
+		if (		$giudizio_review == 'negativo'
+				&&	$tipo_review_negativa == "anonimo"
+			)			
+		{
+			$anonymous_reviewer_id	= bp_loggedin_user_id();
+		}		
+		else 
+		{
+			$anonymous_reviewer_id	= "undefined";
+		}
+				
+		////////////////////////////				
+
 		// FUNCTION call ---> result var [vd FILE 'bp-review-functions.php']
 		$review_sent_result = bp_review_send_review
 		(	
@@ -178,7 +192,8 @@ function invia_nuova_review()
 				'puntualita'	=> $voto_puntualita,
 				'affidabilita'	=> $voto_affidabilita
 			),			
-			$tipo_review_negativa
+			$tipo_review_negativa,
+			$anonymous_reviewer_id
 		);																																						
 
 		// result var <---							

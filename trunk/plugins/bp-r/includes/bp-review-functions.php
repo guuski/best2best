@@ -122,7 +122,8 @@ function bp_review_send_review	(
 									$title, $content, 
 									$giudizio_review, $data_rapporto, $tipologia_rapporto, 								
 									$voti,
-									$tipo_review_negativa																										
+									$tipo_review_negativa,
+									$anonymous_reviewer_id									
 								)
 {
 	global $bp;
@@ -145,7 +146,10 @@ function bp_review_send_review	(
 		$review = new Review( $db_args );		//istanzia oggetto della CLASSE 'Review'		
 			
 		//Save
-		$review_saved_result = $review->save( $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti, $tipo_review_negativa);																							
+		$review_saved_result = $review->save( $title, $content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti,
+											  $tipo_review_negativa,
+											  $anonymous_reviewer_id
+											);																							
 	}
 	//TODO: va esteso forse fino a comprendere la 2 parte che al momento rimane fuori
 	
@@ -158,7 +162,8 @@ function bp_review_send_review	(
 		// ------ (1) ------ per le Review NEGATIVE del tipo "anonimo" 	(sono in MODERAZIONE)
 		if($tipo_review_negativa == "anonimo") 		 
 		{		
-		
+			//TODO: evidata duplicazione codice...vd ramo 2 if
+			
 			// - NOTIFICA - (1) - 
 				
 				//---------------------------------------------------------------------------------------
@@ -191,6 +196,8 @@ function bp_review_send_review	(
 		{
 		// ------ (2) ------ per le Review NEGATIVE del tipo "registrato" (sono in MODERAZIONE)
 		
+			//TODO: evidata duplicazione codice...vd ramo 1 if
+			
 			// - NOTIFICA - (2) - 
 			
 				//---------------------------------------------------------------------------------------
