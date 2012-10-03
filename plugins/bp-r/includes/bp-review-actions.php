@@ -304,33 +304,35 @@ function accetta_review_negativa()
 
 						// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
 
-						// - NOTIFICA - (1) - 
-												
-/* 		vd RIGHE 293,294   
-		(già fatto)						
-						$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");		//usa una funzione, così puoi cambiare il nome!
-						$id_staff   = $user_staff->ID;		
-*/						
-						//ricava gli utenti
+						//ricava gli utenti per la NOTIFICA (1) e la ACTIVITY
 						$from_user_id = $id_staff;				//l'autore della notifica è il MODERATORE		
 						$to_user_id	  = $original_reviewer_id;	//dest notifica è l'autore ORIGINALE della Review (REVIEWER_ID) 													
-						
-						// ricava AUTORE del Post attuale
-							//$obj_post 		 = get_post($id_post);			
-							//$post_author_id    = $obj_post->post_author;					
-						//$to_user_id	= $post_author_id;											
-						
-						//invia la Notifica
+										
+						// - NOTIFICA - (1) - 
+																		
+						//invia la Notifica all' Autore ANONIMO)della Review (Original ReviewER)
 						bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'negative_review_accepted' );  						
-																				
-						// - ACTIVITY - (1) - 								
+														
+						// - NOTIFICA - (2) - 	
+						
+						//---- ricava gli utenti per la NOTIFICA (2) solamente ----						
+						//l'autore della notifica è il MODERATORE		
+						$from_user_id_notif_2 = $id_staff;	
+						//ild della notifica è il MODERATORE		
+						$to_user_id_notif_2  = get_post_meta($id_post, "bp_review_recipient_id", true);	
+												
+						//invia la Notifica!						
+						//la notifica nel caso di Review NEGATIVA non cambia --- è sempre una generica "new_review"					
+						bp_core_add_notification( $from_user_id_notif_2, $to_user_id_notif_2, $bp->review->slug, 'new_review' ); 	
+													
+						// - ACTIVITY - 								
 					
 						//ricava gli utenti										
 						$to_user_id	  = get_post_meta($id_post, "bp_review_recipient_id", true); //dest dell Activity è il dest della Review (RECIPIENT) 
 						
-						//ricava i link utenti
-						$to_user_link   = bp_core_get_userlink( $to_user_id ); //non posso cambiarlo sopra (*)
-						//$from_user_link = bp_core_get_userlink( $from_user_id ); //non posso cambiarlo sopra (*)	//non serve se usa la parola "qualcuno"!
+						// --- ricava i link utenti ---
+						//
+						$to_user_link   = bp_core_get_userlink( $to_user_id ); 
 						
 						//invia l'Activity
 						bp_review_record_activity( array
@@ -355,17 +357,21 @@ function accetta_review_negativa()
 				  // NOTA BENE: questa parte è uguale a quella delle Review POSITIVE e NEUTRE (vd riga 159 di 'bp-review-functions') 
 				  // ---------------------------------------------------------------------------------------------------------------
 					
-				  // - NOTIFICA - (2) - 
+//TODO: autori vuoti o errati!					
+					
+					
+					//ricava gli utenti per La NOTIFICA e la ACTIVITY
+					$to_user_id		= get_post_meta($id_post, "bp_review_recipient_id", true);					
+					$from_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true);
+					//--- ALT - oppure ricava AUTHOR post----					
+					
+				  // - NOTIFICA - 
 					
 					//la notifica nel caso di Review NEGATIVA non cambia --- è sempre una generica "new_review"
 					bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review' ); 	
 															
-				  // - ACTIVITY - (2) - 		
-					
-					//ricava gli utenti
-					$to_user_id		= get_post_meta($id_post, "bp_review_recipient_id", true);
-					$from_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true); //--- ALT - oppure ricava AUTHOR post----					
-										
+				  // - ACTIVITY - 		
+															
 					//ricava i link utenti
 					$to_user_link   = bp_core_get_userlink( $to_user_id );
 					$from_user_link = bp_core_get_userlink( $from_user_id );		
@@ -378,7 +384,7 @@ function accetta_review_negativa()
 						'item_id' => $to_user_id,
 					) );
 
-				  // - MAIL - (2) - 						
+				  // - MAIL - 						
 						// - 1 - //do_action( 'bp_review_send_review', $to_user_id, $from_user_id);		
 						// - 2 - 
 						bp_review_send_review_notification($to_user_id, $from_user_id);								

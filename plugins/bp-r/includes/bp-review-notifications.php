@@ -222,7 +222,7 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 			{
 			
 				//NO FILTER!
-				$text_title = __( 'una tua review negativa è stata accetata', 'reviews' );
+				$text_title = __( 'una tua review negativa è stata accettata', 'reviews' );
 			}
 
 			break;			
