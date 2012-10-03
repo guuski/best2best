@@ -38,7 +38,7 @@ global $bp
 */
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//	SCREEN-ONE (LISTA REVIEWS)- 1/5
+//	SCREEN-ONE (LISTA REVIEWS) 
 //   
 //  assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
@@ -52,14 +52,14 @@ function bp_review_screen_one()
 	
 	// DO ACTION
 	do_action( 'bp_review_screen_one' );													
+
+	// [W] - PHP Notice
+	// bp_core_delete_notifications_for_user_by_type � <strong>deprecata</strong> dalla versione 1.5! 
+	// ---> Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
 		
 	//cancella le notifiche di review dell'utente
-	//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');	
-	
-	// [W] - PHP Notice
-		// bp_core_delete_notifications_for_user_by_type � <strong>deprecata</strong> dalla versione 1.5! 
-		// Utilizzare al suo posto bp_core_delete_notifications_by_type(). in C:\Programmi\Apache Software Foundation\Apache2.2\htdocs\best2best\wp-includes\functions.php on line 3467
-		
+		//bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->review->id, 			'----NOME NOTFICA: new_review----		');	
+			
 	//carica 'screen_one.php'
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_one', 'review/screen-one' ) );	//FILTER - non usato da nessuno
 	
@@ -71,7 +71,7 @@ function bp_review_screen_one()
 	
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-TWO (SCRIVI REVIEW) - 2/5
+//	SCREEN-TWO (SCRIVI REVIEW)  
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -94,7 +94,7 @@ function bp_review_screen_two()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-THREE (REVIEW SCRITTE) - 3/5
+//	SCREEN-THREE (REVIEW SCRITTE)  
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -117,7 +117,7 @@ function bp_review_screen_three()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 //	
-//	SCREEN-FOUR (MODERA LE REVIEW NEGATIVE) - 4/5
+//	SCREEN-FOUR (MODERA LE REVIEW NEGATIVE)  
 //
 //	assegnata dentro il METODO setup_nav() del COMPONENTE Review nel FILE 'bp-review-loader.php'
 //
@@ -138,7 +138,7 @@ function bp_review_screen_four()
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-//	SCREEN-FIVE( review Negative in attesa di essere moderate) - 5/5
+//	SCREEN-FIVE ( review Negative in attesa di essere moderate ) 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 /**
@@ -155,4 +155,21 @@ function bp_review_screen_five()
 	bp_core_load_template( apply_filters( 'bp_review_template_screen_five', 'review/screen-five' ) );						
 }
 	
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//	SCREEN-SIX ( review ANONIME ) 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+
+/**
+ * SCREEN 6
+ */
+function bp_review_screen_six() 
+{
+	global $bp;
+	
+	// DO ACTION
+	do_action( 'bp_review_screen_six' );												
+		
+	//carica 'screen_six.php'
+	bp_core_load_template( apply_filters( 'bp_review_template_screen_six', 'review/screen-six' ) );						
+}	
 ?>

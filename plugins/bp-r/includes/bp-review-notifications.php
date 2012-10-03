@@ -1,18 +1,27 @@
 <?php
+/*
+-----------------------------------------
+Contenuto FILE:
+-----------------------------------------
+	
+----------------------------------------------------
+FILE, CLASSI, OGGETTI, METODI collegati o richiamati
+----------------------------------------------------
 
-//Warning
-//
-//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line .....236
-//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line .....237
+-----------------------------------------
+FUNZIONI e HOOKS (WordPress - Wp)
+-----------------------------------------			
 
-//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in   bp-review-notifications.php on line .....295
-//PHP Notice:  Use of undefined constant adesioni - assumed 'adesioni' in  bp-review-notifications.php on line ....296
+-----------------------------------------
+FUNZIONI e HOOKS (BuddyPress - Bp)
+-----------------------------------------
+ 
+-----------------------------------------
+global $bp
+-----------------------------------------
 
-//TODO
-//
-// --> bp_core_delete_notifications_by_type
-//
-//     EX Referral -- bp_core_delete_notifications_by_type(bp_loggedin_user_id(), $bp->example->slug,'new_referral_accepted');
+
+*/
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica - (1/2) -  per le Review POSITIVE, NEUTRE e NEGATIVE Registrato
@@ -32,10 +41,6 @@ function bp_review_remove_screen_one_notifications() //_screen_one_
 	//legata a SCREEN 1
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review' ); 
 	
-			//spostare....
-			bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_refused' ); 
-			bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_accepted' ); 
-			
 		
 }
 
@@ -43,7 +48,7 @@ function bp_review_remove_screen_one_notifications() //_screen_one_
 //	RIMUOVI Notifica -  
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'bp_review_screen_four', 'bp_review_remove_screen_four_notifications' );			//ACTION del plugin -- 'screen_four'																										
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_four_notifications' );
+//add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_four_notifications' );
 
 function bp_review_remove_screen_four_notifications() //_screen_four_
  {
@@ -51,26 +56,48 @@ function bp_review_remove_screen_four_notifications() //_screen_four_
 	
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_review_moderation_request' );
 }
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica -  
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'bp_review_screen_five', 'bp_review_remove_screen_five_notifications' );			//ACTION del plugin -- 'screen_five'																										
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_five_notifications' );
+//add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_five_notifications' );
 
 function bp_review_remove_screen_five_notifications() //_screen_five_
  {
 	global $bp;
 	
 	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'new_negative_review_sent' );
+	
+	//TODO - spostare....nello SCREEN 7 (review ANONIME rifiutate!)
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_refused' ); 			
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //	RIMUOVI Notifica -  
 //---------------------------------------------------------------------------------------------------------------------------------------------------
+add_action( 'bp_review_screen_six', 'bp_review_remove_screen_six_notifications' );			//ACTION del plugin -- 'screen_six'																										
 
+function bp_review_remove_screen_six_notifications() //_screen_six_
+ {
+	global $bp;
+	
+	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->review->slug, 'negative_review_accepted' ); 
+	
+	//bp_core_delete_notifications_by_type()
+	
+	
+}
 
+//BP_Core_Notification::delete_for_user_by_type( $user_id, $component_name, $component_action );
 
+	/*	
+	function delete_for_user_by_type( $user_id, $component_name, $component_action ) {
+		global $bp, $wpdb;
 
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
+	}
+	*/
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,6 +133,9 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 		//1	
 		case 'new_review':
 						
+			//LINK Screen 
+			$link = $bp->loggedin_user->domain . $bp->review->slug;			//Screen 1 - default "my-reviews"
+			
 			if ( (int)$total_items > 1 ) 
 			{
 				//return apply_filters( 'bp_review_multiple_new_review_notification', '<a class="ab-item" href="' . $bp->loggedin_user->domain . $bp->review->slug . '/" title="' . __( 'Multiple reviews', 'reviews' ) . '">' . sprintf( __( '%d new reviews', 'reviews' ), (int)$total_items ) . '</a>', $total_items );
@@ -123,6 +153,10 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 		
 		//2			
 		case 'new_negative_review_sent':	
+			
+			//LINK Screen 
+			$link = $bp->loggedin_user->domain . $bp->review->slug .'/screen-five';			//Screen 5
+			
 			/*		
 			if ( (int)$total_items > 1 ) 
 			{				
@@ -139,6 +173,9 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 			
 		//3
 		case 'new_review_moderation_request':	
+
+			//LINK Screen
+			$link = $bp->loggedin_user->domain . $bp->review->slug .'/screen-four';			//Screen 4		
 				
 			if ( (int)$total_items > 1 ) 
 			{				
@@ -155,6 +192,9 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 		//4
 		case 'negative_review_refused':	
 				
+			//LINK Screen
+			$link = $bp->loggedin_user->domain . $bp->review->slug .'/screen-five';			//Screen 5
+				
 			if ( (int)$total_items > 1 ) 
 			{				
 				$text_title = sprintf( __( '%d delle tue review negative inviate sono state rifiutate', 'reviews' ), (int)$total_items );
@@ -170,7 +210,10 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 			
 		//5
 		case 'negative_review_accepted':	
-				
+		
+			//LINK "Review Negative ANONIME scritte da me"						
+			$link = $bp->loggedin_user->domain . $bp->review->slug .'/screen-six';			//Screen 6
+			
 			if ( (int)$total_items > 1 ) 
 			{				
 				$text_title = sprintf( __( '%d delle tue review negative inviate sono state accettate/pubblicate', 'reviews' ), (int)$total_items );
@@ -189,7 +232,12 @@ function bp_review_format_notifications( $action, $item_id, $secondary_item_id, 
 	$return =  array
 	(
 		'text'  => $text_title,
-		'link'  => $bp->loggedin_user->domain . $bp->review->slug,
+		
+		//REDIRECT!	
+		
+//		'link'  => $bp->loggedin_user->domain . $bp->review->slug,					//LINK
+		'link'  => $link,	
+		
 		'title' => __( 'Reviews', 'reviews' )
 	);
 	

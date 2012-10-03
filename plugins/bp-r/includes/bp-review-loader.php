@@ -59,6 +59,8 @@ FUNZIONI e HOOKS (WordPress - Wp)
 FUNZIONI e HOOKS (BuddyPress - Bp)
 -----------------------------------------
 
+BUDDYPRESS
+
 	bp_loggedin_user_domain()
 	bp_core_new_subnav_item()
 	bp_get_settings_slug()
@@ -67,6 +69,10 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 	
 	bp_loaded	--->	bp_review_load_core_component
 	
+WORDPRESS
+
+	is_user_logged_in()	
+		
 -----------------------------------------
 global $bp
 -----------------------------------------
@@ -331,27 +337,57 @@ class BP_Review_Component extends BP_Component {
 
 	// ------- screen 5 ------- --------------------------Le mie Review in moderazione------------------------------------------------------------------------------
 	//
-	
-		$nav_text_screen_5		 = sprintf(__('Le mie Review in moderazione','reviews'));						
-		$review_link_screen_5  = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
-		
-		$sub_nav[] = array
-		(
-				'name'            => $nav_text_screen_5					
-			,	'slug'            => 'screen-five'															
-			,	'parent_url'      => $review_link_screen_5
-			,	'parent_slug'     => $this->slug														
-			, 	'screen_function' => 'bp_review_screen_five'								
-			,	'position'        => 60
+		if(								
+				   !bp_review_loggedin_user_is_staff_member() 
+				&& !bp_review_displayed_user_is_staff_member()
+			) 
+		{
+			$nav_text_screen_5		 = sprintf(__('Le mie Review in moderazione','reviews'));						
+			$review_link_screen_5  = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
 			
-			// ACCESS RESTRICTION - only allow on YOUR OWN profile 
-			,	'user_has_access' => 
-									(		is_user_logged_in()										
-										&&	bp_is_my_profile()
-									//	&&	bp_is_user()
-									)
-		);
-
+			$sub_nav[] = array
+			(
+					'name'            => $nav_text_screen_5					
+				,	'slug'            => 'screen-five'															
+				,	'parent_url'      => $review_link_screen_5
+				,	'parent_slug'     => $this->slug														
+				, 	'screen_function' => 'bp_review_screen_five'								
+				,	'position'        => 60
+				
+				// ACCESS RESTRICTION - only allow on YOUR OWN profile 
+				,	'user_has_access' => 
+										(		is_user_logged_in()										
+											&&	bp_is_my_profile()
+										//	&&	bp_is_user()
+										)
+			);
+		}
+		// ------- screen 6 ------- --------------------------Le mie Review ANONIME ------------------------------------------------------------------------------
+		//
+	
+		if(								
+				   !bp_review_loggedin_user_is_staff_member() 
+				&& !bp_review_displayed_user_is_staff_member()
+			) 
+		{
+			$nav_text_screen_6	  = sprintf(__('Review anonime','reviews'));						
+			$review_link_screen_6 = trailingslashit( $bp->loggedin_user->domain . $this->slug );	
+			
+			$sub_nav[] = array
+			(
+					'name'            => $nav_text_screen_6
+				,	'slug'            => 'screen-six'															
+				,	'parent_url'      => $review_link_screen_6
+				,	'parent_slug'     => $this->slug														
+				, 	'screen_function' => 'bp_review_screen_six'								
+				,	'position'        => 70
+				
+				// ACCESS RESTRICTION - only allow on YOUR OWN profile 
+				,	'user_has_access' => (		is_user_logged_in()										
+											&&	bp_is_my_profile()
+										 )
+			);
+		}
 		//-----------------------------------------
 		
 		//inserimento AUTOMATICO

@@ -98,7 +98,10 @@ class Review
 	/**
 	 * 
 	 */
-	function save($review_title, $review_content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti, $tipo_review_negativa) 														
+	function save($review_title, $review_content, $giudizio_review, $data_rapporto, $tipologia_rapporto, $voti, 
+				  $tipo_review_negativa, 
+				  $anonymous_reviewer_id
+				) 														
 	{	
 		global $wpdb, $bp;
 			
@@ -214,6 +217,7 @@ class Review
 				update_post_meta( $post_inserted_result, 'data_rapporto', $data_rapporto );		
 				update_post_meta( $post_inserted_result, 'tipologia_rapporto', $tipologia_rapporto );	
 				update_post_meta( $post_inserted_result, 'tipo_review_negativa', $tipo_review_negativa );											
+				update_post_meta( $post_inserted_result, 'bp_review_anonymous_reviewer_id', $anonymous_reviewer_id );		
 			}						
 			
 			//----------------------------------------------------------------------------------------------------------------------------	
