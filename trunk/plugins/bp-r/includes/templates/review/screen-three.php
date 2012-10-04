@@ -1,5 +1,5 @@
 <?php
-//--------------------------------------------------------------- SCREEN 3 -->  Le Reviews scritta da me-----------------------------------------------------------------------------------------
+//------------------------------------------------ SCREEN 3 - Le Reviews scritta da me------------------------------------------------
 get_header() ?>
 	
 	<!-- CONTENT -->
@@ -92,37 +92,57 @@ $loop = new WP_Query($query_args);
 		 <!------------------------------------------------>	
 		 <!-- Patch 1
 		 <!------------------------------------------------>	
-		 <?php if ( $post->post_type == "pending") : ?>	
-			<?php continue;?>
-		 <?php endif; ?>
+		 <?php //if ( $post->post_type == "pending") : ?>	
+			<?php //continue;?>
+		 <?php //endif; ?>
+		 
 		 <!------------------------------------------------>	
 		 <!-- Patch 2
 		 <!------------------------------------------------>			 
 		 <?php
+/*		 
 			$autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); 
 		 	if ($autore_review_id != $post->post_author) 
 			  continue;
+*/			  
 		?>					
+		
 		<!------------------------------------------------>			
-			<div class="title">
+		<?php
+			$id_autore_anonimo_review 	= get_post_meta( $post->ID, 'bp_review_anonymous_reviewer_id', true ); 
+			$nome_autore_anonimo_review = xprofile_get_field_data( "Nome" , $id_autore_anonimo_review);
+		?>	
 				
-				<?php $authorlogin = get_the_author_meta('user_login', get_post_meta( $post->ID, 'bp_review_recipient_id', true ));?>
-				<?php $autore_review_id = get_post_meta( $post->ID, 'bp_review_recipient_id', true ); ?>
-				<?php $nome = xprofile_get_field_data( "Nome" , $autore_review_id);?>	
-						
+			<div class="title">
+								
 				<small style = "float: right;"><strong>
 					<?php  _e('Recensione su: ');?> 
-					<a href="<?php echo bp_core_get_user_domain(get_post_meta( $post->ID, 'bp_review_recipient_id', true ))?>">
-					<?php  // the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true )) 
-					echo $nome;?> 
-					</a></strong></small>
-					<br />
-					<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
+
+					<a href="<?php echo bp_core_get_user_domain(get_post_meta( $post->ID, 'bp_review_recipient_id', true ))?>">	
+							<?php  the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true ))	?>			
+					</a></strong>
+				</small>
+				
+				<br />
+				
+				<!-- Se l'utente è dello STAFF--->
+				<?php if (	bp_review_loggedin_user_is_staff_member() && bp_review_displayed_user_is_staff_member() ) : ?>					
+														
+					<small style = "float: right;"><strong>
+						<?php  _e('Autore Anonimo: ');?> 
+
+						<a href="<?php  echo bp_core_get_user_domain($autore_anonimo_review_id) ?>">	
+								<?php  echo $nome_autore_anonimo_review	?>			
+						</a></strong>
+					</small>			
+				<?php endif ?>				
+									
+				<?php  the_title('<h4 class="pagetitle"> <a href="' . get_permalink() . '" title="' . the_title_attribute('echo=0') . '"rel="bookmark">','</a></h4>');?>
+					
 			</div>	
-			<?php if ( is_user_logged_in() ) : ?>
+
+<?php if ( is_user_logged_in() ) : ?>
 			<div class="entry">
-				<?php //the_content();  ?>	
-				<?php //the_content('Leggi il resto della Review',true);?>				<!-- bisogna aggiungere dall EDITOR o con un filtro il tag <!--more-->
 				<?php the_excerpt();  ?>	
 			</div>			
 			
@@ -137,15 +157,12 @@ $loop = new WP_Query($query_args);
 					$puntualita 	= get_post_meta( $post->ID, 'voto_puntualita', true );
 					$affidabilita 	= get_post_meta( $post->ID, 'voto_affidabilita', true );
 					
-					//---------------------------------------------------------------------------------------
-					
 					$giudizio_review	 = get_post_meta( $post->ID, 'giudizio_review', true );
 					$data_rapporto 		 = get_post_meta( $post->ID, 'data_rapporto', true );
 					$tipologia_rapporto  = get_post_meta( $post->ID, 'tipologia_rapporto', true );
-															
-				?>
-				
+				?>				
 			<div>
+			
 			<?php 			
 				if($giudizio_review == 'positivo')  			
 				{
@@ -168,8 +185,7 @@ $loop = new WP_Query($query_args);
 			</p>
 			<p><strong> <?php _e( 'Data Inizio Rapporto: ', 'reviews' ); ?> </strong><?php echo $data_rapporto ?></p>
 			<p><strong> <?php _e( 'Tipologia', 'reviews' ); ?>:  </strong> <?php echo $tipologia_rapporto ?></p>
-		</div>	
-		<!-------------------------------------------------------------------------------------->		
+		</div>			
 		
 		<br/> 		
 			
@@ -198,75 +214,75 @@ $loop = new WP_Query($query_args);
 			<!-- <div id='current-rating-result'></div>  used to show "success" message after vote -->
 					  
 		</div>	<!-- fine sezione RATING -->		
+					
+			</div>							
 		
-			<!------------------------------------------------------------------------------------------------->					
-			</div>				
-			
 			<br/>
 			
 			<!-- COMMENTI -->
 			<?php comments_popup_link('Nessun Commento', '1 Commento', '% Commenti'); ?> 
 			<hr />
-			<?php else : ?>
-	<?php $length= 100; { // Outputs an excerpt of variable length (in characters)
-// 		global $post;
-		$text = $post->post_excerpt;
-		if ( '' == $text ) {
-			$text = get_the_content('');
-			$text = apply_filters('the_content', $text);
-			$text = str_replace(']]>', ']]>', $text);
-		}
+	
+<?php else : ?>
+	
+		<?php 
+			$length= 100; 
+	{ 
+			// Outputs an excerpt of variable length (in characters)
+			//global $post;
+			$text = $post->post_excerpt;
+			if ( '' == $text ) 
+			{
+				$text = get_the_content('');
+				$text = apply_filters('the_content', $text);
+				$text = str_replace(']]>', ']]>', $text);
+			}
 			$text = strip_shortcodes( $text ); // optional, recommended
 			$text = strip_tags($text); // use ' $text = strip_tags($text,'<p><a>'); ' to keep some formats; optional
 			$text = substr($text,0,$length);
 
-		echo apply_filters('the_excerpt',$text);
+			echo apply_filters('the_excerpt',$text);
 	}  ?>
 	
-	<div class="entry"><p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p></div>
+	<div class="entry">
+		<p><?php printf(__('<a href="%s">Registrati</a> oppure <a href="%s">accedi</a> per leggere questa recensione', 'custom'), esc_url( site_url( 'wp-login.php?action=register', 'login' ) ) , wp_login_url( get_permalink() )); ?></p>
+	</div>
 	
 <?php endif; ?>
 					
-		<?php endwhile; ?>
-		
-		
-<!-----------------------------------------fine WHILE ------------------------------------------------------------------------------------------------------->		
-	
-		
-<!-------------------FORM ------------------------------------------------->		
-	
 
-<?php if ( !($_SERVER['REQUEST_METHOD']=='POST' 	|| 	isset($_POST['show-all-reviews']) )) : ?>	
+<!-----------------------------------------fine WHILE ------------------------------------------------------------------------------->							
+<?php endwhile; ?>			
 
-<form 
-	action = ""
-	method = "post" id="show-all-reviews-form" 
-	class  = "standard-form">							
+			
+<!-------------------FORM bottone ------------------------>			
+<?php if ( 		!($_SERVER['REQUEST_METHOD']=='POST' 	
+			|| 	isset($_POST['show-all-reviews']) )) : ?>	
+			
+<form action = ""	method = "post" id="show-all-reviews-form" 	class  = "standard-form">							
 	<div >								
 		<input type="submit" name="show-all-reviews" id="show-all-reviews" value="<?php _e( 'mostra tutte le review', 'reviews' ); ?>" />
 	</div>	
-
 </form>		
 
+<br/>
+<br/>
 
-<br/><br/>
-	
 <?php endif; ?>
-<!---------------fine FORM ------------------------------------------------->		
+<!---------------fine FORM bottone ------------------------>		
 
-	
-	
-	<?php else: ?>		
+
+<?php else: ?>		
 		
-		<!-- MESSAGGIO -->
-		<h5><?php _e( 'L\' utente non ha scritto nessuna Review ', 'reviews' ) ?></h5>												
+	<!-- MESSAGGIO -->
+	<h5><?php _e( 'L\' utente non ha scritto nessuna Review ', 'reviews' ) ?></h5>												
 		
-	<?php endif; ?>
+<?php endif; ?>
 	
-	<!-- IMPORTANTE -->
-	<?php wp_reset_postdata() ?>		
+<!-- IMPORTANTE -->
+<?php wp_reset_postdata() ?>		
 	
-	<!-- -------------------------------check chiusura DIV sottostanti--------------------------------------------------------------------------------------------------------------->
+<!-- -------------------------------//TODO check chiusura DIV sottostanti------------------------------------------------------------------->
 
 </div><!-- #item-body -->
 </div><!-- .padder -->

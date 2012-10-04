@@ -263,6 +263,8 @@ class BP_Review_Component extends BP_Component {
 			);
 //}
 		
+		// ------- screen 1 ------- --------------------------scrivi review ------------------------------------------------------------------------------				
+		
 		// aggiunge la TAB "Scrivi Review"
 		if(			
 					bp_review_current_user_can_write() 				
@@ -290,21 +292,66 @@ class BP_Review_Component extends BP_Component {
 				,	'position'        => 20
 			);
 		}
-				
-		if(bp_is_my_profile())
-		{
-			$nav_text_2	 =	sprintf(__('Review scritte da me','reviews'));						
-			$review_link_2 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );				
-		}
-		else
-		{
-			$nav_text_2	 =	sprintf (__('Le Review scritte da %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
-			$review_link_2 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);				
-		}		  
 		
-		// aggiunge la TAB "Modera le review NEGATIVE"
-		if(bp_review_current_user_can_moderate()) 																			//nome ambiguo!
+		// ------- screen 3 ------- --------------------------review scritte ------------------------------------------------------------------------------		
+				
+		// bp_review_loggedin_user_is_staff_member()
+		// bp_review_displayed_user_is_staff_member()
+		
+		if(	!bp_review_displayed_user_is_staff_member() ) 
 		{
+			if(bp_is_my_profile())
+			{
+				$nav_text_screen_3	 =	sprintf(__('Review scritte da me','reviews'));						
+				$review_link_screen_3 = 	trailingslashit( $bp->loggedin_user->domain . $this->slug );				
+			}
+			else
+			{
+				$nav_text_screen_3	  =	sprintf (__('Le Review scritte da %s', 'reviews'),  bp_core_get_user_displayname ($bp->displayed_user->id));				
+				$review_link_screen_3 = 	trailingslashit( $bp->displayed_user->domain . $this->slug);				
+			}		  
+		}	
+		else 
+		{
+			if(		bp_is_my_profile()
+				&&  bp_review_loggedin_user_is_staff_member()
+			)
+			{
+				$nav_text_screen_3	  =	sprintf(__('Review anonime pubblicate','reviews'));						
+				$review_link_screen_3 = trailingslashit( $bp->loggedin_user->domain . $this->slug );				
+			}
+			else
+			{
+				$nav_text_screen_3    =	sprintf (__('Review anonime', 'reviews'));				
+				$review_link_screen_3 = trailingslashit( $bp->displayed_user->domain . $this->slug);				
+			}		  			
+		}	
+					
+		$sub_nav[] = array
+		(
+				'name'            => $nav_text_screen_3				
+			,	'slug'            => 'screen-three'															
+			,	'parent_url'      => $review_link_screen_3
+			,	'parent_slug'     => $this->slug														
+			,	'screen_function' => 'bp_review_screen_three'  // IMPORTANTE: funzione 'bp_review_screen_three()' nel FILE....						
+			,	'position'        => 30
+		);
+
+		// ------- screen 4 ------- --------------------------Modera le revoew NEGATIVE ------------------------------------------------------------------------------
+
+		// aggiunge la TAB "Modera le review NEGATIVE"
+		if(bp_review_current_user_can_moderate()) 															//nome ambiguo!
+		{
+
+		/*
+				if(			
+						//invece di ...bp_review_current_user_can_moderate()
+						
+						   !bp_review_loggedin_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review			
+						&& !bp_review_displayed_user_is_staff_member() //l'utente "Staff-Recensioni-Best2best" non ha necessità di scrivere Review							
+					) 
+				{
+		*/				
 			$sub_nav[] = array
 			(
 					'name'            => __('Modera le review NEGATIVE', 'reviews' )				
@@ -323,18 +370,6 @@ class BP_Review_Component extends BP_Component {
 				
 			);
 		}		
-		
-		$sub_nav[] = array
-		(
-				'name'            => $nav_text_2				
-			,	'slug'            => 'screen-three'															
-			,	'parent_url'      => $review_link_2
-			,	'parent_slug'     => $this->slug														
-			,	'screen_function' => 'bp_review_screen_three'  // IMPORTANTE: funzione 'bp_review_screen_three()' nel FILE....						
-			,	'position'        => 30
-		);
-
-
 	// ------- screen 5 ------- --------------------------Le mie Review in moderazione------------------------------------------------------------------------------
 	//
 		if(								
