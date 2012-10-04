@@ -40,8 +40,9 @@ FUNZIONI e HOOKS (BuddyPress - Bp)
 // COSTANTI 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 	
-// 1 - Contiene il path alla cartella del plugin 
-define( 'BP_REVIEW_PLUGIN_DIR', dirname( __FILE__ ) );
+define( 'BP_REVIEW_PLUGIN_DIR', dirname( __FILE__ ) ); // contiene il path alla cartella del plugin 
+//define( 'BP_REVIEW_		', dirname( __FILE__ ) );  // 												//TODO usa costante/funzione per nome utente Staff Best2best
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 // INIT

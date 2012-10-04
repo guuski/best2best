@@ -66,12 +66,12 @@
 			<!-------------------------------------- get AUTHOR --Autore -------------------------------------->
 			
 			<?php 
-				$autore_id	   = $post->post_author; 
-				$autore_nome   = xprofile_get_field_data( "Nome" , $autore_id); 		
+				//$autore_id	   = $post->post_author; 
+				//$autore_nome   = xprofile_get_field_data( "Nome" , $autore_id); 		
 				//$autore_nome = bp_core_get_user_displayname($autore_id); 
 				//$autore_nome = bp_core_get_user_displayname( $autore_id, false ); 
 				//$autore_nome = bp_members_get_user_nicename( $autore_id ); 			
-				$authorlogin	  = get_the_author_meta('user_login');
+				//$authorlogin	  = get_the_author_meta('user_login');
 				$autore_review_id = get_post_meta( $post->ID, 'bp_review_reviewer_id', true ); //TODO bp_review_reviewer_id sostituire con AUTHOR 
 				$nome 			  = xprofile_get_field_data( "Nome" , $autore_review_id);
 			?>	
@@ -88,8 +88,30 @@
 					?>
 				</h4>			
 				<!------------------------------------------------------------------------------------------------------------------->								
-			</div>									
-			<br/>											
+			</div>					
+
+			<?php 
+				$tipo_review_negativa = get_post_meta( $post->ID, 'tipo_review_negativa', true );
+				
+				if($tipo_review_negativa == 'anonimo')  			
+				{
+					$color = 'red';
+					$tipo = 'anonima';
+				}
+				else 
+				{
+					$color = 'green';
+					$tipo = 'non anonima';
+				}			
+			?>
+							
+			<p>
+				<strong > <?php _e( 'Tipo Review Negativa: ', 'reviews' ); ?></strong> 
+				<span style = "color: <?php echo $color?>"> <?php echo $tipo?></span>
+			</p>
+
+			<br/>			
+			
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
 	<!--  2 FORM -
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------->						

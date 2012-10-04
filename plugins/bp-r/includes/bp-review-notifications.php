@@ -27,7 +27,7 @@ global $bp
 //	RIMUOVI Notifica - (1/2) -  per le Review POSITIVE, NEUTRE e NEGATIVE Registrato
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 add_action( 'bp_review_screen_one', 'bp_review_remove_screen_one_notifications' );			//ACTION del plugin -- 'screen_one'																										
-add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_one_notifications' );
+//add_action( 'xprofile_screen_display_profile', 'bp_review_remove_screen_one_notifications' );
 
 /**
  *

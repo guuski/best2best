@@ -173,7 +173,7 @@ function bp_review_send_review	(
 				bp_core_add_notification( $new_from_user_id, $new_to_user_id, $bp->review->slug, 'new_negative_review_sent' ); 	//new_from_user_id //new_to_user_id													
 														
 				//notifica allo staff MODERATORE ---- ($to_user_id --> id_staff   )
-				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");			//TODO usa costante/funzione per nome utente Staff Best2best
 				$id_staff   = $user_staff->ID;		
 				$to_user_id = $id_staff;
 				bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation_request' ); 	//id_staff													
@@ -188,7 +188,7 @@ function bp_review_send_review	(
 			// - MAIL - (1) - 
 					
 				//MAIL di notifica allo staff MODERATORE --- c'è una review NEGATIVA da moderare!
-					//bp_review_send_review_notification($to_user_id, $from_user_id);											
+					//bp_review_send_review_notification($to_user_id, $from_user_id);								//TODO usa costante/funzione per nome utente Staff Best2best			
 					
 				// non c'è bisogno di mandare una mail all'autore!	
 		}
@@ -207,7 +207,7 @@ function bp_review_send_review	(
 				bp_core_add_notification( $new_from_user_id, $new_to_user_id, $bp->review->slug, 'new_negative_review_sent' ); 	//new_from_user_id //new_to_user_id													
 															
 				//notifica allo staff MODERATORE ---- ($to_user_id --> id_staff   )
-				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");
+				$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");				//TODO usa costante/funzione per nome utente Staff Best2best
 				$id_staff   = $user_staff->ID;		
 				$to_user_id = $id_staff;
 				bp_core_add_notification( $from_user_id, $to_user_id, $bp->review->slug, 'new_review_moderation_request' ); 	//id_staff													
@@ -363,7 +363,7 @@ function bp_review_current_user_can_write()
 //	verifica se l'utente può MODERARE le review NEGATIVE	 
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-		function bp_review_current_user_can_moderate()
+		function bp_review_current_user_can_moderate()									//TODO usa costante/funzione per nome utente Staff Best2best
 		{
 			$can_moderate = false;
 
@@ -378,7 +378,15 @@ function bp_review_current_user_can_write()
 			return apply_filters('bp_review_current_user_can_moderate',$can_moderate);
 		}
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------		
+//	GET STAFF_MEMBER ID 
+//--------------------------------------------------------------------------------------------------------------------------------------------------				
 
+//function bp_review_get_staff_member(	id, name)											//TODO usa costante/funzione per nome utente Staff Best2best
+																	
+																	
+																	
+																	
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 //	IS_STAFF_MEMBER? - (1) DISPLAYED User
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -391,7 +399,7 @@ function bp_review_displayed_user_is_staff_member()
 	$user_name = bp_core_get_user_displayname( $user_id, false );
 
 	// se l'utente si chiama...
-	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+	if(	$user_name == "Staff-Recensioni-Best2Best" )					//TODO usa costante/funzione per nome utente Staff Best2best
 		$is_staff_member = true;
 		
 	//FILTER	
@@ -403,7 +411,7 @@ function bp_review_displayed_user_is_staff_member()
 //	IS_STAFF_MEMBER?  - (2) LOGGED IN User
 //--------------------------------------------------------------------------------------------------------------------------------------------------		
 
-function bp_review_loggedin_user_is_staff_member()
+function bp_review_loggedin_user_is_staff_member()										
 {
 	$is_staff_member = false;
 
@@ -411,7 +419,7 @@ function bp_review_loggedin_user_is_staff_member()
 	$user_name = bp_core_get_user_displayname( $user_id, false );
 
 	// se l'utente si chiama...
-	if(	$user_name == "Staff-Recensioni-Best2Best" )		
+	if(	$user_name == "Staff-Recensioni-Best2Best" )									//TODO usa costante/funzione per nome utente Staff Best2best
 		$is_staff_member = true;
 		
 	//FILTER	

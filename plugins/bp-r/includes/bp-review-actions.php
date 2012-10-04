@@ -278,7 +278,7 @@ function accetta_review_negativa()
 					//------ parte 1 ------
 					
 					// AUTORE nuovo
-					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");//usa una funzione, così puoi cambiare il nome!
+					$user_staff = get_user_by("login", "Staff-Recensioni-Best2Best");//usa una funzione, così puoi cambiare il nome!         //TODO usa costante/funzione per nome utente Staff Best2best
 					$id_staff   = $user_staff->ID;										
 					//error_log("id_staff =>  ______".$id_staff);  //LOG					
 					
@@ -299,7 +299,7 @@ function accetta_review_negativa()
 						//------ parte 2 ------		(//TODO: risolvere def. cancelladno '..reviewer_id...' dal plugin
 						
 						//set META TAGS - aggiorno il tag "reviewer" (AUTORE della review...coincide con post->author)
-						update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);
+						update_post_meta($id_post, "bp_review_reviewer_id", $id_staff);										//TODO usa costante/funzione per nome utente Staff Best2best
 						
 
 						// -------------------------------------- NOTIFICA, ATTIVITA, MAIL  -----------------------------------------------
@@ -447,7 +447,7 @@ function rifiuta_review_negativa()
 		// - NOTIFICA - 
 		
 		//ricava gli utenti
-		$user_staff   = get_user_by("login", "Staff-Recensioni-Best2Best");
+		$user_staff   = get_user_by("login", "Staff-Recensioni-Best2Best");			//TODO usa costante/funzione per nome utente Staff Best2best
 		$id_staff     = $user_staff->ID;		
 		$from_user_id = $id_staff;	//l'autore della notifica è il MODERATORE		
 		$to_user_id   = get_post_meta($id_post, "bp_review_reviewer_id", true); //dest notifica è l'autore della Review (REVIEWER_ID) 

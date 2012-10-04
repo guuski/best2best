@@ -1,5 +1,5 @@
 <?php
-//--------------------------------------------------- Review NEGATIVE inviate da me in attesa di esser Moderate ------------------------------------------------------------------------------->		
+//--------------------------------------------------- Review ANONIME scritte da me -------------------------------------------------------------------------------		
 ?>
 
 <!-- HEADER -->
@@ -41,20 +41,28 @@
 			</ul>
 		</div>
 	
-	<!-- --------------------------------------------------- Review NEGATIVE inviate da me in attesa di esser Moderate ------------------------------------------------------------------------------->		
+	<!-- --------------------------------------------------- Review ANONIME scritte da me ------------------------------------------------------------------------------->		
 	
 	<!-- MESSAGGIO  -->
-	<h4><?php //_e( 'Review NEGATIVE inviate da me in attesa di esser Moderate', 'reviews' ) ?></h4>
+	<h4><?php //_e( 'Review ANONIME scritte da me', 'reviews' ) ?></h4>
 		
 	<?php		
 	
 		$query_args = array
 		(
-				'post_status' => 'pending'				// PENDING
-			,	'post_type'	  => 'review'				//'review'
-			,   'author'	  => bp_displayed_user_id()	
+				'post_status' => 'publish'			// PUBLISH
+			,	'post_type'	  => 'review'			// 'review'			
+			,	'meta_query'  => array()							//META_QUERY!
 		);
-
+		
+		//META_QUERY!
+		$query_args['meta_query'][] = array					
+		(
+				'key'	  => 'bp_review_anonymous_reviewer_id',
+				'value'	  => (array)bp_displayed_user_id(),
+				'compare' => 'IN' 									
+		);		
+		
 		//lancia la QUERY!
 		$loop = new WP_Query($query_args);		
 	?>
@@ -64,38 +72,24 @@
 		
 		<!-- WHILE -->
 		<?php while($loop->have_posts()): $loop->the_post();?>			
-			
-			<?php 
 
-			?>	
-									
-			<div class="title">																
-				
-				<small style = "float: right;"><strong>
-					<?php  _e('Recensione su: ');?> 
-
-					<a href="<?php echo bp_core_get_user_domain(get_post_meta( $post->ID, 'bp_review_recipient_id', true ))?>">	
-							<?php  the_author_meta('user_nicename', get_post_meta( $post->ID, 'bp_review_recipient_id', true ))	?>			
-					</a></strong>
-				</small>
-							
-				<br /> 												
-				
+			<div class="title">																			
 				<h4><?php  
 					the_title('<a href="' . get_permalink() . '" title="' .	the_title_attribute('echo=0') .	'"rel="bookmark">','</a>');
 					?>
-				</h4>							
+				</h4>			
+				<!------------------------------------------------------------------------------------------------------------------->								
 			</div>									
 			<br/>												
 							
-	<?php endwhile; ?>
+		<?php endwhile; ?>
 	
-<?php else: ?>		
+	<?php else: ?>		
 		
 		<!-- MESSAGGIO -->
-		<h6><?php _e( ' non ci sono Review Negative che attendono di essere moderate', 'reviews' ) ?></h6>												
+		<h6><?php _e('nessuna Review Anonime', 'reviews' ) ?></h6>												
 		
-<?php endif; ?>
+	<?php endif; ?>
 	
 <!-- IMPORTANTE -->
 <?php wp_reset_postdata() ?>		
