@@ -128,7 +128,7 @@ input.loading,input.loading:hover  {background-position: 85% 50%;}
 </div>
 
 <script>jQuery(document).ready(function(){
-			var myac= jQuery("ul.review-autoc").autoCompletefb({urlLookup:'<?php echo site_url( 'wp-load.php' ) ?>'});
+			var myac= jQuery("ul.review-autoc").autoCompletefb({urlLookup:'<?php echo site_url( 'wp-admin/admin-ajax.php'  ) ?>'});
 			
 			jQuery(".send-to-input",myac.params.ul).result(function(e,d,f){
 				e.stopPropagation();
